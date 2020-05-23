@@ -1,0 +1,1432 @@
+   1              	 .cpu cortex-m0
+   2              	 .eabi_attribute 20,1
+   3              	 .eabi_attribute 21,1
+   4              	 .eabi_attribute 23,3
+   5              	 .eabi_attribute 24,1
+   6              	 .eabi_attribute 25,1
+   7              	 .eabi_attribute 26,1
+   8              	 .eabi_attribute 30,6
+   9              	 .eabi_attribute 34,0
+  10              	 .eabi_attribute 18,4
+  11              	 .file "xmc_common.c"
+  12              	 .text
+  13              	.Ltext0:
+  14              	 .cfi_sections .debug_frame
+  15              	 .section .text.XMC_PRIOARRAY_GetHead,"ax",%progbits
+  16              	 .align 1
+  17              	 .arch armv6s-m
+  18              	 .syntax unified
+  19              	 .code 16
+  20              	 .thumb_func
+  21              	 .fpu softvfp
+  23              	XMC_PRIOARRAY_GetHead:
+  24              	.LFB36:
+  25              	 .file 1 "..//Libraries/XMCLib/inc/xmc_common.h"
+   1:..//Libraries/XMCLib/inc/xmc_common.h **** /**
+   2:..//Libraries/XMCLib/inc/xmc_common.h ****  * @file xmc_common.h
+   3:..//Libraries/XMCLib/inc/xmc_common.h ****  * @date 2017-08-03
+   4:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+   5:..//Libraries/XMCLib/inc/xmc_common.h ****  * @cond
+   6:..//Libraries/XMCLib/inc/xmc_common.h ****   *************************************************************************************************
+   7:..//Libraries/XMCLib/inc/xmc_common.h ****  * XMClib v2.1.18 - XMC Peripheral Driver Library 
+   8:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+   9:..//Libraries/XMCLib/inc/xmc_common.h ****  * Copyright (c) 2015-2018, Infineon Technologies AG
+  10:..//Libraries/XMCLib/inc/xmc_common.h ****  * All rights reserved.                        
+  11:..//Libraries/XMCLib/inc/xmc_common.h ****  *                                             
+  12:..//Libraries/XMCLib/inc/xmc_common.h ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  13:..//Libraries/XMCLib/inc/xmc_common.h ****  * following conditions are met:   
+  14:..//Libraries/XMCLib/inc/xmc_common.h ****  *                                                                              
+  15:..//Libraries/XMCLib/inc/xmc_common.h ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  16:..//Libraries/XMCLib/inc/xmc_common.h ****  * disclaimer.                        
+  17:..//Libraries/XMCLib/inc/xmc_common.h ****  * 
+  18:..//Libraries/XMCLib/inc/xmc_common.h ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  19:..//Libraries/XMCLib/inc/xmc_common.h ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  20:..//Libraries/XMCLib/inc/xmc_common.h ****  * 
+  21:..//Libraries/XMCLib/inc/xmc_common.h ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  22:..//Libraries/XMCLib/inc/xmc_common.h ****  * products derived from this software without specific prior written permission.                  
+  23:..//Libraries/XMCLib/inc/xmc_common.h ****  *                                                                              
+  24:..//Libraries/XMCLib/inc/xmc_common.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  25:..//Libraries/XMCLib/inc/xmc_common.h ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  26:..//Libraries/XMCLib/inc/xmc_common.h ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  27:..//Libraries/XMCLib/inc/xmc_common.h ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  28:..//Libraries/XMCLib/inc/xmc_common.h ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  29:..//Libraries/XMCLib/inc/xmc_common.h ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  30:..//Libraries/XMCLib/inc/xmc_common.h ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  31:..//Libraries/XMCLib/inc/xmc_common.h ****  *                                                                              
+  32:..//Libraries/XMCLib/inc/xmc_common.h ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  33:..//Libraries/XMCLib/inc/xmc_common.h ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  34:..//Libraries/XMCLib/inc/xmc_common.h ****  **************************************************************************************************
+  35:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+  36:..//Libraries/XMCLib/inc/xmc_common.h ****  * Change History
+  37:..//Libraries/XMCLib/inc/xmc_common.h ****  * --------------
+  38:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+  39:..//Libraries/XMCLib/inc/xmc_common.h ****  * 2015-06-20:
+  40:..//Libraries/XMCLib/inc/xmc_common.h ****  *     - Initial
+  41:..//Libraries/XMCLib/inc/xmc_common.h ****  *     - Brief section updated
+  42:..//Libraries/XMCLib/inc/xmc_common.h ****  *     - Added XMC_LIB_VERSION macro
+  43:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+  44:..//Libraries/XMCLib/inc/xmc_common.h ****  * 2016-02-26:
+  45:..//Libraries/XMCLib/inc/xmc_common.h ****  *     - Updated XMC_LIB_VERSION macro to v2.1.6
+  46:..//Libraries/XMCLib/inc/xmc_common.h ****  *      
+  47:..//Libraries/XMCLib/inc/xmc_common.h ****  * 2016-05-30:
+  48:..//Libraries/XMCLib/inc/xmc_common.h ****  *     - Updated XMC_LIB_VERSION macro to v2.1.8
+  49:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+  50:..//Libraries/XMCLib/inc/xmc_common.h ****  * 2016-11-18:
+  51:..//Libraries/XMCLib/inc/xmc_common.h ****  *     - Updated XMC_LIB_VERSION macro to v2.1.10
+  52:..//Libraries/XMCLib/inc/xmc_common.h ****  *     - Changed type of size in XMC_PRIOARRAY_t to fix compilation warnings
+  53:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+  54:..//Libraries/XMCLib/inc/xmc_common.h ****  * 2017-04-04:
+  55:..//Libraries/XMCLib/inc/xmc_common.h ****  *     - Updated XMC_LIB_VERSION macro to v2.1.12
+  56:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+  57:..//Libraries/XMCLib/inc/xmc_common.h ****  * 2017-06-24:
+  58:..//Libraries/XMCLib/inc/xmc_common.h ****  *     - Updated XMC_LIB_VERSION macro to v2.1.14
+  59:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+  60:..//Libraries/XMCLib/inc/xmc_common.h ****  * 2017-08-03:
+  61:..//Libraries/XMCLib/inc/xmc_common.h ****  *     - Updated XMC_LIB_VERSION macro to v2.1.16
+  62:..//Libraries/XMCLib/inc/xmc_common.h ****  *     - Added __RAM_FUNC macro
+  63:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+  64:..//Libraries/XMCLib/inc/xmc_common.h ****  * @endcond 
+  65:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+  66:..//Libraries/XMCLib/inc/xmc_common.h ****  */
+  67:..//Libraries/XMCLib/inc/xmc_common.h **** 
+  68:..//Libraries/XMCLib/inc/xmc_common.h **** #ifndef XMC_COMMON_H
+  69:..//Libraries/XMCLib/inc/xmc_common.h **** #define XMC_COMMON_H
+  70:..//Libraries/XMCLib/inc/xmc_common.h **** 
+  71:..//Libraries/XMCLib/inc/xmc_common.h **** #include <stddef.h>
+  72:..//Libraries/XMCLib/inc/xmc_common.h **** #include <stdint.h>
+  73:..//Libraries/XMCLib/inc/xmc_common.h **** #include <stdbool.h>
+  74:..//Libraries/XMCLib/inc/xmc_common.h **** #include <string.h>
+  75:..//Libraries/XMCLib/inc/xmc_common.h **** 
+  76:..//Libraries/XMCLib/inc/xmc_common.h **** #include "xmc_device.h"
+  77:..//Libraries/XMCLib/inc/xmc_common.h **** 
+  78:..//Libraries/XMCLib/inc/xmc_common.h **** /**
+  79:..//Libraries/XMCLib/inc/xmc_common.h ****  * @addtogroup XMClib XMC Peripheral Library
+  80:..//Libraries/XMCLib/inc/xmc_common.h ****  * @{
+  81:..//Libraries/XMCLib/inc/xmc_common.h ****  */
+  82:..//Libraries/XMCLib/inc/xmc_common.h **** 
+  83:..//Libraries/XMCLib/inc/xmc_common.h **** /**
+  84:..//Libraries/XMCLib/inc/xmc_common.h ****  * @addtogroup COMMON
+  85:..//Libraries/XMCLib/inc/xmc_common.h ****  * @brief Common APIs to all peripherals for XMC microcontroller family 
+  86:..//Libraries/XMCLib/inc/xmc_common.h ****  * @{
+  87:..//Libraries/XMCLib/inc/xmc_common.h ****  */
+  88:..//Libraries/XMCLib/inc/xmc_common.h **** 
+  89:..//Libraries/XMCLib/inc/xmc_common.h **** /**************************************************************************************************
+  90:..//Libraries/XMCLib/inc/xmc_common.h ****  * MACROS
+  91:..//Libraries/XMCLib/inc/xmc_common.h ****  **************************************************************************************************
+  92:..//Libraries/XMCLib/inc/xmc_common.h **** #define XMC_LIB_MAJOR_VERSION	(2U)
+  93:..//Libraries/XMCLib/inc/xmc_common.h **** #define XMC_LIB_MINOR_VERSION	(1U)
+  94:..//Libraries/XMCLib/inc/xmc_common.h **** #define XMC_LIB_PATCH_VERSION	(18U)
+  95:..//Libraries/XMCLib/inc/xmc_common.h ****  
+  96:..//Libraries/XMCLib/inc/xmc_common.h **** #define XMC_LIB_VERSION         ((XMC_LIB_MAJOR_VERSION << 16U) + (XMC_LIB_MINOR_VERSION << 8U) + X
+  97:..//Libraries/XMCLib/inc/xmc_common.h **** 
+  98:..//Libraries/XMCLib/inc/xmc_common.h **** /* Define WEAK attribute */
+  99:..//Libraries/XMCLib/inc/xmc_common.h **** #if !defined(__WEAK)
+ 100:..//Libraries/XMCLib/inc/xmc_common.h **** #if defined ( __CC_ARM )
+ 101:..//Libraries/XMCLib/inc/xmc_common.h **** #define __WEAK __attribute__ ((weak))
+ 102:..//Libraries/XMCLib/inc/xmc_common.h **** #elif defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
+ 103:..//Libraries/XMCLib/inc/xmc_common.h **** #define __WEAK __attribute__ ((weak))
+ 104:..//Libraries/XMCLib/inc/xmc_common.h **** #elif defined ( __ICCARM__ )
+ 105:..//Libraries/XMCLib/inc/xmc_common.h **** #define __WEAK __weak
+ 106:..//Libraries/XMCLib/inc/xmc_common.h **** #elif defined ( __GNUC__ )
+ 107:..//Libraries/XMCLib/inc/xmc_common.h **** #define __WEAK __attribute__ ((weak))
+ 108:..//Libraries/XMCLib/inc/xmc_common.h **** #elif defined ( __TASKING__ )
+ 109:..//Libraries/XMCLib/inc/xmc_common.h **** #define __WEAK __attribute__ ((weak))
+ 110:..//Libraries/XMCLib/inc/xmc_common.h **** #endif
+ 111:..//Libraries/XMCLib/inc/xmc_common.h **** #endif
+ 112:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 113:..//Libraries/XMCLib/inc/xmc_common.h **** #if !defined(__RAM_FUNC)
+ 114:..//Libraries/XMCLib/inc/xmc_common.h **** #if defined ( __CC_ARM )
+ 115:..//Libraries/XMCLib/inc/xmc_common.h **** // http://www.keil.com/support/docs/3723.htm
+ 116:..//Libraries/XMCLib/inc/xmc_common.h **** #define __RAM_FUNC __attribute__((section("RAMCODESECTION")))
+ 117:..//Libraries/XMCLib/inc/xmc_common.h **** #elif defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
+ 118:..//Libraries/XMCLib/inc/xmc_common.h **** #define __RAM_FUNC __attribute__((section("RAMCODESECTION")))
+ 119:..//Libraries/XMCLib/inc/xmc_common.h **** #elif defined ( __ICCARM__ )
+ 120:..//Libraries/XMCLib/inc/xmc_common.h **** // https://www.iar.com/support/tech-notes/linker/controlling-placement-of-the-section-where-__ramfu
+ 121:..//Libraries/XMCLib/inc/xmc_common.h **** #define __RAM_FUNC __ramfunc
+ 122:..//Libraries/XMCLib/inc/xmc_common.h **** #elif defined ( __GNUC__ )
+ 123:..//Libraries/XMCLib/inc/xmc_common.h **** #define __RAM_FUNC __attribute__((section(".ram_code"), long_call))
+ 124:..//Libraries/XMCLib/inc/xmc_common.h **** #elif defined ( __TASKING__ )
+ 125:..//Libraries/XMCLib/inc/xmc_common.h **** #define __RAM_FUNC __attribute__((section(".ram_code")))
+ 126:..//Libraries/XMCLib/inc/xmc_common.h **** #endif
+ 127:..//Libraries/XMCLib/inc/xmc_common.h **** #endif
+ 128:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 129:..//Libraries/XMCLib/inc/xmc_common.h **** #ifdef XMC_ASSERT_ENABLE
+ 130:..//Libraries/XMCLib/inc/xmc_common.h ****  #define XMC_ASSERT(msg, exp) { if(!(exp)) {XMC_AssertHandler(msg, __FILE__, __LINE__);} }
+ 131:..//Libraries/XMCLib/inc/xmc_common.h **** #else
+ 132:..//Libraries/XMCLib/inc/xmc_common.h ****  #define XMC_ASSERT(msg, exp) { ; }
+ 133:..//Libraries/XMCLib/inc/xmc_common.h **** #endif
+ 134:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 135:..//Libraries/XMCLib/inc/xmc_common.h **** #ifdef XMC_DEBUG_ENABLE
+ 136:..//Libraries/XMCLib/inc/xmc_common.h ****  #include <stdio.h>
+ 137:..//Libraries/XMCLib/inc/xmc_common.h ****  #define XMC_DEBUG(...) { printf(__VA_ARGS__); }
+ 138:..//Libraries/XMCLib/inc/xmc_common.h **** #else
+ 139:..//Libraries/XMCLib/inc/xmc_common.h ****  #define XMC_DEBUG(...) { ; }
+ 140:..//Libraries/XMCLib/inc/xmc_common.h **** #endif
+ 141:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 142:..//Libraries/XMCLib/inc/xmc_common.h **** #define XMC_UNUSED_ARG(x) (void)x
+ 143:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 144:..//Libraries/XMCLib/inc/xmc_common.h **** #define XMC_STRUCT_INIT(m) memset(&m, 0, sizeof(m))
+ 145:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 146:..//Libraries/XMCLib/inc/xmc_common.h **** #define XMC_PRIOARRAY_DEF(name, size) \
+ 147:..//Libraries/XMCLib/inc/xmc_common.h **** XMC_PRIOARRAY_ITEM_t prioarray_m_##name[size + 2]; \
+ 148:..//Libraries/XMCLib/inc/xmc_common.h **** XMC_PRIOARRAY_t prioarray_def_##name = {(size), (prioarray_m_##name)};
+ 149:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 150:..//Libraries/XMCLib/inc/xmc_common.h **** #define XMC_PRIOARRAY(name) \
+ 151:..//Libraries/XMCLib/inc/xmc_common.h **** &prioarray_def_##name
+ 152:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 153:..//Libraries/XMCLib/inc/xmc_common.h **** /**************************************************************************************************
+ 154:..//Libraries/XMCLib/inc/xmc_common.h ****  * DATA STRUCTURES
+ 155:..//Libraries/XMCLib/inc/xmc_common.h ****  **************************************************************************************************
+ 156:..//Libraries/XMCLib/inc/xmc_common.h **** /*
+ 157:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+ 158:..//Libraries/XMCLib/inc/xmc_common.h ****  */
+ 159:..//Libraries/XMCLib/inc/xmc_common.h **** typedef struct XMC_DRIVER_VERSION 
+ 160:..//Libraries/XMCLib/inc/xmc_common.h **** {
+ 161:..//Libraries/XMCLib/inc/xmc_common.h ****   uint8_t major;
+ 162:..//Libraries/XMCLib/inc/xmc_common.h ****   uint8_t minor;
+ 163:..//Libraries/XMCLib/inc/xmc_common.h ****   uint8_t patch;
+ 164:..//Libraries/XMCLib/inc/xmc_common.h **** } XMC_DRIVER_VERSION_t;
+ 165:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 166:..//Libraries/XMCLib/inc/xmc_common.h **** /*
+ 167:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+ 168:..//Libraries/XMCLib/inc/xmc_common.h ****  */
+ 169:..//Libraries/XMCLib/inc/xmc_common.h **** typedef void *XMC_LIST_t;
+ 170:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 171:..//Libraries/XMCLib/inc/xmc_common.h **** /*
+ 172:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+ 173:..//Libraries/XMCLib/inc/xmc_common.h ****  */
+ 174:..//Libraries/XMCLib/inc/xmc_common.h **** typedef struct XMC_PRIOARRAY_ITEM
+ 175:..//Libraries/XMCLib/inc/xmc_common.h **** {
+ 176:..//Libraries/XMCLib/inc/xmc_common.h ****   int32_t priority;
+ 177:..//Libraries/XMCLib/inc/xmc_common.h ****   int32_t previous;
+ 178:..//Libraries/XMCLib/inc/xmc_common.h ****   int32_t next;
+ 179:..//Libraries/XMCLib/inc/xmc_common.h **** } XMC_PRIOARRAY_ITEM_t;
+ 180:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 181:..//Libraries/XMCLib/inc/xmc_common.h **** /*
+ 182:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+ 183:..//Libraries/XMCLib/inc/xmc_common.h ****  */
+ 184:..//Libraries/XMCLib/inc/xmc_common.h **** typedef struct XMC_PRIOARRAY
+ 185:..//Libraries/XMCLib/inc/xmc_common.h **** {
+ 186:..//Libraries/XMCLib/inc/xmc_common.h ****   int32_t size;
+ 187:..//Libraries/XMCLib/inc/xmc_common.h ****   XMC_PRIOARRAY_ITEM_t *items;
+ 188:..//Libraries/XMCLib/inc/xmc_common.h **** } XMC_PRIOARRAY_t;
+ 189:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 190:..//Libraries/XMCLib/inc/xmc_common.h **** /**************************************************************************************************
+ 191:..//Libraries/XMCLib/inc/xmc_common.h ****  * API PROTOTYPES
+ 192:..//Libraries/XMCLib/inc/xmc_common.h ****  **************************************************************************************************
+ 193:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 194:..//Libraries/XMCLib/inc/xmc_common.h **** #ifdef __cplusplus
+ 195:..//Libraries/XMCLib/inc/xmc_common.h **** extern "C" {
+ 196:..//Libraries/XMCLib/inc/xmc_common.h **** #endif
+ 197:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 198:..//Libraries/XMCLib/inc/xmc_common.h **** /*
+ 199:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+ 200:..//Libraries/XMCLib/inc/xmc_common.h ****  */
+ 201:..//Libraries/XMCLib/inc/xmc_common.h **** void XMC_AssertHandler(const char *const msg, const char *const file, uint32_t line);
+ 202:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 203:..//Libraries/XMCLib/inc/xmc_common.h **** /*
+ 204:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+ 205:..//Libraries/XMCLib/inc/xmc_common.h ****  */
+ 206:..//Libraries/XMCLib/inc/xmc_common.h **** void XMC_LIST_Init(XMC_LIST_t *list);
+ 207:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 208:..//Libraries/XMCLib/inc/xmc_common.h **** /*
+ 209:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+ 210:..//Libraries/XMCLib/inc/xmc_common.h ****  */
+ 211:..//Libraries/XMCLib/inc/xmc_common.h **** void XMC_LIST_Add(XMC_LIST_t *list, void *const item);
+ 212:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 213:..//Libraries/XMCLib/inc/xmc_common.h **** /*
+ 214:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+ 215:..//Libraries/XMCLib/inc/xmc_common.h ****  */
+ 216:..//Libraries/XMCLib/inc/xmc_common.h **** void XMC_LIST_Remove(XMC_LIST_t *list, void *const item);
+ 217:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 218:..//Libraries/XMCLib/inc/xmc_common.h **** /*
+ 219:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+ 220:..//Libraries/XMCLib/inc/xmc_common.h ****  */
+ 221:..//Libraries/XMCLib/inc/xmc_common.h **** uint32_t XMC_LIST_GetLength(XMC_LIST_t *list);
+ 222:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 223:..//Libraries/XMCLib/inc/xmc_common.h **** /*
+ 224:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+ 225:..//Libraries/XMCLib/inc/xmc_common.h ****  */
+ 226:..//Libraries/XMCLib/inc/xmc_common.h **** void *XMC_LIST_GetHead(XMC_LIST_t *list);
+ 227:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 228:..//Libraries/XMCLib/inc/xmc_common.h **** /*
+ 229:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+ 230:..//Libraries/XMCLib/inc/xmc_common.h ****  */
+ 231:..//Libraries/XMCLib/inc/xmc_common.h **** void *XMC_LIST_GetTail(XMC_LIST_t *list);
+ 232:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 233:..//Libraries/XMCLib/inc/xmc_common.h **** /*
+ 234:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+ 235:..//Libraries/XMCLib/inc/xmc_common.h ****  */
+ 236:..//Libraries/XMCLib/inc/xmc_common.h **** void XMC_LIST_Insert(XMC_LIST_t *list, void *prev_item, void *new_item);
+ 237:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 238:..//Libraries/XMCLib/inc/xmc_common.h **** /*
+ 239:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+ 240:..//Libraries/XMCLib/inc/xmc_common.h ****  */
+ 241:..//Libraries/XMCLib/inc/xmc_common.h **** void XMC_PRIOARRAY_Init(XMC_PRIOARRAY_t *prioarray);
+ 242:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 243:..//Libraries/XMCLib/inc/xmc_common.h **** /*
+ 244:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+ 245:..//Libraries/XMCLib/inc/xmc_common.h ****  */
+ 246:..//Libraries/XMCLib/inc/xmc_common.h **** void XMC_PRIOARRAY_Add(XMC_PRIOARRAY_t *prioarray, int32_t item, int32_t priority);
+ 247:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 248:..//Libraries/XMCLib/inc/xmc_common.h **** /*
+ 249:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+ 250:..//Libraries/XMCLib/inc/xmc_common.h ****  */
+ 251:..//Libraries/XMCLib/inc/xmc_common.h **** void XMC_PRIOARRAY_Remove(XMC_PRIOARRAY_t *prioarray, int32_t item);
+ 252:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 253:..//Libraries/XMCLib/inc/xmc_common.h **** /*
+ 254:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+ 255:..//Libraries/XMCLib/inc/xmc_common.h ****  */
+ 256:..//Libraries/XMCLib/inc/xmc_common.h **** __STATIC_INLINE int32_t XMC_PRIOARRAY_GetHead(XMC_PRIOARRAY_t *prioarray)
+ 257:..//Libraries/XMCLib/inc/xmc_common.h **** {
+  26              	 .loc 1 257 1
+  27              	 .cfi_startproc
+  28              	 
+  29              	 
+  30 0000 80B5     	 push {r7,lr}
+  31              	.LCFI0:
+  32              	 .cfi_def_cfa_offset 8
+  33              	 .cfi_offset 7,-8
+  34              	 .cfi_offset 14,-4
+  35 0002 82B0     	 sub sp,sp,#8
+  36              	.LCFI1:
+  37              	 .cfi_def_cfa_offset 16
+  38 0004 00AF     	 add r7,sp,#0
+  39              	.LCFI2:
+  40              	 .cfi_def_cfa_register 7
+  41 0006 7860     	 str r0,[r7,#4]
+ 258:..//Libraries/XMCLib/inc/xmc_common.h ****   XMC_ASSERT("XMC_PRIOARRAY_Init: NULL pointer", prioarray != NULL);
+ 259:..//Libraries/XMCLib/inc/xmc_common.h ****   return prioarray->items[prioarray->size].next;
+  42              	 .loc 1 259 19
+  43 0008 7B68     	 ldr r3,[r7,#4]
+  44 000a 5A68     	 ldr r2,[r3,#4]
+  45              	 .loc 1 259 36
+  46 000c 7B68     	 ldr r3,[r7,#4]
+  47 000e 1B68     	 ldr r3,[r3]
+  48 0010 1900     	 movs r1,r3
+  49              	 .loc 1 259 26
+  50 0012 0B00     	 movs r3,r1
+  51 0014 5B00     	 lsls r3,r3,#1
+  52 0016 5B18     	 adds r3,r3,r1
+  53 0018 9B00     	 lsls r3,r3,#2
+  54 001a D318     	 adds r3,r2,r3
+  55              	 .loc 1 259 43
+  56 001c 9B68     	 ldr r3,[r3,#8]
+ 260:..//Libraries/XMCLib/inc/xmc_common.h **** }
+  57              	 .loc 1 260 1
+  58 001e 1800     	 movs r0,r3
+  59 0020 BD46     	 mov sp,r7
+  60 0022 02B0     	 add sp,sp,#8
+  61              	 
+  62 0024 80BD     	 pop {r7,pc}
+  63              	 .cfi_endproc
+  64              	.LFE36:
+  66              	 .section .text.XMC_PRIOARRAY_GetItemPriority,"ax",%progbits
+  67              	 .align 1
+  68              	 .syntax unified
+  69              	 .code 16
+  70              	 .thumb_func
+  71              	 .fpu softvfp
+  73              	XMC_PRIOARRAY_GetItemPriority:
+  74              	.LFB38:
+ 261:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 262:..//Libraries/XMCLib/inc/xmc_common.h **** /*
+ 263:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+ 264:..//Libraries/XMCLib/inc/xmc_common.h ****  */
+ 265:..//Libraries/XMCLib/inc/xmc_common.h **** __STATIC_INLINE int32_t XMC_PRIOARRAY_GetTail(XMC_PRIOARRAY_t *prioarray)
+ 266:..//Libraries/XMCLib/inc/xmc_common.h **** {
+ 267:..//Libraries/XMCLib/inc/xmc_common.h ****   XMC_ASSERT("XMC_PRIOARRAY_Init: NULL pointer", prioarray != NULL);
+ 268:..//Libraries/XMCLib/inc/xmc_common.h ****   return prioarray->items[prioarray->size + 1].previous;
+ 269:..//Libraries/XMCLib/inc/xmc_common.h **** }
+ 270:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 271:..//Libraries/XMCLib/inc/xmc_common.h **** /*
+ 272:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+ 273:..//Libraries/XMCLib/inc/xmc_common.h ****  */
+ 274:..//Libraries/XMCLib/inc/xmc_common.h **** __STATIC_INLINE int32_t XMC_PRIOARRAY_GetItemPriority(XMC_PRIOARRAY_t *prioarray, int32_t item)
+ 275:..//Libraries/XMCLib/inc/xmc_common.h **** {
+  75              	 .loc 1 275 1
+  76              	 .cfi_startproc
+  77              	 
+  78              	 
+  79 0000 80B5     	 push {r7,lr}
+  80              	.LCFI3:
+  81              	 .cfi_def_cfa_offset 8
+  82              	 .cfi_offset 7,-8
+  83              	 .cfi_offset 14,-4
+  84 0002 82B0     	 sub sp,sp,#8
+  85              	.LCFI4:
+  86              	 .cfi_def_cfa_offset 16
+  87 0004 00AF     	 add r7,sp,#0
+  88              	.LCFI5:
+  89              	 .cfi_def_cfa_register 7
+  90 0006 7860     	 str r0,[r7,#4]
+  91 0008 3960     	 str r1,[r7]
+ 276:..//Libraries/XMCLib/inc/xmc_common.h ****   XMC_ASSERT("XMC_PRIOARRAY_GetItemPriority: item out of range", (item >= 0) && (item < prioarray->
+ 277:..//Libraries/XMCLib/inc/xmc_common.h ****   return prioarray->items[item].priority;
+  92              	 .loc 1 277 19
+  93 000a 7B68     	 ldr r3,[r7,#4]
+  94 000c 5968     	 ldr r1,[r3,#4]
+  95              	 .loc 1 277 26
+  96 000e 3A68     	 ldr r2,[r7]
+  97 0010 1300     	 movs r3,r2
+  98 0012 5B00     	 lsls r3,r3,#1
+  99 0014 9B18     	 adds r3,r3,r2
+ 100 0016 9B00     	 lsls r3,r3,#2
+ 101 0018 CB18     	 adds r3,r1,r3
+ 102              	 .loc 1 277 32
+ 103 001a 1B68     	 ldr r3,[r3]
+ 278:..//Libraries/XMCLib/inc/xmc_common.h **** }
+ 104              	 .loc 1 278 1
+ 105 001c 1800     	 movs r0,r3
+ 106 001e BD46     	 mov sp,r7
+ 107 0020 02B0     	 add sp,sp,#8
+ 108              	 
+ 109 0022 80BD     	 pop {r7,pc}
+ 110              	 .cfi_endproc
+ 111              	.LFE38:
+ 113              	 .section .text.XMC_PRIOARRAY_GetItemNext,"ax",%progbits
+ 114              	 .align 1
+ 115              	 .syntax unified
+ 116              	 .code 16
+ 117              	 .thumb_func
+ 118              	 .fpu softvfp
+ 120              	XMC_PRIOARRAY_GetItemNext:
+ 121              	.LFB39:
+ 279:..//Libraries/XMCLib/inc/xmc_common.h **** 
+ 280:..//Libraries/XMCLib/inc/xmc_common.h **** /*
+ 281:..//Libraries/XMCLib/inc/xmc_common.h ****  *
+ 282:..//Libraries/XMCLib/inc/xmc_common.h ****  */
+ 283:..//Libraries/XMCLib/inc/xmc_common.h **** __STATIC_INLINE int32_t XMC_PRIOARRAY_GetItemNext(XMC_PRIOARRAY_t *prioarray, int32_t item)
+ 284:..//Libraries/XMCLib/inc/xmc_common.h **** {
+ 122              	 .loc 1 284 1
+ 123              	 .cfi_startproc
+ 124              	 
+ 125              	 
+ 126 0000 80B5     	 push {r7,lr}
+ 127              	.LCFI6:
+ 128              	 .cfi_def_cfa_offset 8
+ 129              	 .cfi_offset 7,-8
+ 130              	 .cfi_offset 14,-4
+ 131 0002 82B0     	 sub sp,sp,#8
+ 132              	.LCFI7:
+ 133              	 .cfi_def_cfa_offset 16
+ 134 0004 00AF     	 add r7,sp,#0
+ 135              	.LCFI8:
+ 136              	 .cfi_def_cfa_register 7
+ 137 0006 7860     	 str r0,[r7,#4]
+ 138 0008 3960     	 str r1,[r7]
+ 285:..//Libraries/XMCLib/inc/xmc_common.h ****   XMC_ASSERT("XMC_PRIOARRAY_GetItemNext: item out of range", (item >= 0) && (item < prioarray->size
+ 286:..//Libraries/XMCLib/inc/xmc_common.h ****   return prioarray->items[item].next;
+ 139              	 .loc 1 286 19
+ 140 000a 7B68     	 ldr r3,[r7,#4]
+ 141 000c 5968     	 ldr r1,[r3,#4]
+ 142              	 .loc 1 286 26
+ 143 000e 3A68     	 ldr r2,[r7]
+ 144 0010 1300     	 movs r3,r2
+ 145 0012 5B00     	 lsls r3,r3,#1
+ 146 0014 9B18     	 adds r3,r3,r2
+ 147 0016 9B00     	 lsls r3,r3,#2
+ 148 0018 CB18     	 adds r3,r1,r3
+ 149              	 .loc 1 286 32
+ 150 001a 9B68     	 ldr r3,[r3,#8]
+ 287:..//Libraries/XMCLib/inc/xmc_common.h **** }
+ 151              	 .loc 1 287 1
+ 152 001c 1800     	 movs r0,r3
+ 153 001e BD46     	 mov sp,r7
+ 154 0020 02B0     	 add sp,sp,#8
+ 155              	 
+ 156 0022 80BD     	 pop {r7,pc}
+ 157              	 .cfi_endproc
+ 158              	.LFE39:
+ 160              	 .section .text.XMC_LIST_Init,"ax",%progbits
+ 161              	 .align 1
+ 162              	 .global XMC_LIST_Init
+ 163              	 .syntax unified
+ 164              	 .code 16
+ 165              	 .thumb_func
+ 166              	 .fpu softvfp
+ 168              	XMC_LIST_Init:
+ 169              	.LFB41:
+ 170              	 .file 2 "../Libraries/XMCLib/src/xmc_common.c"
+   1:../Libraries/XMCLib/src/xmc_common.c **** /**
+   2:../Libraries/XMCLib/src/xmc_common.c ****  * @file xmc_common.c
+   3:../Libraries/XMCLib/src/xmc_common.c ****  * @date 2017-02-25
+   4:../Libraries/XMCLib/src/xmc_common.c ****  *
+   5:../Libraries/XMCLib/src/xmc_common.c ****  * @cond
+   6:../Libraries/XMCLib/src/xmc_common.c ****  **************************************************************************************************
+   7:../Libraries/XMCLib/src/xmc_common.c ****  * XMClib v2.1.18 - XMC Peripheral Driver Library 
+   8:../Libraries/XMCLib/src/xmc_common.c ****  *
+   9:../Libraries/XMCLib/src/xmc_common.c ****  * Copyright (c) 2015-2018, Infineon Technologies AG
+  10:../Libraries/XMCLib/src/xmc_common.c ****  * All rights reserved.                        
+  11:../Libraries/XMCLib/src/xmc_common.c ****  *                                             
+  12:../Libraries/XMCLib/src/xmc_common.c ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  13:../Libraries/XMCLib/src/xmc_common.c ****  * following conditions are met:   
+  14:../Libraries/XMCLib/src/xmc_common.c ****  *                                                                              
+  15:../Libraries/XMCLib/src/xmc_common.c ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  16:../Libraries/XMCLib/src/xmc_common.c ****  * disclaimer.                        
+  17:../Libraries/XMCLib/src/xmc_common.c ****  * 
+  18:../Libraries/XMCLib/src/xmc_common.c ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  19:../Libraries/XMCLib/src/xmc_common.c ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  20:../Libraries/XMCLib/src/xmc_common.c ****  * 
+  21:../Libraries/XMCLib/src/xmc_common.c ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  22:../Libraries/XMCLib/src/xmc_common.c ****  * products derived from this software without specific prior written permission.                  
+  23:../Libraries/XMCLib/src/xmc_common.c ****  *                                                                              
+  24:../Libraries/XMCLib/src/xmc_common.c ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  25:../Libraries/XMCLib/src/xmc_common.c ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  26:../Libraries/XMCLib/src/xmc_common.c ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  27:../Libraries/XMCLib/src/xmc_common.c ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  28:../Libraries/XMCLib/src/xmc_common.c ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  29:../Libraries/XMCLib/src/xmc_common.c ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  30:../Libraries/XMCLib/src/xmc_common.c ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  31:../Libraries/XMCLib/src/xmc_common.c ****  *                                                                              
+  32:../Libraries/XMCLib/src/xmc_common.c ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  33:../Libraries/XMCLib/src/xmc_common.c ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  34:../Libraries/XMCLib/src/xmc_common.c ****  **************************************************************************************************
+  35:../Libraries/XMCLib/src/xmc_common.c ****  *
+  36:../Libraries/XMCLib/src/xmc_common.c ****  * Change History
+  37:../Libraries/XMCLib/src/xmc_common.c ****  * --------------
+  38:../Libraries/XMCLib/src/xmc_common.c ****  *
+  39:../Libraries/XMCLib/src/xmc_common.c ****  * 2015-02-20:
+  40:../Libraries/XMCLib/src/xmc_common.c ****  *     - Initial <br>
+  41:../Libraries/XMCLib/src/xmc_common.c ****  *      
+  42:../Libraries/XMCLib/src/xmc_common.c ****  * 2017-02-25:
+  43:../Libraries/XMCLib/src/xmc_common.c ****  *     - Remove the need to define XMC_USER_ASSERT_FUNCTION
+  44:../Libraries/XMCLib/src/xmc_common.c ****  *     - XMC_AssertHandler fixed compilation warnings
+  45:../Libraries/XMCLib/src/xmc_common.c ****  *
+  46:../Libraries/XMCLib/src/xmc_common.c ****  * @endcond 
+  47:../Libraries/XMCLib/src/xmc_common.c ****  *
+  48:../Libraries/XMCLib/src/xmc_common.c ****  */
+  49:../Libraries/XMCLib/src/xmc_common.c **** 
+  50:../Libraries/XMCLib/src/xmc_common.c **** #include "xmc_common.h"
+  51:../Libraries/XMCLib/src/xmc_common.c **** 
+  52:../Libraries/XMCLib/src/xmc_common.c **** /*******************************************************************************
+  53:../Libraries/XMCLib/src/xmc_common.c ****  * DATA STRUCTURES
+  54:../Libraries/XMCLib/src/xmc_common.c ****  *******************************************************************************/
+  55:../Libraries/XMCLib/src/xmc_common.c **** struct list
+  56:../Libraries/XMCLib/src/xmc_common.c **** {
+  57:../Libraries/XMCLib/src/xmc_common.c ****   struct list *next;
+  58:../Libraries/XMCLib/src/xmc_common.c **** };
+  59:../Libraries/XMCLib/src/xmc_common.c **** 
+  60:../Libraries/XMCLib/src/xmc_common.c **** /*******************************************************************************
+  61:../Libraries/XMCLib/src/xmc_common.c ****  * API IMPLEMENTATION
+  62:../Libraries/XMCLib/src/xmc_common.c ****  *******************************************************************************/
+  63:../Libraries/XMCLib/src/xmc_common.c **** #if defined(XMC_ASSERT_ENABLE)
+  64:../Libraries/XMCLib/src/xmc_common.c **** __WEAK void XMC_AssertHandler(const char *const msg, const char *const file, uint32_t line)
+  65:../Libraries/XMCLib/src/xmc_common.c **** {
+  66:../Libraries/XMCLib/src/xmc_common.c ****   XMC_UNUSED_ARG(msg);
+  67:../Libraries/XMCLib/src/xmc_common.c ****   XMC_UNUSED_ARG(file);
+  68:../Libraries/XMCLib/src/xmc_common.c ****   XMC_UNUSED_ARG(line);
+  69:../Libraries/XMCLib/src/xmc_common.c **** 
+  70:../Libraries/XMCLib/src/xmc_common.c ****   while(1)
+  71:../Libraries/XMCLib/src/xmc_common.c ****   {
+  72:../Libraries/XMCLib/src/xmc_common.c ****     /* Endless loop */
+  73:../Libraries/XMCLib/src/xmc_common.c ****   }
+  74:../Libraries/XMCLib/src/xmc_common.c **** }
+  75:../Libraries/XMCLib/src/xmc_common.c **** #endif
+  76:../Libraries/XMCLib/src/xmc_common.c **** 
+  77:../Libraries/XMCLib/src/xmc_common.c **** void XMC_LIST_Init(XMC_LIST_t *list)
+  78:../Libraries/XMCLib/src/xmc_common.c **** {
+ 171              	 .loc 2 78 1
+ 172              	 .cfi_startproc
+ 173              	 
+ 174              	 
+ 175 0000 80B5     	 push {r7,lr}
+ 176              	.LCFI9:
+ 177              	 .cfi_def_cfa_offset 8
+ 178              	 .cfi_offset 7,-8
+ 179              	 .cfi_offset 14,-4
+ 180 0002 82B0     	 sub sp,sp,#8
+ 181              	.LCFI10:
+ 182              	 .cfi_def_cfa_offset 16
+ 183 0004 00AF     	 add r7,sp,#0
+ 184              	.LCFI11:
+ 185              	 .cfi_def_cfa_register 7
+ 186 0006 7860     	 str r0,[r7,#4]
+  79:../Libraries/XMCLib/src/xmc_common.c ****   *list = NULL;
+ 187              	 .loc 2 79 9
+ 188 0008 7B68     	 ldr r3,[r7,#4]
+ 189 000a 0022     	 movs r2,#0
+ 190 000c 1A60     	 str r2,[r3]
+  80:../Libraries/XMCLib/src/xmc_common.c **** }
+ 191              	 .loc 2 80 1
+ 192 000e C046     	 nop
+ 193 0010 BD46     	 mov sp,r7
+ 194 0012 02B0     	 add sp,sp,#8
+ 195              	 
+ 196 0014 80BD     	 pop {r7,pc}
+ 197              	 .cfi_endproc
+ 198              	.LFE41:
+ 200              	 .section .text.XMC_LIST_GetHead,"ax",%progbits
+ 201              	 .align 1
+ 202              	 .global XMC_LIST_GetHead
+ 203              	 .syntax unified
+ 204              	 .code 16
+ 205              	 .thumb_func
+ 206              	 .fpu softvfp
+ 208              	XMC_LIST_GetHead:
+ 209              	.LFB42:
+  81:../Libraries/XMCLib/src/xmc_common.c **** 
+  82:../Libraries/XMCLib/src/xmc_common.c **** void *XMC_LIST_GetHead(XMC_LIST_t *list)
+  83:../Libraries/XMCLib/src/xmc_common.c **** {
+ 210              	 .loc 2 83 1
+ 211              	 .cfi_startproc
+ 212              	 
+ 213              	 
+ 214 0000 80B5     	 push {r7,lr}
+ 215              	.LCFI12:
+ 216              	 .cfi_def_cfa_offset 8
+ 217              	 .cfi_offset 7,-8
+ 218              	 .cfi_offset 14,-4
+ 219 0002 82B0     	 sub sp,sp,#8
+ 220              	.LCFI13:
+ 221              	 .cfi_def_cfa_offset 16
+ 222 0004 00AF     	 add r7,sp,#0
+ 223              	.LCFI14:
+ 224              	 .cfi_def_cfa_register 7
+ 225 0006 7860     	 str r0,[r7,#4]
+  84:../Libraries/XMCLib/src/xmc_common.c ****   return *list;
+ 226              	 .loc 2 84 10
+ 227 0008 7B68     	 ldr r3,[r7,#4]
+ 228 000a 1B68     	 ldr r3,[r3]
+  85:../Libraries/XMCLib/src/xmc_common.c **** }
+ 229              	 .loc 2 85 1
+ 230 000c 1800     	 movs r0,r3
+ 231 000e BD46     	 mov sp,r7
+ 232 0010 02B0     	 add sp,sp,#8
+ 233              	 
+ 234 0012 80BD     	 pop {r7,pc}
+ 235              	 .cfi_endproc
+ 236              	.LFE42:
+ 238              	 .section .text.XMC_LIST_GetTail,"ax",%progbits
+ 239              	 .align 1
+ 240              	 .global XMC_LIST_GetTail
+ 241              	 .syntax unified
+ 242              	 .code 16
+ 243              	 .thumb_func
+ 244              	 .fpu softvfp
+ 246              	XMC_LIST_GetTail:
+ 247              	.LFB43:
+  86:../Libraries/XMCLib/src/xmc_common.c **** 
+  87:../Libraries/XMCLib/src/xmc_common.c **** void *XMC_LIST_GetTail(XMC_LIST_t *list)
+  88:../Libraries/XMCLib/src/xmc_common.c **** {
+ 248              	 .loc 2 88 1
+ 249              	 .cfi_startproc
+ 250              	 
+ 251              	 
+ 252 0000 80B5     	 push {r7,lr}
+ 253              	.LCFI15:
+ 254              	 .cfi_def_cfa_offset 8
+ 255              	 .cfi_offset 7,-8
+ 256              	 .cfi_offset 14,-4
+ 257 0002 84B0     	 sub sp,sp,#16
+ 258              	.LCFI16:
+ 259              	 .cfi_def_cfa_offset 24
+ 260 0004 00AF     	 add r7,sp,#0
+ 261              	.LCFI17:
+ 262              	 .cfi_def_cfa_register 7
+ 263 0006 7860     	 str r0,[r7,#4]
+  89:../Libraries/XMCLib/src/xmc_common.c ****   struct list *tail;
+  90:../Libraries/XMCLib/src/xmc_common.c ****   
+  91:../Libraries/XMCLib/src/xmc_common.c ****   if (*list == NULL) 
+ 264              	 .loc 2 91 7
+ 265 0008 7B68     	 ldr r3,[r7,#4]
+ 266 000a 1B68     	 ldr r3,[r3]
+ 267              	 .loc 2 91 6
+ 268 000c 002B     	 cmp r3,#0
+ 269 000e 02D1     	 bne .L11
+  92:../Libraries/XMCLib/src/xmc_common.c ****   {
+  93:../Libraries/XMCLib/src/xmc_common.c ****     tail = NULL;
+ 270              	 .loc 2 93 10
+ 271 0010 0023     	 movs r3,#0
+ 272 0012 FB60     	 str r3,[r7,#12]
+ 273 0014 0AE0     	 b .L12
+ 274              	.L11:
+  94:../Libraries/XMCLib/src/xmc_common.c ****   }
+  95:../Libraries/XMCLib/src/xmc_common.c ****   else
+  96:../Libraries/XMCLib/src/xmc_common.c ****   {
+  97:../Libraries/XMCLib/src/xmc_common.c ****     for (tail = (struct list *)*list; tail->next != NULL; tail = tail->next)
+ 275              	 .loc 2 97 15
+ 276 0016 7B68     	 ldr r3,[r7,#4]
+ 277 0018 1B68     	 ldr r3,[r3]
+ 278 001a FB60     	 str r3,[r7,#12]
+ 279              	 .loc 2 97 5
+ 280 001c 02E0     	 b .L13
+ 281              	.L14:
+ 282              	 .loc 2 97 64 discriminator 3
+ 283 001e FB68     	 ldr r3,[r7,#12]
+ 284 0020 1B68     	 ldr r3,[r3]
+ 285 0022 FB60     	 str r3,[r7,#12]
+ 286              	.L13:
+ 287              	 .loc 2 97 43 discriminator 1
+ 288 0024 FB68     	 ldr r3,[r7,#12]
+ 289 0026 1B68     	 ldr r3,[r3]
+ 290              	 .loc 2 97 5 discriminator 1
+ 291 0028 002B     	 cmp r3,#0
+ 292 002a F8D1     	 bne .L14
+ 293              	.L12:
+  98:../Libraries/XMCLib/src/xmc_common.c ****     {
+  99:../Libraries/XMCLib/src/xmc_common.c ****       /* Loop through the list */
+ 100:../Libraries/XMCLib/src/xmc_common.c ****     }  
+ 101:../Libraries/XMCLib/src/xmc_common.c ****   }
+ 102:../Libraries/XMCLib/src/xmc_common.c ****   
+ 103:../Libraries/XMCLib/src/xmc_common.c ****   return tail;    
+ 294              	 .loc 2 103 10
+ 295 002c FB68     	 ldr r3,[r7,#12]
+ 104:../Libraries/XMCLib/src/xmc_common.c **** }
+ 296              	 .loc 2 104 1
+ 297 002e 1800     	 movs r0,r3
+ 298 0030 BD46     	 mov sp,r7
+ 299 0032 04B0     	 add sp,sp,#16
+ 300              	 
+ 301 0034 80BD     	 pop {r7,pc}
+ 302              	 .cfi_endproc
+ 303              	.LFE43:
+ 305              	 .section .text.XMC_LIST_Add,"ax",%progbits
+ 306              	 .align 1
+ 307              	 .global XMC_LIST_Add
+ 308              	 .syntax unified
+ 309              	 .code 16
+ 310              	 .thumb_func
+ 311              	 .fpu softvfp
+ 313              	XMC_LIST_Add:
+ 314              	.LFB44:
+ 105:../Libraries/XMCLib/src/xmc_common.c **** 
+ 106:../Libraries/XMCLib/src/xmc_common.c **** void XMC_LIST_Add(XMC_LIST_t *list, void *item)
+ 107:../Libraries/XMCLib/src/xmc_common.c **** {
+ 315              	 .loc 2 107 1
+ 316              	 .cfi_startproc
+ 317              	 
+ 318              	 
+ 319 0000 80B5     	 push {r7,lr}
+ 320              	.LCFI18:
+ 321              	 .cfi_def_cfa_offset 8
+ 322              	 .cfi_offset 7,-8
+ 323              	 .cfi_offset 14,-4
+ 324 0002 84B0     	 sub sp,sp,#16
+ 325              	.LCFI19:
+ 326              	 .cfi_def_cfa_offset 24
+ 327 0004 00AF     	 add r7,sp,#0
+ 328              	.LCFI20:
+ 329              	 .cfi_def_cfa_register 7
+ 330 0006 7860     	 str r0,[r7,#4]
+ 331 0008 3960     	 str r1,[r7]
+ 108:../Libraries/XMCLib/src/xmc_common.c ****   struct list *tail;
+ 109:../Libraries/XMCLib/src/xmc_common.c ****   
+ 110:../Libraries/XMCLib/src/xmc_common.c ****   ((struct list *)item)->next = NULL;
+ 332              	 .loc 2 110 31
+ 333 000a 3B68     	 ldr r3,[r7]
+ 334 000c 0022     	 movs r2,#0
+ 335 000e 1A60     	 str r2,[r3]
+ 111:../Libraries/XMCLib/src/xmc_common.c ****   tail = (struct list *)XMC_LIST_GetTail(list);
+ 336              	 .loc 2 111 25
+ 337 0010 7B68     	 ldr r3,[r7,#4]
+ 338 0012 1800     	 movs r0,r3
+ 339 0014 FFF7FEFF 	 bl XMC_LIST_GetTail
+ 340 0018 0300     	 movs r3,r0
+ 341 001a FB60     	 str r3,[r7,#12]
+ 112:../Libraries/XMCLib/src/xmc_common.c ****   
+ 113:../Libraries/XMCLib/src/xmc_common.c ****   if (tail == NULL) 
+ 342              	 .loc 2 113 6
+ 343 001c FB68     	 ldr r3,[r7,#12]
+ 344 001e 002B     	 cmp r3,#0
+ 345 0020 03D1     	 bne .L17
+ 114:../Libraries/XMCLib/src/xmc_common.c ****   {
+ 115:../Libraries/XMCLib/src/xmc_common.c ****     *list = item;
+ 346              	 .loc 2 115 11
+ 347 0022 7B68     	 ldr r3,[r7,#4]
+ 348 0024 3A68     	 ldr r2,[r7]
+ 349 0026 1A60     	 str r2,[r3]
+ 116:../Libraries/XMCLib/src/xmc_common.c ****   } 
+ 117:../Libraries/XMCLib/src/xmc_common.c ****   else 
+ 118:../Libraries/XMCLib/src/xmc_common.c ****   {
+ 119:../Libraries/XMCLib/src/xmc_common.c ****     tail->next = (struct list *)item;
+ 120:../Libraries/XMCLib/src/xmc_common.c ****   }
+ 121:../Libraries/XMCLib/src/xmc_common.c **** }
+ 350              	 .loc 2 121 1
+ 351 0028 02E0     	 b .L19
+ 352              	.L17:
+ 119:../Libraries/XMCLib/src/xmc_common.c ****   }
+ 353              	 .loc 2 119 16
+ 354 002a FB68     	 ldr r3,[r7,#12]
+ 355 002c 3A68     	 ldr r2,[r7]
+ 356 002e 1A60     	 str r2,[r3]
+ 357              	.L19:
+ 358              	 .loc 2 121 1
+ 359 0030 C046     	 nop
+ 360 0032 BD46     	 mov sp,r7
+ 361 0034 04B0     	 add sp,sp,#16
+ 362              	 
+ 363 0036 80BD     	 pop {r7,pc}
+ 364              	 .cfi_endproc
+ 365              	.LFE44:
+ 367              	 .section .text.XMC_LIST_Remove,"ax",%progbits
+ 368              	 .align 1
+ 369              	 .global XMC_LIST_Remove
+ 370              	 .syntax unified
+ 371              	 .code 16
+ 372              	 .thumb_func
+ 373              	 .fpu softvfp
+ 375              	XMC_LIST_Remove:
+ 376              	.LFB45:
+ 122:../Libraries/XMCLib/src/xmc_common.c **** 
+ 123:../Libraries/XMCLib/src/xmc_common.c **** void XMC_LIST_Remove(XMC_LIST_t *list, void *item)
+ 124:../Libraries/XMCLib/src/xmc_common.c **** {
+ 377              	 .loc 2 124 1
+ 378              	 .cfi_startproc
+ 379              	 
+ 380              	 
+ 381 0000 80B5     	 push {r7,lr}
+ 382              	.LCFI21:
+ 383              	 .cfi_def_cfa_offset 8
+ 384              	 .cfi_offset 7,-8
+ 385              	 .cfi_offset 14,-4
+ 386 0002 84B0     	 sub sp,sp,#16
+ 387              	.LCFI22:
+ 388              	 .cfi_def_cfa_offset 24
+ 389 0004 00AF     	 add r7,sp,#0
+ 390              	.LCFI23:
+ 391              	 .cfi_def_cfa_register 7
+ 392 0006 7860     	 str r0,[r7,#4]
+ 393 0008 3960     	 str r1,[r7]
+ 125:../Libraries/XMCLib/src/xmc_common.c ****   struct list *right, *left;
+ 126:../Libraries/XMCLib/src/xmc_common.c ****   
+ 127:../Libraries/XMCLib/src/xmc_common.c ****   if (*list != NULL) 
+ 394              	 .loc 2 127 7
+ 395 000a 7B68     	 ldr r3,[r7,#4]
+ 396 000c 1B68     	 ldr r3,[r3]
+ 397              	 .loc 2 127 6
+ 398 000e 002B     	 cmp r3,#0
+ 399 0010 22D0     	 beq .L27
+ 128:../Libraries/XMCLib/src/xmc_common.c ****   {
+ 129:../Libraries/XMCLib/src/xmc_common.c ****     left = NULL;
+ 400              	 .loc 2 129 10
+ 401 0012 0023     	 movs r3,#0
+ 402 0014 BB60     	 str r3,[r7,#8]
+ 130:../Libraries/XMCLib/src/xmc_common.c ****     for(right = (struct list *)*list; right != NULL; right = right->next)
+ 403              	 .loc 2 130 15
+ 404 0016 7B68     	 ldr r3,[r7,#4]
+ 405 0018 1B68     	 ldr r3,[r3]
+ 406 001a FB60     	 str r3,[r7,#12]
+ 407              	 .loc 2 130 5
+ 408 001c 19E0     	 b .L22
+ 409              	.L26:
+ 131:../Libraries/XMCLib/src/xmc_common.c ****     {
+ 132:../Libraries/XMCLib/src/xmc_common.c ****       if(right == item) 
+ 410              	 .loc 2 132 9
+ 411 001e FA68     	 ldr r2,[r7,#12]
+ 412 0020 3B68     	 ldr r3,[r7]
+ 413 0022 9A42     	 cmp r2,r3
+ 414 0024 10D1     	 bne .L23
+ 133:../Libraries/XMCLib/src/xmc_common.c ****       {
+ 134:../Libraries/XMCLib/src/xmc_common.c ****         if(left == NULL) 
+ 415              	 .loc 2 134 11
+ 416 0026 BB68     	 ldr r3,[r7,#8]
+ 417 0028 002B     	 cmp r3,#0
+ 418 002a 04D1     	 bne .L24
+ 135:../Libraries/XMCLib/src/xmc_common.c ****         {
+ 136:../Libraries/XMCLib/src/xmc_common.c ****           /* First on list */
+ 137:../Libraries/XMCLib/src/xmc_common.c ****           *list = right->next;
+ 419              	 .loc 2 137 24
+ 420 002c FB68     	 ldr r3,[r7,#12]
+ 421 002e 1A68     	 ldr r2,[r3]
+ 422              	 .loc 2 137 17
+ 423 0030 7B68     	 ldr r3,[r7,#4]
+ 424 0032 1A60     	 str r2,[r3]
+ 425 0034 03E0     	 b .L25
+ 426              	.L24:
+ 138:../Libraries/XMCLib/src/xmc_common.c ****         } 
+ 139:../Libraries/XMCLib/src/xmc_common.c ****         else 
+ 140:../Libraries/XMCLib/src/xmc_common.c ****         {
+ 141:../Libraries/XMCLib/src/xmc_common.c ****           /* Not first on list */
+ 142:../Libraries/XMCLib/src/xmc_common.c ****           left->next = right->next;
+ 427              	 .loc 2 142 29
+ 428 0036 FB68     	 ldr r3,[r7,#12]
+ 429 0038 1A68     	 ldr r2,[r3]
+ 430              	 .loc 2 142 22
+ 431 003a BB68     	 ldr r3,[r7,#8]
+ 432 003c 1A60     	 str r2,[r3]
+ 433              	.L25:
+ 143:../Libraries/XMCLib/src/xmc_common.c ****         }
+ 144:../Libraries/XMCLib/src/xmc_common.c ****         right->next = NULL;
+ 434              	 .loc 2 144 21
+ 435 003e FB68     	 ldr r3,[r7,#12]
+ 436 0040 0022     	 movs r2,#0
+ 437 0042 1A60     	 str r2,[r3]
+ 145:../Libraries/XMCLib/src/xmc_common.c ****         break;
+ 438              	 .loc 2 145 9
+ 439 0044 C046     	 nop
+ 146:../Libraries/XMCLib/src/xmc_common.c ****       }
+ 147:../Libraries/XMCLib/src/xmc_common.c ****       left = right;
+ 148:../Libraries/XMCLib/src/xmc_common.c ****     }
+ 149:../Libraries/XMCLib/src/xmc_common.c ****   }
+ 150:../Libraries/XMCLib/src/xmc_common.c **** }
+ 440              	 .loc 2 150 1
+ 441 0046 07E0     	 b .L27
+ 442              	.L23:
+ 147:../Libraries/XMCLib/src/xmc_common.c ****     }
+ 443              	 .loc 2 147 12 discriminator 2
+ 444 0048 FB68     	 ldr r3,[r7,#12]
+ 445 004a BB60     	 str r3,[r7,#8]
+ 130:../Libraries/XMCLib/src/xmc_common.c ****     {
+ 446              	 .loc 2 130 60 discriminator 2
+ 447 004c FB68     	 ldr r3,[r7,#12]
+ 448 004e 1B68     	 ldr r3,[r3]
+ 449 0050 FB60     	 str r3,[r7,#12]
+ 450              	.L22:
+ 130:../Libraries/XMCLib/src/xmc_common.c ****     {
+ 451              	 .loc 2 130 5 discriminator 1
+ 452 0052 FB68     	 ldr r3,[r7,#12]
+ 453 0054 002B     	 cmp r3,#0
+ 454 0056 E2D1     	 bne .L26
+ 455              	.L27:
+ 456              	 .loc 2 150 1
+ 457 0058 C046     	 nop
+ 458 005a BD46     	 mov sp,r7
+ 459 005c 04B0     	 add sp,sp,#16
+ 460              	 
+ 461 005e 80BD     	 pop {r7,pc}
+ 462              	 .cfi_endproc
+ 463              	.LFE45:
+ 465              	 .section .text.XMC_LIST_Insert,"ax",%progbits
+ 466              	 .align 1
+ 467              	 .global XMC_LIST_Insert
+ 468              	 .syntax unified
+ 469              	 .code 16
+ 470              	 .thumb_func
+ 471              	 .fpu softvfp
+ 473              	XMC_LIST_Insert:
+ 474              	.LFB46:
+ 151:../Libraries/XMCLib/src/xmc_common.c **** 
+ 152:../Libraries/XMCLib/src/xmc_common.c **** void XMC_LIST_Insert(XMC_LIST_t *list, void *prev_item, void *new_item)
+ 153:../Libraries/XMCLib/src/xmc_common.c **** {
+ 475              	 .loc 2 153 1
+ 476              	 .cfi_startproc
+ 477              	 
+ 478              	 
+ 479 0000 80B5     	 push {r7,lr}
+ 480              	.LCFI24:
+ 481              	 .cfi_def_cfa_offset 8
+ 482              	 .cfi_offset 7,-8
+ 483              	 .cfi_offset 14,-4
+ 484 0002 84B0     	 sub sp,sp,#16
+ 485              	.LCFI25:
+ 486              	 .cfi_def_cfa_offset 24
+ 487 0004 00AF     	 add r7,sp,#0
+ 488              	.LCFI26:
+ 489              	 .cfi_def_cfa_register 7
+ 490 0006 F860     	 str r0,[r7,#12]
+ 491 0008 B960     	 str r1,[r7,#8]
+ 492 000a 7A60     	 str r2,[r7,#4]
+ 154:../Libraries/XMCLib/src/xmc_common.c ****   if (prev_item == NULL) 
+ 493              	 .loc 2 154 6
+ 494 000c BB68     	 ldr r3,[r7,#8]
+ 495 000e 002B     	 cmp r3,#0
+ 496 0010 07D1     	 bne .L29
+ 155:../Libraries/XMCLib/src/xmc_common.c ****   {
+ 156:../Libraries/XMCLib/src/xmc_common.c **** 	((struct list *)new_item)->next = (struct list *)*list;
+ 497              	 .loc 2 156 51
+ 498 0012 FB68     	 ldr r3,[r7,#12]
+ 499 0014 1A68     	 ldr r2,[r3]
+ 500              	 .loc 2 156 34
+ 501 0016 7B68     	 ldr r3,[r7,#4]
+ 502 0018 1A60     	 str r2,[r3]
+ 157:../Libraries/XMCLib/src/xmc_common.c **** 	*list = new_item;
+ 503              	 .loc 2 157 8
+ 504 001a FB68     	 ldr r3,[r7,#12]
+ 505 001c 7A68     	 ldr r2,[r7,#4]
+ 506 001e 1A60     	 str r2,[r3]
+ 158:../Libraries/XMCLib/src/xmc_common.c ****   } 
+ 159:../Libraries/XMCLib/src/xmc_common.c ****   else 
+ 160:../Libraries/XMCLib/src/xmc_common.c ****   {
+ 161:../Libraries/XMCLib/src/xmc_common.c ****     ((struct list *)new_item)->next = ((struct list *)prev_item)->next;
+ 162:../Libraries/XMCLib/src/xmc_common.c ****     ((struct list *)prev_item)->next = (struct list *)new_item;
+ 163:../Libraries/XMCLib/src/xmc_common.c ****   }
+ 164:../Libraries/XMCLib/src/xmc_common.c **** }
+ 507              	 .loc 2 164 1
+ 508 0020 06E0     	 b .L31
+ 509              	.L29:
+ 161:../Libraries/XMCLib/src/xmc_common.c ****     ((struct list *)prev_item)->next = (struct list *)new_item;
+ 510              	 .loc 2 161 65
+ 511 0022 BB68     	 ldr r3,[r7,#8]
+ 512 0024 1A68     	 ldr r2,[r3]
+ 161:../Libraries/XMCLib/src/xmc_common.c ****     ((struct list *)prev_item)->next = (struct list *)new_item;
+ 513              	 .loc 2 161 37
+ 514 0026 7B68     	 ldr r3,[r7,#4]
+ 515 0028 1A60     	 str r2,[r3]
+ 162:../Libraries/XMCLib/src/xmc_common.c ****   }
+ 516              	 .loc 2 162 38
+ 517 002a BB68     	 ldr r3,[r7,#8]
+ 518 002c 7A68     	 ldr r2,[r7,#4]
+ 519 002e 1A60     	 str r2,[r3]
+ 520              	.L31:
+ 521              	 .loc 2 164 1
+ 522 0030 C046     	 nop
+ 523 0032 BD46     	 mov sp,r7
+ 524 0034 04B0     	 add sp,sp,#16
+ 525              	 
+ 526 0036 80BD     	 pop {r7,pc}
+ 527              	 .cfi_endproc
+ 528              	.LFE46:
+ 530              	 .section .text.XMC_PRIOARRAY_Init,"ax",%progbits
+ 531              	 .align 1
+ 532              	 .global XMC_PRIOARRAY_Init
+ 533              	 .syntax unified
+ 534              	 .code 16
+ 535              	 .thumb_func
+ 536              	 .fpu softvfp
+ 538              	XMC_PRIOARRAY_Init:
+ 539              	.LFB47:
+ 165:../Libraries/XMCLib/src/xmc_common.c **** 
+ 166:../Libraries/XMCLib/src/xmc_common.c **** void XMC_PRIOARRAY_Init(XMC_PRIOARRAY_t *prioarray)
+ 167:../Libraries/XMCLib/src/xmc_common.c **** {
+ 540              	 .loc 2 167 1
+ 541              	 .cfi_startproc
+ 542              	 
+ 543              	 
+ 544 0000 80B5     	 push {r7,lr}
+ 545              	.LCFI27:
+ 546              	 .cfi_def_cfa_offset 8
+ 547              	 .cfi_offset 7,-8
+ 548              	 .cfi_offset 14,-4
+ 549 0002 82B0     	 sub sp,sp,#8
+ 550              	.LCFI28:
+ 551              	 .cfi_def_cfa_offset 16
+ 552 0004 00AF     	 add r7,sp,#0
+ 553              	.LCFI29:
+ 554              	 .cfi_def_cfa_register 7
+ 555 0006 7860     	 str r0,[r7,#4]
+ 168:../Libraries/XMCLib/src/xmc_common.c ****   XMC_ASSERT("XMC_PRIOARRAY_Init: NULL pointer", prioarray != NULL);
+ 169:../Libraries/XMCLib/src/xmc_common.c **** 
+ 170:../Libraries/XMCLib/src/xmc_common.c ****   /* Initialize head, next points to tail, previous to NULL and the priority is MININT */
+ 171:../Libraries/XMCLib/src/xmc_common.c ****   prioarray->items[prioarray->size].next = prioarray->size + 1;
+ 556              	 .loc 2 171 53
+ 557 0008 7B68     	 ldr r3,[r7,#4]
+ 558 000a 1A68     	 ldr r2,[r3]
+ 559              	 .loc 2 171 12
+ 560 000c 7B68     	 ldr r3,[r7,#4]
+ 561 000e 5968     	 ldr r1,[r3,#4]
+ 562              	 .loc 2 171 29
+ 563 0010 7B68     	 ldr r3,[r7,#4]
+ 564 0012 1B68     	 ldr r3,[r3]
+ 565 0014 1800     	 movs r0,r3
+ 566              	 .loc 2 171 19
+ 567 0016 0300     	 movs r3,r0
+ 568 0018 5B00     	 lsls r3,r3,#1
+ 569 001a 1B18     	 adds r3,r3,r0
+ 570 001c 9B00     	 lsls r3,r3,#2
+ 571 001e CB18     	 adds r3,r1,r3
+ 572              	 .loc 2 171 60
+ 573 0020 0132     	 adds r2,r2,#1
+ 574              	 .loc 2 171 42
+ 575 0022 9A60     	 str r2,[r3,#8]
+ 172:../Libraries/XMCLib/src/xmc_common.c ****   prioarray->items[prioarray->size].previous = -1;
+ 576              	 .loc 2 172 12
+ 577 0024 7B68     	 ldr r3,[r7,#4]
+ 578 0026 5A68     	 ldr r2,[r3,#4]
+ 579              	 .loc 2 172 29
+ 580 0028 7B68     	 ldr r3,[r7,#4]
+ 581 002a 1B68     	 ldr r3,[r3]
+ 582 002c 1900     	 movs r1,r3
+ 583              	 .loc 2 172 19
+ 584 002e 0B00     	 movs r3,r1
+ 585 0030 5B00     	 lsls r3,r3,#1
+ 586 0032 5B18     	 adds r3,r3,r1
+ 587 0034 9B00     	 lsls r3,r3,#2
+ 588 0036 D318     	 adds r3,r2,r3
+ 589              	 .loc 2 172 46
+ 590 0038 0122     	 movs r2,#1
+ 591 003a 5242     	 rsbs r2,r2,#0
+ 592 003c 5A60     	 str r2,[r3,#4]
+ 173:../Libraries/XMCLib/src/xmc_common.c ****   prioarray->items[prioarray->size].priority = INT32_MAX;
+ 593              	 .loc 2 173 12
+ 594 003e 7B68     	 ldr r3,[r7,#4]
+ 595 0040 5A68     	 ldr r2,[r3,#4]
+ 596              	 .loc 2 173 29
+ 597 0042 7B68     	 ldr r3,[r7,#4]
+ 598 0044 1B68     	 ldr r3,[r3]
+ 599 0046 1900     	 movs r1,r3
+ 600              	 .loc 2 173 19
+ 601 0048 0B00     	 movs r3,r1
+ 602 004a 5B00     	 lsls r3,r3,#1
+ 603 004c 5B18     	 adds r3,r3,r1
+ 604 004e 9B00     	 lsls r3,r3,#2
+ 605 0050 D318     	 adds r3,r2,r3
+ 606              	 .loc 2 173 46
+ 607 0052 164A     	 ldr r2,.L33
+ 608 0054 1A60     	 str r2,[r3]
+ 174:../Libraries/XMCLib/src/xmc_common.c **** 
+ 175:../Libraries/XMCLib/src/xmc_common.c ****   /* Initialize tail, next points to NULL, previous is the head and the priority is MAXINT */
+ 176:../Libraries/XMCLib/src/xmc_common.c ****   prioarray->items[prioarray->size + 1].next = -1;
+ 609              	 .loc 2 176 12
+ 610 0056 7B68     	 ldr r3,[r7,#4]
+ 611 0058 5968     	 ldr r1,[r3,#4]
+ 612              	 .loc 2 176 29
+ 613 005a 7B68     	 ldr r3,[r7,#4]
+ 614 005c 1B68     	 ldr r3,[r3]
+ 615              	 .loc 2 176 19
+ 616 005e 5A1C     	 adds r2,r3,#1
+ 617 0060 1300     	 movs r3,r2
+ 618 0062 5B00     	 lsls r3,r3,#1
+ 619 0064 9B18     	 adds r3,r3,r2
+ 620 0066 9B00     	 lsls r3,r3,#2
+ 621 0068 CB18     	 adds r3,r1,r3
+ 622              	 .loc 2 176 46
+ 623 006a 0122     	 movs r2,#1
+ 624 006c 5242     	 rsbs r2,r2,#0
+ 625 006e 9A60     	 str r2,[r3,#8]
+ 177:../Libraries/XMCLib/src/xmc_common.c ****   prioarray->items[prioarray->size + 1].previous = prioarray->size;
+ 626              	 .loc 2 177 12
+ 627 0070 7B68     	 ldr r3,[r7,#4]
+ 628 0072 5968     	 ldr r1,[r3,#4]
+ 629              	 .loc 2 177 29
+ 630 0074 7B68     	 ldr r3,[r7,#4]
+ 631 0076 1B68     	 ldr r3,[r3]
+ 632              	 .loc 2 177 19
+ 633 0078 5A1C     	 adds r2,r3,#1
+ 634 007a 1300     	 movs r3,r2
+ 635 007c 5B00     	 lsls r3,r3,#1
+ 636 007e 9B18     	 adds r3,r3,r2
+ 637 0080 9B00     	 lsls r3,r3,#2
+ 638 0082 CB18     	 adds r3,r1,r3
+ 639              	 .loc 2 177 61
+ 640 0084 7A68     	 ldr r2,[r7,#4]
+ 641 0086 1268     	 ldr r2,[r2]
+ 642              	 .loc 2 177 50
+ 643 0088 5A60     	 str r2,[r3,#4]
+ 178:../Libraries/XMCLib/src/xmc_common.c ****   prioarray->items[prioarray->size + 1].priority = INT32_MIN;
+ 644              	 .loc 2 178 12
+ 645 008a 7B68     	 ldr r3,[r7,#4]
+ 646 008c 5968     	 ldr r1,[r3,#4]
+ 647              	 .loc 2 178 29
+ 648 008e 7B68     	 ldr r3,[r7,#4]
+ 649 0090 1B68     	 ldr r3,[r3]
+ 650              	 .loc 2 178 19
+ 651 0092 5A1C     	 adds r2,r3,#1
+ 652 0094 1300     	 movs r3,r2
+ 653 0096 5B00     	 lsls r3,r3,#1
+ 654 0098 9B18     	 adds r3,r3,r2
+ 655 009a 9B00     	 lsls r3,r3,#2
+ 656 009c CB18     	 adds r3,r1,r3
+ 657              	 .loc 2 178 50
+ 658 009e 8022     	 movs r2,#128
+ 659 00a0 1206     	 lsls r2,r2,#24
+ 660 00a2 1A60     	 str r2,[r3]
+ 179:../Libraries/XMCLib/src/xmc_common.c **** 
+ 180:../Libraries/XMCLib/src/xmc_common.c **** }
+ 661              	 .loc 2 180 1
+ 662 00a4 C046     	 nop
+ 663 00a6 BD46     	 mov sp,r7
+ 664 00a8 02B0     	 add sp,sp,#8
+ 665              	 
+ 666 00aa 80BD     	 pop {r7,pc}
+ 667              	.L34:
+ 668              	 .align 2
+ 669              	.L33:
+ 670 00ac FFFFFF7F 	 .word 2147483647
+ 671              	 .cfi_endproc
+ 672              	.LFE47:
+ 674              	 .section .text.XMC_PRIOARRAY_Add,"ax",%progbits
+ 675              	 .align 1
+ 676              	 .global XMC_PRIOARRAY_Add
+ 677              	 .syntax unified
+ 678              	 .code 16
+ 679              	 .thumb_func
+ 680              	 .fpu softvfp
+ 682              	XMC_PRIOARRAY_Add:
+ 683              	.LFB48:
+ 181:../Libraries/XMCLib/src/xmc_common.c **** 
+ 182:../Libraries/XMCLib/src/xmc_common.c **** void XMC_PRIOARRAY_Add(XMC_PRIOARRAY_t *prioarray, int32_t item, int32_t priority)
+ 183:../Libraries/XMCLib/src/xmc_common.c **** {
+ 684              	 .loc 2 183 1
+ 685              	 .cfi_startproc
+ 686              	 
+ 687              	 
+ 688 0000 80B5     	 push {r7,lr}
+ 689              	.LCFI30:
+ 690              	 .cfi_def_cfa_offset 8
+ 691              	 .cfi_offset 7,-8
+ 692              	 .cfi_offset 14,-4
+ 693 0002 86B0     	 sub sp,sp,#24
+ 694              	.LCFI31:
+ 695              	 .cfi_def_cfa_offset 32
+ 696 0004 00AF     	 add r7,sp,#0
+ 697              	.LCFI32:
+ 698              	 .cfi_def_cfa_register 7
+ 699 0006 F860     	 str r0,[r7,#12]
+ 700 0008 B960     	 str r1,[r7,#8]
+ 701 000a 7A60     	 str r2,[r7,#4]
+ 184:../Libraries/XMCLib/src/xmc_common.c ****   int32_t next;
+ 185:../Libraries/XMCLib/src/xmc_common.c ****   int32_t previous;
+ 186:../Libraries/XMCLib/src/xmc_common.c **** 
+ 187:../Libraries/XMCLib/src/xmc_common.c ****   XMC_ASSERT("XMC_PRIOARRAY_Add: item out of range", (item >= 0) && (item < prioarray->size));
+ 188:../Libraries/XMCLib/src/xmc_common.c ****   
+ 189:../Libraries/XMCLib/src/xmc_common.c ****   next = XMC_PRIOARRAY_GetHead(prioarray);
+ 702              	 .loc 2 189 10
+ 703 000c FB68     	 ldr r3,[r7,#12]
+ 704 000e 1800     	 movs r0,r3
+ 705 0010 FFF7FEFF 	 bl XMC_PRIOARRAY_GetHead
+ 706 0014 0300     	 movs r3,r0
+ 707 0016 7B61     	 str r3,[r7,#20]
+ 190:../Libraries/XMCLib/src/xmc_common.c ****   while (XMC_PRIOARRAY_GetItemPriority(prioarray, next) > priority)
+ 708              	 .loc 2 190 9
+ 709 0018 07E0     	 b .L36
+ 710              	.L37:
+ 191:../Libraries/XMCLib/src/xmc_common.c ****   {
+ 192:../Libraries/XMCLib/src/xmc_common.c ****     next = XMC_PRIOARRAY_GetItemNext(prioarray, next);
+ 711              	 .loc 2 192 12
+ 712 001a 7A69     	 ldr r2,[r7,#20]
+ 713 001c FB68     	 ldr r3,[r7,#12]
+ 714 001e 1100     	 movs r1,r2
+ 715 0020 1800     	 movs r0,r3
+ 716 0022 FFF7FEFF 	 bl XMC_PRIOARRAY_GetItemNext
+ 717 0026 0300     	 movs r3,r0
+ 718 0028 7B61     	 str r3,[r7,#20]
+ 719              	.L36:
+ 190:../Libraries/XMCLib/src/xmc_common.c ****   while (XMC_PRIOARRAY_GetItemPriority(prioarray, next) > priority)
+ 720              	 .loc 2 190 10
+ 721 002a 7A69     	 ldr r2,[r7,#20]
+ 722 002c FB68     	 ldr r3,[r7,#12]
+ 723 002e 1100     	 movs r1,r2
+ 724 0030 1800     	 movs r0,r3
+ 725 0032 FFF7FEFF 	 bl XMC_PRIOARRAY_GetItemPriority
+ 726 0036 0200     	 movs r2,r0
+ 190:../Libraries/XMCLib/src/xmc_common.c ****   while (XMC_PRIOARRAY_GetItemPriority(prioarray, next) > priority)
+ 727              	 .loc 2 190 9
+ 728 0038 7B68     	 ldr r3,[r7,#4]
+ 729 003a 9342     	 cmp r3,r2
+ 730 003c EDDB     	 blt .L37
+ 193:../Libraries/XMCLib/src/xmc_common.c ****   }
+ 194:../Libraries/XMCLib/src/xmc_common.c **** 
+ 195:../Libraries/XMCLib/src/xmc_common.c ****   previous = prioarray->items[next].previous;
+ 731              	 .loc 2 195 23
+ 732 003e FB68     	 ldr r3,[r7,#12]
+ 733 0040 5968     	 ldr r1,[r3,#4]
+ 734              	 .loc 2 195 30
+ 735 0042 7A69     	 ldr r2,[r7,#20]
+ 736 0044 1300     	 movs r3,r2
+ 737 0046 5B00     	 lsls r3,r3,#1
+ 738 0048 9B18     	 adds r3,r3,r2
+ 739 004a 9B00     	 lsls r3,r3,#2
+ 740 004c CB18     	 adds r3,r1,r3
+ 741              	 .loc 2 195 12
+ 742 004e 5B68     	 ldr r3,[r3,#4]
+ 743 0050 3B61     	 str r3,[r7,#16]
+ 196:../Libraries/XMCLib/src/xmc_common.c **** 
+ 197:../Libraries/XMCLib/src/xmc_common.c ****   prioarray->items[item].next = next;
+ 744              	 .loc 2 197 12
+ 745 0052 FB68     	 ldr r3,[r7,#12]
+ 746 0054 5968     	 ldr r1,[r3,#4]
+ 747              	 .loc 2 197 19
+ 748 0056 BA68     	 ldr r2,[r7,#8]
+ 749 0058 1300     	 movs r3,r2
+ 750 005a 5B00     	 lsls r3,r3,#1
+ 751 005c 9B18     	 adds r3,r3,r2
+ 752 005e 9B00     	 lsls r3,r3,#2
+ 753 0060 CB18     	 adds r3,r1,r3
+ 754              	 .loc 2 197 31
+ 755 0062 7A69     	 ldr r2,[r7,#20]
+ 756 0064 9A60     	 str r2,[r3,#8]
+ 198:../Libraries/XMCLib/src/xmc_common.c ****   prioarray->items[item].previous = previous;
+ 757              	 .loc 2 198 12
+ 758 0066 FB68     	 ldr r3,[r7,#12]
+ 759 0068 5968     	 ldr r1,[r3,#4]
+ 760              	 .loc 2 198 19
+ 761 006a BA68     	 ldr r2,[r7,#8]
+ 762 006c 1300     	 movs r3,r2
+ 763 006e 5B00     	 lsls r3,r3,#1
+ 764 0070 9B18     	 adds r3,r3,r2
+ 765 0072 9B00     	 lsls r3,r3,#2
+ 766 0074 CB18     	 adds r3,r1,r3
+ 767              	 .loc 2 198 35
+ 768 0076 3A69     	 ldr r2,[r7,#16]
+ 769 0078 5A60     	 str r2,[r3,#4]
+ 199:../Libraries/XMCLib/src/xmc_common.c ****   prioarray->items[item].priority = priority;
+ 770              	 .loc 2 199 12
+ 771 007a FB68     	 ldr r3,[r7,#12]
+ 772 007c 5968     	 ldr r1,[r3,#4]
+ 773              	 .loc 2 199 19
+ 774 007e BA68     	 ldr r2,[r7,#8]
+ 775 0080 1300     	 movs r3,r2
+ 776 0082 5B00     	 lsls r3,r3,#1
+ 777 0084 9B18     	 adds r3,r3,r2
+ 778 0086 9B00     	 lsls r3,r3,#2
+ 779 0088 CB18     	 adds r3,r1,r3
+ 780              	 .loc 2 199 35
+ 781 008a 7A68     	 ldr r2,[r7,#4]
+ 782 008c 1A60     	 str r2,[r3]
+ 200:../Libraries/XMCLib/src/xmc_common.c **** 
+ 201:../Libraries/XMCLib/src/xmc_common.c ****   prioarray->items[previous].next = item;
+ 783              	 .loc 2 201 12
+ 784 008e FB68     	 ldr r3,[r7,#12]
+ 785 0090 5968     	 ldr r1,[r3,#4]
+ 786              	 .loc 2 201 19
+ 787 0092 3A69     	 ldr r2,[r7,#16]
+ 788 0094 1300     	 movs r3,r2
+ 789 0096 5B00     	 lsls r3,r3,#1
+ 790 0098 9B18     	 adds r3,r3,r2
+ 791 009a 9B00     	 lsls r3,r3,#2
+ 792 009c CB18     	 adds r3,r1,r3
+ 793              	 .loc 2 201 35
+ 794 009e BA68     	 ldr r2,[r7,#8]
+ 795 00a0 9A60     	 str r2,[r3,#8]
+ 202:../Libraries/XMCLib/src/xmc_common.c ****   prioarray->items[next].previous = item;
+ 796              	 .loc 2 202 12
+ 797 00a2 FB68     	 ldr r3,[r7,#12]
+ 798 00a4 5968     	 ldr r1,[r3,#4]
+ 799              	 .loc 2 202 19
+ 800 00a6 7A69     	 ldr r2,[r7,#20]
+ 801 00a8 1300     	 movs r3,r2
+ 802 00aa 5B00     	 lsls r3,r3,#1
+ 803 00ac 9B18     	 adds r3,r3,r2
+ 804 00ae 9B00     	 lsls r3,r3,#2
+ 805 00b0 CB18     	 adds r3,r1,r3
+ 806              	 .loc 2 202 35
+ 807 00b2 BA68     	 ldr r2,[r7,#8]
+ 808 00b4 5A60     	 str r2,[r3,#4]
+ 203:../Libraries/XMCLib/src/xmc_common.c **** }
+ 809              	 .loc 2 203 1
+ 810 00b6 C046     	 nop
+ 811 00b8 BD46     	 mov sp,r7
+ 812 00ba 06B0     	 add sp,sp,#24
+ 813              	 
+ 814 00bc 80BD     	 pop {r7,pc}
+ 815              	 .cfi_endproc
+ 816              	.LFE48:
+ 818              	 .section .text.XMC_PRIOARRAY_Remove,"ax",%progbits
+ 819              	 .align 1
+ 820              	 .global XMC_PRIOARRAY_Remove
+ 821              	 .syntax unified
+ 822              	 .code 16
+ 823              	 .thumb_func
+ 824              	 .fpu softvfp
+ 826              	XMC_PRIOARRAY_Remove:
+ 827              	.LFB49:
+ 204:../Libraries/XMCLib/src/xmc_common.c **** 
+ 205:../Libraries/XMCLib/src/xmc_common.c **** void XMC_PRIOARRAY_Remove(XMC_PRIOARRAY_t *prioarray, int32_t item)
+ 206:../Libraries/XMCLib/src/xmc_common.c **** {
+ 828              	 .loc 2 206 1
+ 829              	 .cfi_startproc
+ 830              	 
+ 831              	 
+ 832 0000 80B5     	 push {r7,lr}
+ 833              	.LCFI33:
+ 834              	 .cfi_def_cfa_offset 8
+ 835              	 .cfi_offset 7,-8
+ 836              	 .cfi_offset 14,-4
+ 837 0002 84B0     	 sub sp,sp,#16
+ 838              	.LCFI34:
+ 839              	 .cfi_def_cfa_offset 24
+ 840 0004 00AF     	 add r7,sp,#0
+ 841              	.LCFI35:
+ 842              	 .cfi_def_cfa_register 7
+ 843 0006 7860     	 str r0,[r7,#4]
+ 844 0008 3960     	 str r1,[r7]
+ 207:../Libraries/XMCLib/src/xmc_common.c ****   int32_t next;
+ 208:../Libraries/XMCLib/src/xmc_common.c ****   int32_t previous;
+ 209:../Libraries/XMCLib/src/xmc_common.c **** 
+ 210:../Libraries/XMCLib/src/xmc_common.c ****   XMC_ASSERT("XMC_PRIOARRAY_Add: item out of range", (item >= 0) && (item < prioarray->size));
+ 211:../Libraries/XMCLib/src/xmc_common.c ****   
+ 212:../Libraries/XMCLib/src/xmc_common.c ****   next = prioarray->items[item].next;
+ 845              	 .loc 2 212 19
+ 846 000a 7B68     	 ldr r3,[r7,#4]
+ 847 000c 5968     	 ldr r1,[r3,#4]
+ 848              	 .loc 2 212 26
+ 849 000e 3A68     	 ldr r2,[r7]
+ 850 0010 1300     	 movs r3,r2
+ 851 0012 5B00     	 lsls r3,r3,#1
+ 852 0014 9B18     	 adds r3,r3,r2
+ 853 0016 9B00     	 lsls r3,r3,#2
+ 854 0018 CB18     	 adds r3,r1,r3
+ 855              	 .loc 2 212 8
+ 856 001a 9B68     	 ldr r3,[r3,#8]
+ 857 001c FB60     	 str r3,[r7,#12]
+ 213:../Libraries/XMCLib/src/xmc_common.c ****   previous = prioarray->items[item].previous;
+ 858              	 .loc 2 213 23
+ 859 001e 7B68     	 ldr r3,[r7,#4]
+ 860 0020 5968     	 ldr r1,[r3,#4]
+ 861              	 .loc 2 213 30
+ 862 0022 3A68     	 ldr r2,[r7]
+ 863 0024 1300     	 movs r3,r2
+ 864 0026 5B00     	 lsls r3,r3,#1
+ 865 0028 9B18     	 adds r3,r3,r2
+ 866 002a 9B00     	 lsls r3,r3,#2
+ 867 002c CB18     	 adds r3,r1,r3
+ 868              	 .loc 2 213 12
+ 869 002e 5B68     	 ldr r3,[r3,#4]
+ 870 0030 BB60     	 str r3,[r7,#8]
+ 214:../Libraries/XMCLib/src/xmc_common.c **** 
+ 215:../Libraries/XMCLib/src/xmc_common.c ****   prioarray->items[previous].next = next;
+ 871              	 .loc 2 215 12
+ 872 0032 7B68     	 ldr r3,[r7,#4]
+ 873 0034 5968     	 ldr r1,[r3,#4]
+ 874              	 .loc 2 215 19
+ 875 0036 BA68     	 ldr r2,[r7,#8]
+ 876 0038 1300     	 movs r3,r2
+ 877 003a 5B00     	 lsls r3,r3,#1
+ 878 003c 9B18     	 adds r3,r3,r2
+ 879 003e 9B00     	 lsls r3,r3,#2
+ 880 0040 CB18     	 adds r3,r1,r3
+ 881              	 .loc 2 215 35
+ 882 0042 FA68     	 ldr r2,[r7,#12]
+ 883 0044 9A60     	 str r2,[r3,#8]
+ 216:../Libraries/XMCLib/src/xmc_common.c ****   prioarray->items[next].previous = previous;
+ 884              	 .loc 2 216 12
+ 885 0046 7B68     	 ldr r3,[r7,#4]
+ 886 0048 5968     	 ldr r1,[r3,#4]
+ 887              	 .loc 2 216 19
+ 888 004a FA68     	 ldr r2,[r7,#12]
+ 889 004c 1300     	 movs r3,r2
+ 890 004e 5B00     	 lsls r3,r3,#1
+ 891 0050 9B18     	 adds r3,r3,r2
+ 892 0052 9B00     	 lsls r3,r3,#2
+ 893 0054 CB18     	 adds r3,r1,r3
+ 894              	 .loc 2 216 35
+ 895 0056 BA68     	 ldr r2,[r7,#8]
+ 896 0058 5A60     	 str r2,[r3,#4]
+ 217:../Libraries/XMCLib/src/xmc_common.c **** }
+ 897              	 .loc 2 217 1
+ 898 005a C046     	 nop
+ 899 005c BD46     	 mov sp,r7
+ 900 005e 04B0     	 add sp,sp,#16
+ 901              	 
+ 902 0060 80BD     	 pop {r7,pc}
+ 903              	 .cfi_endproc
+ 904              	.LFE49:
+ 906              	 .text
+ 907              	.Letext0:
+ 908              	 .file 3 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_default_types.h"
+ 909              	 .file 4 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 910              	 .file 5 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.h"
+ 911              	 .file 6 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_types.h"
+ 912              	 .file 7 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 913              	 .file 8 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reent.h"
+ 914              	 .file 9 "..//Libraries/CMSIS/Infineon/XMC1300_series/Include/system_XMC1300.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 xmc_common.c
+    {standard input}:16     .text.XMC_PRIOARRAY_GetHead:0000000000000000 $t
+    {standard input}:23     .text.XMC_PRIOARRAY_GetHead:0000000000000000 XMC_PRIOARRAY_GetHead
+    {standard input}:67     .text.XMC_PRIOARRAY_GetItemPriority:0000000000000000 $t
+    {standard input}:73     .text.XMC_PRIOARRAY_GetItemPriority:0000000000000000 XMC_PRIOARRAY_GetItemPriority
+    {standard input}:114    .text.XMC_PRIOARRAY_GetItemNext:0000000000000000 $t
+    {standard input}:120    .text.XMC_PRIOARRAY_GetItemNext:0000000000000000 XMC_PRIOARRAY_GetItemNext
+    {standard input}:161    .text.XMC_LIST_Init:0000000000000000 $t
+    {standard input}:168    .text.XMC_LIST_Init:0000000000000000 XMC_LIST_Init
+    {standard input}:201    .text.XMC_LIST_GetHead:0000000000000000 $t
+    {standard input}:208    .text.XMC_LIST_GetHead:0000000000000000 XMC_LIST_GetHead
+    {standard input}:239    .text.XMC_LIST_GetTail:0000000000000000 $t
+    {standard input}:246    .text.XMC_LIST_GetTail:0000000000000000 XMC_LIST_GetTail
+    {standard input}:306    .text.XMC_LIST_Add:0000000000000000 $t
+    {standard input}:313    .text.XMC_LIST_Add:0000000000000000 XMC_LIST_Add
+    {standard input}:368    .text.XMC_LIST_Remove:0000000000000000 $t
+    {standard input}:375    .text.XMC_LIST_Remove:0000000000000000 XMC_LIST_Remove
+    {standard input}:466    .text.XMC_LIST_Insert:0000000000000000 $t
+    {standard input}:473    .text.XMC_LIST_Insert:0000000000000000 XMC_LIST_Insert
+    {standard input}:531    .text.XMC_PRIOARRAY_Init:0000000000000000 $t
+    {standard input}:538    .text.XMC_PRIOARRAY_Init:0000000000000000 XMC_PRIOARRAY_Init
+    {standard input}:670    .text.XMC_PRIOARRAY_Init:00000000000000ac $d
+    {standard input}:675    .text.XMC_PRIOARRAY_Add:0000000000000000 $t
+    {standard input}:682    .text.XMC_PRIOARRAY_Add:0000000000000000 XMC_PRIOARRAY_Add
+    {standard input}:819    .text.XMC_PRIOARRAY_Remove:0000000000000000 $t
+    {standard input}:826    .text.XMC_PRIOARRAY_Remove:0000000000000000 XMC_PRIOARRAY_Remove
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,781 @@
+   1              	 .cpu cortex-m0
+   2              	 .eabi_attribute 20,1
+   3              	 .eabi_attribute 21,1
+   4              	 .eabi_attribute 23,3
+   5              	 .eabi_attribute 24,1
+   6              	 .eabi_attribute 25,1
+   7              	 .eabi_attribute 26,1
+   8              	 .eabi_attribute 30,6
+   9              	 .eabi_attribute 34,0
+  10              	 .eabi_attribute 18,4
+  11              	 .file "xmc_prng.c"
+  12              	 .text
+  13              	.Ltext0:
+  14              	 .cfi_sections .debug_frame
+  15              	 .section .text.XMC_PRNG_SetRandomDataBlockSize,"ax",%progbits
+  16              	 .align 1
+  17              	 .arch armv6s-m
+  18              	 .syntax unified
+  19              	 .code 16
+  20              	 .thumb_func
+  21              	 .fpu softvfp
+  23              	XMC_PRNG_SetRandomDataBlockSize:
+  24              	.LFB41:
+  25              	 .file 1 "..//Libraries/XMCLib/inc/xmc_prng.h"
+   1:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+   2:..//Libraries/XMCLib/inc/xmc_prng.h **** /**
+   3:..//Libraries/XMCLib/inc/xmc_prng.h ****  * @file xmc_prng.h
+   4:..//Libraries/XMCLib/inc/xmc_prng.h ****  * @date 2015-06-20
+   5:..//Libraries/XMCLib/inc/xmc_prng.h ****  *
+   6:..//Libraries/XMCLib/inc/xmc_prng.h ****  * @cond
+   7:..//Libraries/XMCLib/inc/xmc_prng.h ****  **************************************************************************************************
+   8:..//Libraries/XMCLib/inc/xmc_prng.h ****  * XMClib v2.1.18 - XMC Peripheral Driver Library 
+   9:..//Libraries/XMCLib/inc/xmc_prng.h ****  *
+  10:..//Libraries/XMCLib/inc/xmc_prng.h ****  * Copyright (c) 2015-2018, Infineon Technologies AG
+  11:..//Libraries/XMCLib/inc/xmc_prng.h ****  * All rights reserved.                        
+  12:..//Libraries/XMCLib/inc/xmc_prng.h ****  *                                             
+  13:..//Libraries/XMCLib/inc/xmc_prng.h ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  14:..//Libraries/XMCLib/inc/xmc_prng.h ****  * following conditions are met:   
+  15:..//Libraries/XMCLib/inc/xmc_prng.h ****  *                                                                              
+  16:..//Libraries/XMCLib/inc/xmc_prng.h ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  17:..//Libraries/XMCLib/inc/xmc_prng.h ****  * disclaimer.                        
+  18:..//Libraries/XMCLib/inc/xmc_prng.h ****  * 
+  19:..//Libraries/XMCLib/inc/xmc_prng.h ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  20:..//Libraries/XMCLib/inc/xmc_prng.h ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  21:..//Libraries/XMCLib/inc/xmc_prng.h ****  * 
+  22:..//Libraries/XMCLib/inc/xmc_prng.h ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  23:..//Libraries/XMCLib/inc/xmc_prng.h ****  * products derived from this software without specific prior written permission.                  
+  24:..//Libraries/XMCLib/inc/xmc_prng.h ****  *                                                                              
+  25:..//Libraries/XMCLib/inc/xmc_prng.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  26:..//Libraries/XMCLib/inc/xmc_prng.h ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  27:..//Libraries/XMCLib/inc/xmc_prng.h ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  28:..//Libraries/XMCLib/inc/xmc_prng.h ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  29:..//Libraries/XMCLib/inc/xmc_prng.h ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  30:..//Libraries/XMCLib/inc/xmc_prng.h ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  31:..//Libraries/XMCLib/inc/xmc_prng.h ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  32:..//Libraries/XMCLib/inc/xmc_prng.h ****  *                                                                              
+  33:..//Libraries/XMCLib/inc/xmc_prng.h ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  34:..//Libraries/XMCLib/inc/xmc_prng.h ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  35:..//Libraries/XMCLib/inc/xmc_prng.h ****  **************************************************************************************************
+  36:..//Libraries/XMCLib/inc/xmc_prng.h ****  *
+  37:..//Libraries/XMCLib/inc/xmc_prng.h ****  * Change History
+  38:..//Libraries/XMCLib/inc/xmc_prng.h ****  * --------------
+  39:..//Libraries/XMCLib/inc/xmc_prng.h ****  *
+  40:..//Libraries/XMCLib/inc/xmc_prng.h ****  * 2015-02-20:
+  41:..//Libraries/XMCLib/inc/xmc_prng.h ****  *     - Initial <br>
+  42:..//Libraries/XMCLib/inc/xmc_prng.h ****  *     - Documentation updates <br>
+  43:..//Libraries/XMCLib/inc/xmc_prng.h ****  *
+  44:..//Libraries/XMCLib/inc/xmc_prng.h ****  * 2015-06-20:
+  45:..//Libraries/XMCLib/inc/xmc_prng.h ****  *     - Removed version macros and declaration of GetDriverVersion API <br>
+  46:..//Libraries/XMCLib/inc/xmc_prng.h ****  *
+  47:..//Libraries/XMCLib/inc/xmc_prng.h ****  * @endcond
+  48:..//Libraries/XMCLib/inc/xmc_prng.h ****  */
+  49:..//Libraries/XMCLib/inc/xmc_prng.h ****  
+  50:..//Libraries/XMCLib/inc/xmc_prng.h **** #ifndef XMC_PRNG_H
+  51:..//Libraries/XMCLib/inc/xmc_prng.h **** #define XMC_PRNG_H
+  52:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+  53:..//Libraries/XMCLib/inc/xmc_prng.h **** /**************************************************************************************************
+  54:..//Libraries/XMCLib/inc/xmc_prng.h ****  * HEADER FILES
+  55:..//Libraries/XMCLib/inc/xmc_prng.h ****  **************************************************************************************************
+  56:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+  57:..//Libraries/XMCLib/inc/xmc_prng.h **** #include "xmc_common.h"
+  58:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+  59:..//Libraries/XMCLib/inc/xmc_prng.h **** #if defined (PRNG) 
+  60:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+  61:..//Libraries/XMCLib/inc/xmc_prng.h **** /**
+  62:..//Libraries/XMCLib/inc/xmc_prng.h ****  * @addtogroup XMClib XMC Peripheral Library
+  63:..//Libraries/XMCLib/inc/xmc_prng.h ****  * @{
+  64:..//Libraries/XMCLib/inc/xmc_prng.h ****  */
+  65:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+  66:..//Libraries/XMCLib/inc/xmc_prng.h **** /**
+  67:..//Libraries/XMCLib/inc/xmc_prng.h ****  * @addtogroup PRNG
+  68:..//Libraries/XMCLib/inc/xmc_prng.h ****  * @brief Pseudo Random Number Generator (PRNG) driver for XMC1000 microcontroller family
+  69:..//Libraries/XMCLib/inc/xmc_prng.h ****  *
+  70:..//Libraries/XMCLib/inc/xmc_prng.h ****  * The pseudo random bit generator (PRNG) provides random data with fast generation times.
+  71:..//Libraries/XMCLib/inc/xmc_prng.h ****  * PRNG has to be initialized by the user software before use. The initialization consists
+  72:..//Libraries/XMCLib/inc/xmc_prng.h ****  * of two basic phases: key-loading and warm-up.
+  73:..//Libraries/XMCLib/inc/xmc_prng.h ****  *  
+  74:..//Libraries/XMCLib/inc/xmc_prng.h ****  * The PRNG low level driver provides functions to configure and initialize the PRNG hardware
+  75:..//Libraries/XMCLib/inc/xmc_prng.h ****  * peripheral.
+  76:..//Libraries/XMCLib/inc/xmc_prng.h ****  * @{
+  77:..//Libraries/XMCLib/inc/xmc_prng.h ****  */  
+  78:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+  79:..//Libraries/XMCLib/inc/xmc_prng.h **** /**************************************************************************************************
+  80:..//Libraries/XMCLib/inc/xmc_prng.h ****  * MACROS
+  81:..//Libraries/XMCLib/inc/xmc_prng.h ****  **************************************************************************************************
+  82:..//Libraries/XMCLib/inc/xmc_prng.h ****  
+  83:..//Libraries/XMCLib/inc/xmc_prng.h **** /**
+  84:..//Libraries/XMCLib/inc/xmc_prng.h ****  * Byte mask value for random data block size
+  85:..//Libraries/XMCLib/inc/xmc_prng.h ****  */ 
+  86:..//Libraries/XMCLib/inc/xmc_prng.h **** #define XMC_PRNG_RDBS_BYTE_READ_MASK (0x00FFU)
+  87:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+  88:..//Libraries/XMCLib/inc/xmc_prng.h **** /**************************************************************************************************
+  89:..//Libraries/XMCLib/inc/xmc_prng.h ****  * ENUMS
+  90:..//Libraries/XMCLib/inc/xmc_prng.h ****  **************************************************************************************************
+  91:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+  92:..//Libraries/XMCLib/inc/xmc_prng.h **** /**
+  93:..//Libraries/XMCLib/inc/xmc_prng.h ****  * PRNG key load operation modes
+  94:..//Libraries/XMCLib/inc/xmc_prng.h ****  */
+  95:..//Libraries/XMCLib/inc/xmc_prng.h **** typedef enum XMC_PRNG_KEY_LOAD_OP_MODE {
+  96:..//Libraries/XMCLib/inc/xmc_prng.h ****   XMC_PRNG_STRM_MODE = 0U, /**< Streaming mode (default) */
+  97:..//Libraries/XMCLib/inc/xmc_prng.h ****   XMC_PRNG_KLD_MODE  = 1U  /**< Loading mode */
+  98:..//Libraries/XMCLib/inc/xmc_prng.h **** } XMC_PRNG_KEY_LOAD_OP_MODE_t;
+  99:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+ 100:..//Libraries/XMCLib/inc/xmc_prng.h **** /**
+ 101:..//Libraries/XMCLib/inc/xmc_prng.h ****  * PRNG data block size
+ 102:..//Libraries/XMCLib/inc/xmc_prng.h ****  */
+ 103:..//Libraries/XMCLib/inc/xmc_prng.h **** typedef enum XMC_PRNG_DATA_BLOCK_SIZE {
+ 104:..//Libraries/XMCLib/inc/xmc_prng.h ****   XMC_PRNG_RDBS_RESET = 0U, /**< Reset state (no random data block size defined) */
+ 105:..//Libraries/XMCLib/inc/xmc_prng.h ****   XMC_PRNG_RDBS_BYTE  = 1U, /**< BYTE (8-bit) */
+ 106:..//Libraries/XMCLib/inc/xmc_prng.h ****   XMC_PRNG_RDBS_WORD  = 2U  /**< WORD (16-bit) */
+ 107:..//Libraries/XMCLib/inc/xmc_prng.h **** } XMC_PRNG_DATA_BLOCK_SIZE_t;
+ 108:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+ 109:..//Libraries/XMCLib/inc/xmc_prng.h **** /**
+ 110:..//Libraries/XMCLib/inc/xmc_prng.h ****  * PRNG driver initialization status
+ 111:..//Libraries/XMCLib/inc/xmc_prng.h ****  */
+ 112:..//Libraries/XMCLib/inc/xmc_prng.h **** typedef enum XMC_PRNG_INIT_STATUS {
+ 113:..//Libraries/XMCLib/inc/xmc_prng.h ****   XMC_PRNG_NOT_INITIALIZED = 0U, /**< Reset state or Non-initialized state (Same as XMC_PRNG_RDBS_R
+ 114:..//Libraries/XMCLib/inc/xmc_prng.h ****   XMC_PRNG_INITIALIZED     = 1U  /**< Initialized state */
+ 115:..//Libraries/XMCLib/inc/xmc_prng.h **** } XMC_PRNG_INIT_STATUS_t;
+ 116:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+ 117:..//Libraries/XMCLib/inc/xmc_prng.h **** /**************************************************************************************************
+ 118:..//Libraries/XMCLib/inc/xmc_prng.h ****  * DATA STRUCTURES
+ 119:..//Libraries/XMCLib/inc/xmc_prng.h ****  **************************************************************************************************
+ 120:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+ 121:..//Libraries/XMCLib/inc/xmc_prng.h **** /**
+ 122:..//Libraries/XMCLib/inc/xmc_prng.h ****  * Key words and data block size configuration values of PRNG <br>
+ 123:..//Libraries/XMCLib/inc/xmc_prng.h ****  *
+ 124:..//Libraries/XMCLib/inc/xmc_prng.h ****  * The structure presents a convenient way to set/obtain the key word and data block configuration
+ 125:..//Libraries/XMCLib/inc/xmc_prng.h ****  * values of PRNG.
+ 126:..//Libraries/XMCLib/inc/xmc_prng.h ****  * The XMC_PRNG_Init() can be used to populate the structure with the key word and data block
+ 127:..//Libraries/XMCLib/inc/xmc_prng.h ****  * configuration values of the PRNG module.
+ 128:..//Libraries/XMCLib/inc/xmc_prng.h ****  */ 
+ 129:..//Libraries/XMCLib/inc/xmc_prng.h **** typedef struct XMC_PRNG_INIT
+ 130:..//Libraries/XMCLib/inc/xmc_prng.h **** {
+ 131:..//Libraries/XMCLib/inc/xmc_prng.h ****   uint16_t key_words[5];                 /**< Keywords */
+ 132:..//Libraries/XMCLib/inc/xmc_prng.h ****   XMC_PRNG_DATA_BLOCK_SIZE_t block_size; /**< Block size */
+ 133:..//Libraries/XMCLib/inc/xmc_prng.h **** } XMC_PRNG_INIT_t;
+ 134:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+ 135:..//Libraries/XMCLib/inc/xmc_prng.h **** /**************************************************************************************************
+ 136:..//Libraries/XMCLib/inc/xmc_prng.h ****  * API PROTOTYPES
+ 137:..//Libraries/XMCLib/inc/xmc_prng.h ****  **************************************************************************************************
+ 138:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+ 139:..//Libraries/XMCLib/inc/xmc_prng.h **** #ifdef __cplusplus
+ 140:..//Libraries/XMCLib/inc/xmc_prng.h **** extern "C" {
+ 141:..//Libraries/XMCLib/inc/xmc_prng.h **** #endif
+ 142:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+ 143:..//Libraries/XMCLib/inc/xmc_prng.h **** /**
+ 144:..//Libraries/XMCLib/inc/xmc_prng.h ****  * @param prng Pointer to a constant instance of ::XMC_PRNG_INIT_t, pointing to
+ 145:..//Libraries/XMCLib/inc/xmc_prng.h ****  *             the initialization configuration.
+ 146:..//Libraries/XMCLib/inc/xmc_prng.h ****  * @return XMC_PRNG_INIT_STATUS_t XMC_PRNG_INITIALIZED if initialized,
+ 147:..//Libraries/XMCLib/inc/xmc_prng.h ****  *                                XMC_PRNG_NOT_INITIALIZED otherwise.
+ 148:..//Libraries/XMCLib/inc/xmc_prng.h ****  *
+ 149:..//Libraries/XMCLib/inc/xmc_prng.h ****  * \par<b>Description: </b><br>
+ 150:..//Libraries/XMCLib/inc/xmc_prng.h ****  * Initialize the PRNG peripheral with the configured key words and block size <br>
+ 151:..//Libraries/XMCLib/inc/xmc_prng.h ****  *
+ 152:..//Libraries/XMCLib/inc/xmc_prng.h ****  * \par
+ 153:..//Libraries/XMCLib/inc/xmc_prng.h ****  * The function configures block size for key loading mode, enables key loading mode,
+ 154:..//Libraries/XMCLib/inc/xmc_prng.h ****  * loads key words (80 bits) and wait till RDV is set, enables the streaming mode and
+ 155:..//Libraries/XMCLib/inc/xmc_prng.h ****  * waits for warmup phase. This function programmes the CTRL and WORD registers. 
+ 156:..//Libraries/XMCLib/inc/xmc_prng.h ****  */
+ 157:..//Libraries/XMCLib/inc/xmc_prng.h **** XMC_PRNG_INIT_STATUS_t XMC_PRNG_Init(const XMC_PRNG_INIT_t *prng);
+ 158:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+ 159:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+ 160:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+ 161:..//Libraries/XMCLib/inc/xmc_prng.h **** /**
+ 162:..//Libraries/XMCLib/inc/xmc_prng.h ****  * @param block_size Block size of type ::XMC_PRNG_DATA_BLOCK_SIZE_t for read access
+ 163:..//Libraries/XMCLib/inc/xmc_prng.h ****  * @return None
+ 164:..//Libraries/XMCLib/inc/xmc_prng.h ****  *
+ 165:..//Libraries/XMCLib/inc/xmc_prng.h ****  * \par<b>Description: </b><br>
+ 166:..//Libraries/XMCLib/inc/xmc_prng.h ****  * Programming Random Block Size <br>
+ 167:..//Libraries/XMCLib/inc/xmc_prng.h ****  *
+ 168:..//Libraries/XMCLib/inc/xmc_prng.h ****  * \par
+ 169:..//Libraries/XMCLib/inc/xmc_prng.h ****  * The function sets the random data block size as byte or word by programming CTRL.RDBS bitfield.
+ 170:..//Libraries/XMCLib/inc/xmc_prng.h ****  * block_size = 0 for Reset state, block_size = 1 for 'byte' and block_size = 2 for 'word'.
+ 171:..//Libraries/XMCLib/inc/xmc_prng.h ****  */
+ 172:..//Libraries/XMCLib/inc/xmc_prng.h **** __STATIC_INLINE void XMC_PRNG_SetRandomDataBlockSize(XMC_PRNG_DATA_BLOCK_SIZE_t block_size)
+ 173:..//Libraries/XMCLib/inc/xmc_prng.h **** {
+  26              	 .loc 1 173 1
+  27              	 .cfi_startproc
+  28              	 
+  29              	 
+  30 0000 80B5     	 push {r7,lr}
+  31              	.LCFI0:
+  32              	 .cfi_def_cfa_offset 8
+  33              	 .cfi_offset 7,-8
+  34              	 .cfi_offset 14,-4
+  35 0002 82B0     	 sub sp,sp,#8
+  36              	.LCFI1:
+  37              	 .cfi_def_cfa_offset 16
+  38 0004 00AF     	 add r7,sp,#0
+  39              	.LCFI2:
+  40              	 .cfi_def_cfa_register 7
+  41 0006 0200     	 movs r2,r0
+  42 0008 FB1D     	 adds r3,r7,#7
+  43 000a 1A70     	 strb r2,[r3]
+ 174:..//Libraries/XMCLib/inc/xmc_prng.h ****   PRNG->CTRL = (uint16_t)((PRNG->CTRL & (uint32_t)~PRNG_CTRL_RDBS_Msk) |
+  44              	 .loc 1 174 32
+  45 000c 094B     	 ldr r3,.L2
+  46 000e 9B89     	 ldrh r3,[r3,#12]
+  47 0010 9BB2     	 uxth r3,r3
+  48              	 .loc 1 174 39
+  49 0012 0622     	 movs r2,#6
+  50 0014 9343     	 bics r3,r2
+  51 0016 9AB2     	 uxth r2,r3
+ 175:..//Libraries/XMCLib/inc/xmc_prng.h ****                           ((uint32_t)block_size << (uint32_t)PRNG_CTRL_RDBS_Pos));
+  52              	 .loc 1 175 49
+  53 0018 FB1D     	 adds r3,r7,#7
+  54 001a 1B78     	 ldrb r3,[r3]
+  55 001c 9BB2     	 uxth r3,r3
+  56 001e DB18     	 adds r3,r3,r3
+  57 0020 9BB2     	 uxth r3,r3
+ 174:..//Libraries/XMCLib/inc/xmc_prng.h ****   PRNG->CTRL = (uint16_t)((PRNG->CTRL & (uint32_t)~PRNG_CTRL_RDBS_Msk) |
+  58              	 .loc 1 174 7
+  59 0022 0449     	 ldr r1,.L2
+ 174:..//Libraries/XMCLib/inc/xmc_prng.h ****   PRNG->CTRL = (uint16_t)((PRNG->CTRL & (uint32_t)~PRNG_CTRL_RDBS_Msk) |
+  60              	 .loc 1 174 16
+  61 0024 1343     	 orrs r3,r2
+  62 0026 9BB2     	 uxth r3,r3
+ 174:..//Libraries/XMCLib/inc/xmc_prng.h ****   PRNG->CTRL = (uint16_t)((PRNG->CTRL & (uint32_t)~PRNG_CTRL_RDBS_Msk) |
+  63              	 .loc 1 174 14
+  64 0028 8B81     	 strh r3,[r1,#12]
+ 176:..//Libraries/XMCLib/inc/xmc_prng.h **** }
+  65              	 .loc 1 176 1
+  66 002a C046     	 nop
+  67 002c BD46     	 mov sp,r7
+  68 002e 02B0     	 add sp,sp,#8
+  69              	 
+  70 0030 80BD     	 pop {r7,pc}
+  71              	.L3:
+  72 0032 C046     	 .align 2
+  73              	.L2:
+  74 0034 00000248 	 .word 1208090624
+  75              	 .cfi_endproc
+  76              	.LFE41:
+  78              	 .section .text.XMC_PRNG_CheckValidStatus,"ax",%progbits
+  79              	 .align 1
+  80              	 .syntax unified
+  81              	 .code 16
+  82              	 .thumb_func
+  83              	 .fpu softvfp
+  85              	XMC_PRNG_CheckValidStatus:
+  86              	.LFB42:
+ 177:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+ 178:..//Libraries/XMCLib/inc/xmc_prng.h **** /**
+ 179:..//Libraries/XMCLib/inc/xmc_prng.h ****  * @return None
+ 180:..//Libraries/XMCLib/inc/xmc_prng.h ****  *
+ 181:..//Libraries/XMCLib/inc/xmc_prng.h ****  * \par<b>Description: </b><br>
+ 182:..//Libraries/XMCLib/inc/xmc_prng.h ****  * Checks the validity (CHK.RDV bit) of the generated random data <br>
+ 183:..//Libraries/XMCLib/inc/xmc_prng.h ****  *
+ 184:..//Libraries/XMCLib/inc/xmc_prng.h ****  * \par
+ 185:..//Libraries/XMCLib/inc/xmc_prng.h ****  * The function checks the validity (CHK.RDV bit) of the generated random data.
+ 186:..//Libraries/XMCLib/inc/xmc_prng.h ****  * In key loading mode, this value indicates if the next partial key word can be written
+ 187:..//Libraries/XMCLib/inc/xmc_prng.h ****  * to PRNG_WORD or not.
+ 188:..//Libraries/XMCLib/inc/xmc_prng.h ****  */
+ 189:..//Libraries/XMCLib/inc/xmc_prng.h **** __STATIC_INLINE uint16_t XMC_PRNG_CheckValidStatus(void)
+ 190:..//Libraries/XMCLib/inc/xmc_prng.h **** {
+  87              	 .loc 1 190 1
+  88              	 .cfi_startproc
+  89              	 
+  90              	 
+  91 0000 80B5     	 push {r7,lr}
+  92              	.LCFI3:
+  93              	 .cfi_def_cfa_offset 8
+  94              	 .cfi_offset 7,-8
+  95              	 .cfi_offset 14,-4
+  96 0002 00AF     	 add r7,sp,#0
+  97              	.LCFI4:
+  98              	 .cfi_def_cfa_register 7
+ 191:..//Libraries/XMCLib/inc/xmc_prng.h ****   return (PRNG->CHK & PRNG_CHK_RDV_Msk);
+  99              	 .loc 1 191 15
+ 100 0004 044B     	 ldr r3,.L6
+ 101 0006 9B88     	 ldrh r3,[r3,#4]
+ 102 0008 9BB2     	 uxth r3,r3
+ 103              	 .loc 1 191 21
+ 104 000a 0122     	 movs r2,#1
+ 105 000c 1340     	 ands r3,r2
+ 106 000e 9BB2     	 uxth r3,r3
+ 192:..//Libraries/XMCLib/inc/xmc_prng.h **** }
+ 107              	 .loc 1 192 1
+ 108 0010 1800     	 movs r0,r3
+ 109 0012 BD46     	 mov sp,r7
+ 110              	 
+ 111 0014 80BD     	 pop {r7,pc}
+ 112              	.L7:
+ 113 0016 C046     	 .align 2
+ 114              	.L6:
+ 115 0018 00000248 	 .word 1208090624
+ 116              	 .cfi_endproc
+ 117              	.LFE42:
+ 119              	 .section .text.XMC_PRNG_EnableKeyLoadingMode,"ax",%progbits
+ 120              	 .align 1
+ 121              	 .syntax unified
+ 122              	 .code 16
+ 123              	 .thumb_func
+ 124              	 .fpu softvfp
+ 126              	XMC_PRNG_EnableKeyLoadingMode:
+ 127              	.LFB43:
+ 193:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+ 194:..//Libraries/XMCLib/inc/xmc_prng.h **** /**
+ 195:..//Libraries/XMCLib/inc/xmc_prng.h ****  * @return None
+ 196:..//Libraries/XMCLib/inc/xmc_prng.h ****  *
+ 197:..//Libraries/XMCLib/inc/xmc_prng.h ****  * \par<b>Description: </b><br>
+ 198:..//Libraries/XMCLib/inc/xmc_prng.h ****  * Enables the PRNG key loading mode <br>
+ 199:..//Libraries/XMCLib/inc/xmc_prng.h ****  *
+ 200:..//Libraries/XMCLib/inc/xmc_prng.h ****  * \par
+ 201:..//Libraries/XMCLib/inc/xmc_prng.h ****  * The function initializes the key loading by setting the bit CTRL.KLD. In this mode, Register WOR
+ 202:..//Libraries/XMCLib/inc/xmc_prng.h ****  * acts as always as a 16 bit destination register. After the complete key has been loaded, the CTR
+ 203:..//Libraries/XMCLib/inc/xmc_prng.h ****  * must be set to '0' to prepare the following warmup phase.
+ 204:..//Libraries/XMCLib/inc/xmc_prng.h ****  *
+ 205:..//Libraries/XMCLib/inc/xmc_prng.h ****  * \par<b>Related APIs:</b><br>
+ 206:..//Libraries/XMCLib/inc/xmc_prng.h ****  * XMC_PRNG_EnableStreamingMode()
+ 207:..//Libraries/XMCLib/inc/xmc_prng.h ****  */
+ 208:..//Libraries/XMCLib/inc/xmc_prng.h **** __STATIC_INLINE void XMC_PRNG_EnableKeyLoadingMode(void)
+ 209:..//Libraries/XMCLib/inc/xmc_prng.h **** {
+ 128              	 .loc 1 209 1
+ 129              	 .cfi_startproc
+ 130              	 
+ 131              	 
+ 132 0000 80B5     	 push {r7,lr}
+ 133              	.LCFI5:
+ 134              	 .cfi_def_cfa_offset 8
+ 135              	 .cfi_offset 7,-8
+ 136              	 .cfi_offset 14,-4
+ 137 0002 00AF     	 add r7,sp,#0
+ 138              	.LCFI6:
+ 139              	 .cfi_def_cfa_register 7
+ 210:..//Libraries/XMCLib/inc/xmc_prng.h ****   PRNG->CTRL |= (uint16_t)PRNG_CTRL_KLD_Msk;
+ 140              	 .loc 1 210 14
+ 141 0004 054B     	 ldr r3,.L9
+ 142 0006 9B89     	 ldrh r3,[r3,#12]
+ 143 0008 9BB2     	 uxth r3,r3
+ 144 000a 044A     	 ldr r2,.L9
+ 145 000c 0821     	 movs r1,#8
+ 146 000e 0B43     	 orrs r3,r1
+ 147 0010 9BB2     	 uxth r3,r3
+ 148 0012 9381     	 strh r3,[r2,#12]
+ 211:..//Libraries/XMCLib/inc/xmc_prng.h **** }
+ 149              	 .loc 1 211 1
+ 150 0014 C046     	 nop
+ 151 0016 BD46     	 mov sp,r7
+ 152              	 
+ 153 0018 80BD     	 pop {r7,pc}
+ 154              	.L10:
+ 155 001a C046     	 .align 2
+ 156              	.L9:
+ 157 001c 00000248 	 .word 1208090624
+ 158              	 .cfi_endproc
+ 159              	.LFE43:
+ 161              	 .section .text.XMC_PRNG_EnableStreamingMode,"ax",%progbits
+ 162              	 .align 1
+ 163              	 .syntax unified
+ 164              	 .code 16
+ 165              	 .thumb_func
+ 166              	 .fpu softvfp
+ 168              	XMC_PRNG_EnableStreamingMode:
+ 169              	.LFB44:
+ 212:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+ 213:..//Libraries/XMCLib/inc/xmc_prng.h **** /**
+ 214:..//Libraries/XMCLib/inc/xmc_prng.h ****  * @return None
+ 215:..//Libraries/XMCLib/inc/xmc_prng.h ****  *
+ 216:..//Libraries/XMCLib/inc/xmc_prng.h ****  * \par<b>Description: </b><br>
+ 217:..//Libraries/XMCLib/inc/xmc_prng.h ****  * Enables the Streaming mode <br>
+ 218:..//Libraries/XMCLib/inc/xmc_prng.h ****  *
+ 219:..//Libraries/XMCLib/inc/xmc_prng.h ****  * \par
+ 220:..//Libraries/XMCLib/inc/xmc_prng.h ****  * The function enables the streaming mode and disables the PRNG key loading mode by resetting the
+ 221:..//Libraries/XMCLib/inc/xmc_prng.h ****  * CTRL.KLD bit. 
+ 222:..//Libraries/XMCLib/inc/xmc_prng.h ****  *
+ 223:..//Libraries/XMCLib/inc/xmc_prng.h ****  * \par<b>Related APIs:</b><br>
+ 224:..//Libraries/XMCLib/inc/xmc_prng.h ****  * XMC_PRNG_EnableKeyLoadingMode()
+ 225:..//Libraries/XMCLib/inc/xmc_prng.h ****  */
+ 226:..//Libraries/XMCLib/inc/xmc_prng.h **** __STATIC_INLINE void XMC_PRNG_EnableStreamingMode(void)
+ 227:..//Libraries/XMCLib/inc/xmc_prng.h **** {
+ 170              	 .loc 1 227 1
+ 171              	 .cfi_startproc
+ 172              	 
+ 173              	 
+ 174 0000 80B5     	 push {r7,lr}
+ 175              	.LCFI7:
+ 176              	 .cfi_def_cfa_offset 8
+ 177              	 .cfi_offset 7,-8
+ 178              	 .cfi_offset 14,-4
+ 179 0002 00AF     	 add r7,sp,#0
+ 180              	.LCFI8:
+ 181              	 .cfi_def_cfa_register 7
+ 228:..//Libraries/XMCLib/inc/xmc_prng.h ****   PRNG->CTRL &= (uint16_t)~PRNG_CTRL_KLD_Msk;
+ 182              	 .loc 1 228 14
+ 183 0004 054B     	 ldr r3,.L12
+ 184 0006 9B89     	 ldrh r3,[r3,#12]
+ 185 0008 9BB2     	 uxth r3,r3
+ 186 000a 044A     	 ldr r2,.L12
+ 187 000c 0821     	 movs r1,#8
+ 188 000e 8B43     	 bics r3,r1
+ 189 0010 9BB2     	 uxth r3,r3
+ 190 0012 9381     	 strh r3,[r2,#12]
+ 229:..//Libraries/XMCLib/inc/xmc_prng.h **** }
+ 191              	 .loc 1 229 1
+ 192 0014 C046     	 nop
+ 193 0016 BD46     	 mov sp,r7
+ 194              	 
+ 195 0018 80BD     	 pop {r7,pc}
+ 196              	.L13:
+ 197 001a C046     	 .align 2
+ 198              	.L12:
+ 199 001c 00000248 	 .word 1208090624
+ 200              	 .cfi_endproc
+ 201              	.LFE44:
+ 203              	 .section .text.XMC_PRNG_LoadKeyWords,"ax",%progbits
+ 204              	 .align 1
+ 205              	 .syntax unified
+ 206              	 .code 16
+ 207              	 .thumb_func
+ 208              	 .fpu softvfp
+ 210              	XMC_PRNG_LoadKeyWords:
+ 211              	.LFB45:
+ 230:..//Libraries/XMCLib/inc/xmc_prng.h **** 
+ 231:..//Libraries/XMCLib/inc/xmc_prng.h **** /**
+ 232:..//Libraries/XMCLib/inc/xmc_prng.h ****  * @param key Key word to load into PRNG WORD register
+ 233:..//Libraries/XMCLib/inc/xmc_prng.h ****  * @return None
+ 234:..//Libraries/XMCLib/inc/xmc_prng.h ****  *
+ 235:..//Libraries/XMCLib/inc/xmc_prng.h ****  * \par<b>Description: </b><br>
+ 236:..//Libraries/XMCLib/inc/xmc_prng.h ****  * Loads a partial key word to the PRNG WORD register <br>
+ 237:..//Libraries/XMCLib/inc/xmc_prng.h ****  *
+ 238:..//Libraries/XMCLib/inc/xmc_prng.h ****  * \par
+ 239:..//Libraries/XMCLib/inc/xmc_prng.h ****  * The function loads partial key word to WORD registr. These partial
+ 240:..//Libraries/XMCLib/inc/xmc_prng.h ****  * words are sequentially written and loading a key word will take 16 clock
+ 241:..//Libraries/XMCLib/inc/xmc_prng.h ****  * cycles. The CHK.RDV bit is set to '0' while loading is in progress. '1' indicates
+ 242:..//Libraries/XMCLib/inc/xmc_prng.h ****  * that the next partial key word can be written to WORD register. 
+ 243:..//Libraries/XMCLib/inc/xmc_prng.h ****  */
+ 244:..//Libraries/XMCLib/inc/xmc_prng.h **** __STATIC_INLINE void XMC_PRNG_LoadKeyWords(uint16_t key)
+ 245:..//Libraries/XMCLib/inc/xmc_prng.h **** {
+ 212              	 .loc 1 245 1
+ 213              	 .cfi_startproc
+ 214              	 
+ 215              	 
+ 216 0000 80B5     	 push {r7,lr}
+ 217              	.LCFI9:
+ 218              	 .cfi_def_cfa_offset 8
+ 219              	 .cfi_offset 7,-8
+ 220              	 .cfi_offset 14,-4
+ 221 0002 82B0     	 sub sp,sp,#8
+ 222              	.LCFI10:
+ 223              	 .cfi_def_cfa_offset 16
+ 224 0004 00AF     	 add r7,sp,#0
+ 225              	.LCFI11:
+ 226              	 .cfi_def_cfa_register 7
+ 227 0006 0200     	 movs r2,r0
+ 228 0008 BB1D     	 adds r3,r7,#6
+ 229 000a 1A80     	 strh r2,[r3]
+ 246:..//Libraries/XMCLib/inc/xmc_prng.h ****   PRNG->WORD = key;
+ 230              	 .loc 1 246 7
+ 231 000c 034A     	 ldr r2,.L15
+ 232              	 .loc 1 246 14
+ 233 000e BB1D     	 adds r3,r7,#6
+ 234 0010 1B88     	 ldrh r3,[r3]
+ 235 0012 1380     	 strh r3,[r2]
+ 247:..//Libraries/XMCLib/inc/xmc_prng.h **** }
+ 236              	 .loc 1 247 1
+ 237 0014 C046     	 nop
+ 238 0016 BD46     	 mov sp,r7
+ 239 0018 02B0     	 add sp,sp,#8
+ 240              	 
+ 241 001a 80BD     	 pop {r7,pc}
+ 242              	.L16:
+ 243              	 .align 2
+ 244              	.L15:
+ 245 001c 00000248 	 .word 1208090624
+ 246              	 .cfi_endproc
+ 247              	.LFE45:
+ 249              	 .section .text.XMC_PRNG_Init,"ax",%progbits
+ 250              	 .align 1
+ 251              	 .global XMC_PRNG_Init
+ 252              	 .syntax unified
+ 253              	 .code 16
+ 254              	 .thumb_func
+ 255              	 .fpu softvfp
+ 257              	XMC_PRNG_Init:
+ 258              	.LFB47:
+ 259              	 .file 2 "../Libraries/XMCLib/src/xmc_prng.c"
+   1:../Libraries/XMCLib/src/xmc_prng.c **** 
+   2:../Libraries/XMCLib/src/xmc_prng.c **** /**
+   3:../Libraries/XMCLib/src/xmc_prng.c ****  * @file xmc_prng.c
+   4:../Libraries/XMCLib/src/xmc_prng.c ****  * @date 2015-06-20
+   5:../Libraries/XMCLib/src/xmc_prng.c ****  *
+   6:../Libraries/XMCLib/src/xmc_prng.c ****  * @cond
+   7:../Libraries/XMCLib/src/xmc_prng.c ****  **************************************************************************************************
+   8:../Libraries/XMCLib/src/xmc_prng.c ****  * XMClib v2.1.18 - XMC Peripheral Driver Library 
+   9:../Libraries/XMCLib/src/xmc_prng.c ****  *
+  10:../Libraries/XMCLib/src/xmc_prng.c ****  * Copyright (c) 2015-2018, Infineon Technologies AG
+  11:../Libraries/XMCLib/src/xmc_prng.c ****  * All rights reserved.                        
+  12:../Libraries/XMCLib/src/xmc_prng.c ****  *                                             
+  13:../Libraries/XMCLib/src/xmc_prng.c ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  14:../Libraries/XMCLib/src/xmc_prng.c ****  * following conditions are met:   
+  15:../Libraries/XMCLib/src/xmc_prng.c ****  *                                                                              
+  16:../Libraries/XMCLib/src/xmc_prng.c ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  17:../Libraries/XMCLib/src/xmc_prng.c ****  * disclaimer.                        
+  18:../Libraries/XMCLib/src/xmc_prng.c ****  * 
+  19:../Libraries/XMCLib/src/xmc_prng.c ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  20:../Libraries/XMCLib/src/xmc_prng.c ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  21:../Libraries/XMCLib/src/xmc_prng.c ****  * 
+  22:../Libraries/XMCLib/src/xmc_prng.c ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  23:../Libraries/XMCLib/src/xmc_prng.c ****  * products derived from this software without specific prior written permission.                  
+  24:../Libraries/XMCLib/src/xmc_prng.c ****  *                                                                              
+  25:../Libraries/XMCLib/src/xmc_prng.c ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  26:../Libraries/XMCLib/src/xmc_prng.c ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  27:../Libraries/XMCLib/src/xmc_prng.c ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  28:../Libraries/XMCLib/src/xmc_prng.c ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  29:../Libraries/XMCLib/src/xmc_prng.c ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  30:../Libraries/XMCLib/src/xmc_prng.c ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  31:../Libraries/XMCLib/src/xmc_prng.c ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  32:../Libraries/XMCLib/src/xmc_prng.c ****  *                                                                              
+  33:../Libraries/XMCLib/src/xmc_prng.c ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  34:../Libraries/XMCLib/src/xmc_prng.c ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  35:../Libraries/XMCLib/src/xmc_prng.c ****  **************************************************************************************************
+  36:../Libraries/XMCLib/src/xmc_prng.c ****  *
+  37:../Libraries/XMCLib/src/xmc_prng.c ****  * Change History
+  38:../Libraries/XMCLib/src/xmc_prng.c ****  * --------------
+  39:../Libraries/XMCLib/src/xmc_prng.c ****  *
+  40:../Libraries/XMCLib/src/xmc_prng.c ****  * 2015-02-20:
+  41:../Libraries/XMCLib/src/xmc_prng.c ****  *     - Initial <br>
+  42:../Libraries/XMCLib/src/xmc_prng.c ****  *     - Removed GetDriverVersion API <br>
+  43:../Libraries/XMCLib/src/xmc_prng.c ****  *
+  44:../Libraries/XMCLib/src/xmc_prng.c ****  * 2015-06-20
+  45:../Libraries/XMCLib/src/xmc_prng.c ****  *     - Removed definition of GetDriverVersion API <br>
+  46:../Libraries/XMCLib/src/xmc_prng.c ****  *
+  47:../Libraries/XMCLib/src/xmc_prng.c ****  * @endcond
+  48:../Libraries/XMCLib/src/xmc_prng.c ****  */
+  49:../Libraries/XMCLib/src/xmc_prng.c ****  
+  50:../Libraries/XMCLib/src/xmc_prng.c **** #include "xmc_prng.h"
+  51:../Libraries/XMCLib/src/xmc_prng.c **** 
+  52:../Libraries/XMCLib/src/xmc_prng.c **** #if defined (PRNG)
+  53:../Libraries/XMCLib/src/xmc_prng.c **** 
+  54:../Libraries/XMCLib/src/xmc_prng.c **** /**************************************************************************************************
+  55:../Libraries/XMCLib/src/xmc_prng.c ****  * API IMPLEMENTATION
+  56:../Libraries/XMCLib/src/xmc_prng.c ****  **************************************************************************************************
+  57:../Libraries/XMCLib/src/xmc_prng.c ****  
+  58:../Libraries/XMCLib/src/xmc_prng.c **** /*
+  59:../Libraries/XMCLib/src/xmc_prng.c ****  * Initializes the PRNG peripheral with the settings in the
+  60:../Libraries/XMCLib/src/xmc_prng.c ****  * initialization structure XMC_PRNG_INIT_t
+  61:../Libraries/XMCLib/src/xmc_prng.c ****  */
+  62:../Libraries/XMCLib/src/xmc_prng.c **** XMC_PRNG_INIT_STATUS_t XMC_PRNG_Init(const XMC_PRNG_INIT_t *prng)
+  63:../Libraries/XMCLib/src/xmc_prng.c **** {
+ 260              	 .loc 2 63 1
+ 261              	 .cfi_startproc
+ 262              	 
+ 263              	 
+ 264 0000 80B5     	 push {r7,lr}
+ 265              	.LCFI12:
+ 266              	 .cfi_def_cfa_offset 8
+ 267              	 .cfi_offset 7,-8
+ 268              	 .cfi_offset 14,-4
+ 269 0002 84B0     	 sub sp,sp,#16
+ 270              	.LCFI13:
+ 271              	 .cfi_def_cfa_offset 24
+ 272 0004 00AF     	 add r7,sp,#0
+ 273              	.LCFI14:
+ 274              	 .cfi_def_cfa_register 7
+ 275 0006 7860     	 str r0,[r7,#4]
+  64:../Libraries/XMCLib/src/xmc_prng.c ****   volatile uint16_t read_warm_up;
+  65:../Libraries/XMCLib/src/xmc_prng.c ****   uint16_t reg_val, iter;
+  66:../Libraries/XMCLib/src/xmc_prng.c ****   XMC_PRNG_INIT_STATUS_t status = XMC_PRNG_INITIALIZED;
+ 276              	 .loc 2 66 26
+ 277 0008 0D23     	 movs r3,#13
+ 278 000a FB18     	 adds r3,r7,r3
+ 279 000c 0122     	 movs r2,#1
+ 280 000e 1A70     	 strb r2,[r3]
+  67:../Libraries/XMCLib/src/xmc_prng.c ****   
+  68:../Libraries/XMCLib/src/xmc_prng.c ****   XMC_ASSERT("XMC_PRNG_Init:Null Pointer", (prng != (XMC_PRNG_INIT_t *)NULL));
+  69:../Libraries/XMCLib/src/xmc_prng.c **** 
+  70:../Libraries/XMCLib/src/xmc_prng.c ****   /* Configure block size for key loading mode */
+  71:../Libraries/XMCLib/src/xmc_prng.c ****   XMC_PRNG_SetRandomDataBlockSize(XMC_PRNG_RDBS_WORD);
+ 281              	 .loc 2 71 3
+ 282 0010 0220     	 movs r0,#2
+ 283 0012 FFF7FEFF 	 bl XMC_PRNG_SetRandomDataBlockSize
+  72:../Libraries/XMCLib/src/xmc_prng.c **** 
+  73:../Libraries/XMCLib/src/xmc_prng.c ****   /* Enable key loading mode */
+  74:../Libraries/XMCLib/src/xmc_prng.c ****   XMC_PRNG_EnableKeyLoadingMode();
+ 284              	 .loc 2 74 3
+ 285 0016 FFF7FEFF 	 bl XMC_PRNG_EnableKeyLoadingMode
+  75:../Libraries/XMCLib/src/xmc_prng.c **** 
+  76:../Libraries/XMCLib/src/xmc_prng.c ****   /* Load key words (80 bits) and wait till RDV is set */
+  77:../Libraries/XMCLib/src/xmc_prng.c ****   for (iter = (uint16_t)0UL; iter < (uint16_t)5UL; iter++)
+ 286              	 .loc 2 77 13
+ 287 001a 0E23     	 movs r3,#14
+ 288 001c FB18     	 adds r3,r7,r3
+ 289 001e 0022     	 movs r2,#0
+ 290 0020 1A80     	 strh r2,[r3]
+ 291              	 .loc 2 77 3
+ 292 0022 14E0     	 b .L18
+ 293              	.L20:
+  78:../Libraries/XMCLib/src/xmc_prng.c ****   {
+  79:../Libraries/XMCLib/src/xmc_prng.c ****     XMC_PRNG_LoadKeyWords(prng->key_words[iter]);
+ 294              	 .loc 2 79 5
+ 295 0024 0E23     	 movs r3,#14
+ 296 0026 FB18     	 adds r3,r7,r3
+ 297 0028 1A88     	 ldrh r2,[r3]
+ 298 002a 7B68     	 ldr r3,[r7,#4]
+ 299 002c 5200     	 lsls r2,r2,#1
+ 300 002e D35A     	 ldrh r3,[r2,r3]
+ 301 0030 1800     	 movs r0,r3
+ 302 0032 FFF7FEFF 	 bl XMC_PRNG_LoadKeyWords
+  80:../Libraries/XMCLib/src/xmc_prng.c ****     while (PRNG_CHK_RDV_Msk != XMC_PRNG_CheckValidStatus());
+ 303              	 .loc 2 80 11
+ 304 0036 C046     	 nop
+ 305              	.L19:
+ 306              	 .loc 2 80 32 discriminator 1
+ 307 0038 FFF7FEFF 	 bl XMC_PRNG_CheckValidStatus
+ 308 003c 0300     	 movs r3,r0
+ 309              	 .loc 2 80 11 discriminator 1
+ 310 003e 012B     	 cmp r3,#1
+ 311 0040 FAD1     	 bne .L19
+  77:../Libraries/XMCLib/src/xmc_prng.c ****   {
+ 312              	 .loc 2 77 56 discriminator 2
+ 313 0042 0E21     	 movs r1,#14
+ 314 0044 7B18     	 adds r3,r7,r1
+ 315 0046 1A88     	 ldrh r2,[r3]
+ 316 0048 7B18     	 adds r3,r7,r1
+ 317 004a 0132     	 adds r2,r2,#1
+ 318 004c 1A80     	 strh r2,[r3]
+ 319              	.L18:
+  77:../Libraries/XMCLib/src/xmc_prng.c ****   {
+ 320              	 .loc 2 77 3 discriminator 1
+ 321 004e 0E23     	 movs r3,#14
+ 322 0050 FB18     	 adds r3,r7,r3
+ 323 0052 1B88     	 ldrh r3,[r3]
+ 324 0054 042B     	 cmp r3,#4
+ 325 0056 E5D9     	 bls .L20
+  81:../Libraries/XMCLib/src/xmc_prng.c ****   }
+  82:../Libraries/XMCLib/src/xmc_prng.c ****   
+  83:../Libraries/XMCLib/src/xmc_prng.c ****   XMC_PRNG_EnableStreamingMode();
+ 326              	 .loc 2 83 3
+ 327 0058 FFF7FEFF 	 bl XMC_PRNG_EnableStreamingMode
+  84:../Libraries/XMCLib/src/xmc_prng.c **** 
+  85:../Libraries/XMCLib/src/xmc_prng.c ****   /* Warm up phase: Read and discard 64 bits */
+  86:../Libraries/XMCLib/src/xmc_prng.c ****   read_warm_up = PRNG->WORD;
+ 328              	 .loc 2 86 22
+ 329 005c 1A4B     	 ldr r3,.L23
+ 330 005e 1B88     	 ldrh r3,[r3]
+ 331 0060 9AB2     	 uxth r2,r3
+ 332              	 .loc 2 86 16
+ 333 0062 0821     	 movs r1,#8
+ 334 0064 7B18     	 adds r3,r7,r1
+ 335 0066 1A80     	 strh r2,[r3]
+  87:../Libraries/XMCLib/src/xmc_prng.c ****   read_warm_up = PRNG->WORD;
+ 336              	 .loc 2 87 22
+ 337 0068 174B     	 ldr r3,.L23
+ 338 006a 1B88     	 ldrh r3,[r3]
+ 339 006c 9AB2     	 uxth r2,r3
+ 340              	 .loc 2 87 16
+ 341 006e 7B18     	 adds r3,r7,r1
+ 342 0070 1A80     	 strh r2,[r3]
+  88:../Libraries/XMCLib/src/xmc_prng.c ****   read_warm_up = PRNG->WORD;
+ 343              	 .loc 2 88 22
+ 344 0072 154B     	 ldr r3,.L23
+ 345 0074 1B88     	 ldrh r3,[r3]
+ 346 0076 9AB2     	 uxth r2,r3
+ 347              	 .loc 2 88 16
+ 348 0078 7B18     	 adds r3,r7,r1
+ 349 007a 1A80     	 strh r2,[r3]
+  89:../Libraries/XMCLib/src/xmc_prng.c ****   reg_val      = PRNG->WORD;
+ 350              	 .loc 2 89 22
+ 351 007c 124A     	 ldr r2,.L23
+ 352              	 .loc 2 89 16
+ 353 007e 0A20     	 movs r0,#10
+ 354 0080 3B18     	 adds r3,r7,r0
+ 355 0082 1288     	 ldrh r2,[r2]
+ 356 0084 1A80     	 strh r2,[r3]
+  90:../Libraries/XMCLib/src/xmc_prng.c ****   read_warm_up &= reg_val;
+ 357              	 .loc 2 90 16
+ 358 0086 7B18     	 adds r3,r7,r1
+ 359 0088 1B88     	 ldrh r3,[r3]
+ 360 008a 9BB2     	 uxth r3,r3
+ 361 008c 3A18     	 adds r2,r7,r0
+ 362 008e 1288     	 ldrh r2,[r2]
+ 363 0090 1340     	 ands r3,r2
+ 364 0092 9AB2     	 uxth r2,r3
+ 365 0094 7B18     	 adds r3,r7,r1
+ 366 0096 1A80     	 strh r2,[r3]
+  91:../Libraries/XMCLib/src/xmc_prng.c **** 
+  92:../Libraries/XMCLib/src/xmc_prng.c ****   /* Configure block size either byte (8 bit) or word (16 bit) */
+  93:../Libraries/XMCLib/src/xmc_prng.c ****   XMC_PRNG_SetRandomDataBlockSize(prng->block_size);
+ 367              	 .loc 2 93 3
+ 368 0098 7B68     	 ldr r3,[r7,#4]
+ 369 009a 9B7A     	 ldrb r3,[r3,#10]
+ 370 009c 1800     	 movs r0,r3
+ 371 009e FFF7FEFF 	 bl XMC_PRNG_SetRandomDataBlockSize
+  94:../Libraries/XMCLib/src/xmc_prng.c **** 
+  95:../Libraries/XMCLib/src/xmc_prng.c ****   /*
+  96:../Libraries/XMCLib/src/xmc_prng.c ****    * Checks for reset value for "random data block size". If reset,
+  97:../Libraries/XMCLib/src/xmc_prng.c ****    * PRNG is not initialized
+  98:../Libraries/XMCLib/src/xmc_prng.c ****    */
+  99:../Libraries/XMCLib/src/xmc_prng.c ****   if ((uint16_t)XMC_PRNG_RDBS_RESET == (PRNG->CTRL & (uint16_t)PRNG_CTRL_RDBS_Msk))
+ 372              	 .loc 2 99 45
+ 373 00a2 094B     	 ldr r3,.L23
+ 374 00a4 9B89     	 ldrh r3,[r3,#12]
+ 375 00a6 9BB2     	 uxth r3,r3
+ 376              	 .loc 2 99 52
+ 377 00a8 1A00     	 movs r2,r3
+ 378 00aa 0623     	 movs r3,#6
+ 379 00ac 1340     	 ands r3,r2
+ 380              	 .loc 2 99 6
+ 381 00ae 03D1     	 bne .L21
+ 100:../Libraries/XMCLib/src/xmc_prng.c ****   {
+ 101:../Libraries/XMCLib/src/xmc_prng.c ****     status = XMC_PRNG_NOT_INITIALIZED;
+ 382              	 .loc 2 101 12
+ 383 00b0 0D23     	 movs r3,#13
+ 384 00b2 FB18     	 adds r3,r7,r3
+ 385 00b4 0022     	 movs r2,#0
+ 386 00b6 1A70     	 strb r2,[r3]
+ 387              	.L21:
+ 102:../Libraries/XMCLib/src/xmc_prng.c ****   }
+ 103:../Libraries/XMCLib/src/xmc_prng.c **** 
+ 104:../Libraries/XMCLib/src/xmc_prng.c ****   return status;
+ 388              	 .loc 2 104 10
+ 389 00b8 0D23     	 movs r3,#13
+ 390 00ba FB18     	 adds r3,r7,r3
+ 391 00bc 1B78     	 ldrb r3,[r3]
+ 105:../Libraries/XMCLib/src/xmc_prng.c **** }
+ 392              	 .loc 2 105 1
+ 393 00be 1800     	 movs r0,r3
+ 394 00c0 BD46     	 mov sp,r7
+ 395 00c2 04B0     	 add sp,sp,#16
+ 396              	 
+ 397 00c4 80BD     	 pop {r7,pc}
+ 398              	.L24:
+ 399 00c6 C046     	 .align 2
+ 400              	.L23:
+ 401 00c8 00000248 	 .word 1208090624
+ 402              	 .cfi_endproc
+ 403              	.LFE47:
+ 405              	 .text
+ 406              	.Letext0:
+ 407              	 .file 3 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_default_types.h"
+ 408              	 .file 4 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 409              	 .file 5 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.h"
+ 410              	 .file 6 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_types.h"
+ 411              	 .file 7 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 412              	 .file 8 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reent.h"
+ 413              	 .file 9 "..//Libraries/CMSIS/Infineon/XMC1300_series/Include/system_XMC1300.h"
+ 414              	 .file 10 "..//Libraries/CMSIS/Infineon/XMC1300_series/Include/XMC1300.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 xmc_prng.c
+    {standard input}:16     .text.XMC_PRNG_SetRandomDataBlockSize:0000000000000000 $t
+    {standard input}:23     .text.XMC_PRNG_SetRandomDataBlockSize:0000000000000000 XMC_PRNG_SetRandomDataBlockSize
+    {standard input}:74     .text.XMC_PRNG_SetRandomDataBlockSize:0000000000000034 $d
+    {standard input}:79     .text.XMC_PRNG_CheckValidStatus:0000000000000000 $t
+    {standard input}:85     .text.XMC_PRNG_CheckValidStatus:0000000000000000 XMC_PRNG_CheckValidStatus
+    {standard input}:115    .text.XMC_PRNG_CheckValidStatus:0000000000000018 $d
+    {standard input}:120    .text.XMC_PRNG_EnableKeyLoadingMode:0000000000000000 $t
+    {standard input}:126    .text.XMC_PRNG_EnableKeyLoadingMode:0000000000000000 XMC_PRNG_EnableKeyLoadingMode
+    {standard input}:157    .text.XMC_PRNG_EnableKeyLoadingMode:000000000000001c $d
+    {standard input}:162    .text.XMC_PRNG_EnableStreamingMode:0000000000000000 $t
+    {standard input}:168    .text.XMC_PRNG_EnableStreamingMode:0000000000000000 XMC_PRNG_EnableStreamingMode
+    {standard input}:199    .text.XMC_PRNG_EnableStreamingMode:000000000000001c $d
+    {standard input}:204    .text.XMC_PRNG_LoadKeyWords:0000000000000000 $t
+    {standard input}:210    .text.XMC_PRNG_LoadKeyWords:0000000000000000 XMC_PRNG_LoadKeyWords
+    {standard input}:245    .text.XMC_PRNG_LoadKeyWords:000000000000001c $d
+    {standard input}:250    .text.XMC_PRNG_Init:0000000000000000 $t
+    {standard input}:257    .text.XMC_PRNG_Init:0000000000000000 XMC_PRNG_Init
+    {standard input}:401    .text.XMC_PRNG_Init:00000000000000c8 $d
+
+NO UNDEFINED SYMBOLS

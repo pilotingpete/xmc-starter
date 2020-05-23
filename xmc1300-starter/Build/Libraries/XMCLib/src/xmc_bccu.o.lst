@@ -1,0 +1,3141 @@
+   1              	 .cpu cortex-m0
+   2              	 .eabi_attribute 20,1
+   3              	 .eabi_attribute 21,1
+   4              	 .eabi_attribute 23,3
+   5              	 .eabi_attribute 24,1
+   6              	 .eabi_attribute 25,1
+   7              	 .eabi_attribute 26,1
+   8              	 .eabi_attribute 30,6
+   9              	 .eabi_attribute 34,0
+  10              	 .eabi_attribute 18,4
+  11              	 .file "xmc_bccu.c"
+  12              	 .text
+  13              	.Ltext0:
+  14              	 .cfi_sections .debug_frame
+  15              	 .section .text.XMC_BCCU_GlobalInit,"ax",%progbits
+  16              	 .align 1
+  17              	 .global XMC_BCCU_GlobalInit
+  18              	 .arch armv6s-m
+  19              	 .syntax unified
+  20              	 .code 16
+  21              	 .thumb_func
+  22              	 .fpu softvfp
+  24              	XMC_BCCU_GlobalInit:
+  25              	.LFB93:
+  26              	 .file 1 "../Libraries/XMCLib/src/xmc_bccu.c"
+   1:../Libraries/XMCLib/src/xmc_bccu.c **** /**
+   2:../Libraries/XMCLib/src/xmc_bccu.c ****  * @file xmc_bccu.c
+   3:../Libraries/XMCLib/src/xmc_bccu.c ****  * @date 2015-06-20
+   4:../Libraries/XMCLib/src/xmc_bccu.c ****  *
+   5:../Libraries/XMCLib/src/xmc_bccu.c ****  * @cond
+   6:../Libraries/XMCLib/src/xmc_bccu.c ****  **************************************************************************************************
+   7:../Libraries/XMCLib/src/xmc_bccu.c ****  * XMClib v2.1.18 - XMC Peripheral Driver Library 
+   8:../Libraries/XMCLib/src/xmc_bccu.c ****  *
+   9:../Libraries/XMCLib/src/xmc_bccu.c ****  * Copyright (c) 2015-2018, Infineon Technologies AG
+  10:../Libraries/XMCLib/src/xmc_bccu.c ****  * All rights reserved.                        
+  11:../Libraries/XMCLib/src/xmc_bccu.c ****  *                                             
+  12:../Libraries/XMCLib/src/xmc_bccu.c ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  13:../Libraries/XMCLib/src/xmc_bccu.c ****  * following conditions are met:   
+  14:../Libraries/XMCLib/src/xmc_bccu.c ****  *                                                                              
+  15:../Libraries/XMCLib/src/xmc_bccu.c ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  16:../Libraries/XMCLib/src/xmc_bccu.c ****  * disclaimer.                        
+  17:../Libraries/XMCLib/src/xmc_bccu.c ****  * 
+  18:../Libraries/XMCLib/src/xmc_bccu.c ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  19:../Libraries/XMCLib/src/xmc_bccu.c ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  20:../Libraries/XMCLib/src/xmc_bccu.c ****  * 
+  21:../Libraries/XMCLib/src/xmc_bccu.c ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  22:../Libraries/XMCLib/src/xmc_bccu.c ****  * products derived from this software without specific prior written permission.                  
+  23:../Libraries/XMCLib/src/xmc_bccu.c ****  *                                                                              
+  24:../Libraries/XMCLib/src/xmc_bccu.c ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  25:../Libraries/XMCLib/src/xmc_bccu.c ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  26:../Libraries/XMCLib/src/xmc_bccu.c ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  27:../Libraries/XMCLib/src/xmc_bccu.c ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  28:../Libraries/XMCLib/src/xmc_bccu.c ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  29:../Libraries/XMCLib/src/xmc_bccu.c ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  30:../Libraries/XMCLib/src/xmc_bccu.c ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  31:../Libraries/XMCLib/src/xmc_bccu.c ****  *                                                                              
+  32:../Libraries/XMCLib/src/xmc_bccu.c ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  33:../Libraries/XMCLib/src/xmc_bccu.c ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  34:../Libraries/XMCLib/src/xmc_bccu.c ****  **************************************************************************************************
+  35:../Libraries/XMCLib/src/xmc_bccu.c ****  *
+  36:../Libraries/XMCLib/src/xmc_bccu.c ****  * Change History
+  37:../Libraries/XMCLib/src/xmc_bccu.c ****  * --------------
+  38:../Libraries/XMCLib/src/xmc_bccu.c ****  *
+  39:../Libraries/XMCLib/src/xmc_bccu.c ****  * 2015-02-19:
+  40:../Libraries/XMCLib/src/xmc_bccu.c ****  *     - Initial draft <br>
+  41:../Libraries/XMCLib/src/xmc_bccu.c ****  *
+  42:../Libraries/XMCLib/src/xmc_bccu.c ****  * 2015-05-08:
+  43:../Libraries/XMCLib/src/xmc_bccu.c ****  *     - Minor bug fixes in following APIs: XMC_BCCU_ConcurrentStartDimming(), XMC_BCCU_ConcurrentA
+  44:../Libraries/XMCLib/src/xmc_bccu.c ****  *               XMC_BCCU_SetGlobalDimmingLevel() <br>
+  45:../Libraries/XMCLib/src/xmc_bccu.c ****  *     
+  46:../Libraries/XMCLib/src/xmc_bccu.c ****  * 2015-06-20:
+  47:../Libraries/XMCLib/src/xmc_bccu.c ****  *     - Removed version macros and declaration of GetDriverVersion API
+  48:../Libraries/XMCLib/src/xmc_bccu.c ****  *
+  49:../Libraries/XMCLib/src/xmc_bccu.c ****  * <b>Detailed description of file:</b><br>
+  50:../Libraries/XMCLib/src/xmc_bccu.c ****  * APIs for the functional blocks of BCCU have been defined:<br>
+  51:../Libraries/XMCLib/src/xmc_bccu.c ****  * -- GLOBAL configuration <br>
+  52:../Libraries/XMCLib/src/xmc_bccu.c ****  * -- Clock configuration, Function/Event configuration, Interrupt configuration <br>
+  53:../Libraries/XMCLib/src/xmc_bccu.c ****  *
+  54:../Libraries/XMCLib/src/xmc_bccu.c ****  * @endcond
+  55:../Libraries/XMCLib/src/xmc_bccu.c ****  *
+  56:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+  57:../Libraries/XMCLib/src/xmc_bccu.c **** 
+  58:../Libraries/XMCLib/src/xmc_bccu.c **** /**************************************************************************************************
+  59:../Libraries/XMCLib/src/xmc_bccu.c ****  * HEADER FILES
+  60:../Libraries/XMCLib/src/xmc_bccu.c ****  **************************************************************************************************
+  61:../Libraries/XMCLib/src/xmc_bccu.c **** #include <xmc_bccu.h>
+  62:../Libraries/XMCLib/src/xmc_bccu.c **** 
+  63:../Libraries/XMCLib/src/xmc_bccu.c **** #if defined(BCCU0)
+  64:../Libraries/XMCLib/src/xmc_bccu.c **** #include <xmc_scu.h>
+  65:../Libraries/XMCLib/src/xmc_bccu.c **** 
+  66:../Libraries/XMCLib/src/xmc_bccu.c **** /**************************************************************************************************
+  67:../Libraries/XMCLib/src/xmc_bccu.c ****  * MACROS
+  68:../Libraries/XMCLib/src/xmc_bccu.c ****  **************************************************************************************************
+  69:../Libraries/XMCLib/src/xmc_bccu.c **** #define XMC_BCCU_NO_OF_CHANNELS    (9U)
+  70:../Libraries/XMCLib/src/xmc_bccu.c **** #define XMC_BCCU_CHANNEL_MASK      ((0x1 << XMC_BCCU_NO_OF_CHANNELS)-1)
+  71:../Libraries/XMCLib/src/xmc_bccu.c **** #define XMC_BCCU_NO_OF_DIM_ENGINE  (3U)
+  72:../Libraries/XMCLib/src/xmc_bccu.c **** #define XMC_BCCU_DIM_ENGINE_MASK   (((0x1 << XMC_BCCU_NO_OF_DIM_ENGINE)-1))
+  73:../Libraries/XMCLib/src/xmc_bccu.c **** 
+  74:../Libraries/XMCLib/src/xmc_bccu.c **** /**************************************************************************************************
+  75:../Libraries/XMCLib/src/xmc_bccu.c ****  * ENUMS
+  76:../Libraries/XMCLib/src/xmc_bccu.c ****  **************************************************************************************************
+  77:../Libraries/XMCLib/src/xmc_bccu.c **** 
+  78:../Libraries/XMCLib/src/xmc_bccu.c **** /**************************************************************************************************
+  79:../Libraries/XMCLib/src/xmc_bccu.c ****  * DATA STRUCTURES
+  80:../Libraries/XMCLib/src/xmc_bccu.c ****  **************************************************************************************************
+  81:../Libraries/XMCLib/src/xmc_bccu.c **** 
+  82:../Libraries/XMCLib/src/xmc_bccu.c **** /**************************************************************************************************
+  83:../Libraries/XMCLib/src/xmc_bccu.c ****  * GLOBAL DATA
+  84:../Libraries/XMCLib/src/xmc_bccu.c ****  **************************************************************************************************
+  85:../Libraries/XMCLib/src/xmc_bccu.c **** 
+  86:../Libraries/XMCLib/src/xmc_bccu.c **** /**************************************************************************************************
+  87:../Libraries/XMCLib/src/xmc_bccu.c ****  * LOCAL/UTILITY ROUTINES
+  88:../Libraries/XMCLib/src/xmc_bccu.c ****  **************************************************************************************************
+  89:../Libraries/XMCLib/src/xmc_bccu.c **** 
+  90:../Libraries/XMCLib/src/xmc_bccu.c **** /**************************************************************************************************
+  91:../Libraries/XMCLib/src/xmc_bccu.c ****  * API IMPLEMENTATION
+  92:../Libraries/XMCLib/src/xmc_bccu.c ****  **************************************************************************************************
+  93:../Libraries/XMCLib/src/xmc_bccu.c **** 
+  94:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+  95:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to initialise the global resources of a BCCU module
+  96:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+  97:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_GlobalInit(XMC_BCCU_t *const bccu, const XMC_BCCU_GLOBAL_CONFIG_t *const config)
+  98:../Libraries/XMCLib/src/xmc_bccu.c **** {
+  27              	 .loc 1 98 1
+  28              	 .cfi_startproc
+  29              	 
+  30              	 
+  31 0000 80B5     	 push {r7,lr}
+  32              	.LCFI0:
+  33              	 .cfi_def_cfa_offset 8
+  34              	 .cfi_offset 7,-8
+  35              	 .cfi_offset 14,-4
+  36 0002 82B0     	 sub sp,sp,#8
+  37              	.LCFI1:
+  38              	 .cfi_def_cfa_offset 16
+  39 0004 00AF     	 add r7,sp,#0
+  40              	.LCFI2:
+  41              	 .cfi_def_cfa_register 7
+  42 0006 7860     	 str r0,[r7,#4]
+  43 0008 3960     	 str r1,[r7]
+  99:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_SCU_CLOCK_UngatePeripheralClock(XMC_SCU_PERIPHERAL_CLOCK_BCCU0);
+  44              	 .loc 1 99 3
+  45 000a 1020     	 movs r0,#16
+  46 000c FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+ 100:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 101:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->GLOBCON = config->globcon;
+  47              	 .loc 1 101 25
+  48 0010 3B68     	 ldr r3,[r7]
+  49 0012 1A68     	 ldr r2,[r3]
+  50              	 .loc 1 101 17
+  51 0014 7B68     	 ldr r3,[r7,#4]
+  52 0016 1A60     	 str r2,[r3]
+ 102:../Libraries/XMCLib/src/xmc_bccu.c ****   
+ 103:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->GLOBCLK = config->globclk;
+  53              	 .loc 1 103 25
+  54 0018 3B68     	 ldr r3,[r7]
+  55 001a 5A68     	 ldr r2,[r3,#4]
+  56              	 .loc 1 103 17
+  57 001c 7B68     	 ldr r3,[r7,#4]
+  58 001e 5A60     	 str r2,[r3,#4]
+ 104:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->GLOBDIM = config->global_dimlevel;  
+  59              	 .loc 1 104 25
+  60 0020 3B68     	 ldr r3,[r7]
+  61 0022 9A68     	 ldr r2,[r3,#8]
+  62              	 .loc 1 104 17
+  63 0024 7B68     	 ldr r3,[r7,#4]
+  64 0026 9A62     	 str r2,[r3,#40]
+ 105:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 106:../Libraries/XMCLib/src/xmc_bccu.c **** }
+  65              	 .loc 1 106 1
+  66 0028 C046     	 nop
+  67 002a BD46     	 mov sp,r7
+  68 002c 02B0     	 add sp,sp,#8
+  69              	 
+  70 002e 80BD     	 pop {r7,pc}
+  71              	 .cfi_endproc
+  72              	.LFE93:
+  74              	 .section .text.XMC_BCCU_ConfigGlobalTrigger,"ax",%progbits
+  75              	 .align 1
+  76              	 .global XMC_BCCU_ConfigGlobalTrigger
+  77              	 .syntax unified
+  78              	 .code 16
+  79              	 .thumb_func
+  80              	 .fpu softvfp
+  82              	XMC_BCCU_ConfigGlobalTrigger:
+  83              	.LFB94:
+ 107:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 108:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 109:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to configure the global trigger mode & delay of a BCCU module
+ 110:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 111:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_ConfigGlobalTrigger(XMC_BCCU_t *const bccu, XMC_BCCU_TRIGMODE_t mode, XMC_BCCU_TRIGDE
+ 112:../Libraries/XMCLib/src/xmc_bccu.c **** {
+  84              	 .loc 1 112 1
+  85              	 .cfi_startproc
+  86              	 
+  87              	 
+  88 0000 80B5     	 push {r7,lr}
+  89              	.LCFI3:
+  90              	 .cfi_def_cfa_offset 8
+  91              	 .cfi_offset 7,-8
+  92              	 .cfi_offset 14,-4
+  93 0002 82B0     	 sub sp,sp,#8
+  94              	.LCFI4:
+  95              	 .cfi_def_cfa_offset 16
+  96 0004 00AF     	 add r7,sp,#0
+  97              	.LCFI5:
+  98              	 .cfi_def_cfa_register 7
+  99 0006 7860     	 str r0,[r7,#4]
+ 100 0008 0800     	 movs r0,r1
+ 101 000a 1100     	 movs r1,r2
+ 102 000c FB1C     	 adds r3,r7,#3
+ 103 000e 021C     	 adds r2,r0,#0
+ 104 0010 1A70     	 strb r2,[r3]
+ 105 0012 BB1C     	 adds r3,r7,#2
+ 106 0014 0A1C     	 adds r2,r1,#0
+ 107 0016 1A70     	 strb r2,[r3]
+ 113:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->GLOBCON &= ~(uint32_t)(BCCU_GLOBCON_TM_Msk | BCCU_GLOBCON_TRDEL_Msk);
+ 108              	 .loc 1 113 17
+ 109 0018 7B68     	 ldr r3,[r7,#4]
+ 110 001a 1B68     	 ldr r3,[r3]
+ 111 001c 0D22     	 movs r2,#13
+ 112 001e 9343     	 bics r3,r2
+ 113 0020 1A00     	 movs r2,r3
+ 114 0022 7B68     	 ldr r3,[r7,#4]
+ 115 0024 1A60     	 str r2,[r3]
+ 114:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->GLOBCON |= ((uint32_t)mode | ((uint32_t)delay << BCCU_GLOBCON_TRDEL_Pos));
+ 116              	 .loc 1 114 17
+ 117 0026 7B68     	 ldr r3,[r7,#4]
+ 118 0028 1A68     	 ldr r2,[r3]
+ 119              	 .loc 1 114 21
+ 120 002a FB1C     	 adds r3,r7,#3
+ 121 002c 1978     	 ldrb r1,[r3]
+ 122              	 .loc 1 114 39
+ 123 002e BB1C     	 adds r3,r7,#2
+ 124 0030 1B78     	 ldrb r3,[r3]
+ 125              	 .loc 1 114 55
+ 126 0032 9B00     	 lsls r3,r3,#2
+ 127              	 .loc 1 114 36
+ 128 0034 0B43     	 orrs r3,r1
+ 129              	 .loc 1 114 17
+ 130 0036 1A43     	 orrs r2,r3
+ 131 0038 7B68     	 ldr r3,[r7,#4]
+ 132 003a 1A60     	 str r2,[r3]
+ 115:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 133              	 .loc 1 115 1
+ 134 003c C046     	 nop
+ 135 003e BD46     	 mov sp,r7
+ 136 0040 02B0     	 add sp,sp,#8
+ 137              	 
+ 138 0042 80BD     	 pop {r7,pc}
+ 139              	 .cfi_endproc
+ 140              	.LFE94:
+ 142              	 .section .text.XMC_BCCU_SelectTrapInput,"ax",%progbits
+ 143              	 .align 1
+ 144              	 .global XMC_BCCU_SelectTrapInput
+ 145              	 .syntax unified
+ 146              	 .code 16
+ 147              	 .thumb_func
+ 148              	 .fpu softvfp
+ 150              	XMC_BCCU_SelectTrapInput:
+ 151              	.LFB95:
+ 116:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 117:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 118:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to configure the trap input selection of a BCCU module
+ 119:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 120:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_SelectTrapInput (XMC_BCCU_t *const bccu, XMC_BCCU_CH_TRAP_IN_t input)
+ 121:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 152              	 .loc 1 121 1
+ 153              	 .cfi_startproc
+ 154              	 
+ 155              	 
+ 156 0000 80B5     	 push {r7,lr}
+ 157              	.LCFI6:
+ 158              	 .cfi_def_cfa_offset 8
+ 159              	 .cfi_offset 7,-8
+ 160              	 .cfi_offset 14,-4
+ 161 0002 82B0     	 sub sp,sp,#8
+ 162              	.LCFI7:
+ 163              	 .cfi_def_cfa_offset 16
+ 164 0004 00AF     	 add r7,sp,#0
+ 165              	.LCFI8:
+ 166              	 .cfi_def_cfa_register 7
+ 167 0006 7860     	 str r0,[r7,#4]
+ 168 0008 0A00     	 movs r2,r1
+ 169 000a FB1C     	 adds r3,r7,#3
+ 170 000c 1A70     	 strb r2,[r3]
+ 122:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->GLOBCON &= ~(uint32_t)(BCCU_GLOBCON_TRAPIS_Msk);
+ 171              	 .loc 1 122 17
+ 172 000e 7B68     	 ldr r3,[r7,#4]
+ 173 0010 1B68     	 ldr r3,[r3]
+ 174 0012 084A     	 ldr r2,.L4
+ 175 0014 1A40     	 ands r2,r3
+ 176 0016 7B68     	 ldr r3,[r7,#4]
+ 177 0018 1A60     	 str r2,[r3]
+ 123:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->GLOBCON |= ((uint32_t)input << BCCU_GLOBCON_TRAPIS_Pos);
+ 178              	 .loc 1 123 17
+ 179 001a 7B68     	 ldr r3,[r7,#4]
+ 180 001c 1A68     	 ldr r2,[r3]
+ 181              	 .loc 1 123 21
+ 182 001e FB1C     	 adds r3,r7,#3
+ 183 0020 1B78     	 ldrb r3,[r3]
+ 184              	 .loc 1 123 37
+ 185 0022 9B01     	 lsls r3,r3,#6
+ 186              	 .loc 1 123 17
+ 187 0024 1A43     	 orrs r2,r3
+ 188 0026 7B68     	 ldr r3,[r7,#4]
+ 189 0028 1A60     	 str r2,[r3]
+ 124:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 190              	 .loc 1 124 1
+ 191 002a C046     	 nop
+ 192 002c BD46     	 mov sp,r7
+ 193 002e 02B0     	 add sp,sp,#8
+ 194              	 
+ 195 0030 80BD     	 pop {r7,pc}
+ 196              	.L5:
+ 197 0032 C046     	 .align 2
+ 198              	.L4:
+ 199 0034 3FFCFFFF 	 .word -961
+ 200              	 .cfi_endproc
+ 201              	.LFE95:
+ 203              	 .section .text.XMC_BCCU_SetTrapEdge,"ax",%progbits
+ 204              	 .align 1
+ 205              	 .global XMC_BCCU_SetTrapEdge
+ 206              	 .syntax unified
+ 207              	 .code 16
+ 208              	 .thumb_func
+ 209              	 .fpu softvfp
+ 211              	XMC_BCCU_SetTrapEdge:
+ 212              	.LFB96:
+ 125:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 126:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 127:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to configure the trap edge selection of a BCCU module
+ 128:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 129:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_SetTrapEdge (XMC_BCCU_t *const bccu, XMC_BCCU_CH_TRAP_EDGE_t edge)
+ 130:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 213              	 .loc 1 130 1
+ 214              	 .cfi_startproc
+ 215              	 
+ 216              	 
+ 217 0000 80B5     	 push {r7,lr}
+ 218              	.LCFI9:
+ 219              	 .cfi_def_cfa_offset 8
+ 220              	 .cfi_offset 7,-8
+ 221              	 .cfi_offset 14,-4
+ 222 0002 82B0     	 sub sp,sp,#8
+ 223              	.LCFI10:
+ 224              	 .cfi_def_cfa_offset 16
+ 225 0004 00AF     	 add r7,sp,#0
+ 226              	.LCFI11:
+ 227              	 .cfi_def_cfa_register 7
+ 228 0006 7860     	 str r0,[r7,#4]
+ 229 0008 0A00     	 movs r2,r1
+ 230 000a FB1C     	 adds r3,r7,#3
+ 231 000c 1A70     	 strb r2,[r3]
+ 131:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->GLOBCON &= ~(uint32_t)(BCCU_GLOBCON_TRAPED_Msk);
+ 232              	 .loc 1 131 17
+ 233 000e 7B68     	 ldr r3,[r7,#4]
+ 234 0010 1B68     	 ldr r3,[r3]
+ 235 0012 084A     	 ldr r2,.L7
+ 236 0014 1A40     	 ands r2,r3
+ 237 0016 7B68     	 ldr r3,[r7,#4]
+ 238 0018 1A60     	 str r2,[r3]
+ 132:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->GLOBCON |= ((uint32_t)edge << BCCU_GLOBCON_TRAPED_Pos);
+ 239              	 .loc 1 132 17
+ 240 001a 7B68     	 ldr r3,[r7,#4]
+ 241 001c 1A68     	 ldr r2,[r3]
+ 242              	 .loc 1 132 21
+ 243 001e FB1C     	 adds r3,r7,#3
+ 244 0020 1B78     	 ldrb r3,[r3]
+ 245              	 .loc 1 132 36
+ 246 0022 9B02     	 lsls r3,r3,#10
+ 247              	 .loc 1 132 17
+ 248 0024 1A43     	 orrs r2,r3
+ 249 0026 7B68     	 ldr r3,[r7,#4]
+ 250 0028 1A60     	 str r2,[r3]
+ 133:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 251              	 .loc 1 133 1
+ 252 002a C046     	 nop
+ 253 002c BD46     	 mov sp,r7
+ 254 002e 02B0     	 add sp,sp,#8
+ 255              	 
+ 256 0030 80BD     	 pop {r7,pc}
+ 257              	.L8:
+ 258 0032 C046     	 .align 2
+ 259              	.L7:
+ 260 0034 FFFBFFFF 	 .word -1025
+ 261              	 .cfi_endproc
+ 262              	.LFE96:
+ 264              	 .section .text.XMC_BCCU_ConfigSuspendMode,"ax",%progbits
+ 265              	 .align 1
+ 266              	 .global XMC_BCCU_ConfigSuspendMode
+ 267              	 .syntax unified
+ 268              	 .code 16
+ 269              	 .thumb_func
+ 270              	 .fpu softvfp
+ 272              	XMC_BCCU_ConfigSuspendMode:
+ 273              	.LFB97:
+ 134:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 135:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 136:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to configure the suspend mode of a BCCU module
+ 137:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 138:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_ConfigSuspendMode (XMC_BCCU_t *const bccu, XMC_BCCU_SUSPEND_MODE_t mode)
+ 139:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 274              	 .loc 1 139 1
+ 275              	 .cfi_startproc
+ 276              	 
+ 277              	 
+ 278 0000 80B5     	 push {r7,lr}
+ 279              	.LCFI12:
+ 280              	 .cfi_def_cfa_offset 8
+ 281              	 .cfi_offset 7,-8
+ 282              	 .cfi_offset 14,-4
+ 283 0002 82B0     	 sub sp,sp,#8
+ 284              	.LCFI13:
+ 285              	 .cfi_def_cfa_offset 16
+ 286 0004 00AF     	 add r7,sp,#0
+ 287              	.LCFI14:
+ 288              	 .cfi_def_cfa_register 7
+ 289 0006 7860     	 str r0,[r7,#4]
+ 290 0008 0A00     	 movs r2,r1
+ 291 000a FB1C     	 adds r3,r7,#3
+ 292 000c 1A70     	 strb r2,[r3]
+ 140:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->GLOBCON &= ~(uint32_t)(BCCU_GLOBCON_SUSCFG_Msk);
+ 293              	 .loc 1 140 17
+ 294 000e 7B68     	 ldr r3,[r7,#4]
+ 295 0010 1B68     	 ldr r3,[r3]
+ 296 0012 3022     	 movs r2,#48
+ 297 0014 9343     	 bics r3,r2
+ 298 0016 1A00     	 movs r2,r3
+ 299 0018 7B68     	 ldr r3,[r7,#4]
+ 300 001a 1A60     	 str r2,[r3]
+ 141:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->GLOBCON |= ((uint32_t)mode << BCCU_GLOBCON_SUSCFG_Pos);
+ 301              	 .loc 1 141 17
+ 302 001c 7B68     	 ldr r3,[r7,#4]
+ 303 001e 1A68     	 ldr r2,[r3]
+ 304              	 .loc 1 141 21
+ 305 0020 FB1C     	 adds r3,r7,#3
+ 306 0022 1B78     	 ldrb r3,[r3]
+ 307              	 .loc 1 141 36
+ 308 0024 1B01     	 lsls r3,r3,#4
+ 309              	 .loc 1 141 17
+ 310 0026 1A43     	 orrs r2,r3
+ 311 0028 7B68     	 ldr r3,[r7,#4]
+ 312 002a 1A60     	 str r2,[r3]
+ 142:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 313              	 .loc 1 142 1
+ 314 002c C046     	 nop
+ 315 002e BD46     	 mov sp,r7
+ 316 0030 02B0     	 add sp,sp,#8
+ 317              	 
+ 318 0032 80BD     	 pop {r7,pc}
+ 319              	 .cfi_endproc
+ 320              	.LFE97:
+ 322              	 .section .text.XMC_BCCU_SetFlickerWDThreshold,"ax",%progbits
+ 323              	 .align 1
+ 324              	 .global XMC_BCCU_SetFlickerWDThreshold
+ 325              	 .syntax unified
+ 326              	 .code 16
+ 327              	 .thumb_func
+ 328              	 .fpu softvfp
+ 330              	XMC_BCCU_SetFlickerWDThreshold:
+ 331              	.LFB98:
+ 143:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 144:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 145:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to configure number of consecutive zeroes allowed at modulator output (flicker watch-dog num
+ 146:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 147:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_SetFlickerWDThreshold (XMC_BCCU_t *const bccu, uint32_t threshold_no)
+ 148:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 332              	 .loc 1 148 1
+ 333              	 .cfi_startproc
+ 334              	 
+ 335              	 
+ 336 0000 80B5     	 push {r7,lr}
+ 337              	.LCFI15:
+ 338              	 .cfi_def_cfa_offset 8
+ 339              	 .cfi_offset 7,-8
+ 340              	 .cfi_offset 14,-4
+ 341 0002 82B0     	 sub sp,sp,#8
+ 342              	.LCFI16:
+ 343              	 .cfi_def_cfa_offset 16
+ 344 0004 00AF     	 add r7,sp,#0
+ 345              	.LCFI17:
+ 346              	 .cfi_def_cfa_register 7
+ 347 0006 7860     	 str r0,[r7,#4]
+ 348 0008 3960     	 str r1,[r7]
+ 149:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_SetFlickerWDThreshold: Invalid threshold no", (threshold_no <= BCCU_GLOBCON_
+ 150:../Libraries/XMCLib/src/xmc_bccu.c ****   
+ 151:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->GLOBCON &= ~(uint32_t)(BCCU_GLOBCON_WDMBN_Msk);
+ 349              	 .loc 1 151 17
+ 350 000a 7B68     	 ldr r3,[r7,#4]
+ 351 000c 1B68     	 ldr r3,[r3]
+ 352 000e 074A     	 ldr r2,.L11
+ 353 0010 1A40     	 ands r2,r3
+ 354 0012 7B68     	 ldr r3,[r7,#4]
+ 355 0014 1A60     	 str r2,[r3]
+ 152:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->GLOBCON |= (uint32_t)(threshold_no << BCCU_GLOBCON_WDMBN_Pos);
+ 356              	 .loc 1 152 17
+ 357 0016 7B68     	 ldr r3,[r7,#4]
+ 358 0018 1A68     	 ldr r2,[r3]
+ 359              	 .loc 1 152 44
+ 360 001a 3B68     	 ldr r3,[r7]
+ 361 001c 1B04     	 lsls r3,r3,#16
+ 362              	 .loc 1 152 17
+ 363 001e 1A43     	 orrs r2,r3
+ 364 0020 7B68     	 ldr r3,[r7,#4]
+ 365 0022 1A60     	 str r2,[r3]
+ 153:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 366              	 .loc 1 153 1
+ 367 0024 C046     	 nop
+ 368 0026 BD46     	 mov sp,r7
+ 369 0028 02B0     	 add sp,sp,#8
+ 370              	 
+ 371 002a 80BD     	 pop {r7,pc}
+ 372              	.L12:
+ 373              	 .align 2
+ 374              	.L11:
+ 375 002c FFFF00F0 	 .word -268369921
+ 376              	 .cfi_endproc
+ 377              	.LFE98:
+ 379              	 .section .text.XMC_BCCU_SetFastClockPrescaler,"ax",%progbits
+ 380              	 .align 1
+ 381              	 .global XMC_BCCU_SetFastClockPrescaler
+ 382              	 .syntax unified
+ 383              	 .code 16
+ 384              	 .thumb_func
+ 385              	 .fpu softvfp
+ 387              	XMC_BCCU_SetFastClockPrescaler:
+ 388              	.LFB99:
+ 154:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 155:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 156:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to configure the fast clock prescaler factor of a BCCU module
+ 157:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 158:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_SetFastClockPrescaler (XMC_BCCU_t *const bccu, uint32_t div)
+ 159:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 389              	 .loc 1 159 1
+ 390              	 .cfi_startproc
+ 391              	 
+ 392              	 
+ 393 0000 80B5     	 push {r7,lr}
+ 394              	.LCFI18:
+ 395              	 .cfi_def_cfa_offset 8
+ 396              	 .cfi_offset 7,-8
+ 397              	 .cfi_offset 14,-4
+ 398 0002 82B0     	 sub sp,sp,#8
+ 399              	.LCFI19:
+ 400              	 .cfi_def_cfa_offset 16
+ 401 0004 00AF     	 add r7,sp,#0
+ 402              	.LCFI20:
+ 403              	 .cfi_def_cfa_register 7
+ 404 0006 7860     	 str r0,[r7,#4]
+ 405 0008 3960     	 str r1,[r7]
+ 160:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_SetFastClockPrescaler: Invalid divider value", (div <= BCCU_GLOBCLK_FCLK_PS_
+ 161:../Libraries/XMCLib/src/xmc_bccu.c ****   
+ 162:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->GLOBCLK &= ~(uint32_t)(BCCU_GLOBCLK_FCLK_PS_Msk);
+ 406              	 .loc 1 162 17
+ 407 000a 7B68     	 ldr r3,[r7,#4]
+ 408 000c 5B68     	 ldr r3,[r3,#4]
+ 409 000e 1B0B     	 lsrs r3,r3,#12
+ 410 0010 1A03     	 lsls r2,r3,#12
+ 411 0012 7B68     	 ldr r3,[r7,#4]
+ 412 0014 5A60     	 str r2,[r3,#4]
+ 163:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->GLOBCLK |= div;
+ 413              	 .loc 1 163 17
+ 414 0016 7B68     	 ldr r3,[r7,#4]
+ 415 0018 5A68     	 ldr r2,[r3,#4]
+ 416 001a 3B68     	 ldr r3,[r7]
+ 417 001c 1A43     	 orrs r2,r3
+ 418 001e 7B68     	 ldr r3,[r7,#4]
+ 419 0020 5A60     	 str r2,[r3,#4]
+ 164:../Libraries/XMCLib/src/xmc_bccu.c ****   
+ 165:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 420              	 .loc 1 165 1
+ 421 0022 C046     	 nop
+ 422 0024 BD46     	 mov sp,r7
+ 423 0026 02B0     	 add sp,sp,#8
+ 424              	 
+ 425 0028 80BD     	 pop {r7,pc}
+ 426              	 .cfi_endproc
+ 427              	.LFE99:
+ 429              	 .section .text.XMC_BCCU_SetDimClockPrescaler,"ax",%progbits
+ 430              	 .align 1
+ 431              	 .global XMC_BCCU_SetDimClockPrescaler
+ 432              	 .syntax unified
+ 433              	 .code 16
+ 434              	 .thumb_func
+ 435              	 .fpu softvfp
+ 437              	XMC_BCCU_SetDimClockPrescaler:
+ 438              	.LFB100:
+ 166:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 167:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 168:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to configure the dimmer clock prescaler factor of a BCCU module
+ 169:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 170:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_SetDimClockPrescaler (XMC_BCCU_t *const bccu, uint32_t div)
+ 171:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 439              	 .loc 1 171 1
+ 440              	 .cfi_startproc
+ 441              	 
+ 442              	 
+ 443 0000 80B5     	 push {r7,lr}
+ 444              	.LCFI21:
+ 445              	 .cfi_def_cfa_offset 8
+ 446              	 .cfi_offset 7,-8
+ 447              	 .cfi_offset 14,-4
+ 448 0002 82B0     	 sub sp,sp,#8
+ 449              	.LCFI22:
+ 450              	 .cfi_def_cfa_offset 16
+ 451 0004 00AF     	 add r7,sp,#0
+ 452              	.LCFI23:
+ 453              	 .cfi_def_cfa_register 7
+ 454 0006 7860     	 str r0,[r7,#4]
+ 455 0008 3960     	 str r1,[r7]
+ 172:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_SetDimClockPrescaler: Invalid divider value", (div <= BCCU_GLOBCLK_DCLK_PS_M
+ 173:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 174:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->GLOBCLK &= ~(uint32_t)(BCCU_GLOBCLK_DCLK_PS_Msk);
+ 456              	 .loc 1 174 17
+ 457 000a 7B68     	 ldr r3,[r7,#4]
+ 458 000c 5B68     	 ldr r3,[r3,#4]
+ 459 000e 074A     	 ldr r2,.L15
+ 460 0010 1A40     	 ands r2,r3
+ 461 0012 7B68     	 ldr r3,[r7,#4]
+ 462 0014 5A60     	 str r2,[r3,#4]
+ 175:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->GLOBCLK |= (uint32_t)(div << BCCU_GLOBCLK_DCLK_PS_Pos);
+ 463              	 .loc 1 175 17
+ 464 0016 7B68     	 ldr r3,[r7,#4]
+ 465 0018 5A68     	 ldr r2,[r3,#4]
+ 466              	 .loc 1 175 35
+ 467 001a 3B68     	 ldr r3,[r7]
+ 468 001c 1B04     	 lsls r3,r3,#16
+ 469              	 .loc 1 175 17
+ 470 001e 1A43     	 orrs r2,r3
+ 471 0020 7B68     	 ldr r3,[r7,#4]
+ 472 0022 5A60     	 str r2,[r3,#4]
+ 176:../Libraries/XMCLib/src/xmc_bccu.c ****   
+ 177:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 473              	 .loc 1 177 1
+ 474 0024 C046     	 nop
+ 475 0026 BD46     	 mov sp,r7
+ 476 0028 02B0     	 add sp,sp,#8
+ 477              	 
+ 478 002a 80BD     	 pop {r7,pc}
+ 479              	.L16:
+ 480              	 .align 2
+ 481              	.L15:
+ 482 002c FFFF00F0 	 .word -268369921
+ 483              	 .cfi_endproc
+ 484              	.LFE100:
+ 486              	 .section .text.XMC_BCCU_SelectBitClock,"ax",%progbits
+ 487              	 .align 1
+ 488              	 .global XMC_BCCU_SelectBitClock
+ 489              	 .syntax unified
+ 490              	 .code 16
+ 491              	 .thumb_func
+ 492              	 .fpu softvfp
+ 494              	XMC_BCCU_SelectBitClock:
+ 495              	.LFB101:
+ 178:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 179:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 180:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to configure the modulator output (bit-time) clock prescaler factor of a BCCU module
+ 181:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 182:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_SelectBitClock (XMC_BCCU_t *const bccu, XMC_BCCU_BCLK_MODE_t div)
+ 183:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 496              	 .loc 1 183 1
+ 497              	 .cfi_startproc
+ 498              	 
+ 499              	 
+ 500 0000 80B5     	 push {r7,lr}
+ 501              	.LCFI24:
+ 502              	 .cfi_def_cfa_offset 8
+ 503              	 .cfi_offset 7,-8
+ 504              	 .cfi_offset 14,-4
+ 505 0002 82B0     	 sub sp,sp,#8
+ 506              	.LCFI25:
+ 507              	 .cfi_def_cfa_offset 16
+ 508 0004 00AF     	 add r7,sp,#0
+ 509              	.LCFI26:
+ 510              	 .cfi_def_cfa_register 7
+ 511 0006 7860     	 str r0,[r7,#4]
+ 512 0008 0A00     	 movs r2,r1
+ 513 000a FB1C     	 adds r3,r7,#3
+ 514 000c 1A70     	 strb r2,[r3]
+ 184:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->GLOBCLK &= ~(uint32_t)(BCCU_GLOBCLK_BCS_Msk);
+ 515              	 .loc 1 184 17
+ 516 000e 7B68     	 ldr r3,[r7,#4]
+ 517 0010 5B68     	 ldr r3,[r3,#4]
+ 518 0012 084A     	 ldr r2,.L18
+ 519 0014 1A40     	 ands r2,r3
+ 520 0016 7B68     	 ldr r3,[r7,#4]
+ 521 0018 5A60     	 str r2,[r3,#4]
+ 185:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->GLOBCLK |= ((uint32_t)div << BCCU_GLOBCLK_BCS_Pos);
+ 522              	 .loc 1 185 17
+ 523 001a 7B68     	 ldr r3,[r7,#4]
+ 524 001c 5A68     	 ldr r2,[r3,#4]
+ 525              	 .loc 1 185 21
+ 526 001e FB1C     	 adds r3,r7,#3
+ 527 0020 1B78     	 ldrb r3,[r3]
+ 528              	 .loc 1 185 35
+ 529 0022 DB03     	 lsls r3,r3,#15
+ 530              	 .loc 1 185 17
+ 531 0024 1A43     	 orrs r2,r3
+ 532 0026 7B68     	 ldr r3,[r7,#4]
+ 533 0028 5A60     	 str r2,[r3,#4]
+ 186:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 534              	 .loc 1 186 1
+ 535 002a C046     	 nop
+ 536 002c BD46     	 mov sp,r7
+ 537 002e 02B0     	 add sp,sp,#8
+ 538              	 
+ 539 0030 80BD     	 pop {r7,pc}
+ 540              	.L19:
+ 541 0032 C046     	 .align 2
+ 542              	.L18:
+ 543 0034 FF7FFFFF 	 .word -32769
+ 544              	 .cfi_endproc
+ 545              	.LFE101:
+ 547              	 .section .text.XMC_BCCU_ConcurrentEnableChannels,"ax",%progbits
+ 548              	 .align 1
+ 549              	 .global XMC_BCCU_ConcurrentEnableChannels
+ 550              	 .syntax unified
+ 551              	 .code 16
+ 552              	 .thumb_func
+ 553              	 .fpu softvfp
+ 555              	XMC_BCCU_ConcurrentEnableChannels:
+ 556              	.LFB102:
+ 187:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 188:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 189:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to enable the channels at the same time
+ 190:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 191:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_ConcurrentEnableChannels (XMC_BCCU_t *const bccu, uint32_t mask)
+ 192:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 557              	 .loc 1 192 1
+ 558              	 .cfi_startproc
+ 559              	 
+ 560              	 
+ 561 0000 80B5     	 push {r7,lr}
+ 562              	.LCFI27:
+ 563              	 .cfi_def_cfa_offset 8
+ 564              	 .cfi_offset 7,-8
+ 565              	 .cfi_offset 14,-4
+ 566 0002 82B0     	 sub sp,sp,#8
+ 567              	.LCFI28:
+ 568              	 .cfi_def_cfa_offset 16
+ 569 0004 00AF     	 add r7,sp,#0
+ 570              	.LCFI29:
+ 571              	 .cfi_def_cfa_register 7
+ 572 0006 7860     	 str r0,[r7,#4]
+ 573 0008 3960     	 str r1,[r7]
+ 193:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_ConcurrentEnableChannels: Invalid channel mask", (mask <= XMC_BCCU_CHANNEL_M
+ 194:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 195:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->CHEN |= mask;
+ 574              	 .loc 1 195 14
+ 575 000a 7B68     	 ldr r3,[r7,#4]
+ 576 000c DA68     	 ldr r2,[r3,#12]
+ 577 000e 3B68     	 ldr r3,[r7]
+ 578 0010 1A43     	 orrs r2,r3
+ 579 0012 7B68     	 ldr r3,[r7,#4]
+ 580 0014 DA60     	 str r2,[r3,#12]
+ 196:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 581              	 .loc 1 196 1
+ 582 0016 C046     	 nop
+ 583 0018 BD46     	 mov sp,r7
+ 584 001a 02B0     	 add sp,sp,#8
+ 585              	 
+ 586 001c 80BD     	 pop {r7,pc}
+ 587              	 .cfi_endproc
+ 588              	.LFE102:
+ 590              	 .section .text.XMC_BCCU_ConcurrentDisableChannels,"ax",%progbits
+ 591              	 .align 1
+ 592              	 .global XMC_BCCU_ConcurrentDisableChannels
+ 593              	 .syntax unified
+ 594              	 .code 16
+ 595              	 .thumb_func
+ 596              	 .fpu softvfp
+ 598              	XMC_BCCU_ConcurrentDisableChannels:
+ 599              	.LFB103:
+ 197:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 198:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 199:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to disable the channels at the same time
+ 200:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 201:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_ConcurrentDisableChannels (XMC_BCCU_t *const bccu, uint32_t mask)
+ 202:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 600              	 .loc 1 202 1
+ 601              	 .cfi_startproc
+ 602              	 
+ 603              	 
+ 604 0000 80B5     	 push {r7,lr}
+ 605              	.LCFI30:
+ 606              	 .cfi_def_cfa_offset 8
+ 607              	 .cfi_offset 7,-8
+ 608              	 .cfi_offset 14,-4
+ 609 0002 82B0     	 sub sp,sp,#8
+ 610              	.LCFI31:
+ 611              	 .cfi_def_cfa_offset 16
+ 612 0004 00AF     	 add r7,sp,#0
+ 613              	.LCFI32:
+ 614              	 .cfi_def_cfa_register 7
+ 615 0006 7860     	 str r0,[r7,#4]
+ 616 0008 3960     	 str r1,[r7]
+ 203:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_ConcurrentDisableChannels: Invalid channel mask", (mask <= XMC_BCCU_CHANNEL_
+ 204:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->CHEN &= ~(uint32_t)(mask);
+ 617              	 .loc 1 204 14
+ 618 000a 7B68     	 ldr r3,[r7,#4]
+ 619 000c DB68     	 ldr r3,[r3,#12]
+ 620              	 .loc 1 204 17
+ 621 000e 3A68     	 ldr r2,[r7]
+ 622 0010 D243     	 mvns r2,r2
+ 623              	 .loc 1 204 14
+ 624 0012 1A40     	 ands r2,r3
+ 625 0014 7B68     	 ldr r3,[r7,#4]
+ 626 0016 DA60     	 str r2,[r3,#12]
+ 205:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 627              	 .loc 1 205 1
+ 628 0018 C046     	 nop
+ 629 001a BD46     	 mov sp,r7
+ 630 001c 02B0     	 add sp,sp,#8
+ 631              	 
+ 632 001e 80BD     	 pop {r7,pc}
+ 633              	 .cfi_endproc
+ 634              	.LFE103:
+ 636              	 .section .text.XMC_BCCU_ConcurrentSetOutputPassiveLevel,"ax",%progbits
+ 637              	 .align 1
+ 638              	 .global XMC_BCCU_ConcurrentSetOutputPassiveLevel
+ 639              	 .syntax unified
+ 640              	 .code 16
+ 641              	 .thumb_func
+ 642              	 .fpu softvfp
+ 644              	XMC_BCCU_ConcurrentSetOutputPassiveLevel:
+ 645              	.LFB104:
+ 206:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 207:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 208:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to set the channel's output passive levels at the same time
+ 209:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 210:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_ConcurrentSetOutputPassiveLevel(XMC_BCCU_t *const bccu, uint32_t chan_mask, XMC_BCCU_
+ 211:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 646              	 .loc 1 211 1
+ 647              	 .cfi_startproc
+ 648              	 
+ 649              	 
+ 650 0000 80B5     	 push {r7,lr}
+ 651              	.LCFI33:
+ 652              	 .cfi_def_cfa_offset 8
+ 653              	 .cfi_offset 7,-8
+ 654              	 .cfi_offset 14,-4
+ 655 0002 84B0     	 sub sp,sp,#16
+ 656              	.LCFI34:
+ 657              	 .cfi_def_cfa_offset 24
+ 658 0004 00AF     	 add r7,sp,#0
+ 659              	.LCFI35:
+ 660              	 .cfi_def_cfa_register 7
+ 661 0006 F860     	 str r0,[r7,#12]
+ 662 0008 B960     	 str r1,[r7,#8]
+ 663 000a FB1D     	 adds r3,r7,#7
+ 664 000c 1A70     	 strb r2,[r3]
+ 212:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_ConcurrentSetOutputPassiveLevel: Invalid channel mask", (chan_mask <= XMC_BC
+ 213:../Libraries/XMCLib/src/xmc_bccu.c ****   
+ 214:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->CHOCON &= ~(uint32_t)(chan_mask);
+ 665              	 .loc 1 214 16
+ 666 000e FB68     	 ldr r3,[r7,#12]
+ 667 0010 1B69     	 ldr r3,[r3,#16]
+ 668              	 .loc 1 214 19
+ 669 0012 BA68     	 ldr r2,[r7,#8]
+ 670 0014 D243     	 mvns r2,r2
+ 671              	 .loc 1 214 16
+ 672 0016 1A40     	 ands r2,r3
+ 673 0018 FB68     	 ldr r3,[r7,#12]
+ 674 001a 1A61     	 str r2,[r3,#16]
+ 215:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->CHOCON |= (chan_mask * (uint32_t)level);
+ 675              	 .loc 1 215 16
+ 676 001c FB68     	 ldr r3,[r7,#12]
+ 677 001e 1A69     	 ldr r2,[r3,#16]
+ 678              	 .loc 1 215 32
+ 679 0020 FB1D     	 adds r3,r7,#7
+ 680 0022 1B78     	 ldrb r3,[r3]
+ 681              	 .loc 1 215 30
+ 682 0024 B968     	 ldr r1,[r7,#8]
+ 683 0026 4B43     	 muls r3,r1
+ 684              	 .loc 1 215 16
+ 685 0028 1A43     	 orrs r2,r3
+ 686 002a FB68     	 ldr r3,[r7,#12]
+ 687 002c 1A61     	 str r2,[r3,#16]
+ 216:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 688              	 .loc 1 216 1
+ 689 002e C046     	 nop
+ 690 0030 BD46     	 mov sp,r7
+ 691 0032 04B0     	 add sp,sp,#16
+ 692              	 
+ 693 0034 80BD     	 pop {r7,pc}
+ 694              	 .cfi_endproc
+ 695              	.LFE104:
+ 697              	 .section .text.XMC_BCCU_ConcurrentEnableTrap,"ax",%progbits
+ 698              	 .align 1
+ 699              	 .global XMC_BCCU_ConcurrentEnableTrap
+ 700              	 .syntax unified
+ 701              	 .code 16
+ 702              	 .thumb_func
+ 703              	 .fpu softvfp
+ 705              	XMC_BCCU_ConcurrentEnableTrap:
+ 706              	.LFB105:
+ 217:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 218:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 219:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to enable the various types of traps at the same time
+ 220:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 221:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_ConcurrentEnableTrap (XMC_BCCU_t *const bccu, uint32_t mask)
+ 222:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 707              	 .loc 1 222 1
+ 708              	 .cfi_startproc
+ 709              	 
+ 710              	 
+ 711 0000 80B5     	 push {r7,lr}
+ 712              	.LCFI36:
+ 713              	 .cfi_def_cfa_offset 8
+ 714              	 .cfi_offset 7,-8
+ 715              	 .cfi_offset 14,-4
+ 716 0002 82B0     	 sub sp,sp,#8
+ 717              	.LCFI37:
+ 718              	 .cfi_def_cfa_offset 16
+ 719 0004 00AF     	 add r7,sp,#0
+ 720              	.LCFI38:
+ 721              	 .cfi_def_cfa_register 7
+ 722 0006 7860     	 str r0,[r7,#4]
+ 723 0008 3960     	 str r1,[r7]
+ 223:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_ConcurrentEnableTrap: Invalid channel mask", (mask <= XMC_BCCU_CHANNEL_MASK)
+ 224:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 225:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->CHOCON |= (uint32_t)(mask << BCCU_CHOCON_CH0TPE_Pos);
+ 724              	 .loc 1 225 16
+ 725 000a 7B68     	 ldr r3,[r7,#4]
+ 726 000c 1A69     	 ldr r2,[r3,#16]
+ 727              	 .loc 1 225 35
+ 728 000e 3B68     	 ldr r3,[r7]
+ 729 0010 1B04     	 lsls r3,r3,#16
+ 730              	 .loc 1 225 16
+ 731 0012 1A43     	 orrs r2,r3
+ 732 0014 7B68     	 ldr r3,[r7,#4]
+ 733 0016 1A61     	 str r2,[r3,#16]
+ 226:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 734              	 .loc 1 226 1
+ 735 0018 C046     	 nop
+ 736 001a BD46     	 mov sp,r7
+ 737 001c 02B0     	 add sp,sp,#8
+ 738              	 
+ 739 001e 80BD     	 pop {r7,pc}
+ 740              	 .cfi_endproc
+ 741              	.LFE105:
+ 743              	 .section .text.XMC_BCCU_ConcurrentDisableTrap,"ax",%progbits
+ 744              	 .align 1
+ 745              	 .global XMC_BCCU_ConcurrentDisableTrap
+ 746              	 .syntax unified
+ 747              	 .code 16
+ 748              	 .thumb_func
+ 749              	 .fpu softvfp
+ 751              	XMC_BCCU_ConcurrentDisableTrap:
+ 752              	.LFB106:
+ 227:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 228:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 229:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to disable the various types of traps at the same time
+ 230:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 231:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_ConcurrentDisableTrap (XMC_BCCU_t *const bccu, uint32_t mask)
+ 232:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 753              	 .loc 1 232 1
+ 754              	 .cfi_startproc
+ 755              	 
+ 756              	 
+ 757 0000 80B5     	 push {r7,lr}
+ 758              	.LCFI39:
+ 759              	 .cfi_def_cfa_offset 8
+ 760              	 .cfi_offset 7,-8
+ 761              	 .cfi_offset 14,-4
+ 762 0002 82B0     	 sub sp,sp,#8
+ 763              	.LCFI40:
+ 764              	 .cfi_def_cfa_offset 16
+ 765 0004 00AF     	 add r7,sp,#0
+ 766              	.LCFI41:
+ 767              	 .cfi_def_cfa_register 7
+ 768 0006 7860     	 str r0,[r7,#4]
+ 769 0008 3960     	 str r1,[r7]
+ 233:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_ConcurrentDisableTrap: Invalid channel mask", (mask <= XMC_BCCU_CHANNEL_MASK
+ 234:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 235:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->CHOCON &= ~(uint32_t)(mask << BCCU_CHOCON_CH0TPE_Pos);
+ 770              	 .loc 1 235 16
+ 771 000a 7B68     	 ldr r3,[r7,#4]
+ 772 000c 1B69     	 ldr r3,[r3,#16]
+ 773              	 .loc 1 235 36
+ 774 000e 3A68     	 ldr r2,[r7]
+ 775 0010 1204     	 lsls r2,r2,#16
+ 776              	 .loc 1 235 19
+ 777 0012 D243     	 mvns r2,r2
+ 778              	 .loc 1 235 16
+ 779 0014 1A40     	 ands r2,r3
+ 780 0016 7B68     	 ldr r3,[r7,#4]
+ 781 0018 1A61     	 str r2,[r3,#16]
+ 236:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 782              	 .loc 1 236 1
+ 783 001a C046     	 nop
+ 784 001c BD46     	 mov sp,r7
+ 785 001e 02B0     	 add sp,sp,#8
+ 786              	 
+ 787 0020 80BD     	 pop {r7,pc}
+ 788              	 .cfi_endproc
+ 789              	.LFE106:
+ 791              	 .section .text.XMC_BCCU_ConcurrentConfigTrigger,"ax",%progbits
+ 792              	 .align 1
+ 793              	 .global XMC_BCCU_ConcurrentConfigTrigger
+ 794              	 .syntax unified
+ 795              	 .code 16
+ 796              	 .thumb_func
+ 797              	 .fpu softvfp
+ 799              	XMC_BCCU_ConcurrentConfigTrigger:
+ 800              	.LFB107:
+ 237:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 238:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 239:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to configure trigger mode and trigger delay at the same time, and also configure the channel
+ 240:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 241:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_ConcurrentConfigTrigger (XMC_BCCU_t *const bccu, XMC_BCCU_TRIG_CONFIG_t *trig)
+ 242:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 801              	 .loc 1 242 1
+ 802              	 .cfi_startproc
+ 803              	 
+ 804              	 
+ 805 0000 80B5     	 push {r7,lr}
+ 806              	.LCFI42:
+ 807              	 .cfi_def_cfa_offset 8
+ 808              	 .cfi_offset 7,-8
+ 809              	 .cfi_offset 14,-4
+ 810 0002 84B0     	 sub sp,sp,#16
+ 811              	.LCFI43:
+ 812              	 .cfi_def_cfa_offset 24
+ 813 0004 00AF     	 add r7,sp,#0
+ 814              	.LCFI44:
+ 815              	 .cfi_def_cfa_register 7
+ 816 0006 7860     	 str r0,[r7,#4]
+ 817 0008 3960     	 str r1,[r7]
+ 243:../Libraries/XMCLib/src/xmc_bccu.c ****   uint32_t reg;
+ 244:../Libraries/XMCLib/src/xmc_bccu.c ****   
+ 245:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_ConcurrentConfigTrigger: Invalid channel mask", (trig->mask_chans <= XMC_BCC
+ 246:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 247:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->GLOBCON &= ~(uint32_t)(BCCU_GLOBCON_TM_Msk | BCCU_GLOBCON_TRDEL_Msk);
+ 818              	 .loc 1 247 17
+ 819 000a 7B68     	 ldr r3,[r7,#4]
+ 820 000c 1B68     	 ldr r3,[r3]
+ 821 000e 0D22     	 movs r2,#13
+ 822 0010 9343     	 bics r3,r2
+ 823 0012 1A00     	 movs r2,r3
+ 824 0014 7B68     	 ldr r3,[r7,#4]
+ 825 0016 1A60     	 str r2,[r3]
+ 248:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->GLOBCON |= ((uint32_t)trig->mode | ((uint32_t)trig->delay << BCCU_GLOBCON_TRDEL_Pos));
+ 826              	 .loc 1 248 17
+ 827 0018 7B68     	 ldr r3,[r7,#4]
+ 828 001a 1A68     	 ldr r2,[r3]
+ 829              	 .loc 1 248 35
+ 830 001c 3B68     	 ldr r3,[r7]
+ 831 001e 1B78     	 ldrb r3,[r3]
+ 832              	 .loc 1 248 21
+ 833 0020 1900     	 movs r1,r3
+ 834              	 .loc 1 248 59
+ 835 0022 3B68     	 ldr r3,[r7]
+ 836 0024 5B78     	 ldrb r3,[r3,#1]
+ 837              	 .loc 1 248 67
+ 838 0026 9B00     	 lsls r3,r3,#2
+ 839              	 .loc 1 248 42
+ 840 0028 0B43     	 orrs r3,r1
+ 841              	 .loc 1 248 17
+ 842 002a 1A43     	 orrs r2,r3
+ 843 002c 7B68     	 ldr r3,[r7,#4]
+ 844 002e 1A60     	 str r2,[r3]
+ 249:../Libraries/XMCLib/src/xmc_bccu.c ****   reg = 0U;
+ 845              	 .loc 1 249 7
+ 846 0030 0023     	 movs r3,#0
+ 847 0032 FB60     	 str r3,[r7,#12]
+ 250:../Libraries/XMCLib/src/xmc_bccu.c ****   reg |= trig->mask_chans;
+ 848              	 .loc 1 250 14
+ 849 0034 3B68     	 ldr r3,[r7]
+ 850 0036 5B88     	 ldrh r3,[r3,#2]
+ 851 0038 1A00     	 movs r2,r3
+ 852              	 .loc 1 250 7
+ 853 003a FB68     	 ldr r3,[r7,#12]
+ 854 003c 1343     	 orrs r3,r2
+ 855 003e FB60     	 str r3,[r7,#12]
+ 251:../Libraries/XMCLib/src/xmc_bccu.c ****   reg |= ((uint32_t)trig->mask_trig_lines << BCCU_CHTRIG_TOS0_Pos);
+ 856              	 .loc 1 251 25
+ 857 0040 3B68     	 ldr r3,[r7]
+ 858 0042 9B88     	 ldrh r3,[r3,#4]
+ 859              	 .loc 1 251 43
+ 860 0044 1B04     	 lsls r3,r3,#16
+ 861              	 .loc 1 251 7
+ 862 0046 FA68     	 ldr r2,[r7,#12]
+ 863 0048 1343     	 orrs r3,r2
+ 864 004a FB60     	 str r3,[r7,#12]
+ 252:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->CHTRIG = reg;
+ 865              	 .loc 1 252 16
+ 866 004c 7B68     	 ldr r3,[r7,#4]
+ 867 004e FA68     	 ldr r2,[r7,#12]
+ 868 0050 5A61     	 str r2,[r3,#20]
+ 253:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 869              	 .loc 1 253 1
+ 870 0052 C046     	 nop
+ 871 0054 BD46     	 mov sp,r7
+ 872 0056 04B0     	 add sp,sp,#16
+ 873              	 
+ 874 0058 80BD     	 pop {r7,pc}
+ 875              	 .cfi_endproc
+ 876              	.LFE107:
+ 878              	 .section .text.XMC_BCCU_ConcurrentStartLinearWalk,"ax",%progbits
+ 879              	 .align 1
+ 880              	 .global XMC_BCCU_ConcurrentStartLinearWalk
+ 881              	 .syntax unified
+ 882              	 .code 16
+ 883              	 .thumb_func
+ 884              	 .fpu softvfp
+ 886              	XMC_BCCU_ConcurrentStartLinearWalk:
+ 887              	.LFB108:
+ 254:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 255:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 256:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to start the linear walk of the channels to change towards target intensity at the same time
+ 257:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 258:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_ConcurrentStartLinearWalk (XMC_BCCU_t *const bccu, uint32_t mask)
+ 259:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 888              	 .loc 1 259 1
+ 889              	 .cfi_startproc
+ 890              	 
+ 891              	 
+ 892 0000 80B5     	 push {r7,lr}
+ 893              	.LCFI45:
+ 894              	 .cfi_def_cfa_offset 8
+ 895              	 .cfi_offset 7,-8
+ 896              	 .cfi_offset 14,-4
+ 897 0002 82B0     	 sub sp,sp,#8
+ 898              	.LCFI46:
+ 899              	 .cfi_def_cfa_offset 16
+ 900 0004 00AF     	 add r7,sp,#0
+ 901              	.LCFI47:
+ 902              	 .cfi_def_cfa_register 7
+ 903 0006 7860     	 str r0,[r7,#4]
+ 904 0008 3960     	 str r1,[r7]
+ 260:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_ConcurrentStartLinearWalk: Invalid channel mask", (mask <= XMC_BCCU_CHANNEL_
+ 261:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 262:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->CHSTRCON |= (uint32_t)(mask);
+ 905              	 .loc 1 262 18
+ 906 000a 7B68     	 ldr r3,[r7,#4]
+ 907 000c 9A69     	 ldr r2,[r3,#24]
+ 908 000e 3B68     	 ldr r3,[r7]
+ 909 0010 1A43     	 orrs r2,r3
+ 910 0012 7B68     	 ldr r3,[r7,#4]
+ 911 0014 9A61     	 str r2,[r3,#24]
+ 263:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 912              	 .loc 1 263 1
+ 913 0016 C046     	 nop
+ 914 0018 BD46     	 mov sp,r7
+ 915 001a 02B0     	 add sp,sp,#8
+ 916              	 
+ 917 001c 80BD     	 pop {r7,pc}
+ 918              	 .cfi_endproc
+ 919              	.LFE108:
+ 921              	 .section .text.XMC_BCCU_ConcurrentAbortLinearWalk,"ax",%progbits
+ 922              	 .align 1
+ 923              	 .global XMC_BCCU_ConcurrentAbortLinearWalk
+ 924              	 .syntax unified
+ 925              	 .code 16
+ 926              	 .thumb_func
+ 927              	 .fpu softvfp
+ 929              	XMC_BCCU_ConcurrentAbortLinearWalk:
+ 930              	.LFB109:
+ 264:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 265:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 266:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to abort the linear walk of the channels at the same time
+ 267:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 268:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_ConcurrentAbortLinearWalk (XMC_BCCU_t *const bccu, uint32_t mask)
+ 269:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 931              	 .loc 1 269 1
+ 932              	 .cfi_startproc
+ 933              	 
+ 934              	 
+ 935 0000 80B5     	 push {r7,lr}
+ 936              	.LCFI48:
+ 937              	 .cfi_def_cfa_offset 8
+ 938              	 .cfi_offset 7,-8
+ 939              	 .cfi_offset 14,-4
+ 940 0002 82B0     	 sub sp,sp,#8
+ 941              	.LCFI49:
+ 942              	 .cfi_def_cfa_offset 16
+ 943 0004 00AF     	 add r7,sp,#0
+ 944              	.LCFI50:
+ 945              	 .cfi_def_cfa_register 7
+ 946 0006 7860     	 str r0,[r7,#4]
+ 947 0008 3960     	 str r1,[r7]
+ 270:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_ConcurrentAbortLinearWalk: Invalid channel mask", (mask <= XMC_BCCU_CHANNEL_
+ 271:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 272:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->CHSTRCON |= (uint32_t)(mask << BCCU_CHSTRCON_CH0A_Pos);
+ 948              	 .loc 1 272 18
+ 949 000a 7B68     	 ldr r3,[r7,#4]
+ 950 000c 9A69     	 ldr r2,[r3,#24]
+ 951              	 .loc 1 272 37
+ 952 000e 3B68     	 ldr r3,[r7]
+ 953 0010 1B04     	 lsls r3,r3,#16
+ 954              	 .loc 1 272 18
+ 955 0012 1A43     	 orrs r2,r3
+ 956 0014 7B68     	 ldr r3,[r7,#4]
+ 957 0016 9A61     	 str r2,[r3,#24]
+ 273:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 958              	 .loc 1 273 1
+ 959 0018 C046     	 nop
+ 960 001a BD46     	 mov sp,r7
+ 961 001c 02B0     	 add sp,sp,#8
+ 962              	 
+ 963 001e 80BD     	 pop {r7,pc}
+ 964              	 .cfi_endproc
+ 965              	.LFE109:
+ 967              	 .section .text.XMC_BCCU_ConcurrentEnableDimmingEngine,"ax",%progbits
+ 968              	 .align 1
+ 969              	 .global XMC_BCCU_ConcurrentEnableDimmingEngine
+ 970              	 .syntax unified
+ 971              	 .code 16
+ 972              	 .thumb_func
+ 973              	 .fpu softvfp
+ 975              	XMC_BCCU_ConcurrentEnableDimmingEngine:
+ 976              	.LFB110:
+ 274:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 275:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 276:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to enable the dimming engines at the same time
+ 277:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 278:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_ConcurrentEnableDimmingEngine (XMC_BCCU_t *const bccu, uint32_t mask)
+ 279:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 977              	 .loc 1 279 1
+ 978              	 .cfi_startproc
+ 979              	 
+ 980              	 
+ 981 0000 80B5     	 push {r7,lr}
+ 982              	.LCFI51:
+ 983              	 .cfi_def_cfa_offset 8
+ 984              	 .cfi_offset 7,-8
+ 985              	 .cfi_offset 14,-4
+ 986 0002 82B0     	 sub sp,sp,#8
+ 987              	.LCFI52:
+ 988              	 .cfi_def_cfa_offset 16
+ 989 0004 00AF     	 add r7,sp,#0
+ 990              	.LCFI53:
+ 991              	 .cfi_def_cfa_register 7
+ 992 0006 7860     	 str r0,[r7,#4]
+ 993 0008 3960     	 str r1,[r7]
+ 280:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_ConcurrentEnableDimmingEngine: Invalid dimming engine mask", (mask <= XMC_BC
+ 281:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 282:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->DEEN = (uint32_t)(mask);
+ 994              	 .loc 1 282 14
+ 995 000a 7B68     	 ldr r3,[r7,#4]
+ 996 000c 3A68     	 ldr r2,[r7]
+ 997 000e 1A62     	 str r2,[r3,#32]
+ 283:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 998              	 .loc 1 283 1
+ 999 0010 C046     	 nop
+ 1000 0012 BD46     	 mov sp,r7
+ 1001 0014 02B0     	 add sp,sp,#8
+ 1002              	 
+ 1003 0016 80BD     	 pop {r7,pc}
+ 1004              	 .cfi_endproc
+ 1005              	.LFE110:
+ 1007              	 .section .text.XMC_BCCU_ConcurrentDisableDimmingEngine,"ax",%progbits
+ 1008              	 .align 1
+ 1009              	 .global XMC_BCCU_ConcurrentDisableDimmingEngine
+ 1010              	 .syntax unified
+ 1011              	 .code 16
+ 1012              	 .thumb_func
+ 1013              	 .fpu softvfp
+ 1015              	XMC_BCCU_ConcurrentDisableDimmingEngine:
+ 1016              	.LFB111:
+ 284:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 285:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 286:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to enable the dimming engines at the same time
+ 287:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 288:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_ConcurrentDisableDimmingEngine (XMC_BCCU_t *const bccu, uint32_t mask)
+ 289:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 1017              	 .loc 1 289 1
+ 1018              	 .cfi_startproc
+ 1019              	 
+ 1020              	 
+ 1021 0000 80B5     	 push {r7,lr}
+ 1022              	.LCFI54:
+ 1023              	 .cfi_def_cfa_offset 8
+ 1024              	 .cfi_offset 7,-8
+ 1025              	 .cfi_offset 14,-4
+ 1026 0002 82B0     	 sub sp,sp,#8
+ 1027              	.LCFI55:
+ 1028              	 .cfi_def_cfa_offset 16
+ 1029 0004 00AF     	 add r7,sp,#0
+ 1030              	.LCFI56:
+ 1031              	 .cfi_def_cfa_register 7
+ 1032 0006 7860     	 str r0,[r7,#4]
+ 1033 0008 3960     	 str r1,[r7]
+ 290:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_ConcurrentDisableDimmingEngine: Invalid dimming engine mask", (mask <= XMC_B
+ 291:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 292:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->DEEN &= ~(uint32_t)(mask);
+ 1034              	 .loc 1 292 14
+ 1035 000a 7B68     	 ldr r3,[r7,#4]
+ 1036 000c 1B6A     	 ldr r3,[r3,#32]
+ 1037              	 .loc 1 292 17
+ 1038 000e 3A68     	 ldr r2,[r7]
+ 1039 0010 D243     	 mvns r2,r2
+ 1040              	 .loc 1 292 14
+ 1041 0012 1A40     	 ands r2,r3
+ 1042 0014 7B68     	 ldr r3,[r7,#4]
+ 1043 0016 1A62     	 str r2,[r3,#32]
+ 293:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 1044              	 .loc 1 293 1
+ 1045 0018 C046     	 nop
+ 1046 001a BD46     	 mov sp,r7
+ 1047 001c 02B0     	 add sp,sp,#8
+ 1048              	 
+ 1049 001e 80BD     	 pop {r7,pc}
+ 1050              	 .cfi_endproc
+ 1051              	.LFE111:
+ 1053              	 .section .text.XMC_BCCU_ConcurrentStartDimming,"ax",%progbits
+ 1054              	 .align 1
+ 1055              	 .global XMC_BCCU_ConcurrentStartDimming
+ 1056              	 .syntax unified
+ 1057              	 .code 16
+ 1058              	 .thumb_func
+ 1059              	 .fpu softvfp
+ 1061              	XMC_BCCU_ConcurrentStartDimming:
+ 1062              	.LFB112:
+ 294:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 295:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 296:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to start the dimming engines at the same time to change towards target dim level
+ 297:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 298:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_ConcurrentStartDimming (XMC_BCCU_t *const bccu, uint32_t mask)
+ 299:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 1063              	 .loc 1 299 1
+ 1064              	 .cfi_startproc
+ 1065              	 
+ 1066              	 
+ 1067 0000 80B5     	 push {r7,lr}
+ 1068              	.LCFI57:
+ 1069              	 .cfi_def_cfa_offset 8
+ 1070              	 .cfi_offset 7,-8
+ 1071              	 .cfi_offset 14,-4
+ 1072 0002 82B0     	 sub sp,sp,#8
+ 1073              	.LCFI58:
+ 1074              	 .cfi_def_cfa_offset 16
+ 1075 0004 00AF     	 add r7,sp,#0
+ 1076              	.LCFI59:
+ 1077              	 .cfi_def_cfa_register 7
+ 1078 0006 7860     	 str r0,[r7,#4]
+ 1079 0008 3960     	 str r1,[r7]
+ 300:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_ConcurrentStartDimming: Invalid dimming engine mask", (mask <= XMC_BCCU_DIM_
+ 301:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 302:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->DESTRCON = (uint32_t)(mask);
+ 1080              	 .loc 1 302 18
+ 1081 000a 7B68     	 ldr r3,[r7,#4]
+ 1082 000c 3A68     	 ldr r2,[r7]
+ 1083 000e 5A62     	 str r2,[r3,#36]
+ 303:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 1084              	 .loc 1 303 1
+ 1085 0010 C046     	 nop
+ 1086 0012 BD46     	 mov sp,r7
+ 1087 0014 02B0     	 add sp,sp,#8
+ 1088              	 
+ 1089 0016 80BD     	 pop {r7,pc}
+ 1090              	 .cfi_endproc
+ 1091              	.LFE112:
+ 1093              	 .section .text.XMC_BCCU_ConcurrentAbortDimming,"ax",%progbits
+ 1094              	 .align 1
+ 1095              	 .global XMC_BCCU_ConcurrentAbortDimming
+ 1096              	 .syntax unified
+ 1097              	 .code 16
+ 1098              	 .thumb_func
+ 1099              	 .fpu softvfp
+ 1101              	XMC_BCCU_ConcurrentAbortDimming:
+ 1102              	.LFB113:
+ 304:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 305:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 306:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to abort the dimming engines at the same time
+ 307:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 308:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_ConcurrentAbortDimming (XMC_BCCU_t *const bccu, uint32_t mask)
+ 309:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 1103              	 .loc 1 309 1
+ 1104              	 .cfi_startproc
+ 1105              	 
+ 1106              	 
+ 1107 0000 80B5     	 push {r7,lr}
+ 1108              	.LCFI60:
+ 1109              	 .cfi_def_cfa_offset 8
+ 1110              	 .cfi_offset 7,-8
+ 1111              	 .cfi_offset 14,-4
+ 1112 0002 82B0     	 sub sp,sp,#8
+ 1113              	.LCFI61:
+ 1114              	 .cfi_def_cfa_offset 16
+ 1115 0004 00AF     	 add r7,sp,#0
+ 1116              	.LCFI62:
+ 1117              	 .cfi_def_cfa_register 7
+ 1118 0006 7860     	 str r0,[r7,#4]
+ 1119 0008 3960     	 str r1,[r7]
+ 310:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_ConcurrentAbortDimming: Invalid dimming engine mask", (mask <= XMC_BCCU_DIM_
+ 311:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 312:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->DESTRCON = (uint32_t)(mask << BCCU_DESTRCON_DE0A_Pos);
+ 1120              	 .loc 1 312 36
+ 1121 000a 3B68     	 ldr r3,[r7]
+ 1122 000c 1A04     	 lsls r2,r3,#16
+ 1123              	 .loc 1 312 18
+ 1124 000e 7B68     	 ldr r3,[r7,#4]
+ 1125 0010 5A62     	 str r2,[r3,#36]
+ 313:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 1126              	 .loc 1 313 1
+ 1127 0012 C046     	 nop
+ 1128 0014 BD46     	 mov sp,r7
+ 1129 0016 02B0     	 add sp,sp,#8
+ 1130              	 
+ 1131 0018 80BD     	 pop {r7,pc}
+ 1132              	 .cfi_endproc
+ 1133              	.LFE113:
+ 1135              	 .section .text.XMC_BCCU_SetGlobalDimmingLevel,"ax",%progbits
+ 1136              	 .align 1
+ 1137              	 .global XMC_BCCU_SetGlobalDimmingLevel
+ 1138              	 .syntax unified
+ 1139              	 .code 16
+ 1140              	 .thumb_func
+ 1141              	 .fpu softvfp
+ 1143              	XMC_BCCU_SetGlobalDimmingLevel:
+ 1144              	.LFB114:
+ 314:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 315:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 316:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to configure the dim level of a dimming engine
+ 317:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 318:../Libraries/XMCLib/src/xmc_bccu.c **** void  XMC_BCCU_SetGlobalDimmingLevel (XMC_BCCU_t *const bccu, uint32_t level)
+ 319:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 1145              	 .loc 1 319 1
+ 1146              	 .cfi_startproc
+ 1147              	 
+ 1148              	 
+ 1149 0000 80B5     	 push {r7,lr}
+ 1150              	.LCFI63:
+ 1151              	 .cfi_def_cfa_offset 8
+ 1152              	 .cfi_offset 7,-8
+ 1153              	 .cfi_offset 14,-4
+ 1154 0002 82B0     	 sub sp,sp,#8
+ 1155              	.LCFI64:
+ 1156              	 .cfi_def_cfa_offset 16
+ 1157 0004 00AF     	 add r7,sp,#0
+ 1158              	.LCFI65:
+ 1159              	 .cfi_def_cfa_register 7
+ 1160 0006 7860     	 str r0,[r7,#4]
+ 1161 0008 3960     	 str r1,[r7]
+ 320:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_SetGlobalDimmingLevel: Invalid global dimming level", (level <= BCCU_GLOBDIM
+ 321:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 322:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->GLOBDIM = level;
+ 1162              	 .loc 1 322 17
+ 1163 000a 7B68     	 ldr r3,[r7,#4]
+ 1164 000c 3A68     	 ldr r2,[r7]
+ 1165 000e 9A62     	 str r2,[r3,#40]
+ 323:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 1166              	 .loc 1 323 1
+ 1167 0010 C046     	 nop
+ 1168 0012 BD46     	 mov sp,r7
+ 1169 0014 02B0     	 add sp,sp,#8
+ 1170              	 
+ 1171 0016 80BD     	 pop {r7,pc}
+ 1172              	 .cfi_endproc
+ 1173              	.LFE114:
+ 1175              	 .section .text.XMC_BCCU_EnableChannel,"ax",%progbits
+ 1176              	 .align 1
+ 1177              	 .global XMC_BCCU_EnableChannel
+ 1178              	 .syntax unified
+ 1179              	 .code 16
+ 1180              	 .thumb_func
+ 1181              	 .fpu softvfp
+ 1183              	XMC_BCCU_EnableChannel:
+ 1184              	.LFB115:
+ 324:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 325:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 326:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to enable a specific channel
+ 327:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 328:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_EnableChannel (XMC_BCCU_t *const bccu, uint32_t chan_no)
+ 329:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 1185              	 .loc 1 329 1
+ 1186              	 .cfi_startproc
+ 1187              	 
+ 1188              	 
+ 1189 0000 80B5     	 push {r7,lr}
+ 1190              	.LCFI66:
+ 1191              	 .cfi_def_cfa_offset 8
+ 1192              	 .cfi_offset 7,-8
+ 1193              	 .cfi_offset 14,-4
+ 1194 0002 82B0     	 sub sp,sp,#8
+ 1195              	.LCFI67:
+ 1196              	 .cfi_def_cfa_offset 16
+ 1197 0004 00AF     	 add r7,sp,#0
+ 1198              	.LCFI68:
+ 1199              	 .cfi_def_cfa_register 7
+ 1200 0006 7860     	 str r0,[r7,#4]
+ 1201 0008 3960     	 str r1,[r7]
+ 330:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_EnableChannel: Invalid channel number", (chan_no <= (XMC_BCCU_NO_OF_CHANNELS
+ 331:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 332:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->CHEN |= (uint32_t)(BCCU_CHEN_ECH0_Msk << chan_no);
+ 1202              	 .loc 1 332 14
+ 1203 000a 7B68     	 ldr r3,[r7,#4]
+ 1204 000c DA68     	 ldr r2,[r3,#12]
+ 1205              	 .loc 1 332 17
+ 1206 000e 0121     	 movs r1,#1
+ 1207 0010 3B68     	 ldr r3,[r7]
+ 1208 0012 9940     	 lsls r1,r1,r3
+ 1209 0014 0B00     	 movs r3,r1
+ 1210              	 .loc 1 332 14
+ 1211 0016 1A43     	 orrs r2,r3
+ 1212 0018 7B68     	 ldr r3,[r7,#4]
+ 1213 001a DA60     	 str r2,[r3,#12]
+ 333:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 1214              	 .loc 1 333 1
+ 1215 001c C046     	 nop
+ 1216 001e BD46     	 mov sp,r7
+ 1217 0020 02B0     	 add sp,sp,#8
+ 1218              	 
+ 1219 0022 80BD     	 pop {r7,pc}
+ 1220              	 .cfi_endproc
+ 1221              	.LFE115:
+ 1223              	 .section .text.XMC_BCCU_DisableChannel,"ax",%progbits
+ 1224              	 .align 1
+ 1225              	 .global XMC_BCCU_DisableChannel
+ 1226              	 .syntax unified
+ 1227              	 .code 16
+ 1228              	 .thumb_func
+ 1229              	 .fpu softvfp
+ 1231              	XMC_BCCU_DisableChannel:
+ 1232              	.LFB116:
+ 334:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 335:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 336:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to disable a specific channel
+ 337:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 338:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_DisableChannel (XMC_BCCU_t *const bccu, uint32_t chan_no)
+ 339:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 1233              	 .loc 1 339 1
+ 1234              	 .cfi_startproc
+ 1235              	 
+ 1236              	 
+ 1237 0000 80B5     	 push {r7,lr}
+ 1238              	.LCFI69:
+ 1239              	 .cfi_def_cfa_offset 8
+ 1240              	 .cfi_offset 7,-8
+ 1241              	 .cfi_offset 14,-4
+ 1242 0002 82B0     	 sub sp,sp,#8
+ 1243              	.LCFI70:
+ 1244              	 .cfi_def_cfa_offset 16
+ 1245 0004 00AF     	 add r7,sp,#0
+ 1246              	.LCFI71:
+ 1247              	 .cfi_def_cfa_register 7
+ 1248 0006 7860     	 str r0,[r7,#4]
+ 1249 0008 3960     	 str r1,[r7]
+ 340:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_DisableChannel: Invalid channel number", (chan_no <= (XMC_BCCU_NO_OF_CHANNEL
+ 341:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 342:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->CHEN &= ~(uint32_t)(BCCU_CHEN_ECH0_Msk << chan_no);
+ 1250              	 .loc 1 342 14
+ 1251 000a 7B68     	 ldr r3,[r7,#4]
+ 1252 000c DB68     	 ldr r3,[r3,#12]
+ 1253              	 .loc 1 342 18
+ 1254 000e 0121     	 movs r1,#1
+ 1255 0010 3A68     	 ldr r2,[r7]
+ 1256 0012 9140     	 lsls r1,r1,r2
+ 1257 0014 0A00     	 movs r2,r1
+ 1258              	 .loc 1 342 17
+ 1259 0016 D243     	 mvns r2,r2
+ 1260              	 .loc 1 342 14
+ 1261 0018 1A40     	 ands r2,r3
+ 1262 001a 7B68     	 ldr r3,[r7,#4]
+ 1263 001c DA60     	 str r2,[r3,#12]
+ 343:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 1264              	 .loc 1 343 1
+ 1265 001e C046     	 nop
+ 1266 0020 BD46     	 mov sp,r7
+ 1267 0022 02B0     	 add sp,sp,#8
+ 1268              	 
+ 1269 0024 80BD     	 pop {r7,pc}
+ 1270              	 .cfi_endproc
+ 1271              	.LFE116:
+ 1273              	 .section .text.XMC_BCCU_SetOutputPassiveLevel,"ax",%progbits
+ 1274              	 .align 1
+ 1275              	 .global XMC_BCCU_SetOutputPassiveLevel
+ 1276              	 .syntax unified
+ 1277              	 .code 16
+ 1278              	 .thumb_func
+ 1279              	 .fpu softvfp
+ 1281              	XMC_BCCU_SetOutputPassiveLevel:
+ 1282              	.LFB117:
+ 344:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 345:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 346:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to set the specific channel's passive level
+ 347:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 348:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_SetOutputPassiveLevel(XMC_BCCU_t *const bccu, uint32_t chan_no, XMC_BCCU_CH_ACTIVE_LE
+ 349:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 1283              	 .loc 1 349 1
+ 1284              	 .cfi_startproc
+ 1285              	 
+ 1286              	 
+ 1287 0000 80B5     	 push {r7,lr}
+ 1288              	.LCFI72:
+ 1289              	 .cfi_def_cfa_offset 8
+ 1290              	 .cfi_offset 7,-8
+ 1291              	 .cfi_offset 14,-4
+ 1292 0002 84B0     	 sub sp,sp,#16
+ 1293              	.LCFI73:
+ 1294              	 .cfi_def_cfa_offset 24
+ 1295 0004 00AF     	 add r7,sp,#0
+ 1296              	.LCFI74:
+ 1297              	 .cfi_def_cfa_register 7
+ 1298 0006 F860     	 str r0,[r7,#12]
+ 1299 0008 B960     	 str r1,[r7,#8]
+ 1300 000a FB1D     	 adds r3,r7,#7
+ 1301 000c 1A70     	 strb r2,[r3]
+ 350:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_SetOutputPassiveLevel: Invalid channel number", (chan_no <= (XMC_BCCU_NO_OF_
+ 351:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 352:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->CHOCON |= ((uint32_t)level << chan_no);
+ 1302              	 .loc 1 352 16
+ 1303 000e FB68     	 ldr r3,[r7,#12]
+ 1304 0010 1A69     	 ldr r2,[r3,#16]
+ 1305              	 .loc 1 352 20
+ 1306 0012 FB1D     	 adds r3,r7,#7
+ 1307 0014 1978     	 ldrb r1,[r3]
+ 1308              	 .loc 1 352 36
+ 1309 0016 BB68     	 ldr r3,[r7,#8]
+ 1310 0018 9940     	 lsls r1,r1,r3
+ 1311 001a 0B00     	 movs r3,r1
+ 1312              	 .loc 1 352 16
+ 1313 001c 1A43     	 orrs r2,r3
+ 1314 001e FB68     	 ldr r3,[r7,#12]
+ 1315 0020 1A61     	 str r2,[r3,#16]
+ 353:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 1316              	 .loc 1 353 1
+ 1317 0022 C046     	 nop
+ 1318 0024 BD46     	 mov sp,r7
+ 1319 0026 04B0     	 add sp,sp,#16
+ 1320              	 
+ 1321 0028 80BD     	 pop {r7,pc}
+ 1322              	 .cfi_endproc
+ 1323              	.LFE117:
+ 1325              	 .section .text.XMC_BCCU_EnableTrap,"ax",%progbits
+ 1326              	 .align 1
+ 1327              	 .global XMC_BCCU_EnableTrap
+ 1328              	 .syntax unified
+ 1329              	 .code 16
+ 1330              	 .thumb_func
+ 1331              	 .fpu softvfp
+ 1333              	XMC_BCCU_EnableTrap:
+ 1334              	.LFB118:
+ 354:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 355:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 356:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to enable the specific channel trap
+ 357:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 358:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_EnableTrap (XMC_BCCU_t *const bccu, uint32_t chan_no)
+ 359:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 1335              	 .loc 1 359 1
+ 1336              	 .cfi_startproc
+ 1337              	 
+ 1338              	 
+ 1339 0000 80B5     	 push {r7,lr}
+ 1340              	.LCFI75:
+ 1341              	 .cfi_def_cfa_offset 8
+ 1342              	 .cfi_offset 7,-8
+ 1343              	 .cfi_offset 14,-4
+ 1344 0002 82B0     	 sub sp,sp,#8
+ 1345              	.LCFI76:
+ 1346              	 .cfi_def_cfa_offset 16
+ 1347 0004 00AF     	 add r7,sp,#0
+ 1348              	.LCFI77:
+ 1349              	 .cfi_def_cfa_register 7
+ 1350 0006 7860     	 str r0,[r7,#4]
+ 1351 0008 3960     	 str r1,[r7]
+ 360:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_EnableTrap: Invalid channel number", (chan_no <= (XMC_BCCU_NO_OF_CHANNELS-1)
+ 361:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 362:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->CHOCON |= (uint32_t)(BCCU_CHOCON_CH0TPE_Msk << chan_no);
+ 1352              	 .loc 1 362 16
+ 1353 000a 7B68     	 ldr r3,[r7,#4]
+ 1354 000c 1A69     	 ldr r2,[r3,#16]
+ 1355              	 .loc 1 362 19
+ 1356 000e 8023     	 movs r3,#128
+ 1357 0010 5902     	 lsls r1,r3,#9
+ 1358 0012 3B68     	 ldr r3,[r7]
+ 1359 0014 9940     	 lsls r1,r1,r3
+ 1360 0016 0B00     	 movs r3,r1
+ 1361              	 .loc 1 362 16
+ 1362 0018 1A43     	 orrs r2,r3
+ 1363 001a 7B68     	 ldr r3,[r7,#4]
+ 1364 001c 1A61     	 str r2,[r3,#16]
+ 363:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 1365              	 .loc 1 363 1
+ 1366 001e C046     	 nop
+ 1367 0020 BD46     	 mov sp,r7
+ 1368 0022 02B0     	 add sp,sp,#8
+ 1369              	 
+ 1370 0024 80BD     	 pop {r7,pc}
+ 1371              	 .cfi_endproc
+ 1372              	.LFE118:
+ 1374              	 .section .text.XMC_BCCU_DisableTrap,"ax",%progbits
+ 1375              	 .align 1
+ 1376              	 .global XMC_BCCU_DisableTrap
+ 1377              	 .syntax unified
+ 1378              	 .code 16
+ 1379              	 .thumb_func
+ 1380              	 .fpu softvfp
+ 1382              	XMC_BCCU_DisableTrap:
+ 1383              	.LFB119:
+ 364:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 365:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 366:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to disable the specific channel trap
+ 367:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 368:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_DisableTrap (XMC_BCCU_t *const bccu, uint32_t chan_no)
+ 369:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 1384              	 .loc 1 369 1
+ 1385              	 .cfi_startproc
+ 1386              	 
+ 1387              	 
+ 1388 0000 80B5     	 push {r7,lr}
+ 1389              	.LCFI78:
+ 1390              	 .cfi_def_cfa_offset 8
+ 1391              	 .cfi_offset 7,-8
+ 1392              	 .cfi_offset 14,-4
+ 1393 0002 82B0     	 sub sp,sp,#8
+ 1394              	.LCFI79:
+ 1395              	 .cfi_def_cfa_offset 16
+ 1396 0004 00AF     	 add r7,sp,#0
+ 1397              	.LCFI80:
+ 1398              	 .cfi_def_cfa_register 7
+ 1399 0006 7860     	 str r0,[r7,#4]
+ 1400 0008 3960     	 str r1,[r7]
+ 370:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_DisableTrap: Invalid channel number", (chan_no <= (XMC_BCCU_NO_OF_CHANNELS-1
+ 371:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 372:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->CHOCON &= ~(uint32_t)(BCCU_CHOCON_CH0TPE_Msk << chan_no);
+ 1401              	 .loc 1 372 16
+ 1402 000a 7B68     	 ldr r3,[r7,#4]
+ 1403 000c 1B69     	 ldr r3,[r3,#16]
+ 1404              	 .loc 1 372 20
+ 1405 000e 8022     	 movs r2,#128
+ 1406 0010 5102     	 lsls r1,r2,#9
+ 1407 0012 3A68     	 ldr r2,[r7]
+ 1408 0014 9140     	 lsls r1,r1,r2
+ 1409 0016 0A00     	 movs r2,r1
+ 1410              	 .loc 1 372 19
+ 1411 0018 D243     	 mvns r2,r2
+ 1412              	 .loc 1 372 16
+ 1413 001a 1A40     	 ands r2,r3
+ 1414 001c 7B68     	 ldr r3,[r7,#4]
+ 1415 001e 1A61     	 str r2,[r3,#16]
+ 373:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 1416              	 .loc 1 373 1
+ 1417 0020 C046     	 nop
+ 1418 0022 BD46     	 mov sp,r7
+ 1419 0024 02B0     	 add sp,sp,#8
+ 1420              	 
+ 1421 0026 80BD     	 pop {r7,pc}
+ 1422              	 .cfi_endproc
+ 1423              	.LFE119:
+ 1425              	 .section .text.XMC_BCCU_EnableChannelTrigger,"ax",%progbits
+ 1426              	 .align 1
+ 1427              	 .global XMC_BCCU_EnableChannelTrigger
+ 1428              	 .syntax unified
+ 1429              	 .code 16
+ 1430              	 .thumb_func
+ 1431              	 .fpu softvfp
+ 1433              	XMC_BCCU_EnableChannelTrigger:
+ 1434              	.LFB120:
+ 374:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 375:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 376:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to configure specific channel trigger enable and trigger line.
+ 377:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 378:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_EnableChannelTrigger (XMC_BCCU_t *const bccu, uint32_t chan_no, XMC_BCCU_CH_TRIGOUT_t
+ 379:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 1435              	 .loc 1 379 1
+ 1436              	 .cfi_startproc
+ 1437              	 
+ 1438              	 
+ 1439 0000 80B5     	 push {r7,lr}
+ 1440              	.LCFI81:
+ 1441              	 .cfi_def_cfa_offset 8
+ 1442              	 .cfi_offset 7,-8
+ 1443              	 .cfi_offset 14,-4
+ 1444 0002 86B0     	 sub sp,sp,#24
+ 1445              	.LCFI82:
+ 1446              	 .cfi_def_cfa_offset 32
+ 1447 0004 00AF     	 add r7,sp,#0
+ 1448              	.LCFI83:
+ 1449              	 .cfi_def_cfa_register 7
+ 1450 0006 F860     	 str r0,[r7,#12]
+ 1451 0008 B960     	 str r1,[r7,#8]
+ 1452 000a FB1D     	 adds r3,r7,#7
+ 1453 000c 1A70     	 strb r2,[r3]
+ 380:../Libraries/XMCLib/src/xmc_bccu.c ****   uint32_t reg;
+ 381:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_EnableChannelTrigger: Invalid channel number", (chan_no <= (XMC_BCCU_NO_OF_C
+ 382:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 383:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->CHTRIG &= ~(uint32_t)(BCCU_CHTRIG_TOS0_Msk << chan_no);
+ 1454              	 .loc 1 383 16
+ 1455 000e FB68     	 ldr r3,[r7,#12]
+ 1456 0010 5B69     	 ldr r3,[r3,#20]
+ 1457              	 .loc 1 383 20
+ 1458 0012 8022     	 movs r2,#128
+ 1459 0014 5102     	 lsls r1,r2,#9
+ 1460 0016 BA68     	 ldr r2,[r7,#8]
+ 1461 0018 9140     	 lsls r1,r1,r2
+ 1462 001a 0A00     	 movs r2,r1
+ 1463              	 .loc 1 383 19
+ 1464 001c D243     	 mvns r2,r2
+ 1465              	 .loc 1 383 16
+ 1466 001e 1A40     	 ands r2,r3
+ 1467 0020 FB68     	 ldr r3,[r7,#12]
+ 1468 0022 5A61     	 str r2,[r3,#20]
+ 384:../Libraries/XMCLib/src/xmc_bccu.c ****   reg = (uint32_t)(BCCU_CHTRIG_ET0_Msk << chan_no);
+ 1469              	 .loc 1 384 7
+ 1470 0024 0122     	 movs r2,#1
+ 1471 0026 BB68     	 ldr r3,[r7,#8]
+ 1472 0028 9A40     	 lsls r2,r2,r3
+ 1473 002a 1300     	 movs r3,r2
+ 1474 002c 7B61     	 str r3,[r7,#20]
+ 385:../Libraries/XMCLib/src/xmc_bccu.c ****   reg |= ((uint32_t)trig_line << (BCCU_CHTRIG_TOS0_Pos + chan_no));
+ 1475              	 .loc 1 385 11
+ 1476 002e FB1D     	 adds r3,r7,#7
+ 1477 0030 1A78     	 ldrb r2,[r3]
+ 1478              	 .loc 1 385 56
+ 1479 0032 BB68     	 ldr r3,[r7,#8]
+ 1480 0034 1033     	 adds r3,r3,#16
+ 1481              	 .loc 1 385 31
+ 1482 0036 9A40     	 lsls r2,r2,r3
+ 1483 0038 1300     	 movs r3,r2
+ 1484              	 .loc 1 385 7
+ 1485 003a 7A69     	 ldr r2,[r7,#20]
+ 1486 003c 1343     	 orrs r3,r2
+ 1487 003e 7B61     	 str r3,[r7,#20]
+ 386:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->CHTRIG |= reg;
+ 1488              	 .loc 1 386 16
+ 1489 0040 FB68     	 ldr r3,[r7,#12]
+ 1490 0042 5A69     	 ldr r2,[r3,#20]
+ 1491 0044 7B69     	 ldr r3,[r7,#20]
+ 1492 0046 1A43     	 orrs r2,r3
+ 1493 0048 FB68     	 ldr r3,[r7,#12]
+ 1494 004a 5A61     	 str r2,[r3,#20]
+ 387:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 1495              	 .loc 1 387 1
+ 1496 004c C046     	 nop
+ 1497 004e BD46     	 mov sp,r7
+ 1498 0050 06B0     	 add sp,sp,#24
+ 1499              	 
+ 1500 0052 80BD     	 pop {r7,pc}
+ 1501              	 .cfi_endproc
+ 1502              	.LFE120:
+ 1504              	 .section .text.XMC_BCCU_DisableChannelTrigger,"ax",%progbits
+ 1505              	 .align 1
+ 1506              	 .global XMC_BCCU_DisableChannelTrigger
+ 1507              	 .syntax unified
+ 1508              	 .code 16
+ 1509              	 .thumb_func
+ 1510              	 .fpu softvfp
+ 1512              	XMC_BCCU_DisableChannelTrigger:
+ 1513              	.LFB121:
+ 388:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 389:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 390:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to disable specific channel
+ 391:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 392:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_DisableChannelTrigger (XMC_BCCU_t *const bccu, uint32_t chan_no)
+ 393:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 1514              	 .loc 1 393 1
+ 1515              	 .cfi_startproc
+ 1516              	 
+ 1517              	 
+ 1518 0000 80B5     	 push {r7,lr}
+ 1519              	.LCFI84:
+ 1520              	 .cfi_def_cfa_offset 8
+ 1521              	 .cfi_offset 7,-8
+ 1522              	 .cfi_offset 14,-4
+ 1523 0002 82B0     	 sub sp,sp,#8
+ 1524              	.LCFI85:
+ 1525              	 .cfi_def_cfa_offset 16
+ 1526 0004 00AF     	 add r7,sp,#0
+ 1527              	.LCFI86:
+ 1528              	 .cfi_def_cfa_register 7
+ 1529 0006 7860     	 str r0,[r7,#4]
+ 1530 0008 3960     	 str r1,[r7]
+ 394:../Libraries/XMCLib/src/xmc_bccu.c ****   XMC_ASSERT("XMC_BCCU_DisableChannelTrigger: Invalid channel number", (chan_no <= (XMC_BCCU_NO_OF_
+ 395:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 396:../Libraries/XMCLib/src/xmc_bccu.c ****   bccu->CHTRIG &= ~(uint32_t)(BCCU_CHTRIG_ET0_Msk << chan_no);
+ 1531              	 .loc 1 396 16
+ 1532 000a 7B68     	 ldr r3,[r7,#4]
+ 1533 000c 5B69     	 ldr r3,[r3,#20]
+ 1534              	 .loc 1 396 20
+ 1535 000e 0121     	 movs r1,#1
+ 1536 0010 3A68     	 ldr r2,[r7]
+ 1537 0012 9140     	 lsls r1,r1,r2
+ 1538 0014 0A00     	 movs r2,r1
+ 1539              	 .loc 1 396 19
+ 1540 0016 D243     	 mvns r2,r2
+ 1541              	 .loc 1 396 16
+ 1542 0018 1A40     	 ands r2,r3
+ 1543 001a 7B68     	 ldr r3,[r7,#4]
+ 1544 001c 5A61     	 str r2,[r3,#20]
+ 397:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 1545              	 .loc 1 397 1
+ 1546 001e C046     	 nop
+ 1547 0020 BD46     	 mov sp,r7
+ 1548 0022 02B0     	 add sp,sp,#8
+ 1549              	 
+ 1550 0024 80BD     	 pop {r7,pc}
+ 1551              	 .cfi_endproc
+ 1552              	.LFE121:
+ 1554              	 .section .text.XMC_BCCU_CH_Init,"ax",%progbits
+ 1555              	 .align 1
+ 1556              	 .global XMC_BCCU_CH_Init
+ 1557              	 .syntax unified
+ 1558              	 .code 16
+ 1559              	 .thumb_func
+ 1560              	 .fpu softvfp
+ 1562              	XMC_BCCU_CH_Init:
+ 1563              	.LFB122:
+ 398:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 399:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 400:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to initialise the channel of a BCCU module
+ 401:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 402:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_CH_Init (XMC_BCCU_CH_t *const channel, const XMC_BCCU_CH_CONFIG_t *const config)
+ 403:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 1564              	 .loc 1 403 1
+ 1565              	 .cfi_startproc
+ 1566              	 
+ 1567              	 
+ 1568 0000 80B5     	 push {r7,lr}
+ 1569              	.LCFI87:
+ 1570              	 .cfi_def_cfa_offset 8
+ 1571              	 .cfi_offset 7,-8
+ 1572              	 .cfi_offset 14,-4
+ 1573 0002 82B0     	 sub sp,sp,#8
+ 1574              	.LCFI88:
+ 1575              	 .cfi_def_cfa_offset 16
+ 1576 0004 00AF     	 add r7,sp,#0
+ 1577              	.LCFI89:
+ 1578              	 .cfi_def_cfa_register 7
+ 1579 0006 7860     	 str r0,[r7,#4]
+ 1580 0008 3960     	 str r1,[r7]
+ 404:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->CHCONFIG = config->chconfig;
+ 1581              	 .loc 1 404 29
+ 1582 000a 3B68     	 ldr r3,[r7]
+ 1583 000c 1A68     	 ldr r2,[r3]
+ 1584              	 .loc 1 404 21
+ 1585 000e 7B68     	 ldr r3,[r7,#4]
+ 1586 0010 9A60     	 str r2,[r3,#8]
+ 405:../Libraries/XMCLib/src/xmc_bccu.c ****  
+ 406:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->PKCMP = config->pkcmp;
+ 1587              	 .loc 1 406 26
+ 1588 0012 3B68     	 ldr r3,[r7]
+ 1589 0014 5A68     	 ldr r2,[r3,#4]
+ 1590              	 .loc 1 406 18
+ 1591 0016 7B68     	 ldr r3,[r7,#4]
+ 1592 0018 DA60     	 str r2,[r3,#12]
+ 407:../Libraries/XMCLib/src/xmc_bccu.c ****  
+ 408:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->PKCNTR = config->pkcntr;
+ 1593              	 .loc 1 408 27
+ 1594 001a 3B68     	 ldr r3,[r7]
+ 1595 001c 9A68     	 ldr r2,[r3,#8]
+ 1596              	 .loc 1 408 19
+ 1597 001e 7B68     	 ldr r3,[r7,#4]
+ 1598 0020 1A61     	 str r2,[r3,#16]
+ 409:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 1599              	 .loc 1 409 1
+ 1600 0022 C046     	 nop
+ 1601 0024 BD46     	 mov sp,r7
+ 1602 0026 02B0     	 add sp,sp,#8
+ 1603              	 
+ 1604 0028 80BD     	 pop {r7,pc}
+ 1605              	 .cfi_endproc
+ 1606              	.LFE122:
+ 1608              	 .section .text.XMC_BCCU_CH_ConfigTrigger,"ax",%progbits
+ 1609              	 .align 1
+ 1610              	 .global XMC_BCCU_CH_ConfigTrigger
+ 1611              	 .syntax unified
+ 1612              	 .code 16
+ 1613              	 .thumb_func
+ 1614              	 .fpu softvfp
+ 1616              	XMC_BCCU_CH_ConfigTrigger:
+ 1617              	.LFB123:
+ 410:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 411:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 412:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to configure channel trigger edge and force trigger edge
+ 413:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 414:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_CH_ConfigTrigger (XMC_BCCU_CH_t *const channel, XMC_BCCU_CH_TRIG_EDGE_t edge, uint32_
+ 415:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 1618              	 .loc 1 415 1
+ 1619              	 .cfi_startproc
+ 1620              	 
+ 1621              	 
+ 1622 0000 80B5     	 push {r7,lr}
+ 1623              	.LCFI90:
+ 1624              	 .cfi_def_cfa_offset 8
+ 1625              	 .cfi_offset 7,-8
+ 1626              	 .cfi_offset 14,-4
+ 1627 0002 86B0     	 sub sp,sp,#24
+ 1628              	.LCFI91:
+ 1629              	 .cfi_def_cfa_offset 32
+ 1630 0004 00AF     	 add r7,sp,#0
+ 1631              	.LCFI92:
+ 1632              	 .cfi_def_cfa_register 7
+ 1633 0006 F860     	 str r0,[r7,#12]
+ 1634 0008 7A60     	 str r2,[r7,#4]
+ 1635 000a 0B20     	 movs r0,#11
+ 1636 000c 3B18     	 adds r3,r7,r0
+ 1637 000e 0A1C     	 adds r2,r1,#0
+ 1638 0010 1A70     	 strb r2,[r3]
+ 416:../Libraries/XMCLib/src/xmc_bccu.c ****   uint32_t reg; 
+ 417:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->CHCONFIG &= ~(uint32_t)(BCCU_CH_CHCONFIG_TRED_Msk | BCCU_CH_CHCONFIG_ENFT_Msk);
+ 1639              	 .loc 1 417 21
+ 1640 0012 FB68     	 ldr r3,[r7,#12]
+ 1641 0014 9B68     	 ldr r3,[r3,#8]
+ 1642 0016 0B4A     	 ldr r2,.L42
+ 1643 0018 1A40     	 ands r2,r3
+ 1644 001a FB68     	 ldr r3,[r7,#12]
+ 1645 001c 9A60     	 str r2,[r3,#8]
+ 418:../Libraries/XMCLib/src/xmc_bccu.c ****   
+ 419:../Libraries/XMCLib/src/xmc_bccu.c ****   reg = ((uint32_t)edge << BCCU_CH_CHCONFIG_TRED_Pos);
+ 1646              	 .loc 1 419 10
+ 1647 001e 3B18     	 adds r3,r7,r0
+ 1648 0020 1B78     	 ldrb r3,[r3]
+ 1649              	 .loc 1 419 7
+ 1650 0022 9B02     	 lsls r3,r3,#10
+ 1651 0024 7B61     	 str r3,[r7,#20]
+ 420:../Libraries/XMCLib/src/xmc_bccu.c ****   reg |= (uint32_t)(force_trig_en << BCCU_CH_CHCONFIG_ENFT_Pos);
+ 1652              	 .loc 1 420 35
+ 1653 0026 7B68     	 ldr r3,[r7,#4]
+ 1654 0028 DB02     	 lsls r3,r3,#11
+ 1655              	 .loc 1 420 7
+ 1656 002a 7A69     	 ldr r2,[r7,#20]
+ 1657 002c 1343     	 orrs r3,r2
+ 1658 002e 7B61     	 str r3,[r7,#20]
+ 421:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->CHCONFIG |= reg;
+ 1659              	 .loc 1 421 21
+ 1660 0030 FB68     	 ldr r3,[r7,#12]
+ 1661 0032 9A68     	 ldr r2,[r3,#8]
+ 1662 0034 7B69     	 ldr r3,[r7,#20]
+ 1663 0036 1A43     	 orrs r2,r3
+ 1664 0038 FB68     	 ldr r3,[r7,#12]
+ 1665 003a 9A60     	 str r2,[r3,#8]
+ 422:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 1666              	 .loc 1 422 1
+ 1667 003c C046     	 nop
+ 1668 003e BD46     	 mov sp,r7
+ 1669 0040 06B0     	 add sp,sp,#24
+ 1670              	 
+ 1671 0042 80BD     	 pop {r7,pc}
+ 1672              	.L43:
+ 1673              	 .align 2
+ 1674              	.L42:
+ 1675 0044 FFF3FFFF 	 .word -3073
+ 1676              	 .cfi_endproc
+ 1677              	.LFE123:
+ 1679              	 .section .text.XMC_BCCU_CH_SetLinearWalkPrescaler,"ax",%progbits
+ 1680              	 .align 1
+ 1681              	 .global XMC_BCCU_CH_SetLinearWalkPrescaler
+ 1682              	 .syntax unified
+ 1683              	 .code 16
+ 1684              	 .thumb_func
+ 1685              	 .fpu softvfp
+ 1687              	XMC_BCCU_CH_SetLinearWalkPrescaler:
+ 1688              	.LFB124:
+ 423:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 424:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 425:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to configure the linear walker clock prescaler factor of a BCCU channel
+ 426:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 427:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_CH_SetLinearWalkPrescaler (XMC_BCCU_CH_t *const channel, uint32_t clk_div)
+ 428:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 1689              	 .loc 1 428 1
+ 1690              	 .cfi_startproc
+ 1691              	 
+ 1692              	 
+ 1693 0000 80B5     	 push {r7,lr}
+ 1694              	.LCFI93:
+ 1695              	 .cfi_def_cfa_offset 8
+ 1696              	 .cfi_offset 7,-8
+ 1697              	 .cfi_offset 14,-4
+ 1698 0002 82B0     	 sub sp,sp,#8
+ 1699              	.LCFI94:
+ 1700              	 .cfi_def_cfa_offset 16
+ 1701 0004 00AF     	 add r7,sp,#0
+ 1702              	.LCFI95:
+ 1703              	 .cfi_def_cfa_register 7
+ 1704 0006 7860     	 str r0,[r7,#4]
+ 1705 0008 3960     	 str r1,[r7]
+ 429:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->CHCONFIG &= ~(uint32_t)(BCCU_CH_CHCONFIG_LINPRES_Msk);
+ 1706              	 .loc 1 429 21
+ 1707 000a 7B68     	 ldr r3,[r7,#4]
+ 1708 000c 9B68     	 ldr r3,[r3,#8]
+ 1709 000e 074A     	 ldr r2,.L45
+ 1710 0010 1A40     	 ands r2,r3
+ 1711 0012 7B68     	 ldr r3,[r7,#4]
+ 1712 0014 9A60     	 str r2,[r3,#8]
+ 430:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->CHCONFIG |= (uint32_t)(clk_div << BCCU_CH_CHCONFIG_LINPRES_Pos);
+ 1713              	 .loc 1 430 21
+ 1714 0016 7B68     	 ldr r3,[r7,#4]
+ 1715 0018 9A68     	 ldr r2,[r3,#8]
+ 1716              	 .loc 1 430 43
+ 1717 001a 3B68     	 ldr r3,[r7]
+ 1718 001c 1B04     	 lsls r3,r3,#16
+ 1719              	 .loc 1 430 21
+ 1720 001e 1A43     	 orrs r2,r3
+ 1721 0020 7B68     	 ldr r3,[r7,#4]
+ 1722 0022 9A60     	 str r2,[r3,#8]
+ 431:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 1723              	 .loc 1 431 1
+ 1724 0024 C046     	 nop
+ 1725 0026 BD46     	 mov sp,r7
+ 1726 0028 02B0     	 add sp,sp,#8
+ 1727              	 
+ 1728 002a 80BD     	 pop {r7,pc}
+ 1729              	.L46:
+ 1730              	 .align 2
+ 1731              	.L45:
+ 1732 002c FFFF00FC 	 .word -67043329
+ 1733              	 .cfi_endproc
+ 1734              	.LFE124:
+ 1736              	 .section .text.XMC_BCCU_CH_SetTargetIntensity,"ax",%progbits
+ 1737              	 .align 1
+ 1738              	 .global XMC_BCCU_CH_SetTargetIntensity
+ 1739              	 .syntax unified
+ 1740              	 .code 16
+ 1741              	 .thumb_func
+ 1742              	 .fpu softvfp
+ 1744              	XMC_BCCU_CH_SetTargetIntensity:
+ 1745              	.LFB125:
+ 432:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 433:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 434:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to set channel target intensity
+ 435:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 436:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_CH_SetTargetIntensity (XMC_BCCU_CH_t *const channel, uint32_t ch_int)
+ 437:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 1746              	 .loc 1 437 1
+ 1747              	 .cfi_startproc
+ 1748              	 
+ 1749              	 
+ 1750 0000 80B5     	 push {r7,lr}
+ 1751              	.LCFI96:
+ 1752              	 .cfi_def_cfa_offset 8
+ 1753              	 .cfi_offset 7,-8
+ 1754              	 .cfi_offset 14,-4
+ 1755 0002 82B0     	 sub sp,sp,#8
+ 1756              	.LCFI97:
+ 1757              	 .cfi_def_cfa_offset 16
+ 1758 0004 00AF     	 add r7,sp,#0
+ 1759              	.LCFI98:
+ 1760              	 .cfi_def_cfa_register 7
+ 1761 0006 7860     	 str r0,[r7,#4]
+ 1762 0008 3960     	 str r1,[r7]
+ 438:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->INTS = ch_int;
+ 1763              	 .loc 1 438 17
+ 1764 000a 7B68     	 ldr r3,[r7,#4]
+ 1765 000c 3A68     	 ldr r2,[r7]
+ 1766 000e 1A60     	 str r2,[r3]
+ 439:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 1767              	 .loc 1 439 1
+ 1768 0010 C046     	 nop
+ 1769 0012 BD46     	 mov sp,r7
+ 1770 0014 02B0     	 add sp,sp,#8
+ 1771              	 
+ 1772 0016 80BD     	 pop {r7,pc}
+ 1773              	 .cfi_endproc
+ 1774              	.LFE125:
+ 1776              	 .section .text.XMC_BCCU_CH_ReadIntensity,"ax",%progbits
+ 1777              	 .align 1
+ 1778              	 .global XMC_BCCU_CH_ReadIntensity
+ 1779              	 .syntax unified
+ 1780              	 .code 16
+ 1781              	 .thumb_func
+ 1782              	 .fpu softvfp
+ 1784              	XMC_BCCU_CH_ReadIntensity:
+ 1785              	.LFB126:
+ 440:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 441:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 442:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to retrieve the channel actual intensity
+ 443:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 444:../Libraries/XMCLib/src/xmc_bccu.c **** uint32_t XMC_BCCU_CH_ReadIntensity (XMC_BCCU_CH_t *const channel)
+ 445:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 1786              	 .loc 1 445 1
+ 1787              	 .cfi_startproc
+ 1788              	 
+ 1789              	 
+ 1790 0000 80B5     	 push {r7,lr}
+ 1791              	.LCFI99:
+ 1792              	 .cfi_def_cfa_offset 8
+ 1793              	 .cfi_offset 7,-8
+ 1794              	 .cfi_offset 14,-4
+ 1795 0002 82B0     	 sub sp,sp,#8
+ 1796              	.LCFI100:
+ 1797              	 .cfi_def_cfa_offset 16
+ 1798 0004 00AF     	 add r7,sp,#0
+ 1799              	.LCFI101:
+ 1800              	 .cfi_def_cfa_register 7
+ 1801 0006 7860     	 str r0,[r7,#4]
+ 446:../Libraries/XMCLib/src/xmc_bccu.c ****   return (uint32_t)(channel->INT & BCCU_CH_INT_CHINT_Msk);
+ 1802              	 .loc 1 446 28
+ 1803 0008 7B68     	 ldr r3,[r7,#4]
+ 1804 000a 5B68     	 ldr r3,[r3,#4]
+ 1805              	 .loc 1 446 10
+ 1806 000c 1B05     	 lsls r3,r3,#20
+ 1807 000e 1B0D     	 lsrs r3,r3,#20
+ 447:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 1808              	 .loc 1 447 1
+ 1809 0010 1800     	 movs r0,r3
+ 1810 0012 BD46     	 mov sp,r7
+ 1811 0014 02B0     	 add sp,sp,#8
+ 1812              	 
+ 1813 0016 80BD     	 pop {r7,pc}
+ 1814              	 .cfi_endproc
+ 1815              	.LFE126:
+ 1817              	 .section .text.XMC_BCCU_CH_EnablePacker,"ax",%progbits
+ 1818              	 .align 1
+ 1819              	 .global XMC_BCCU_CH_EnablePacker
+ 1820              	 .syntax unified
+ 1821              	 .code 16
+ 1822              	 .thumb_func
+ 1823              	 .fpu softvfp
+ 1825              	XMC_BCCU_CH_EnablePacker:
+ 1826              	.LFB127:
+ 448:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 449:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 450:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to enable packer. Also configures packer threshold, off-time and on-time compare levels
+ 451:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 452:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_CH_EnablePacker (XMC_BCCU_CH_t *const channel, uint32_t thresh, uint32_t off_comp, ui
+ 453:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 1827              	 .loc 1 453 1
+ 1828              	 .cfi_startproc
+ 1829              	 
+ 1830              	 
+ 1831 0000 80B5     	 push {r7,lr}
+ 1832              	.LCFI102:
+ 1833              	 .cfi_def_cfa_offset 8
+ 1834              	 .cfi_offset 7,-8
+ 1835              	 .cfi_offset 14,-4
+ 1836 0002 84B0     	 sub sp,sp,#16
+ 1837              	.LCFI103:
+ 1838              	 .cfi_def_cfa_offset 24
+ 1839 0004 00AF     	 add r7,sp,#0
+ 1840              	.LCFI104:
+ 1841              	 .cfi_def_cfa_register 7
+ 1842 0006 F860     	 str r0,[r7,#12]
+ 1843 0008 B960     	 str r1,[r7,#8]
+ 1844 000a 7A60     	 str r2,[r7,#4]
+ 1845 000c 3B60     	 str r3,[r7]
+ 454:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->CHCONFIG &= ~(uint32_t)(BCCU_CH_CHCONFIG_PEN_Msk | BCCU_CH_CHCONFIG_PKTH_Msk);
+ 1846              	 .loc 1 454 21
+ 1847 000e FB68     	 ldr r3,[r7,#12]
+ 1848 0010 9B68     	 ldr r3,[r3,#8]
+ 1849 0012 0F22     	 movs r2,#15
+ 1850 0014 9343     	 bics r3,r2
+ 1851 0016 1A00     	 movs r2,r3
+ 1852 0018 FB68     	 ldr r3,[r7,#12]
+ 1853 001a 9A60     	 str r2,[r3,#8]
+ 455:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->CHCONFIG |= thresh;
+ 1854              	 .loc 1 455 21
+ 1855 001c FB68     	 ldr r3,[r7,#12]
+ 1856 001e 9A68     	 ldr r2,[r3,#8]
+ 1857 0020 BB68     	 ldr r3,[r7,#8]
+ 1858 0022 1A43     	 orrs r2,r3
+ 1859 0024 FB68     	 ldr r3,[r7,#12]
+ 1860 0026 9A60     	 str r2,[r3,#8]
+ 456:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->PKCMP = (off_comp | (uint32_t)(on_comp << BCCU_CH_PKCMP_ONCMP_Pos));
+ 1861              	 .loc 1 456 51
+ 1862 0028 3B68     	 ldr r3,[r7]
+ 1863 002a 1A04     	 lsls r2,r3,#16
+ 1864              	 .loc 1 456 30
+ 1865 002c 7B68     	 ldr r3,[r7,#4]
+ 1866 002e 1A43     	 orrs r2,r3
+ 1867              	 .loc 1 456 18
+ 1868 0030 FB68     	 ldr r3,[r7,#12]
+ 1869 0032 DA60     	 str r2,[r3,#12]
+ 457:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->CHCONFIG |= (uint32_t)BCCU_CH_CHCONFIG_PEN_Msk;
+ 1870              	 .loc 1 457 21
+ 1871 0034 FB68     	 ldr r3,[r7,#12]
+ 1872 0036 9B68     	 ldr r3,[r3,#8]
+ 1873 0038 0822     	 movs r2,#8
+ 1874 003a 1A43     	 orrs r2,r3
+ 1875 003c FB68     	 ldr r3,[r7,#12]
+ 1876 003e 9A60     	 str r2,[r3,#8]
+ 458:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 1877              	 .loc 1 458 1
+ 1878 0040 C046     	 nop
+ 1879 0042 BD46     	 mov sp,r7
+ 1880 0044 04B0     	 add sp,sp,#16
+ 1881              	 
+ 1882 0046 80BD     	 pop {r7,pc}
+ 1883              	 .cfi_endproc
+ 1884              	.LFE127:
+ 1886              	 .section .text.XMC_BCCU_CH_SetPackerThreshold,"ax",%progbits
+ 1887              	 .align 1
+ 1888              	 .global XMC_BCCU_CH_SetPackerThreshold
+ 1889              	 .syntax unified
+ 1890              	 .code 16
+ 1891              	 .thumb_func
+ 1892              	 .fpu softvfp
+ 1894              	XMC_BCCU_CH_SetPackerThreshold:
+ 1895              	.LFB128:
+ 459:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 460:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 461:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to configure packer threshold
+ 462:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 463:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_CH_SetPackerThreshold (XMC_BCCU_CH_t *const channel, uint32_t val)
+ 464:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 1896              	 .loc 1 464 1
+ 1897              	 .cfi_startproc
+ 1898              	 
+ 1899              	 
+ 1900 0000 80B5     	 push {r7,lr}
+ 1901              	.LCFI105:
+ 1902              	 .cfi_def_cfa_offset 8
+ 1903              	 .cfi_offset 7,-8
+ 1904              	 .cfi_offset 14,-4
+ 1905 0002 82B0     	 sub sp,sp,#8
+ 1906              	.LCFI106:
+ 1907              	 .cfi_def_cfa_offset 16
+ 1908 0004 00AF     	 add r7,sp,#0
+ 1909              	.LCFI107:
+ 1910              	 .cfi_def_cfa_register 7
+ 1911 0006 7860     	 str r0,[r7,#4]
+ 1912 0008 3960     	 str r1,[r7]
+ 465:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->CHCONFIG &= ~(uint32_t)(BCCU_CH_CHCONFIG_PKTH_Msk);
+ 1913              	 .loc 1 465 21
+ 1914 000a 7B68     	 ldr r3,[r7,#4]
+ 1915 000c 9B68     	 ldr r3,[r3,#8]
+ 1916 000e 0722     	 movs r2,#7
+ 1917 0010 9343     	 bics r3,r2
+ 1918 0012 1A00     	 movs r2,r3
+ 1919 0014 7B68     	 ldr r3,[r7,#4]
+ 1920 0016 9A60     	 str r2,[r3,#8]
+ 466:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->CHCONFIG |= val;
+ 1921              	 .loc 1 466 21
+ 1922 0018 7B68     	 ldr r3,[r7,#4]
+ 1923 001a 9A68     	 ldr r2,[r3,#8]
+ 1924 001c 3B68     	 ldr r3,[r7]
+ 1925 001e 1A43     	 orrs r2,r3
+ 1926 0020 7B68     	 ldr r3,[r7,#4]
+ 1927 0022 9A60     	 str r2,[r3,#8]
+ 467:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 1928              	 .loc 1 467 1
+ 1929 0024 C046     	 nop
+ 1930 0026 BD46     	 mov sp,r7
+ 1931 0028 02B0     	 add sp,sp,#8
+ 1932              	 
+ 1933 002a 80BD     	 pop {r7,pc}
+ 1934              	 .cfi_endproc
+ 1935              	.LFE128:
+ 1937              	 .section .text.XMC_BCCU_CH_SetPackerOffCompare,"ax",%progbits
+ 1938              	 .align 1
+ 1939              	 .global XMC_BCCU_CH_SetPackerOffCompare
+ 1940              	 .syntax unified
+ 1941              	 .code 16
+ 1942              	 .thumb_func
+ 1943              	 .fpu softvfp
+ 1945              	XMC_BCCU_CH_SetPackerOffCompare:
+ 1946              	.LFB129:
+ 468:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 469:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 470:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to configure packer off-time compare level
+ 471:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 472:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_CH_SetPackerOffCompare (XMC_BCCU_CH_t *const channel, uint32_t level)
+ 473:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 1947              	 .loc 1 473 1
+ 1948              	 .cfi_startproc
+ 1949              	 
+ 1950              	 
+ 1951 0000 80B5     	 push {r7,lr}
+ 1952              	.LCFI108:
+ 1953              	 .cfi_def_cfa_offset 8
+ 1954              	 .cfi_offset 7,-8
+ 1955              	 .cfi_offset 14,-4
+ 1956 0002 82B0     	 sub sp,sp,#8
+ 1957              	.LCFI109:
+ 1958              	 .cfi_def_cfa_offset 16
+ 1959 0004 00AF     	 add r7,sp,#0
+ 1960              	.LCFI110:
+ 1961              	 .cfi_def_cfa_register 7
+ 1962 0006 7860     	 str r0,[r7,#4]
+ 1963 0008 3960     	 str r1,[r7]
+ 474:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->PKCMP &= ~(uint32_t)(BCCU_CH_PKCMP_OFFCMP_Msk);
+ 1964              	 .loc 1 474 18
+ 1965 000a 7B68     	 ldr r3,[r7,#4]
+ 1966 000c DB68     	 ldr r3,[r3,#12]
+ 1967 000e FF22     	 movs r2,#255
+ 1968 0010 9343     	 bics r3,r2
+ 1969 0012 1A00     	 movs r2,r3
+ 1970 0014 7B68     	 ldr r3,[r7,#4]
+ 1971 0016 DA60     	 str r2,[r3,#12]
+ 475:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->PKCMP |= level;
+ 1972              	 .loc 1 475 18
+ 1973 0018 7B68     	 ldr r3,[r7,#4]
+ 1974 001a DA68     	 ldr r2,[r3,#12]
+ 1975 001c 3B68     	 ldr r3,[r7]
+ 1976 001e 1A43     	 orrs r2,r3
+ 1977 0020 7B68     	 ldr r3,[r7,#4]
+ 1978 0022 DA60     	 str r2,[r3,#12]
+ 476:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 1979              	 .loc 1 476 1
+ 1980 0024 C046     	 nop
+ 1981 0026 BD46     	 mov sp,r7
+ 1982 0028 02B0     	 add sp,sp,#8
+ 1983              	 
+ 1984 002a 80BD     	 pop {r7,pc}
+ 1985              	 .cfi_endproc
+ 1986              	.LFE129:
+ 1988              	 .section .text.XMC_BCCU_CH_SetPackerOnCompare,"ax",%progbits
+ 1989              	 .align 1
+ 1990              	 .global XMC_BCCU_CH_SetPackerOnCompare
+ 1991              	 .syntax unified
+ 1992              	 .code 16
+ 1993              	 .thumb_func
+ 1994              	 .fpu softvfp
+ 1996              	XMC_BCCU_CH_SetPackerOnCompare:
+ 1997              	.LFB130:
+ 477:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 478:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 479:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to configure packer on-time compare level.
+ 480:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 481:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_CH_SetPackerOnCompare (XMC_BCCU_CH_t *const channel, uint32_t level)
+ 482:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 1998              	 .loc 1 482 1
+ 1999              	 .cfi_startproc
+ 2000              	 
+ 2001              	 
+ 2002 0000 80B5     	 push {r7,lr}
+ 2003              	.LCFI111:
+ 2004              	 .cfi_def_cfa_offset 8
+ 2005              	 .cfi_offset 7,-8
+ 2006              	 .cfi_offset 14,-4
+ 2007 0002 82B0     	 sub sp,sp,#8
+ 2008              	.LCFI112:
+ 2009              	 .cfi_def_cfa_offset 16
+ 2010 0004 00AF     	 add r7,sp,#0
+ 2011              	.LCFI113:
+ 2012              	 .cfi_def_cfa_register 7
+ 2013 0006 7860     	 str r0,[r7,#4]
+ 2014 0008 3960     	 str r1,[r7]
+ 483:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->PKCMP &= ~(uint32_t)(BCCU_CH_PKCMP_ONCMP_Msk);
+ 2015              	 .loc 1 483 18
+ 2016 000a 7B68     	 ldr r3,[r7,#4]
+ 2017 000c DB68     	 ldr r3,[r3,#12]
+ 2018 000e 074A     	 ldr r2,.L54
+ 2019 0010 1A40     	 ands r2,r3
+ 2020 0012 7B68     	 ldr r3,[r7,#4]
+ 2021 0014 DA60     	 str r2,[r3,#12]
+ 484:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->PKCMP |= (level << BCCU_CH_PKCMP_ONCMP_Pos);
+ 2022              	 .loc 1 484 18
+ 2023 0016 7B68     	 ldr r3,[r7,#4]
+ 2024 0018 DA68     	 ldr r2,[r3,#12]
+ 2025              	 .loc 1 484 28
+ 2026 001a 3B68     	 ldr r3,[r7]
+ 2027 001c 1B04     	 lsls r3,r3,#16
+ 2028              	 .loc 1 484 18
+ 2029 001e 1A43     	 orrs r2,r3
+ 2030 0020 7B68     	 ldr r3,[r7,#4]
+ 2031 0022 DA60     	 str r2,[r3,#12]
+ 485:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 2032              	 .loc 1 485 1
+ 2033 0024 C046     	 nop
+ 2034 0026 BD46     	 mov sp,r7
+ 2035 0028 02B0     	 add sp,sp,#8
+ 2036              	 
+ 2037 002a 80BD     	 pop {r7,pc}
+ 2038              	.L55:
+ 2039              	 .align 2
+ 2040              	.L54:
+ 2041 002c FFFF00FF 	 .word -16711681
+ 2042              	 .cfi_endproc
+ 2043              	.LFE130:
+ 2045              	 .section .text.XMC_BCCU_CH_DisablePacker,"ax",%progbits
+ 2046              	 .align 1
+ 2047              	 .global XMC_BCCU_CH_DisablePacker
+ 2048              	 .syntax unified
+ 2049              	 .code 16
+ 2050              	 .thumb_func
+ 2051              	 .fpu softvfp
+ 2053              	XMC_BCCU_CH_DisablePacker:
+ 2054              	.LFB131:
+ 486:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 487:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 488:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to disable a packer.
+ 489:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 490:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_CH_DisablePacker (XMC_BCCU_CH_t *const channel)
+ 491:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 2055              	 .loc 1 491 1
+ 2056              	 .cfi_startproc
+ 2057              	 
+ 2058              	 
+ 2059 0000 80B5     	 push {r7,lr}
+ 2060              	.LCFI114:
+ 2061              	 .cfi_def_cfa_offset 8
+ 2062              	 .cfi_offset 7,-8
+ 2063              	 .cfi_offset 14,-4
+ 2064 0002 82B0     	 sub sp,sp,#8
+ 2065              	.LCFI115:
+ 2066              	 .cfi_def_cfa_offset 16
+ 2067 0004 00AF     	 add r7,sp,#0
+ 2068              	.LCFI116:
+ 2069              	 .cfi_def_cfa_register 7
+ 2070 0006 7860     	 str r0,[r7,#4]
+ 492:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->CHCONFIG &= ~(uint32_t)(BCCU_CH_CHCONFIG_PEN_Msk);
+ 2071              	 .loc 1 492 21
+ 2072 0008 7B68     	 ldr r3,[r7,#4]
+ 2073 000a 9B68     	 ldr r3,[r3,#8]
+ 2074 000c 0822     	 movs r2,#8
+ 2075 000e 9343     	 bics r3,r2
+ 2076 0010 1A00     	 movs r2,r3
+ 2077 0012 7B68     	 ldr r3,[r7,#4]
+ 2078 0014 9A60     	 str r2,[r3,#8]
+ 493:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 2079              	 .loc 1 493 1
+ 2080 0016 C046     	 nop
+ 2081 0018 BD46     	 mov sp,r7
+ 2082 001a 02B0     	 add sp,sp,#8
+ 2083              	 
+ 2084 001c 80BD     	 pop {r7,pc}
+ 2085              	 .cfi_endproc
+ 2086              	.LFE131:
+ 2088              	 .section .text.XMC_BCCU_CH_SetPackerOffCounter,"ax",%progbits
+ 2089              	 .align 1
+ 2090              	 .global XMC_BCCU_CH_SetPackerOffCounter
+ 2091              	 .syntax unified
+ 2092              	 .code 16
+ 2093              	 .thumb_func
+ 2094              	 .fpu softvfp
+ 2096              	XMC_BCCU_CH_SetPackerOffCounter:
+ 2097              	.LFB132:
+ 494:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 495:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 496:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to set packer off-time counter value
+ 497:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 498:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_CH_SetPackerOffCounter (XMC_BCCU_CH_t *const channel, uint32_t cnt_val)
+ 499:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 2098              	 .loc 1 499 1
+ 2099              	 .cfi_startproc
+ 2100              	 
+ 2101              	 
+ 2102 0000 80B5     	 push {r7,lr}
+ 2103              	.LCFI117:
+ 2104              	 .cfi_def_cfa_offset 8
+ 2105              	 .cfi_offset 7,-8
+ 2106              	 .cfi_offset 14,-4
+ 2107 0002 82B0     	 sub sp,sp,#8
+ 2108              	.LCFI118:
+ 2109              	 .cfi_def_cfa_offset 16
+ 2110 0004 00AF     	 add r7,sp,#0
+ 2111              	.LCFI119:
+ 2112              	 .cfi_def_cfa_register 7
+ 2113 0006 7860     	 str r0,[r7,#4]
+ 2114 0008 3960     	 str r1,[r7]
+ 500:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->PKCNTR &= ~(uint32_t)(BCCU_CH_PKCNTR_OFFCNTVAL_Msk);
+ 2115              	 .loc 1 500 19
+ 2116 000a 7B68     	 ldr r3,[r7,#4]
+ 2117 000c 1B69     	 ldr r3,[r3,#16]
+ 2118 000e FF22     	 movs r2,#255
+ 2119 0010 9343     	 bics r3,r2
+ 2120 0012 1A00     	 movs r2,r3
+ 2121 0014 7B68     	 ldr r3,[r7,#4]
+ 2122 0016 1A61     	 str r2,[r3,#16]
+ 501:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->PKCNTR |= cnt_val;
+ 2123              	 .loc 1 501 19
+ 2124 0018 7B68     	 ldr r3,[r7,#4]
+ 2125 001a 1A69     	 ldr r2,[r3,#16]
+ 2126 001c 3B68     	 ldr r3,[r7]
+ 2127 001e 1A43     	 orrs r2,r3
+ 2128 0020 7B68     	 ldr r3,[r7,#4]
+ 2129 0022 1A61     	 str r2,[r3,#16]
+ 502:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 2130              	 .loc 1 502 1
+ 2131 0024 C046     	 nop
+ 2132 0026 BD46     	 mov sp,r7
+ 2133 0028 02B0     	 add sp,sp,#8
+ 2134              	 
+ 2135 002a 80BD     	 pop {r7,pc}
+ 2136              	 .cfi_endproc
+ 2137              	.LFE132:
+ 2139              	 .section .text.XMC_BCCU_CH_SetPackerOnCounter,"ax",%progbits
+ 2140              	 .align 1
+ 2141              	 .global XMC_BCCU_CH_SetPackerOnCounter
+ 2142              	 .syntax unified
+ 2143              	 .code 16
+ 2144              	 .thumb_func
+ 2145              	 .fpu softvfp
+ 2147              	XMC_BCCU_CH_SetPackerOnCounter:
+ 2148              	.LFB133:
+ 503:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 504:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 505:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to set packer on-time counter value
+ 506:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 507:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_CH_SetPackerOnCounter (XMC_BCCU_CH_t *const channel, uint32_t cnt_val)
+ 508:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 2149              	 .loc 1 508 1
+ 2150              	 .cfi_startproc
+ 2151              	 
+ 2152              	 
+ 2153 0000 80B5     	 push {r7,lr}
+ 2154              	.LCFI120:
+ 2155              	 .cfi_def_cfa_offset 8
+ 2156              	 .cfi_offset 7,-8
+ 2157              	 .cfi_offset 14,-4
+ 2158 0002 82B0     	 sub sp,sp,#8
+ 2159              	.LCFI121:
+ 2160              	 .cfi_def_cfa_offset 16
+ 2161 0004 00AF     	 add r7,sp,#0
+ 2162              	.LCFI122:
+ 2163              	 .cfi_def_cfa_register 7
+ 2164 0006 7860     	 str r0,[r7,#4]
+ 2165 0008 3960     	 str r1,[r7]
+ 509:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->PKCNTR &= ~(uint32_t)(BCCU_CH_PKCNTR_ONCNTVAL_Msk);
+ 2166              	 .loc 1 509 19
+ 2167 000a 7B68     	 ldr r3,[r7,#4]
+ 2168 000c 1B69     	 ldr r3,[r3,#16]
+ 2169 000e 074A     	 ldr r2,.L59
+ 2170 0010 1A40     	 ands r2,r3
+ 2171 0012 7B68     	 ldr r3,[r7,#4]
+ 2172 0014 1A61     	 str r2,[r3,#16]
+ 510:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->PKCNTR |= (uint32_t)(cnt_val << BCCU_CH_PKCNTR_ONCNTVAL_Pos);
+ 2173              	 .loc 1 510 19
+ 2174 0016 7B68     	 ldr r3,[r7,#4]
+ 2175 0018 1A69     	 ldr r2,[r3,#16]
+ 2176              	 .loc 1 510 41
+ 2177 001a 3B68     	 ldr r3,[r7]
+ 2178 001c 1B04     	 lsls r3,r3,#16
+ 2179              	 .loc 1 510 19
+ 2180 001e 1A43     	 orrs r2,r3
+ 2181 0020 7B68     	 ldr r3,[r7,#4]
+ 2182 0022 1A61     	 str r2,[r3,#16]
+ 511:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 2183              	 .loc 1 511 1
+ 2184 0024 C046     	 nop
+ 2185 0026 BD46     	 mov sp,r7
+ 2186 0028 02B0     	 add sp,sp,#8
+ 2187              	 
+ 2188 002a 80BD     	 pop {r7,pc}
+ 2189              	.L60:
+ 2190              	 .align 2
+ 2191              	.L59:
+ 2192 002c FFFF00FF 	 .word -16711681
+ 2193              	 .cfi_endproc
+ 2194              	.LFE133:
+ 2196              	 .section .text.XMC_BCCU_CH_SelectDimEngine,"ax",%progbits
+ 2197              	 .align 1
+ 2198              	 .global XMC_BCCU_CH_SelectDimEngine
+ 2199              	 .syntax unified
+ 2200              	 .code 16
+ 2201              	 .thumb_func
+ 2202              	 .fpu softvfp
+ 2204              	XMC_BCCU_CH_SelectDimEngine:
+ 2205              	.LFB134:
+ 512:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 513:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 514:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to select the dimming engine of a channel
+ 515:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 516:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_CH_SelectDimEngine (XMC_BCCU_CH_t *const channel, XMC_BCCU_CH_DIMMING_SOURCE_t sel)
+ 517:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 2206              	 .loc 1 517 1
+ 2207              	 .cfi_startproc
+ 2208              	 
+ 2209              	 
+ 2210 0000 80B5     	 push {r7,lr}
+ 2211              	.LCFI123:
+ 2212              	 .cfi_def_cfa_offset 8
+ 2213              	 .cfi_offset 7,-8
+ 2214              	 .cfi_offset 14,-4
+ 2215 0002 82B0     	 sub sp,sp,#8
+ 2216              	.LCFI124:
+ 2217              	 .cfi_def_cfa_offset 16
+ 2218 0004 00AF     	 add r7,sp,#0
+ 2219              	.LCFI125:
+ 2220              	 .cfi_def_cfa_register 7
+ 2221 0006 7860     	 str r0,[r7,#4]
+ 2222 0008 0A00     	 movs r2,r1
+ 2223 000a FB1C     	 adds r3,r7,#3
+ 2224 000c 1A70     	 strb r2,[r3]
+ 518:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->CHCONFIG &= ~(uint32_t)(BCCU_CH_CHCONFIG_DSEL_Msk);
+ 2225              	 .loc 1 518 21
+ 2226 000e 7B68     	 ldr r3,[r7,#4]
+ 2227 0010 9B68     	 ldr r3,[r3,#8]
+ 2228 0012 7022     	 movs r2,#112
+ 2229 0014 9343     	 bics r3,r2
+ 2230 0016 1A00     	 movs r2,r3
+ 2231 0018 7B68     	 ldr r3,[r7,#4]
+ 2232 001a 9A60     	 str r2,[r3,#8]
+ 519:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->CHCONFIG |= ((uint32_t)sel << BCCU_CH_CHCONFIG_DSEL_Pos);
+ 2233              	 .loc 1 519 21
+ 2234 001c 7B68     	 ldr r3,[r7,#4]
+ 2235 001e 9A68     	 ldr r2,[r3,#8]
+ 2236              	 .loc 1 519 25
+ 2237 0020 FB1C     	 adds r3,r7,#3
+ 2238 0022 1B78     	 ldrb r3,[r3]
+ 2239              	 .loc 1 519 39
+ 2240 0024 1B01     	 lsls r3,r3,#4
+ 2241              	 .loc 1 519 21
+ 2242 0026 1A43     	 orrs r2,r3
+ 2243 0028 7B68     	 ldr r3,[r7,#4]
+ 2244 002a 9A60     	 str r2,[r3,#8]
+ 520:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 2245              	 .loc 1 520 1
+ 2246 002c C046     	 nop
+ 2247 002e BD46     	 mov sp,r7
+ 2248 0030 02B0     	 add sp,sp,#8
+ 2249              	 
+ 2250 0032 80BD     	 pop {r7,pc}
+ 2251              	 .cfi_endproc
+ 2252              	.LFE134:
+ 2254              	 .section .text.XMC_BCCU_CH_EnableDimmingBypass,"ax",%progbits
+ 2255              	 .align 1
+ 2256              	 .global XMC_BCCU_CH_EnableDimmingBypass
+ 2257              	 .syntax unified
+ 2258              	 .code 16
+ 2259              	 .thumb_func
+ 2260              	 .fpu softvfp
+ 2262              	XMC_BCCU_CH_EnableDimmingBypass:
+ 2263              	.LFB135:
+ 521:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 522:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 523:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to bypass the dimming engine. And the brightness of channel is depending only on
+ 524:../Libraries/XMCLib/src/xmc_bccu.c ****  * intensity of the channel.
+ 525:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 526:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_CH_EnableDimmingBypass (XMC_BCCU_CH_t *const channel)
+ 527:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 2264              	 .loc 1 527 1
+ 2265              	 .cfi_startproc
+ 2266              	 
+ 2267              	 
+ 2268 0000 80B5     	 push {r7,lr}
+ 2269              	.LCFI126:
+ 2270              	 .cfi_def_cfa_offset 8
+ 2271              	 .cfi_offset 7,-8
+ 2272              	 .cfi_offset 14,-4
+ 2273 0002 82B0     	 sub sp,sp,#8
+ 2274              	.LCFI127:
+ 2275              	 .cfi_def_cfa_offset 16
+ 2276 0004 00AF     	 add r7,sp,#0
+ 2277              	.LCFI128:
+ 2278              	 .cfi_def_cfa_register 7
+ 2279 0006 7860     	 str r0,[r7,#4]
+ 528:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->CHCONFIG |= (uint32_t)(BCCU_CH_CHCONFIG_DBP_Msk);
+ 2280              	 .loc 1 528 21
+ 2281 0008 7B68     	 ldr r3,[r7,#4]
+ 2282 000a 9B68     	 ldr r3,[r3,#8]
+ 2283 000c 8022     	 movs r2,#128
+ 2284 000e 1A43     	 orrs r2,r3
+ 2285 0010 7B68     	 ldr r3,[r7,#4]
+ 2286 0012 9A60     	 str r2,[r3,#8]
+ 529:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 2287              	 .loc 1 529 1
+ 2288 0014 C046     	 nop
+ 2289 0016 BD46     	 mov sp,r7
+ 2290 0018 02B0     	 add sp,sp,#8
+ 2291              	 
+ 2292 001a 80BD     	 pop {r7,pc}
+ 2293              	 .cfi_endproc
+ 2294              	.LFE135:
+ 2296              	 .section .text.XMC_BCCU_CH_DisableDimmingBypass,"ax",%progbits
+ 2297              	 .align 1
+ 2298              	 .global XMC_BCCU_CH_DisableDimmingBypass
+ 2299              	 .syntax unified
+ 2300              	 .code 16
+ 2301              	 .thumb_func
+ 2302              	 .fpu softvfp
+ 2304              	XMC_BCCU_CH_DisableDimmingBypass:
+ 2305              	.LFB136:
+ 530:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 531:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 532:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to disable the bypass of dimming engine. And the brightness of channel is depending
+ 533:../Libraries/XMCLib/src/xmc_bccu.c ****  * on intensity of channel and dimming level of dimming engine.
+ 534:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 535:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_CH_DisableDimmingBypass (XMC_BCCU_CH_t *const channel)
+ 536:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 2306              	 .loc 1 536 1
+ 2307              	 .cfi_startproc
+ 2308              	 
+ 2309              	 
+ 2310 0000 80B5     	 push {r7,lr}
+ 2311              	.LCFI129:
+ 2312              	 .cfi_def_cfa_offset 8
+ 2313              	 .cfi_offset 7,-8
+ 2314              	 .cfi_offset 14,-4
+ 2315 0002 82B0     	 sub sp,sp,#8
+ 2316              	.LCFI130:
+ 2317              	 .cfi_def_cfa_offset 16
+ 2318 0004 00AF     	 add r7,sp,#0
+ 2319              	.LCFI131:
+ 2320              	 .cfi_def_cfa_register 7
+ 2321 0006 7860     	 str r0,[r7,#4]
+ 537:../Libraries/XMCLib/src/xmc_bccu.c ****   channel->CHCONFIG &= ~(uint32_t)(BCCU_CH_CHCONFIG_DBP_Msk);
+ 2322              	 .loc 1 537 21
+ 2323 0008 7B68     	 ldr r3,[r7,#4]
+ 2324 000a 9B68     	 ldr r3,[r3,#8]
+ 2325 000c 8022     	 movs r2,#128
+ 2326 000e 9343     	 bics r3,r2
+ 2327 0010 1A00     	 movs r2,r3
+ 2328 0012 7B68     	 ldr r3,[r7,#4]
+ 2329 0014 9A60     	 str r2,[r3,#8]
+ 538:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 2330              	 .loc 1 538 1
+ 2331 0016 C046     	 nop
+ 2332 0018 BD46     	 mov sp,r7
+ 2333 001a 02B0     	 add sp,sp,#8
+ 2334              	 
+ 2335 001c 80BD     	 pop {r7,pc}
+ 2336              	 .cfi_endproc
+ 2337              	.LFE136:
+ 2339              	 .section .text.XMC_BCCU_DIM_Init,"ax",%progbits
+ 2340              	 .align 1
+ 2341              	 .global XMC_BCCU_DIM_Init
+ 2342              	 .syntax unified
+ 2343              	 .code 16
+ 2344              	 .thumb_func
+ 2345              	 .fpu softvfp
+ 2347              	XMC_BCCU_DIM_Init:
+ 2348              	.LFB137:
+ 539:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 540:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 541:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to initialise a specific dimming engine of a BCCU module
+ 542:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 543:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_DIM_Init (XMC_BCCU_DIM_t *const dim_engine, const XMC_BCCU_DIM_CONFIG_t *const config
+ 544:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 2349              	 .loc 1 544 1
+ 2350              	 .cfi_startproc
+ 2351              	 
+ 2352              	 
+ 2353 0000 80B5     	 push {r7,lr}
+ 2354              	.LCFI132:
+ 2355              	 .cfi_def_cfa_offset 8
+ 2356              	 .cfi_offset 7,-8
+ 2357              	 .cfi_offset 14,-4
+ 2358 0002 82B0     	 sub sp,sp,#8
+ 2359              	.LCFI133:
+ 2360              	 .cfi_def_cfa_offset 16
+ 2361 0004 00AF     	 add r7,sp,#0
+ 2362              	.LCFI134:
+ 2363              	 .cfi_def_cfa_register 7
+ 2364 0006 7860     	 str r0,[r7,#4]
+ 2365 0008 3960     	 str r1,[r7]
+ 545:../Libraries/XMCLib/src/xmc_bccu.c ****   dim_engine->DTT = config->dtt;
+ 2366              	 .loc 1 545 27
+ 2367 000a 3B68     	 ldr r3,[r7]
+ 2368 000c 1A68     	 ldr r2,[r3]
+ 2369              	 .loc 1 545 19
+ 2370 000e 7B68     	 ldr r3,[r7,#4]
+ 2371 0010 9A60     	 str r2,[r3,#8]
+ 546:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 2372              	 .loc 1 546 1
+ 2373 0012 C046     	 nop
+ 2374 0014 BD46     	 mov sp,r7
+ 2375 0016 02B0     	 add sp,sp,#8
+ 2376              	 
+ 2377 0018 80BD     	 pop {r7,pc}
+ 2378              	 .cfi_endproc
+ 2379              	.LFE137:
+ 2381              	 .section .text.XMC_BCCU_DIM_SetTargetDimmingLevel,"ax",%progbits
+ 2382              	 .align 1
+ 2383              	 .global XMC_BCCU_DIM_SetTargetDimmingLevel
+ 2384              	 .syntax unified
+ 2385              	 .code 16
+ 2386              	 .thumb_func
+ 2387              	 .fpu softvfp
+ 2389              	XMC_BCCU_DIM_SetTargetDimmingLevel:
+ 2390              	.LFB138:
+ 547:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 548:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 549:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to set dimming engine target dim level
+ 550:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 551:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_DIM_SetTargetDimmingLevel (XMC_BCCU_DIM_t *const dim_engine, uint32_t level)
+ 552:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 2391              	 .loc 1 552 1
+ 2392              	 .cfi_startproc
+ 2393              	 
+ 2394              	 
+ 2395 0000 80B5     	 push {r7,lr}
+ 2396              	.LCFI135:
+ 2397              	 .cfi_def_cfa_offset 8
+ 2398              	 .cfi_offset 7,-8
+ 2399              	 .cfi_offset 14,-4
+ 2400 0002 82B0     	 sub sp,sp,#8
+ 2401              	.LCFI136:
+ 2402              	 .cfi_def_cfa_offset 16
+ 2403 0004 00AF     	 add r7,sp,#0
+ 2404              	.LCFI137:
+ 2405              	 .cfi_def_cfa_register 7
+ 2406 0006 7860     	 str r0,[r7,#4]
+ 2407 0008 3960     	 str r1,[r7]
+ 553:../Libraries/XMCLib/src/xmc_bccu.c ****   dim_engine->DLS = level;
+ 2408              	 .loc 1 553 19
+ 2409 000a 7B68     	 ldr r3,[r7,#4]
+ 2410 000c 3A68     	 ldr r2,[r7]
+ 2411 000e 1A60     	 str r2,[r3]
+ 554:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 2412              	 .loc 1 554 1
+ 2413 0010 C046     	 nop
+ 2414 0012 BD46     	 mov sp,r7
+ 2415 0014 02B0     	 add sp,sp,#8
+ 2416              	 
+ 2417 0016 80BD     	 pop {r7,pc}
+ 2418              	 .cfi_endproc
+ 2419              	.LFE138:
+ 2421              	 .section .text.XMC_BCCU_DIM_SetDimDivider,"ax",%progbits
+ 2422              	 .align 1
+ 2423              	 .global XMC_BCCU_DIM_SetDimDivider
+ 2424              	 .syntax unified
+ 2425              	 .code 16
+ 2426              	 .thumb_func
+ 2427              	 .fpu softvfp
+ 2429              	XMC_BCCU_DIM_SetDimDivider:
+ 2430              	.LFB139:
+ 555:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 556:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 557:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to configure the dimming clock prescaler factor of a dimming engine
+ 558:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 559:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_DIM_SetDimDivider (XMC_BCCU_DIM_t *const dim_engine, uint32_t div)
+ 560:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 2431              	 .loc 1 560 1
+ 2432              	 .cfi_startproc
+ 2433              	 
+ 2434              	 
+ 2435 0000 80B5     	 push {r7,lr}
+ 2436              	.LCFI138:
+ 2437              	 .cfi_def_cfa_offset 8
+ 2438              	 .cfi_offset 7,-8
+ 2439              	 .cfi_offset 14,-4
+ 2440 0002 82B0     	 sub sp,sp,#8
+ 2441              	.LCFI139:
+ 2442              	 .cfi_def_cfa_offset 16
+ 2443 0004 00AF     	 add r7,sp,#0
+ 2444              	.LCFI140:
+ 2445              	 .cfi_def_cfa_register 7
+ 2446 0006 7860     	 str r0,[r7,#4]
+ 2447 0008 3960     	 str r1,[r7]
+ 561:../Libraries/XMCLib/src/xmc_bccu.c ****   dim_engine->DTT &= ~(uint32_t)(BCCU_DE_DTT_DIMDIV_Msk);
+ 2448              	 .loc 1 561 19
+ 2449 000a 7B68     	 ldr r3,[r7,#4]
+ 2450 000c 9B68     	 ldr r3,[r3,#8]
+ 2451 000e 9B0A     	 lsrs r3,r3,#10
+ 2452 0010 9A02     	 lsls r2,r3,#10
+ 2453 0012 7B68     	 ldr r3,[r7,#4]
+ 2454 0014 9A60     	 str r2,[r3,#8]
+ 562:../Libraries/XMCLib/src/xmc_bccu.c ****   dim_engine->DTT |= div;
+ 2455              	 .loc 1 562 19
+ 2456 0016 7B68     	 ldr r3,[r7,#4]
+ 2457 0018 9A68     	 ldr r2,[r3,#8]
+ 2458 001a 3B68     	 ldr r3,[r7]
+ 2459 001c 1A43     	 orrs r2,r3
+ 2460 001e 7B68     	 ldr r3,[r7,#4]
+ 2461 0020 9A60     	 str r2,[r3,#8]
+ 563:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 2462              	 .loc 1 563 1
+ 2463 0022 C046     	 nop
+ 2464 0024 BD46     	 mov sp,r7
+ 2465 0026 02B0     	 add sp,sp,#8
+ 2466              	 
+ 2467 0028 80BD     	 pop {r7,pc}
+ 2468              	 .cfi_endproc
+ 2469              	.LFE139:
+ 2471              	 .section .text.XMC_BCCU_DIM_ConfigDimCurve,"ax",%progbits
+ 2472              	 .align 1
+ 2473              	 .global XMC_BCCU_DIM_ConfigDimCurve
+ 2474              	 .syntax unified
+ 2475              	 .code 16
+ 2476              	 .thumb_func
+ 2477              	 .fpu softvfp
+ 2479              	XMC_BCCU_DIM_ConfigDimCurve:
+ 2480              	.LFB140:
+ 564:../Libraries/XMCLib/src/xmc_bccu.c **** 
+ 565:../Libraries/XMCLib/src/xmc_bccu.c **** /*
+ 566:../Libraries/XMCLib/src/xmc_bccu.c ****  * API to configure the dimming curve
+ 567:../Libraries/XMCLib/src/xmc_bccu.c ****  */
+ 568:../Libraries/XMCLib/src/xmc_bccu.c **** void XMC_BCCU_DIM_ConfigDimCurve (XMC_BCCU_DIM_t *const dim_engine, uint32_t dither_en, XMC_BCCU_DI
+ 569:../Libraries/XMCLib/src/xmc_bccu.c **** {
+ 2481              	 .loc 1 569 1
+ 2482              	 .cfi_startproc
+ 2483              	 
+ 2484              	 
+ 2485 0000 80B5     	 push {r7,lr}
+ 2486              	.LCFI141:
+ 2487              	 .cfi_def_cfa_offset 8
+ 2488              	 .cfi_offset 7,-8
+ 2489              	 .cfi_offset 14,-4
+ 2490 0002 86B0     	 sub sp,sp,#24
+ 2491              	.LCFI142:
+ 2492              	 .cfi_def_cfa_offset 32
+ 2493 0004 00AF     	 add r7,sp,#0
+ 2494              	.LCFI143:
+ 2495              	 .cfi_def_cfa_register 7
+ 2496 0006 F860     	 str r0,[r7,#12]
+ 2497 0008 B960     	 str r1,[r7,#8]
+ 2498 000a FB1D     	 adds r3,r7,#7
+ 2499 000c 1A70     	 strb r2,[r3]
+ 570:../Libraries/XMCLib/src/xmc_bccu.c ****   uint32_t reg;
+ 571:../Libraries/XMCLib/src/xmc_bccu.c ****   dim_engine->DTT &= ~(uint32_t)(BCCU_DE_DTT_DTEN_Msk | BCCU_DE_DTT_CSEL_Msk);
+ 2500              	 .loc 1 571 19
+ 2501 000e FB68     	 ldr r3,[r7,#12]
+ 2502 0010 9B68     	 ldr r3,[r3,#8]
+ 2503 0012 0B4A     	 ldr r2,.L68
+ 2504 0014 1A40     	 ands r2,r3
+ 2505 0016 FB68     	 ldr r3,[r7,#12]
+ 2506 0018 9A60     	 str r2,[r3,#8]
+ 572:../Libraries/XMCLib/src/xmc_bccu.c ****   reg = (uint32_t)(dither_en << BCCU_DE_DTT_DTEN_Pos);
+ 2507              	 .loc 1 572 7
+ 2508 001a BB68     	 ldr r3,[r7,#8]
+ 2509 001c 1B04     	 lsls r3,r3,#16
+ 2510 001e 7B61     	 str r3,[r7,#20]
+ 573:../Libraries/XMCLib/src/xmc_bccu.c ****   reg |= ((uint32_t)sel << BCCU_DE_DTT_CSEL_Pos);
+ 2511              	 .loc 1 573 11
+ 2512 0020 FB1D     	 adds r3,r7,#7
+ 2513 0022 1B78     	 ldrb r3,[r3]
+ 2514              	 .loc 1 573 25
+ 2515 0024 5B04     	 lsls r3,r3,#17
+ 2516              	 .loc 1 573 7
+ 2517 0026 7A69     	 ldr r2,[r7,#20]
+ 2518 0028 1343     	 orrs r3,r2
+ 2519 002a 7B61     	 str r3,[r7,#20]
+ 574:../Libraries/XMCLib/src/xmc_bccu.c ****   dim_engine->DTT |= reg;
+ 2520              	 .loc 1 574 19
+ 2521 002c FB68     	 ldr r3,[r7,#12]
+ 2522 002e 9A68     	 ldr r2,[r3,#8]
+ 2523 0030 7B69     	 ldr r3,[r7,#20]
+ 2524 0032 1A43     	 orrs r2,r3
+ 2525 0034 FB68     	 ldr r3,[r7,#12]
+ 2526 0036 9A60     	 str r2,[r3,#8]
+ 575:../Libraries/XMCLib/src/xmc_bccu.c **** }
+ 2527              	 .loc 1 575 1
+ 2528 0038 C046     	 nop
+ 2529 003a BD46     	 mov sp,r7
+ 2530 003c 06B0     	 add sp,sp,#24
+ 2531              	 
+ 2532 003e 80BD     	 pop {r7,pc}
+ 2533              	.L69:
+ 2534              	 .align 2
+ 2535              	.L68:
+ 2536 0040 FFFFFCFF 	 .word -196609
+ 2537              	 .cfi_endproc
+ 2538              	.LFE140:
+ 2540              	 .text
+ 2541              	.Letext0:
+ 2542              	 .file 2 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_default_types.h"
+ 2543              	 .file 3 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 2544              	 .file 4 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.h"
+ 2545              	 .file 5 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_types.h"
+ 2546              	 .file 6 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 2547              	 .file 7 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reent.h"
+ 2548              	 .file 8 "..//Libraries/CMSIS/Infineon/XMC1300_series/Include/system_XMC1300.h"
+ 2549              	 .file 9 "..//Libraries/CMSIS/Infineon/XMC1300_series/Include/XMC1300.h"
+ 2550              	 .file 10 "..//Libraries/XMCLib/inc/xmc_bccu.h"
+ 2551              	 .file 11 "..//Libraries/XMCLib/inc/xmc1_scu.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 xmc_bccu.c
+    {standard input}:16     .text.XMC_BCCU_GlobalInit:0000000000000000 $t
+    {standard input}:24     .text.XMC_BCCU_GlobalInit:0000000000000000 XMC_BCCU_GlobalInit
+    {standard input}:75     .text.XMC_BCCU_ConfigGlobalTrigger:0000000000000000 $t
+    {standard input}:82     .text.XMC_BCCU_ConfigGlobalTrigger:0000000000000000 XMC_BCCU_ConfigGlobalTrigger
+    {standard input}:143    .text.XMC_BCCU_SelectTrapInput:0000000000000000 $t
+    {standard input}:150    .text.XMC_BCCU_SelectTrapInput:0000000000000000 XMC_BCCU_SelectTrapInput
+    {standard input}:199    .text.XMC_BCCU_SelectTrapInput:0000000000000034 $d
+    {standard input}:204    .text.XMC_BCCU_SetTrapEdge:0000000000000000 $t
+    {standard input}:211    .text.XMC_BCCU_SetTrapEdge:0000000000000000 XMC_BCCU_SetTrapEdge
+    {standard input}:260    .text.XMC_BCCU_SetTrapEdge:0000000000000034 $d
+    {standard input}:265    .text.XMC_BCCU_ConfigSuspendMode:0000000000000000 $t
+    {standard input}:272    .text.XMC_BCCU_ConfigSuspendMode:0000000000000000 XMC_BCCU_ConfigSuspendMode
+    {standard input}:323    .text.XMC_BCCU_SetFlickerWDThreshold:0000000000000000 $t
+    {standard input}:330    .text.XMC_BCCU_SetFlickerWDThreshold:0000000000000000 XMC_BCCU_SetFlickerWDThreshold
+    {standard input}:375    .text.XMC_BCCU_SetFlickerWDThreshold:000000000000002c $d
+    {standard input}:380    .text.XMC_BCCU_SetFastClockPrescaler:0000000000000000 $t
+    {standard input}:387    .text.XMC_BCCU_SetFastClockPrescaler:0000000000000000 XMC_BCCU_SetFastClockPrescaler
+    {standard input}:430    .text.XMC_BCCU_SetDimClockPrescaler:0000000000000000 $t
+    {standard input}:437    .text.XMC_BCCU_SetDimClockPrescaler:0000000000000000 XMC_BCCU_SetDimClockPrescaler
+    {standard input}:482    .text.XMC_BCCU_SetDimClockPrescaler:000000000000002c $d
+    {standard input}:487    .text.XMC_BCCU_SelectBitClock:0000000000000000 $t
+    {standard input}:494    .text.XMC_BCCU_SelectBitClock:0000000000000000 XMC_BCCU_SelectBitClock
+    {standard input}:543    .text.XMC_BCCU_SelectBitClock:0000000000000034 $d
+    {standard input}:548    .text.XMC_BCCU_ConcurrentEnableChannels:0000000000000000 $t
+    {standard input}:555    .text.XMC_BCCU_ConcurrentEnableChannels:0000000000000000 XMC_BCCU_ConcurrentEnableChannels
+    {standard input}:591    .text.XMC_BCCU_ConcurrentDisableChannels:0000000000000000 $t
+    {standard input}:598    .text.XMC_BCCU_ConcurrentDisableChannels:0000000000000000 XMC_BCCU_ConcurrentDisableChannels
+    {standard input}:637    .text.XMC_BCCU_ConcurrentSetOutputPassiveLevel:0000000000000000 $t
+    {standard input}:644    .text.XMC_BCCU_ConcurrentSetOutputPassiveLevel:0000000000000000 XMC_BCCU_ConcurrentSetOutputPassiveLevel
+    {standard input}:698    .text.XMC_BCCU_ConcurrentEnableTrap:0000000000000000 $t
+    {standard input}:705    .text.XMC_BCCU_ConcurrentEnableTrap:0000000000000000 XMC_BCCU_ConcurrentEnableTrap
+    {standard input}:744    .text.XMC_BCCU_ConcurrentDisableTrap:0000000000000000 $t
+    {standard input}:751    .text.XMC_BCCU_ConcurrentDisableTrap:0000000000000000 XMC_BCCU_ConcurrentDisableTrap
+    {standard input}:792    .text.XMC_BCCU_ConcurrentConfigTrigger:0000000000000000 $t
+    {standard input}:799    .text.XMC_BCCU_ConcurrentConfigTrigger:0000000000000000 XMC_BCCU_ConcurrentConfigTrigger
+    {standard input}:879    .text.XMC_BCCU_ConcurrentStartLinearWalk:0000000000000000 $t
+    {standard input}:886    .text.XMC_BCCU_ConcurrentStartLinearWalk:0000000000000000 XMC_BCCU_ConcurrentStartLinearWalk
+    {standard input}:922    .text.XMC_BCCU_ConcurrentAbortLinearWalk:0000000000000000 $t
+    {standard input}:929    .text.XMC_BCCU_ConcurrentAbortLinearWalk:0000000000000000 XMC_BCCU_ConcurrentAbortLinearWalk
+    {standard input}:968    .text.XMC_BCCU_ConcurrentEnableDimmingEngine:0000000000000000 $t
+    {standard input}:975    .text.XMC_BCCU_ConcurrentEnableDimmingEngine:0000000000000000 XMC_BCCU_ConcurrentEnableDimmingEngine
+    {standard input}:1008   .text.XMC_BCCU_ConcurrentDisableDimmingEngine:0000000000000000 $t
+    {standard input}:1015   .text.XMC_BCCU_ConcurrentDisableDimmingEngine:0000000000000000 XMC_BCCU_ConcurrentDisableDimmingEngine
+    {standard input}:1054   .text.XMC_BCCU_ConcurrentStartDimming:0000000000000000 $t
+    {standard input}:1061   .text.XMC_BCCU_ConcurrentStartDimming:0000000000000000 XMC_BCCU_ConcurrentStartDimming
+    {standard input}:1094   .text.XMC_BCCU_ConcurrentAbortDimming:0000000000000000 $t
+    {standard input}:1101   .text.XMC_BCCU_ConcurrentAbortDimming:0000000000000000 XMC_BCCU_ConcurrentAbortDimming
+    {standard input}:1136   .text.XMC_BCCU_SetGlobalDimmingLevel:0000000000000000 $t
+    {standard input}:1143   .text.XMC_BCCU_SetGlobalDimmingLevel:0000000000000000 XMC_BCCU_SetGlobalDimmingLevel
+    {standard input}:1176   .text.XMC_BCCU_EnableChannel:0000000000000000 $t
+    {standard input}:1183   .text.XMC_BCCU_EnableChannel:0000000000000000 XMC_BCCU_EnableChannel
+    {standard input}:1224   .text.XMC_BCCU_DisableChannel:0000000000000000 $t
+    {standard input}:1231   .text.XMC_BCCU_DisableChannel:0000000000000000 XMC_BCCU_DisableChannel
+    {standard input}:1274   .text.XMC_BCCU_SetOutputPassiveLevel:0000000000000000 $t
+    {standard input}:1281   .text.XMC_BCCU_SetOutputPassiveLevel:0000000000000000 XMC_BCCU_SetOutputPassiveLevel
+    {standard input}:1326   .text.XMC_BCCU_EnableTrap:0000000000000000 $t
+    {standard input}:1333   .text.XMC_BCCU_EnableTrap:0000000000000000 XMC_BCCU_EnableTrap
+    {standard input}:1375   .text.XMC_BCCU_DisableTrap:0000000000000000 $t
+    {standard input}:1382   .text.XMC_BCCU_DisableTrap:0000000000000000 XMC_BCCU_DisableTrap
+    {standard input}:1426   .text.XMC_BCCU_EnableChannelTrigger:0000000000000000 $t
+    {standard input}:1433   .text.XMC_BCCU_EnableChannelTrigger:0000000000000000 XMC_BCCU_EnableChannelTrigger
+    {standard input}:1505   .text.XMC_BCCU_DisableChannelTrigger:0000000000000000 $t
+    {standard input}:1512   .text.XMC_BCCU_DisableChannelTrigger:0000000000000000 XMC_BCCU_DisableChannelTrigger
+    {standard input}:1555   .text.XMC_BCCU_CH_Init:0000000000000000 $t
+    {standard input}:1562   .text.XMC_BCCU_CH_Init:0000000000000000 XMC_BCCU_CH_Init
+    {standard input}:1609   .text.XMC_BCCU_CH_ConfigTrigger:0000000000000000 $t
+    {standard input}:1616   .text.XMC_BCCU_CH_ConfigTrigger:0000000000000000 XMC_BCCU_CH_ConfigTrigger
+    {standard input}:1675   .text.XMC_BCCU_CH_ConfigTrigger:0000000000000044 $d
+    {standard input}:1680   .text.XMC_BCCU_CH_SetLinearWalkPrescaler:0000000000000000 $t
+    {standard input}:1687   .text.XMC_BCCU_CH_SetLinearWalkPrescaler:0000000000000000 XMC_BCCU_CH_SetLinearWalkPrescaler
+    {standard input}:1732   .text.XMC_BCCU_CH_SetLinearWalkPrescaler:000000000000002c $d
+    {standard input}:1737   .text.XMC_BCCU_CH_SetTargetIntensity:0000000000000000 $t
+    {standard input}:1744   .text.XMC_BCCU_CH_SetTargetIntensity:0000000000000000 XMC_BCCU_CH_SetTargetIntensity
+    {standard input}:1777   .text.XMC_BCCU_CH_ReadIntensity:0000000000000000 $t
+    {standard input}:1784   .text.XMC_BCCU_CH_ReadIntensity:0000000000000000 XMC_BCCU_CH_ReadIntensity
+    {standard input}:1818   .text.XMC_BCCU_CH_EnablePacker:0000000000000000 $t
+    {standard input}:1825   .text.XMC_BCCU_CH_EnablePacker:0000000000000000 XMC_BCCU_CH_EnablePacker
+    {standard input}:1887   .text.XMC_BCCU_CH_SetPackerThreshold:0000000000000000 $t
+    {standard input}:1894   .text.XMC_BCCU_CH_SetPackerThreshold:0000000000000000 XMC_BCCU_CH_SetPackerThreshold
+    {standard input}:1938   .text.XMC_BCCU_CH_SetPackerOffCompare:0000000000000000 $t
+    {standard input}:1945   .text.XMC_BCCU_CH_SetPackerOffCompare:0000000000000000 XMC_BCCU_CH_SetPackerOffCompare
+    {standard input}:1989   .text.XMC_BCCU_CH_SetPackerOnCompare:0000000000000000 $t
+    {standard input}:1996   .text.XMC_BCCU_CH_SetPackerOnCompare:0000000000000000 XMC_BCCU_CH_SetPackerOnCompare
+    {standard input}:2041   .text.XMC_BCCU_CH_SetPackerOnCompare:000000000000002c $d
+    {standard input}:2046   .text.XMC_BCCU_CH_DisablePacker:0000000000000000 $t
+    {standard input}:2053   .text.XMC_BCCU_CH_DisablePacker:0000000000000000 XMC_BCCU_CH_DisablePacker
+    {standard input}:2089   .text.XMC_BCCU_CH_SetPackerOffCounter:0000000000000000 $t
+    {standard input}:2096   .text.XMC_BCCU_CH_SetPackerOffCounter:0000000000000000 XMC_BCCU_CH_SetPackerOffCounter
+    {standard input}:2140   .text.XMC_BCCU_CH_SetPackerOnCounter:0000000000000000 $t
+    {standard input}:2147   .text.XMC_BCCU_CH_SetPackerOnCounter:0000000000000000 XMC_BCCU_CH_SetPackerOnCounter
+    {standard input}:2192   .text.XMC_BCCU_CH_SetPackerOnCounter:000000000000002c $d
+    {standard input}:2197   .text.XMC_BCCU_CH_SelectDimEngine:0000000000000000 $t
+    {standard input}:2204   .text.XMC_BCCU_CH_SelectDimEngine:0000000000000000 XMC_BCCU_CH_SelectDimEngine
+    {standard input}:2255   .text.XMC_BCCU_CH_EnableDimmingBypass:0000000000000000 $t
+    {standard input}:2262   .text.XMC_BCCU_CH_EnableDimmingBypass:0000000000000000 XMC_BCCU_CH_EnableDimmingBypass
+    {standard input}:2297   .text.XMC_BCCU_CH_DisableDimmingBypass:0000000000000000 $t
+    {standard input}:2304   .text.XMC_BCCU_CH_DisableDimmingBypass:0000000000000000 XMC_BCCU_CH_DisableDimmingBypass
+    {standard input}:2340   .text.XMC_BCCU_DIM_Init:0000000000000000 $t
+    {standard input}:2347   .text.XMC_BCCU_DIM_Init:0000000000000000 XMC_BCCU_DIM_Init
+    {standard input}:2382   .text.XMC_BCCU_DIM_SetTargetDimmingLevel:0000000000000000 $t
+    {standard input}:2389   .text.XMC_BCCU_DIM_SetTargetDimmingLevel:0000000000000000 XMC_BCCU_DIM_SetTargetDimmingLevel
+    {standard input}:2422   .text.XMC_BCCU_DIM_SetDimDivider:0000000000000000 $t
+    {standard input}:2429   .text.XMC_BCCU_DIM_SetDimDivider:0000000000000000 XMC_BCCU_DIM_SetDimDivider
+    {standard input}:2472   .text.XMC_BCCU_DIM_ConfigDimCurve:0000000000000000 $t
+    {standard input}:2479   .text.XMC_BCCU_DIM_ConfigDimCurve:0000000000000000 XMC_BCCU_DIM_ConfigDimCurve
+    {standard input}:2536   .text.XMC_BCCU_DIM_ConfigDimCurve:0000000000000040 $d
+
+UNDEFINED SYMBOLS
+XMC_SCU_CLOCK_UngatePeripheralClock

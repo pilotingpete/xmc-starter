@@ -1,0 +1,429 @@
+   1              	 .cpu cortex-m0
+   2              	 .eabi_attribute 20,1
+   3              	 .eabi_attribute 21,1
+   4              	 .eabi_attribute 23,3
+   5              	 .eabi_attribute 24,1
+   6              	 .eabi_attribute 25,1
+   7              	 .eabi_attribute 26,1
+   8              	 .eabi_attribute 30,6
+   9              	 .eabi_attribute 34,0
+  10              	 .eabi_attribute 18,4
+  11              	 .file "system_XMC1300.c"
+  12              	 .text
+  13              	.Ltext0:
+  14              	 .cfi_sections .debug_frame
+  15              	 .global SystemCoreClock
+  16              	 .section .no_init,"aw"
+  17              	 .align 2
+  20              	SystemCoreClock:
+  21 0000 00000000 	 .space 4
+  22              	 .section .text.SystemInit,"ax",%progbits
+  23              	 .align 1
+  24              	 .weak SystemInit
+  25              	 .arch armv6s-m
+  26              	 .syntax unified
+  27              	 .code 16
+  28              	 .thumb_func
+  29              	 .fpu softvfp
+  31              	SystemInit:
+  32              	.LFB36:
+  33              	 .file 1 "../Startup/system_XMC1300.c"
+   1:../Startup/system_XMC1300.c **** /**************************************************************************************************
+   2:../Startup/system_XMC1300.c ****  * @file     system_XMC1300.c
+   3:../Startup/system_XMC1300.c ****  * @brief    Device specific initialization for the XMC1300-Series according to CMSIS
+   4:../Startup/system_XMC1300.c ****  * @version  V1.11
+   5:../Startup/system_XMC1300.c ****  * @date     19 Jun 2017
+   6:../Startup/system_XMC1300.c ****  *
+   7:../Startup/system_XMC1300.c ****  * @cond
+   8:../Startup/system_XMC1300.c ****  **************************************************************************************************
+   9:../Startup/system_XMC1300.c ****  * Copyright (c) 2012-2017, Infineon Technologies AG
+  10:../Startup/system_XMC1300.c ****  * All rights reserved.                        
+  11:../Startup/system_XMC1300.c ****  *                                             
+  12:../Startup/system_XMC1300.c ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  13:../Startup/system_XMC1300.c ****  * following conditions are met:   
+  14:../Startup/system_XMC1300.c ****  *                                                                              
+  15:../Startup/system_XMC1300.c ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  16:../Startup/system_XMC1300.c ****  * disclaimer.                        
+  17:../Startup/system_XMC1300.c ****  * 
+  18:../Startup/system_XMC1300.c ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  19:../Startup/system_XMC1300.c ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  20:../Startup/system_XMC1300.c ****  * 
+  21:../Startup/system_XMC1300.c ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  22:../Startup/system_XMC1300.c ****  * products derived from this software without specific prior written permission.                  
+  23:../Startup/system_XMC1300.c ****  *                                                                              
+  24:../Startup/system_XMC1300.c ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  25:../Startup/system_XMC1300.c ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  26:../Startup/system_XMC1300.c ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  27:../Startup/system_XMC1300.c ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  28:../Startup/system_XMC1300.c ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  29:../Startup/system_XMC1300.c ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  30:../Startup/system_XMC1300.c ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  31:../Startup/system_XMC1300.c ****  *                                                                              
+  32:../Startup/system_XMC1300.c ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  33:../Startup/system_XMC1300.c ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  34:../Startup/system_XMC1300.c ****  **************************************************************************************************
+  35:../Startup/system_XMC1300.c ****  *
+  36:../Startup/system_XMC1300.c ****  * *************************** Change history ********************************
+  37:../Startup/system_XMC1300.c ****  * V1.2, 13 Dec 2012, PKB : Created change history table
+  38:../Startup/system_XMC1300.c ****  * V1.3, 20 Dec 2012, PKB : Fixed SystemCoreClock computation
+  39:../Startup/system_XMC1300.c ****  * V1.4, 02 Feb 2013, PKB : SCU_CLOCK -> SCU_CLK
+  40:../Startup/system_XMC1300.c ****  * V1.5, 27 Nov 2013, DNE : Comments added in SystemInit function for MCLK support
+  41:../Startup/system_XMC1300.c ****  * V1.6, 19 Feb 2014, JFT : Fixed SystemCoreClock when FDIV != 0 
+  42:../Startup/system_XMC1300.c ****  * V1.7, 11 Dec 2014, JFT : SystemCoreClockSetup, SystemCoreSetup as weak functions
+  43:../Startup/system_XMC1300.c ****  * V1.8, 03 Sep 2015, JFT : Override values of CLOCK_VAL1 and CLOCK_VAL2 defined in vector table (s
+  44:../Startup/system_XMC1300.c ****  *                          MCLK = 32MHz, PCLK = 64MHz
+  45:../Startup/system_XMC1300.c ****  * V1.9, 31 Mar 2016, JFT : Fix flash wait states to 1 cycle
+  46:../Startup/system_XMC1300.c ****  * V1.10,22 Aug 2016, JFT : Update coding for fixed flash wait states using new macros in device he
+  47:../Startup/system_XMC1300.c ****  *                          Add macro guard USE_DYNAMIC_FLASH_WS. If defined in compiler options, a
+  48:../Startup/system_XMC1300.c ****  *                          are used for read accesses to the flash memory. Otherwise a fixed 1 WS 
+  49:../Startup/system_XMC1300.c ****  * V1.11,19 Jun 2017, Rely on cmsis_compiler.h instead of defining __WEAK
+  50:../Startup/system_XMC1300.c ****  *                    Added support for ARM Compiler 6 (armclang) 
+  51:../Startup/system_XMC1300.c ****  *
+  52:../Startup/system_XMC1300.c ****  * @endcond 
+  53:../Startup/system_XMC1300.c ****  */
+  54:../Startup/system_XMC1300.c **** 
+  55:../Startup/system_XMC1300.c **** /*******************************************************************************
+  56:../Startup/system_XMC1300.c ****  * HEADER FILES
+  57:../Startup/system_XMC1300.c ****  *******************************************************************************/
+  58:../Startup/system_XMC1300.c **** 
+  59:../Startup/system_XMC1300.c **** #include <XMC1300.h>
+  60:../Startup/system_XMC1300.c **** #include "system_XMC1300.h"
+  61:../Startup/system_XMC1300.c **** 
+  62:../Startup/system_XMC1300.c **** /*******************************************************************************
+  63:../Startup/system_XMC1300.c ****  * MACROS
+  64:../Startup/system_XMC1300.c ****  *******************************************************************************/
+  65:../Startup/system_XMC1300.c **** #define DCO1_FREQUENCY (64000000U)
+  66:../Startup/system_XMC1300.c **** 
+  67:../Startup/system_XMC1300.c **** /*******************************************************************************
+  68:../Startup/system_XMC1300.c ****  * GLOBAL VARIABLES
+  69:../Startup/system_XMC1300.c ****  *******************************************************************************/
+  70:../Startup/system_XMC1300.c **** 
+  71:../Startup/system_XMC1300.c **** #if defined ( __CC_ARM )
+  72:../Startup/system_XMC1300.c **** uint32_t SystemCoreClock __attribute__((at(0x20003FFC)));
+  73:../Startup/system_XMC1300.c **** #elif defined (__ARMCC_VERSION) && (__ARMCC_VERSION >= 6010050)
+  74:../Startup/system_XMC1300.c **** uint32_t SystemCoreClock __attribute__((section(".ARM.__at_0x20003FFC")));
+  75:../Startup/system_XMC1300.c **** #elif defined ( __ICCARM__ )
+  76:../Startup/system_XMC1300.c **** __no_init uint32_t SystemCoreClock;
+  77:../Startup/system_XMC1300.c **** #elif defined ( __GNUC__ )
+  78:../Startup/system_XMC1300.c **** uint32_t SystemCoreClock __attribute__((section(".no_init")));
+  79:../Startup/system_XMC1300.c **** #elif defined ( __TASKING__ )
+  80:../Startup/system_XMC1300.c **** uint32_t SystemCoreClock __at( 0x20003FFC );
+  81:../Startup/system_XMC1300.c **** #endif
+  82:../Startup/system_XMC1300.c **** 
+  83:../Startup/system_XMC1300.c **** /*******************************************************************************
+  84:../Startup/system_XMC1300.c ****  * API IMPLEMENTATION
+  85:../Startup/system_XMC1300.c ****  *******************************************************************************/
+  86:../Startup/system_XMC1300.c **** 
+  87:../Startup/system_XMC1300.c **** __WEAK void SystemInit(void)
+  88:../Startup/system_XMC1300.c **** {    
+  34              	 .loc 1 88 1
+  35              	 .cfi_startproc
+  36              	 
+  37              	 
+  38 0000 80B5     	 push {r7,lr}
+  39              	.LCFI0:
+  40              	 .cfi_def_cfa_offset 8
+  41              	 .cfi_offset 7,-8
+  42              	 .cfi_offset 14,-4
+  43 0002 00AF     	 add r7,sp,#0
+  44              	.LCFI1:
+  45              	 .cfi_def_cfa_register 7
+  89:../Startup/system_XMC1300.c ****   SystemCoreSetup();
+  46              	 .loc 1 89 3
+  47 0004 FFF7FEFF 	 bl SystemCoreSetup
+  90:../Startup/system_XMC1300.c ****   SystemCoreClockSetup();
+  48              	 .loc 1 90 3
+  49 0008 FFF7FEFF 	 bl SystemCoreClockSetup
+  91:../Startup/system_XMC1300.c **** }
+  50              	 .loc 1 91 1
+  51 000c C046     	 nop
+  52 000e BD46     	 mov sp,r7
+  53              	 
+  54 0010 80BD     	 pop {r7,pc}
+  55              	 .cfi_endproc
+  56              	.LFE36:
+  58              	 .section .text.SystemCoreSetup,"ax",%progbits
+  59              	 .align 1
+  60              	 .weak SystemCoreSetup
+  61              	 .syntax unified
+  62              	 .code 16
+  63              	 .thumb_func
+  64              	 .fpu softvfp
+  66              	SystemCoreSetup:
+  67              	.LFB37:
+  92:../Startup/system_XMC1300.c **** 
+  93:../Startup/system_XMC1300.c **** __WEAK void SystemCoreSetup(void)
+  94:../Startup/system_XMC1300.c **** {
+  68              	 .loc 1 94 1
+  69              	 .cfi_startproc
+  70              	 
+  71              	 
+  72 0000 80B5     	 push {r7,lr}
+  73              	.LCFI2:
+  74              	 .cfi_def_cfa_offset 8
+  75              	 .cfi_offset 7,-8
+  76              	 .cfi_offset 14,-4
+  77 0002 00AF     	 add r7,sp,#0
+  78              	.LCFI3:
+  79              	 .cfi_def_cfa_register 7
+  95:../Startup/system_XMC1300.c **** #ifndef USE_DYNAMIC_FLASH_WS
+  96:../Startup/system_XMC1300.c ****   /* Fix flash wait states to 1 cycle (see DS Addendum) */
+  97:../Startup/system_XMC1300.c ****   NVM->NVMCONF |= NVM_NVMCONF_WS_Msk;
+  80              	 .loc 1 97 16
+  81 0004 0B4B     	 ldr r3,.L3
+  82 0006 1B89     	 ldrh r3,[r3,#8]
+  83 0008 9BB2     	 uxth r3,r3
+  84 000a 0A49     	 ldr r1,.L3
+  85 000c 8022     	 movs r2,#128
+  86 000e 5201     	 lsls r2,r2,#5
+  87 0010 1343     	 orrs r3,r2
+  88 0012 9BB2     	 uxth r3,r3
+  89 0014 0B81     	 strh r3,[r1,#8]
+  98:../Startup/system_XMC1300.c ****   NVM->CONFIG1 |= NVM_CONFIG1_FIXWS_Msk;
+  90              	 .loc 1 98 16
+  91 0016 074A     	 ldr r2,.L3
+  92 0018 4823     	 movs r3,#72
+  93 001a D35A     	 ldrh r3,[r2,r3]
+  94 001c 9BB2     	 uxth r3,r3
+  95 001e 0549     	 ldr r1,.L3
+  96 0020 8022     	 movs r2,#128
+  97 0022 1201     	 lsls r2,r2,#4
+  98 0024 1343     	 orrs r3,r2
+  99 0026 9AB2     	 uxth r2,r3
+ 100 0028 4823     	 movs r3,#72
+ 101 002a CA52     	 strh r2,[r1,r3]
+  99:../Startup/system_XMC1300.c **** #endif
+ 100:../Startup/system_XMC1300.c **** }
+ 102              	 .loc 1 100 1
+ 103 002c C046     	 nop
+ 104 002e BD46     	 mov sp,r7
+ 105              	 
+ 106 0030 80BD     	 pop {r7,pc}
+ 107              	.L4:
+ 108 0032 C046     	 .align 2
+ 109              	.L3:
+ 110 0034 00000540 	 .word 1074069504
+ 111              	 .cfi_endproc
+ 112              	.LFE37:
+ 114              	 .section .text.SystemCoreClockSetup,"ax",%progbits
+ 115              	 .align 1
+ 116              	 .weak SystemCoreClockSetup
+ 117              	 .syntax unified
+ 118              	 .code 16
+ 119              	 .thumb_func
+ 120              	 .fpu softvfp
+ 122              	SystemCoreClockSetup:
+ 123              	.LFB38:
+ 101:../Startup/system_XMC1300.c **** 
+ 102:../Startup/system_XMC1300.c **** __WEAK void SystemCoreClockSetup(void)
+ 103:../Startup/system_XMC1300.c **** {
+ 124              	 .loc 1 103 1
+ 125              	 .cfi_startproc
+ 126              	 
+ 127              	 
+ 128 0000 80B5     	 push {r7,lr}
+ 129              	.LCFI4:
+ 130              	 .cfi_def_cfa_offset 8
+ 131              	 .cfi_offset 7,-8
+ 132              	 .cfi_offset 14,-4
+ 133 0002 00AF     	 add r7,sp,#0
+ 134              	.LCFI5:
+ 135              	 .cfi_def_cfa_register 7
+ 104:../Startup/system_XMC1300.c ****   /* Override values of CLOCK_VAL1 and CLOCK_VAL2 defined in vector table */
+ 105:../Startup/system_XMC1300.c ****   /* MCLK = 32MHz, PCLK = 64MHz */
+ 106:../Startup/system_XMC1300.c ****   
+ 107:../Startup/system_XMC1300.c ****   SCU_GENERAL->PASSWD = 0x000000C0UL; /* disable bit protection */
+ 136              	 .loc 1 107 14
+ 137 0004 0A4B     	 ldr r3,.L7
+ 138              	 .loc 1 107 23
+ 139 0006 C022     	 movs r2,#192
+ 140 0008 5A62     	 str r2,[r3,#36]
+ 108:../Startup/system_XMC1300.c ****   SCU_CLK->CLKCR = 0x3FF10100UL;
+ 141              	 .loc 1 108 10
+ 142 000a 0A4B     	 ldr r3,.L7+4
+ 143              	 .loc 1 108 18
+ 144 000c 0A4A     	 ldr r2,.L7+8
+ 145 000e 1A60     	 str r2,[r3]
+ 109:../Startup/system_XMC1300.c ****   while((SCU_CLK->CLKCR & SCU_CLK_CLKCR_VDDC2LOW_Msk));
+ 146              	 .loc 1 109 8
+ 147 0010 C046     	 nop
+ 148              	.L6:
+ 149              	 .loc 1 109 17 discriminator 1
+ 150 0012 084B     	 ldr r3,.L7+4
+ 151 0014 1A68     	 ldr r2,[r3]
+ 152              	 .loc 1 109 25 discriminator 1
+ 153 0016 8023     	 movs r3,#128
+ 154 0018 DB05     	 lsls r3,r3,#23
+ 155 001a 1340     	 ands r3,r2
+ 156              	 .loc 1 109 8 discriminator 1
+ 157 001c F9D1     	 bne .L6
+ 110:../Startup/system_XMC1300.c ****   SCU_GENERAL->PASSWD = 0x000000C3UL; /* enable bit protection */
+ 158              	 .loc 1 110 14
+ 159 001e 044B     	 ldr r3,.L7
+ 160              	 .loc 1 110 23
+ 161 0020 C322     	 movs r2,#195
+ 162 0022 5A62     	 str r2,[r3,#36]
+ 111:../Startup/system_XMC1300.c **** 
+ 112:../Startup/system_XMC1300.c ****   SystemCoreClockUpdate();
+ 163              	 .loc 1 112 3
+ 164 0024 FFF7FEFF 	 bl SystemCoreClockUpdate
+ 113:../Startup/system_XMC1300.c **** }
+ 165              	 .loc 1 113 1
+ 166 0028 C046     	 nop
+ 167 002a BD46     	 mov sp,r7
+ 168              	 
+ 169 002c 80BD     	 pop {r7,pc}
+ 170              	.L8:
+ 171 002e C046     	 .align 2
+ 172              	.L7:
+ 173 0030 00000140 	 .word 1073807360
+ 174 0034 00030140 	 .word 1073808128
+ 175 0038 0001F13F 	 .word 1072759040
+ 176              	 .cfi_endproc
+ 177              	.LFE38:
+ 179              	 .global __aeabi_uidiv
+ 180              	 .section .text.SystemCoreClockUpdate,"ax",%progbits
+ 181              	 .align 1
+ 182              	 .weak SystemCoreClockUpdate
+ 183              	 .syntax unified
+ 184              	 .code 16
+ 185              	 .thumb_func
+ 186              	 .fpu softvfp
+ 188              	SystemCoreClockUpdate:
+ 189              	.LFB39:
+ 114:../Startup/system_XMC1300.c **** 
+ 115:../Startup/system_XMC1300.c **** __WEAK void SystemCoreClockUpdate(void)
+ 116:../Startup/system_XMC1300.c **** {
+ 190              	 .loc 1 116 1
+ 191              	 .cfi_startproc
+ 192              	 
+ 193              	 
+ 194 0000 80B5     	 push {r7,lr}
+ 195              	.LCFI6:
+ 196              	 .cfi_def_cfa_offset 8
+ 197              	 .cfi_offset 7,-8
+ 198              	 .cfi_offset 14,-4
+ 199 0002 00AF     	 add r7,sp,#0
+ 200              	.LCFI7:
+ 201              	 .cfi_def_cfa_register 7
+ 117:../Startup/system_XMC1300.c ****   static uint32_t IDIV, FDIV;
+ 118:../Startup/system_XMC1300.c **** 
+ 119:../Startup/system_XMC1300.c ****   IDIV = ((SCU_CLK->CLKCR) & SCU_CLK_CLKCR_IDIV_Msk) >> SCU_CLK_CLKCR_IDIV_Pos;
+ 202              	 .loc 1 119 19
+ 203 0004 124B     	 ldr r3,.L13
+ 204 0006 1B68     	 ldr r3,[r3]
+ 205              	 .loc 1 119 54
+ 206 0008 1B0A     	 lsrs r3,r3,#8
+ 207 000a FF22     	 movs r2,#255
+ 208 000c 1A40     	 ands r2,r3
+ 209              	 .loc 1 119 8
+ 210 000e 114B     	 ldr r3,.L13+4
+ 211 0010 1A60     	 str r2,[r3]
+ 120:../Startup/system_XMC1300.c ****   FDIV = ((SCU_CLK->CLKCR) & SCU_CLK_CLKCR_FDIV_Msk) >> SCU_CLK_CLKCR_FDIV_Pos;
+ 212              	 .loc 1 120 19
+ 213 0012 0F4B     	 ldr r3,.L13
+ 214 0014 1B68     	 ldr r3,[r3]
+ 215              	 .loc 1 120 54
+ 216 0016 FF22     	 movs r2,#255
+ 217 0018 1A40     	 ands r2,r3
+ 218              	 .loc 1 120 8
+ 219 001a 0F4B     	 ldr r3,.L13+8
+ 220 001c 1A60     	 str r2,[r3]
+ 121:../Startup/system_XMC1300.c ****   
+ 122:../Startup/system_XMC1300.c ****   if (IDIV != 0)
+ 221              	 .loc 1 122 12
+ 222 001e 0D4B     	 ldr r3,.L13+4
+ 223 0020 1B68     	 ldr r3,[r3]
+ 224              	 .loc 1 122 6
+ 225 0022 002B     	 cmp r3,#0
+ 226 0024 0ED0     	 beq .L10
+ 123:../Startup/system_XMC1300.c ****   {
+ 124:../Startup/system_XMC1300.c ****     /* Fractional divider is enabled and used */
+ 125:../Startup/system_XMC1300.c ****     SystemCoreClock = ((DCO1_FREQUENCY << 6U) / ((IDIV << 8) + FDIV)) << 1U;
+ 227              	 .loc 1 125 56
+ 228 0026 0B4B     	 ldr r3,.L13+4
+ 229 0028 1B68     	 ldr r3,[r3]
+ 230 002a 1A02     	 lsls r2,r3,#8
+ 231              	 .loc 1 125 62
+ 232 002c 0A4B     	 ldr r3,.L13+8
+ 233 002e 1B68     	 ldr r3,[r3]
+ 234 0030 D318     	 adds r3,r2,r3
+ 235              	 .loc 1 125 47
+ 236 0032 1900     	 movs r1,r3
+ 237 0034 0948     	 ldr r0,.L13+12
+ 238 0036 FFF7FEFF 	 bl __aeabi_uidiv
+ 239              	.LVL0:
+ 240 003a 0300     	 movs r3,r0
+ 241              	 .loc 1 125 71
+ 242 003c 5A00     	 lsls r2,r3,#1
+ 243              	 .loc 1 125 21
+ 244 003e 084B     	 ldr r3,.L13+16
+ 245 0040 1A60     	 str r2,[r3]
+ 126:../Startup/system_XMC1300.c ****   }
+ 127:../Startup/system_XMC1300.c ****   else
+ 128:../Startup/system_XMC1300.c ****   {
+ 129:../Startup/system_XMC1300.c ****     /* Fractional divider bypassed. Simply divide DCO_DCLK by 2 */
+ 130:../Startup/system_XMC1300.c ****     SystemCoreClock = DCO1_FREQUENCY >> 1U;
+ 131:../Startup/system_XMC1300.c ****   }
+ 132:../Startup/system_XMC1300.c **** }
+ 246              	 .loc 1 132 1
+ 247 0042 02E0     	 b .L12
+ 248              	.L10:
+ 130:../Startup/system_XMC1300.c ****   }
+ 249              	 .loc 1 130 21
+ 250 0044 064B     	 ldr r3,.L13+16
+ 251 0046 074A     	 ldr r2,.L13+20
+ 252 0048 1A60     	 str r2,[r3]
+ 253              	.L12:
+ 254              	 .loc 1 132 1
+ 255 004a C046     	 nop
+ 256 004c BD46     	 mov sp,r7
+ 257              	 
+ 258 004e 80BD     	 pop {r7,pc}
+ 259              	.L14:
+ 260              	 .align 2
+ 261              	.L13:
+ 262 0050 00030140 	 .word 1073808128
+ 263 0054 00000000 	 .word IDIV.5019
+ 264 0058 00000000 	 .word FDIV.5020
+ 265 005c 000024F4 	 .word -198967296
+ 266 0060 00000000 	 .word SystemCoreClock
+ 267 0064 0048E801 	 .word 32000000
+ 268              	 .cfi_endproc
+ 269              	.LFE39:
+ 271              	 .section .bss.IDIV.5019,"aw",%nobits
+ 272              	 .align 2
+ 275              	IDIV.5019:
+ 276 0000 00000000 	 .space 4
+ 277              	 .section .bss.FDIV.5020,"aw",%nobits
+ 278              	 .align 2
+ 281              	FDIV.5020:
+ 282 0000 00000000 	 .space 4
+ 283              	 .text
+ 284              	.Letext0:
+ 285              	 .file 2 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_default_types.h"
+ 286              	 .file 3 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 287              	 .file 4 "..//Libraries/CMSIS/Infineon/XMC1300_series/Include/XMC1300.h"
+ 288              	 .file 5 "..//Libraries/CMSIS/Infineon/XMC1300_series/Include/system_XMC1300.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 system_XMC1300.c
+    {standard input}:20     .no_init:0000000000000000 SystemCoreClock
+    {standard input}:17     .no_init:0000000000000000 $d
+    {standard input}:23     .text.SystemInit:0000000000000000 $t
+    {standard input}:31     .text.SystemInit:0000000000000000 SystemInit
+    {standard input}:66     .text.SystemCoreSetup:0000000000000000 SystemCoreSetup
+    {standard input}:122    .text.SystemCoreClockSetup:0000000000000000 SystemCoreClockSetup
+    {standard input}:59     .text.SystemCoreSetup:0000000000000000 $t
+    {standard input}:110    .text.SystemCoreSetup:0000000000000034 $d
+    {standard input}:115    .text.SystemCoreClockSetup:0000000000000000 $t
+    {standard input}:188    .text.SystemCoreClockUpdate:0000000000000000 SystemCoreClockUpdate
+    {standard input}:173    .text.SystemCoreClockSetup:0000000000000030 $d
+    {standard input}:181    .text.SystemCoreClockUpdate:0000000000000000 $t
+    {standard input}:262    .text.SystemCoreClockUpdate:0000000000000050 $d
+    {standard input}:275    .bss.IDIV.5019:0000000000000000 IDIV.5019
+    {standard input}:281    .bss.FDIV.5020:0000000000000000 FDIV.5020
+    {standard input}:272    .bss.IDIV.5019:0000000000000000 $d
+    {standard input}:278    .bss.FDIV.5020:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+__aeabi_uidiv

@@ -1,0 +1,1935 @@
+   1              	 .cpu cortex-m0
+   2              	 .eabi_attribute 20,1
+   3              	 .eabi_attribute 21,1
+   4              	 .eabi_attribute 23,3
+   5              	 .eabi_attribute 24,1
+   6              	 .eabi_attribute 25,1
+   7              	 .eabi_attribute 26,1
+   8              	 .eabi_attribute 30,6
+   9              	 .eabi_attribute 34,0
+  10              	 .eabi_attribute 18,4
+  11              	 .file "xmc1_rtc.c"
+  12              	 .text
+  13              	.Ltext0:
+  14              	 .cfi_sections .debug_frame
+  15              	 .section .text.XMC_RTC_IsRunning,"ax",%progbits
+  16              	 .align 1
+  17              	 .arch armv6s-m
+  18              	 .syntax unified
+  19              	 .code 16
+  20              	 .thumb_func
+  21              	 .fpu softvfp
+  23              	XMC_RTC_IsRunning:
+  24              	.LFB42:
+  25              	 .file 1 "..//Libraries/XMCLib/inc/xmc_rtc.h"
+   1:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+   2:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @file xmc_rtc.h
+   3:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @date 2016-05-19
+   4:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+   5:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @cond
+   6:..//Libraries/XMCLib/inc/xmc_rtc.h ****  **************************************************************************************************
+   7:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * XMClib v2.1.18 - XMC Peripheral Driver Library 
+   8:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+   9:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Copyright (c) 2015-2018, Infineon Technologies AG
+  10:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * All rights reserved.                        
+  11:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *                                             
+  12:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  13:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * following conditions are met:   
+  14:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *                                                                              
+  15:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  16:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * disclaimer.                        
+  17:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * 
+  18:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  19:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  20:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * 
+  21:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  22:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * products derived from this software without specific prior written permission.                  
+  23:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *                                                                              
+  24:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  25:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  26:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  27:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  28:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  29:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  30:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  31:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *                                                                              
+  32:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  33:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  34:..//Libraries/XMCLib/inc/xmc_rtc.h ****  **************************************************************************************************
+  35:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+  36:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Change History
+  37:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * --------------
+  38:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+  39:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * 2015-02-20:
+  40:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *     - Initial
+  41:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *      
+  42:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * 2015-05-20:
+  43:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *     - Documentation updates <br>
+  44:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *     - In xmc1_rtc file XMC_RTC_Init function
+  45:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *       is modified by adding the RTC running condition check
+  46:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *   
+  47:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * 2015-06-20:
+  48:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *     - Removed version macros and declaration of GetDriverVersion API
+  49:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+  50:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * 2016-05-19:
+  51:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *     - Added XMC_RTC_SetTimeStdFormat() and XMC_RTC_SetAlarmStdFormat()
+  52:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+  53:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @endcond 
+  54:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+  55:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */
+  56:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+  57:..//Libraries/XMCLib/inc/xmc_rtc.h **** #ifndef XMC_RTC_H
+  58:..//Libraries/XMCLib/inc/xmc_rtc.h **** #define XMC_RTC_H
+  59:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+  60:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**************************************************************************************************
+  61:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * HEADER FILES
+  62:..//Libraries/XMCLib/inc/xmc_rtc.h ****  **************************************************************************************************
+  63:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+  64:..//Libraries/XMCLib/inc/xmc_rtc.h **** #include <xmc_common.h>
+  65:..//Libraries/XMCLib/inc/xmc_rtc.h **** #include <time.h>
+  66:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+  67:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+  68:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+  69:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @addtogroup XMClib XMC Peripheral Library
+  70:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @{
+  71:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */
+  72:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+  73:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+  74:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @addtogroup RTC
+  75:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @brief RTC driver for XMC microcontroller family.
+  76:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+  77:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Real-time clock (RTC) is a clock that keeps track of the current time. Precise
+  78:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * real time keeping is with a 32.768 KHz external crystal clock or a 32.768 KHz
+  79:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * high precision internal clock. It provides a periodic time based interrupt and
+  80:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * a programmable alarm interrupt on time match. It also supports wakeup from
+  81:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * hibernate.
+  82:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+  83:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The RTC low level driver provides functions to configure and initialize the RTC
+  84:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * hardware peripheral. 
+  85:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * 
+  86:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @{
+  87:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */
+  88:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+  89:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**************************************************************************************************
+  90:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * MACROS
+  91:..//Libraries/XMCLib/inc/xmc_rtc.h ****  **************************************************************************************************
+  92:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+  93:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**************************************************************************************************
+  94:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * ENUMS
+  95:..//Libraries/XMCLib/inc/xmc_rtc.h ****  **************************************************************************************************
+  96:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+  97:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+  98:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *  Status return values for RTC low level driver
+  99:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */
+ 100:..//Libraries/XMCLib/inc/xmc_rtc.h **** typedef enum XMC_RTC_STATUS
+ 101:..//Libraries/XMCLib/inc/xmc_rtc.h **** {
+ 102:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_STATUS_OK    = 0U, /**< Operation successful */
+ 103:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_STATUS_ERROR = 1U, /**< Operation unsuccessful */
+ 104:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_STATUS_BUSY  = 2U  /**< Busy with a previous request */
+ 105:..//Libraries/XMCLib/inc/xmc_rtc.h **** } XMC_RTC_STATUS_t;
+ 106:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 107:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 108:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Events which enables interrupt request generation
+ 109:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */
+ 110:..//Libraries/XMCLib/inc/xmc_rtc.h **** typedef enum XMC_RTC_EVENT
+ 111:..//Libraries/XMCLib/inc/xmc_rtc.h **** {
+ 112:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_EVENT_PERIODIC_SECONDS = RTC_MSKSR_MPSE_Msk, /**< Mask value to enable an event on period
+ 113:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_EVENT_PERIODIC_MINUTES = RTC_MSKSR_MPMI_Msk, /**< Mask value to enable an event on period
+ 114:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_EVENT_PERIODIC_HOURS   = RTC_MSKSR_MPHO_Msk, /**< Mask value to enable an event on period
+ 115:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_EVENT_PERIODIC_DAYS    = RTC_MSKSR_MPDA_Msk, /**< Mask value to enable an event on period
+ 116:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_EVENT_PERIODIC_MONTHS  = RTC_MSKSR_MPMO_Msk, /**< Mask value to enable an event on period
+ 117:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_EVENT_PERIODIC_YEARS   = RTC_MSKSR_MPYE_Msk, /**< Mask value to enable an event on period
+ 118:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_EVENT_ALARM            = RTC_MSKSR_MAI_Msk   /**< Mask value to enable an event on period
+ 119:..//Libraries/XMCLib/inc/xmc_rtc.h **** } XMC_RTC_EVENT_t;
+ 120:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 121:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 122:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *  Months used to program the date  
+ 123:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */
+ 124:..//Libraries/XMCLib/inc/xmc_rtc.h **** typedef enum XMC_RTC_MONTH
+ 125:..//Libraries/XMCLib/inc/xmc_rtc.h **** {
+ 126:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_MONTH_JANUARY   = 0U, 
+ 127:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_MONTH_FEBRUARY  = 1U,     
+ 128:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_MONTH_MARCH     = 2U,         
+ 129:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_MONTH_APRIL     = 3U,       
+ 130:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_MONTH_MAY       = 4U,         
+ 131:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_MONTH_JUNE      = 5U,         
+ 132:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_MONTH_JULY      = 6U,           
+ 133:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_MONTH_AUGUST    = 7U,         
+ 134:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_MONTH_SEPTEMBER = 8U,    
+ 135:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_MONTH_OCTOBER   = 9U,      
+ 136:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_MONTH_NOVEMBER  = 10U,     
+ 137:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_MONTH_DECEMBER  = 11U     
+ 138:..//Libraries/XMCLib/inc/xmc_rtc.h **** } XMC_RTC_MONTH_t;
+ 139:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 140:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 141:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *  Week days used program the date 
+ 142:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */
+ 143:..//Libraries/XMCLib/inc/xmc_rtc.h **** typedef enum XMC_RTC_WEEKDAY
+ 144:..//Libraries/XMCLib/inc/xmc_rtc.h **** {
+ 145:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_WEEKDAY_SUNDAY    = 0U, 
+ 146:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_WEEKDAY_MONDAY    = 1U,      
+ 147:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_WEEKDAY_TUESDAY   = 2U,      
+ 148:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_WEEKDAY_WEDNESDAY = 3U,    
+ 149:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_WEEKDAY_THURSDAY  = 4U,     
+ 150:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_WEEKDAY_FRIDAY    = 5U,       
+ 151:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_WEEKDAY_SATURDAY  = 6U      
+ 152:..//Libraries/XMCLib/inc/xmc_rtc.h **** } XMC_RTC_WEEKDAY_t;
+ 153:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 154:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**************************************************************************************************
+ 155:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * DATA STRUCTURES
+ 156:..//Libraries/XMCLib/inc/xmc_rtc.h ****  **************************************************************************************************
+ 157:..//Libraries/XMCLib/inc/xmc_rtc.h **** /*Anonymous structure/union guard start*/
+ 158:..//Libraries/XMCLib/inc/xmc_rtc.h **** #if defined(__CC_ARM)
+ 159:..//Libraries/XMCLib/inc/xmc_rtc.h ****   #pragma push
+ 160:..//Libraries/XMCLib/inc/xmc_rtc.h ****   #pragma anon_unions
+ 161:..//Libraries/XMCLib/inc/xmc_rtc.h **** #elif defined(__TASKING__)
+ 162:..//Libraries/XMCLib/inc/xmc_rtc.h ****   #pragma warning 586
+ 163:..//Libraries/XMCLib/inc/xmc_rtc.h **** #endif
+ 164:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 165:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 166:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 167:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Alarm time values of RTC  <br>
+ 168:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 169:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The structure presents a convenient way to set/obtain the 
+ 170:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * alarm time values for seconds, minutes, hours, days, month and year of RTC. 
+ 171:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The XMC_RTC_SetAlarm() and XMC_RTC_GetAlarm() can be
+ 172:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * used to populate the structure with the alarm time value of
+ 173:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * RTC 
+ 174:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */ 
+ 175:..//Libraries/XMCLib/inc/xmc_rtc.h **** typedef struct XMC_RTC_ALARM
+ 176:..//Libraries/XMCLib/inc/xmc_rtc.h **** {
+ 177:..//Libraries/XMCLib/inc/xmc_rtc.h ****   union
+ 178:..//Libraries/XMCLib/inc/xmc_rtc.h ****   {
+ 179:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	  uint32_t raw0;
+ 180:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	  struct
+ 181:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	  {
+ 182:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t seconds  : 6; /**< Alarm seconds compare value (0-59: Above this causes this bitfield
+ 183:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t          : 2; 
+ 184:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t minutes  : 6; /**< Alarm minutes compare value (0-59: Above this causes this bitfield
+ 185:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t          : 2;
+ 186:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t hours    : 5; /**< Alarm hours compare value   (0-23: Above this causes this bitfield
+ 187:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t          : 3;
+ 188:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t days     : 5; /**< Alarm days compare value (0-Actual days of month: Above this cause
+ 189:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t          : 3;
+ 190:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	  };
+ 191:..//Libraries/XMCLib/inc/xmc_rtc.h ****   };
+ 192:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 193:..//Libraries/XMCLib/inc/xmc_rtc.h ****   union
+ 194:..//Libraries/XMCLib/inc/xmc_rtc.h ****   {
+ 195:..//Libraries/XMCLib/inc/xmc_rtc.h ****     uint32_t raw1;
+ 196:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	  struct
+ 197:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	  {
+ 198:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t          : 8;
+ 199:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t month    : 4; /**< Alarm month compare value (0-11: Above this causes this bitfield t
+ 200:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t          : 4;
+ 201:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t year     : 16; /**< Alarm year compare value */ 
+ 202:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	  };
+ 203:..//Libraries/XMCLib/inc/xmc_rtc.h ****   };
+ 204:..//Libraries/XMCLib/inc/xmc_rtc.h **** } XMC_RTC_ALARM_t;
+ 205:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 206:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 207:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Time values of RTC  <br>
+ 208:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 209:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The structure presents a convenient way to set/obtain the 
+ 210:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * time values for seconds, minutes, hours, days, month and year of RTC. 
+ 211:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The XMC_RTC_SetTime() and XMC_RTC_GetTime() can be
+ 212:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * used to populate the structure with the time value of
+ 213:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * RTC 
+ 214:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */ 
+ 215:..//Libraries/XMCLib/inc/xmc_rtc.h **** typedef struct XMC_RTC_TIME
+ 216:..//Libraries/XMCLib/inc/xmc_rtc.h **** {
+ 217:..//Libraries/XMCLib/inc/xmc_rtc.h ****   union
+ 218:..//Libraries/XMCLib/inc/xmc_rtc.h ****   {
+ 219:..//Libraries/XMCLib/inc/xmc_rtc.h ****     uint32_t raw0;
+ 220:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	  struct
+ 221:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	  {
+ 222:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t seconds  : 6; /**< Seconds time value (0-59: Above this causes this bitfield to be se
+ 223:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t          : 2; 
+ 224:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t minutes  : 6; /**< Minutes time value (0-59: Above this causes this bitfield to be se
+ 225:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t          : 2;
+ 226:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t hours    : 5; /**< Hours time value   (0-23: Above this causes this bitfield to be se
+ 227:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t          : 3;
+ 228:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t days     : 5; /**< Days time value (0-Actual days of month: Above this causes this bi
+ 229:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t          : 3;
+ 230:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	  };
+ 231:..//Libraries/XMCLib/inc/xmc_rtc.h ****   };
+ 232:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 233:..//Libraries/XMCLib/inc/xmc_rtc.h ****   union
+ 234:..//Libraries/XMCLib/inc/xmc_rtc.h ****   {
+ 235:..//Libraries/XMCLib/inc/xmc_rtc.h ****     uint32_t raw1;
+ 236:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	  struct
+ 237:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	  {
+ 238:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t daysofweek  : 3; /**< Days of week time value (0-6: Above this causes this bitfield t
+ 239:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t             : 5;
+ 240:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t month       : 4; /**< Month time value       (0-11: Above this causes this bitfield t
+ 241:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t             : 4;
+ 242:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	    uint32_t year        : 16; /**< Year time value */
+ 243:..//Libraries/XMCLib/inc/xmc_rtc.h **** 	 };
+ 244:..//Libraries/XMCLib/inc/xmc_rtc.h ****   };
+ 245:..//Libraries/XMCLib/inc/xmc_rtc.h **** } XMC_RTC_TIME_t;
+ 246:..//Libraries/XMCLib/inc/xmc_rtc.h **** /*Anonymous structure/union guard end*/
+ 247:..//Libraries/XMCLib/inc/xmc_rtc.h **** #if defined(__CC_ARM)
+ 248:..//Libraries/XMCLib/inc/xmc_rtc.h ****   #pragma pop
+ 249:..//Libraries/XMCLib/inc/xmc_rtc.h **** #elif defined(__TASKING__)
+ 250:..//Libraries/XMCLib/inc/xmc_rtc.h ****   #pragma warning restore
+ 251:..//Libraries/XMCLib/inc/xmc_rtc.h **** #endif
+ 252:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 253:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 254:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * RTC initialization with time, alarm and clock divider(prescaler) configurations <br>
+ 255:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 256:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The structure presents a convenient way to set/obtain the time and alarm configurations  
+ 257:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * for RTC. The XMC_RTC_Init() can be used to populate the structure with the time and alarm
+ 258:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * values of RTC.
+ 259:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */  
+ 260:..//Libraries/XMCLib/inc/xmc_rtc.h **** typedef struct XMC_RTC_CONFIG
+ 261:..//Libraries/XMCLib/inc/xmc_rtc.h **** {
+ 262:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_TIME_t    time;
+ 263:..//Libraries/XMCLib/inc/xmc_rtc.h ****   XMC_RTC_ALARM_t   alarm;
+ 264:..//Libraries/XMCLib/inc/xmc_rtc.h ****   uint16_t          prescaler;
+ 265:..//Libraries/XMCLib/inc/xmc_rtc.h **** } XMC_RTC_CONFIG_t;
+ 266:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 267:..//Libraries/XMCLib/inc/xmc_rtc.h **** /*******************************************************************************
+ 268:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * EXTENSIONS
+ 269:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *******************************************************************************/
+ 270:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 271:..//Libraries/XMCLib/inc/xmc_rtc.h **** #if UC_FAMILY == XMC1
+ 272:..//Libraries/XMCLib/inc/xmc_rtc.h **** #include "xmc1_rtc.h"
+ 273:..//Libraries/XMCLib/inc/xmc_rtc.h **** #endif
+ 274:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 275:..//Libraries/XMCLib/inc/xmc_rtc.h **** #if UC_FAMILY == XMC4
+ 276:..//Libraries/XMCLib/inc/xmc_rtc.h **** #include "xmc4_rtc.h"
+ 277:..//Libraries/XMCLib/inc/xmc_rtc.h **** #endif
+ 278:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 279:..//Libraries/XMCLib/inc/xmc_rtc.h **** /*******************************************************************************
+ 280:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * API PROTOTYPES
+ 281:..//Libraries/XMCLib/inc/xmc_rtc.h ****  **************************************************************************************************
+ 282:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 283:..//Libraries/XMCLib/inc/xmc_rtc.h **** #ifdef __cplusplus
+ 284:..//Libraries/XMCLib/inc/xmc_rtc.h **** extern "C" {
+ 285:..//Libraries/XMCLib/inc/xmc_rtc.h **** #endif
+ 286:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 287:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 288:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @param config Constant pointer to a constant ::XMC_RTC_CONFIG_t structure containing the
+ 289:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *               time, alarm time and clock divider(prescaler) configuration. 
+ 290:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @return XMC_RTC_STATUS_t Always returns XMC_RTC_STATUS_OK (It contains only register assignment 
+ 291:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 292:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Description: </b><br>
+ 293:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Initialize the RTC peripheral <br>
+ 294:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 295:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par \if XMC4
+ 296:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The function enables the hibernate domain for accessing RTC peripheral registers, configures 
+ 297:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * internal clock divider, time and alarm values by writing to the CTR.DIV, TIM0, TIM1, ATIM0 and
+ 298:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * ATIM1 registers.
+ 299:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \endif
+ 300:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 301:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \if XMC1
+ 302:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The function ungates the peripheral clock for RTC, configures 
+ 303:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * internal clock divider, time and alarm values by writing to the CTR.DIV, TIM0, TIM1, ATIM0 and
+ 304:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * ATIM1 registers.
+ 305:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \endif
+ 306:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */
+ 307:..//Libraries/XMCLib/inc/xmc_rtc.h **** XMC_RTC_STATUS_t XMC_RTC_Init(const XMC_RTC_CONFIG_t *const config);
+ 308:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 309:..//Libraries/XMCLib/inc/xmc_rtc.h **** /** 
+ 310:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @return None
+ 311:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 312:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Description</b><br>
+ 313:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Enables RTC peripheral for programming its registers <br>
+ 314:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 315:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par \if XMC4
+ 316:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Enables the hibernate domain for accessing RTC peripheral registers.
+ 317:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \endif
+ 318:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 319:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \if XMC1
+ 320:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Ungates the peripheral clock.
+ 321:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \endif
+ 322:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 323:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Related APIs:</b><br>
+ 324:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * XMC_RTC_Disable(), XMC_SCU_RESET_DeassertPeripheralReset()
+ 325:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */ 
+ 326:..//Libraries/XMCLib/inc/xmc_rtc.h **** void XMC_RTC_Enable(void);
+ 327:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 328:..//Libraries/XMCLib/inc/xmc_rtc.h **** /** 
+ 329:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @return None
+ 330:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 331:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Description</b><br>
+ 332:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Disables RTC peripheral for programming its registers <br>
+ 333:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 334:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par \if XMC4
+ 335:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Empty function (Hibernate domain is not disabled).
+ 336:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \endif
+ 337:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 338:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \if XMC1
+ 339:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Gates the peripheral clock.
+ 340:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \endif
+ 341:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 342:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Related APIs:</b><br>
+ 343:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * XMC_RTC_Enable(), XMC_SCU_RESET_AssertPeripheralReset()
+ 344:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */ 
+ 345:..//Libraries/XMCLib/inc/xmc_rtc.h **** void XMC_RTC_Disable(void);
+ 346:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 347:..//Libraries/XMCLib/inc/xmc_rtc.h **** /** 
+ 348:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @return None
+ 349:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 350:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Description</b><br>
+ 351:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Checks RTC peripheral is enabled for programming its registers <br>
+ 352:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 353:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par \if XMC4
+ 354:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Checks the hibernate domain is enabled or not.
+ 355:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \endif
+ 356:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 357:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \if XMC1
+ 358:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Checks peripheral clock is ungated or not.
+ 359:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \endif
+ 360:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 361:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Related APIs:</b><br>
+ 362:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * XMC_RTC_Enable(), XMC_RTC_Disable(), XMC_SCU_RESET_DeassertPeripheralReset(),
+ 363:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * XMC_SCU_RESET_AssertPeripheralReset()
+ 364:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */ 
+ 365:..//Libraries/XMCLib/inc/xmc_rtc.h **** bool XMC_RTC_IsEnabled(void);
+ 366:..//Libraries/XMCLib/inc/xmc_rtc.h ****  
+ 367:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 368:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @return None
+ 369:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 370:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Description</b><br>
+ 371:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Enables RTC peripheral to start counting time <br>
+ 372:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 373:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par
+ 374:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The function starts the RTC for counting time by setting 
+ 375:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * CTR.ENB bit. Before starting the RTC, it should not be in
+ 376:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * running mode and also hibernate domain should be enabled.
+ 377:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 378:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Related APIs:</b><br>
+ 379:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * XMC_RTC_Enable(), XMC_RTC_Stop(), XMC_SCU_RESET_DeassertPeripheralReset()
+ 380:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */  
+ 381:..//Libraries/XMCLib/inc/xmc_rtc.h **** void XMC_RTC_Start(void);
+ 382:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 383:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 384:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @return None
+ 385:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 386:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Description</b><br>
+ 387:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Disables RTC peripheral to start counting time <br>
+ 388:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 389:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par
+ 390:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The function stops the RTC for counting time by resetting 
+ 391:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * CTR.ENB. Before stopping the RTC, hibernate domain should be enabled.
+ 392:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 393:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Related APIs:</b><br>
+ 394:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * XMC_RTC_Enable(), XMC_RTC_Start(), XMC_SCU_RESET_AssertPeripheralReset()
+ 395:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */  
+ 396:..//Libraries/XMCLib/inc/xmc_rtc.h **** void XMC_RTC_Stop(void);
+ 397:..//Libraries/XMCLib/inc/xmc_rtc.h ****   
+ 398:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 399:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @param prescaler Prescaler value to be set                 
+ 400:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @return None
+ 401:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 402:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Description: </b><br>
+ 403:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Sets the RTC module prescaler value <br>
+ 404:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 405:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par
+ 406:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The function sets the CTR.DIV bitfield to configure the prescalar value. 
+ 407:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The default value for the prescalar with the 32.768kHz crystal (or the internal clock) 
+ 408:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * is 7FFFH for a time interval of 1 sec. Before setting the prescaler value RTC should be
+ 409:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * in stop mode and hibernate domain should be enabled.
+ 410:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 411:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Related APIs:</b><br>
+ 412:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * XMC_RTC_Stop(), XMC_RTC_Enable(), XMC_RTC_GetPrescaler()
+ 413:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */   
+ 414:..//Libraries/XMCLib/inc/xmc_rtc.h **** void XMC_RTC_SetPrescaler(uint16_t prescaler);
+ 415:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 416:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 417:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @return None
+ 418:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 419:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Description: </b><br>
+ 420:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Gets the RTC module prescaler value <br>
+ 421:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 422:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par
+ 423:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The function reads the CTR.DIV bitfield to get the prescalar value. The default value 
+ 424:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * for the prescalar with the 32.768kHz crystal (or the internal clock) is 7FFFH for a 
+ 425:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * time interval of 1 sec.
+ 426:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 427:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Related APIs:</b><br>
+ 428:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * XMC_RTC_SetPrescaler()
+ 429:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */   
+ 430:..//Libraries/XMCLib/inc/xmc_rtc.h **** __STATIC_INLINE uint32_t XMC_RTC_GetPrescaler(void)
+ 431:..//Libraries/XMCLib/inc/xmc_rtc.h **** {
+ 432:..//Libraries/XMCLib/inc/xmc_rtc.h ****   return (uint32_t)(((uint32_t)RTC->CTR & (uint32_t)RTC_CTR_DIV_Msk) >> (uint32_t)RTC_CTR_DIV_Pos);
+ 433:..//Libraries/XMCLib/inc/xmc_rtc.h **** }
+ 434:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 435:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 436:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @param timeval Contstant pointer to a constant ::XMC_RTC_TIME_t structure containing the
+ 437:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *                time parameters seconds, minutes, hours, days, daysofweek, month and year.     
+ 438:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @return None
+ 439:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 440:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Description: </b><br>
+ 441:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Sets the RTC module time values <br>
+ 442:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 443:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par
+ 444:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The function sets the TIM0, TIM1 registers with time values.
+ 445:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The values can only be written when RTC is disabled.
+ 446:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * See the structure ::XMC_RTC_TIME_t for the valid range of time value parameters. <br>
+ 447:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 448:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Related APIs:</b><br>
+ 449:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * XMC_RTC_GetTime(), XMC_RTC_Stop() 
+ 450:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */    
+ 451:..//Libraries/XMCLib/inc/xmc_rtc.h **** void XMC_RTC_SetTime(const XMC_RTC_TIME_t *const timeval);
+ 452:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 453:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 454:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @param time Pointer to a constant ::XMC_RTC_TIME_t structure containing the time parameters
+ 455:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *             seconds, minutes, hours, days, daysofweek, month and year. 
+ 456:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @return None
+ 457:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 458:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Description: </b><br>
+ 459:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Gets the RTC module time value <br>
+ 460:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 461:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par
+ 462:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The function gets the time values from TIM0, TIM1 registers. 
+ 463:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * See the structure ::XMC_RTC_TIME_t for the valid range of time value parameters. <br>
+ 464:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 465:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Related APIs:</b><br>
+ 466:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * XMC_RTC_SetTime()
+ 467:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */    
+ 468:..//Libraries/XMCLib/inc/xmc_rtc.h **** void XMC_RTC_GetTime(XMC_RTC_TIME_t *const time);
+ 469:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 470:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 471:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @param stdtime Pointer to a ::tm structure containing the time parameters seconds,
+ 472:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *                minutes, hours, days, daysofweek, month, year(since 1900) and days in a   
+ 473:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *                year in standard format.           
+ 474:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @return None
+ 475:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 476:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Description: </b><br>
+ 477:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Sets the RTC module time value in standard format <br>
+ 478:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 479:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par
+ 480:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The function sets the time values from TIM0, TIM1 registers. 
+ 481:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 482:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Related APIs:</b><br>
+ 483:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * XMC_RTC_SetTime(), XMC_RTC_GetTime()
+ 484:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */     
+ 485:..//Libraries/XMCLib/inc/xmc_rtc.h **** void XMC_RTC_SetTimeStdFormat(const struct tm *const stdtime);
+ 486:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 487:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 488:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @param stdtime Pointer to a constant ::tm structure containing the time parameters seconds,
+ 489:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *                minutes, hours, days, daysofweek, month, year(since 1900) and days in a   
+ 490:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *                year in standard format.           
+ 491:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @return None
+ 492:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 493:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Description: </b><br>
+ 494:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Gets the RTC module time value in standard format <br>
+ 495:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 496:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par
+ 497:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The function gets the time values from TIM0, TIM1 registers. 
+ 498:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * See the structure ::XMC_RTC_TIME_t for the valid range of time value parameters. <br>
+ 499:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * For days the valid range is (1 - Actual days of month), year (since 1900) and 
+ 500:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * daysinyear (0 -365).
+ 501:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 502:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Related APIs:</b><br>
+ 503:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * XMC_RTC_SetTime(), XMC_RTC_GetTime()
+ 504:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */     
+ 505:..//Libraries/XMCLib/inc/xmc_rtc.h **** void XMC_RTC_GetTimeStdFormat(struct tm *const stdtime);
+ 506:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 507:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 508:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @param alarm Constant pointer to a constant ::XMC_RTC_ALARM_t structure containing the
+ 509:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *                alarm time parameters alarm seconds, alarm minutes, alarm hours, alarm days, 
+ 510:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *                alarm daysofweek, alarm month and alarm year.           
+ 511:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @return None
+ 512:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 513:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Description: </b><br>
+ 514:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Sets the RTC module alarm time value <br>
+ 515:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 516:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par
+ 517:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The function sets the ATIM0, ATIM1 registers with alarm time values. 
+ 518:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * See the structure ::XMC_RTC_ALARM_t for the valid range of alarm time value parameters. <br>
+ 519:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 520:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Related APIs:</b><br>
+ 521:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * XMC_RTC_GetAlarm()
+ 522:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */     
+ 523:..//Libraries/XMCLib/inc/xmc_rtc.h **** void XMC_RTC_SetAlarm(const XMC_RTC_ALARM_t *const alarm);
+ 524:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 525:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 526:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @param alarm Pointer to a constant ::XMC_RTC_ALARM_t structure containing the
+ 527:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *             time parameters alarm seconds, alarm minutes, alarm hours, alarm days, 
+ 528:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *             alarm daysofweek, alarm month and alarm year.           
+ 529:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @return None
+ 530:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 531:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Description: </b><br>
+ 532:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Gets the RTC module alarm time value <br>
+ 533:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 534:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par
+ 535:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The function gets the alarm time values from ATIM0, ATIM1 registers. 
+ 536:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * See the structure ::XMC_RTC_ALARM_t for the valid range of alarm time value parameters. <br>
+ 537:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 538:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Related APIs:</b><br>
+ 539:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * XMC_RTC_SetAlarm()
+ 540:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */    
+ 541:..//Libraries/XMCLib/inc/xmc_rtc.h **** void XMC_RTC_GetAlarm(XMC_RTC_ALARM_t *const alarm);
+ 542:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 543:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 544:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @param stdtime Pointer to a ::tm structure containing the time parameters alarm seconds,
+ 545:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *                alarm minutes, alarm hours, alarm days, alarm daysofweek, alarm month,  
+ 546:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *                alarm year(since 1900) and alarm days in a year in standard format.           
+ 547:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @return None
+ 548:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 549:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Description: </b><br>
+ 550:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Sets the RTC module alarm time value in standard format <br>
+ 551:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 552:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par
+ 553:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The function sets the alarm time values from ATIM0, ATIM1 registers. 
+ 554:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 555:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Related APIs:</b><br>
+ 556:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * XMC_RTC_SetAlarm(), XMC_RTC_GetAlarm()
+ 557:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */     
+ 558:..//Libraries/XMCLib/inc/xmc_rtc.h **** void XMC_RTC_SetAlarmStdFormat(const struct tm *const stdtime);
+ 559:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 560:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 561:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @param stdtime Pointer to a constant ::tm structure containing the time parameters alarm seconds
+ 562:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *                alarm minutes, alarm hours, alarm days, alarm daysofweek, alarm month,  
+ 563:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *                alarm year(since 1900) and alarm days in a year in standard format.           
+ 564:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @return None
+ 565:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 566:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Description: </b><br>
+ 567:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Gets the RTC module alarm time value in standard format <br>
+ 568:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 569:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par
+ 570:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The function gets the alarm time values from ATIM0, ATIM1 registers. 
+ 571:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * See the structure ::XMC_RTC_ALARM_t for the valid range of alarm time value parameters. <br>
+ 572:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * For days the valid range is (1 - Actual days of month), year (since 1900) and 
+ 573:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * daysinyear (0 -365).
+ 574:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 575:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Related APIs:</b><br>
+ 576:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * XMC_RTC_SetAlarm(), XMC_RTC_GetAlarm()
+ 577:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */     
+ 578:..//Libraries/XMCLib/inc/xmc_rtc.h **** void XMC_RTC_GetAlarmStdFormat(struct tm *const stdtime);
+ 579:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 580:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 581:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @param event A valid RTC event (::XMC_RTC_EVENT_t) or a valid combination of
+ 582:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *              logically OR'd events
+ 583:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @return None
+ 584:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 585:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Description: </b><br>
+ 586:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Enable RTC periodic and alarm event(s) <br>
+ 587:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 588:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par
+ 589:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The function sets the bitfields of MSKSR register to enable interrupt generation 
+ 590:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * for requested RTC event(s). 
+ 591:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Setting the masking value for the event(s) containing in the ::XMC_RTC_EVENT_t leads 
+ 592:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * to a generation of the interrupt.
+ 593:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 594:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Related APIs:</b><br>
+ 595:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * XMC_RTC_DisableEvent()
+ 596:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */
+ 597:..//Libraries/XMCLib/inc/xmc_rtc.h **** void XMC_RTC_EnableEvent(const uint32_t event);
+ 598:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 599:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 600:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @param event A valid RTC event (::XMC_RTC_EVENT_t) or a valid combination of
+ 601:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *              logically OR'd events
+ 602:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @return None
+ 603:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 604:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Description: </b><br>
+ 605:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Disable RTC periodic and alarm event(s) <br>
+ 606:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 607:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par
+ 608:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The function resets the bitfields of MSKSR register to disable interrupt generation 
+ 609:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * for requested RTC event(s). 
+ 610:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Resetting the masking value for the the event(s) containing in the ::XMC_RTC_EVENT_t blocks 
+ 611:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * the generation of the interrupt.
+ 612:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * 
+ 613:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Related APIs:</b><br>
+ 614:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * XMC_RTC_EnableEvent()
+ 615:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */
+ 616:..//Libraries/XMCLib/inc/xmc_rtc.h **** void XMC_RTC_DisableEvent(const uint32_t event);
+ 617:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 618:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 619:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @param event A valid RTC event (::XMC_RTC_EVENT_t) or a valid combination of
+ 620:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *              logically OR'd events
+ 621:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @return None
+ 622:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 623:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Description: </b><br>
+ 624:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Clears periodic and alarm event(s) status <br>
+ 625:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 626:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par
+ 627:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The function sets the bitfields of CLRSR register to clear status bits in RAWSTAT and STSSR regi
+ 628:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Setting the value for the the RTC event(s) containing in the ::XMC_RTC_EVENT_t clears the 
+ 629:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * corresponding status bits in RAWSTAT and STSSR registers.
+ 630:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * 
+ 631:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Related APIs:</b><br>
+ 632:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * XMC_RTC_GetEventStatus()
+ 633:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */ 
+ 634:..//Libraries/XMCLib/inc/xmc_rtc.h **** void XMC_RTC_ClearEvent(const uint32_t event);
+ 635:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 636:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 637:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @return None
+ 638:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 639:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Description: </b><br>
+ 640:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Gets the RTC periodic and alarm event(s) status <br>
+ 641:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 642:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par
+ 643:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The function reads the bitfields of STSSR register 
+ 644:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * to get the status of RTC events. 
+ 645:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Reading the value of the register STSSR gives the status of the event(s) containing in the ::XMC
+ 646:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * 
+ 647:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Related APIs:</b><br>
+ 648:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * XMC_RTC_ClearEvent()
+ 649:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */
+ 650:..//Libraries/XMCLib/inc/xmc_rtc.h **** uint32_t XMC_RTC_GetEventStatus(void);
+ 651:..//Libraries/XMCLib/inc/xmc_rtc.h **** 
+ 652:..//Libraries/XMCLib/inc/xmc_rtc.h **** /**
+ 653:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * @return bool true if RTC is running
+ 654:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *              false if RTC is not running
+ 655:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 656:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Description: </b><br>
+ 657:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * Checks the running status of the RTC <br>
+ 658:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 659:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par
+ 660:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * The function reads the bitfield ENB of CTR register 
+ 661:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * to get the running status of RTC. 
+ 662:..//Libraries/XMCLib/inc/xmc_rtc.h ****  *
+ 663:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * \par<b>Related APIs:</b><br>
+ 664:..//Libraries/XMCLib/inc/xmc_rtc.h ****  * XMC_RTC_Start(), XMC_RTC_Stop()
+ 665:..//Libraries/XMCLib/inc/xmc_rtc.h ****  */ 
+ 666:..//Libraries/XMCLib/inc/xmc_rtc.h **** __STATIC_INLINE bool XMC_RTC_IsRunning(void)
+ 667:..//Libraries/XMCLib/inc/xmc_rtc.h **** {
+  26              	 .loc 1 667 1
+  27              	 .cfi_startproc
+  28              	 
+  29              	 
+  30 0000 80B5     	 push {r7,lr}
+  31              	.LCFI0:
+  32              	 .cfi_def_cfa_offset 8
+  33              	 .cfi_offset 7,-8
+  34              	 .cfi_offset 14,-4
+  35 0002 00AF     	 add r7,sp,#0
+  36              	.LCFI1:
+  37              	 .cfi_def_cfa_register 7
+ 668:..//Libraries/XMCLib/inc/xmc_rtc.h ****   return (bool)(RTC->CTR & RTC_CTR_ENB_Msk);
+  38              	 .loc 1 668 20
+  39 0004 044B     	 ldr r3,.L3
+  40 0006 5B68     	 ldr r3,[r3,#4]
+  41              	 .loc 1 668 26
+  42 0008 0122     	 movs r2,#1
+  43 000a 1340     	 ands r3,r2
+  44              	 .loc 1 668 10
+  45 000c 5A1E     	 subs r2,r3,#1
+  46 000e 9341     	 sbcs r3,r3,r2
+  47 0010 DBB2     	 uxtb r3,r3
+ 669:..//Libraries/XMCLib/inc/xmc_rtc.h **** }
+  48              	 .loc 1 669 1
+  49 0012 1800     	 movs r0,r3
+  50 0014 BD46     	 mov sp,r7
+  51              	 
+  52 0016 80BD     	 pop {r7,pc}
+  53              	.L4:
+  54              	 .align 2
+  55              	.L3:
+  56 0018 000A0140 	 .word 1073809920
+  57              	 .cfi_endproc
+  58              	.LFE42:
+  60              	 .section .text.XMC_SCU_GetMirrorStatus,"ax",%progbits
+  61              	 .align 1
+  62              	 .syntax unified
+  63              	 .code 16
+  64              	 .thumb_func
+  65              	 .fpu softvfp
+  67              	XMC_SCU_GetMirrorStatus:
+  68              	.LFB60:
+  69              	 .file 2 "..//Libraries/XMCLib/inc/xmc_scu.h"
+   1:..//Libraries/XMCLib/inc/xmc_scu.h **** /**
+   2:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @file xmc_scu.h
+   3:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @date 2016-03-09
+   4:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+   5:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @cond
+   6:..//Libraries/XMCLib/inc/xmc_scu.h ****  **************************************************************************************************
+   7:..//Libraries/XMCLib/inc/xmc_scu.h ****  * XMClib v2.1.18 - XMC Peripheral Driver Library 
+   8:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+   9:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Copyright (c) 2015-2018, Infineon Technologies AG
+  10:..//Libraries/XMCLib/inc/xmc_scu.h ****  * All rights reserved.                        
+  11:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                                             
+  12:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  13:..//Libraries/XMCLib/inc/xmc_scu.h ****  * following conditions are met:   
+  14:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                                                                              
+  15:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  16:..//Libraries/XMCLib/inc/xmc_scu.h ****  * disclaimer.                        
+  17:..//Libraries/XMCLib/inc/xmc_scu.h ****  * 
+  18:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  19:..//Libraries/XMCLib/inc/xmc_scu.h ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  20:..//Libraries/XMCLib/inc/xmc_scu.h ****  * 
+  21:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  22:..//Libraries/XMCLib/inc/xmc_scu.h ****  * products derived from this software without specific prior written permission.                  
+  23:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                                                                              
+  24:..//Libraries/XMCLib/inc/xmc_scu.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  25:..//Libraries/XMCLib/inc/xmc_scu.h ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  26:..//Libraries/XMCLib/inc/xmc_scu.h ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  27:..//Libraries/XMCLib/inc/xmc_scu.h ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  28:..//Libraries/XMCLib/inc/xmc_scu.h ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  29:..//Libraries/XMCLib/inc/xmc_scu.h ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  30:..//Libraries/XMCLib/inc/xmc_scu.h ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  31:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                                                                              
+  32:..//Libraries/XMCLib/inc/xmc_scu.h ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  33:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  34:..//Libraries/XMCLib/inc/xmc_scu.h ****  **************************************************************************************************
+  35:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+  36:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Change History
+  37:..//Libraries/XMCLib/inc/xmc_scu.h ****  * --------------
+  38:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+  39:..//Libraries/XMCLib/inc/xmc_scu.h ****  * 2015-02-20:
+  40:..//Libraries/XMCLib/inc/xmc_scu.h ****  *     - Initial <br>
+  41:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+  42:..//Libraries/XMCLib/inc/xmc_scu.h ****  * 2015-05-20:
+  43:..//Libraries/XMCLib/inc/xmc_scu.h ****  *     - Documentation improved <br>
+  44:..//Libraries/XMCLib/inc/xmc_scu.h ****  *     - XMC_ASSERT() hanging issues have fixed for XMC4 devices. <br>
+  45:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+  46:..//Libraries/XMCLib/inc/xmc_scu.h ****  * 2015-06-20:
+  47:..//Libraries/XMCLib/inc/xmc_scu.h ****  *     - Removed version macros and declaration of GetDriverVersion API
+  48:..//Libraries/XMCLib/inc/xmc_scu.h ****  *     - Removed STATIC_INLINE property for the below APIs and declared as void
+  49:..//Libraries/XMCLib/inc/xmc_scu.h ****  *       XMC_SCU_INTERRUPT_EnableEvent, XMC_SCU_INTERRUPT_DisableEvent,
+  50:..//Libraries/XMCLib/inc/xmc_scu.h ****  *       XMC_SCU_INTERRUPT_TriggerEvent, XMC_SCU_INTERUPT_GetEventStatus,
+  51:..//Libraries/XMCLib/inc/xmc_scu.h ****  *       XMC_SCU_INTERUPT_ClearEventStatus
+  52:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+  53:..//Libraries/XMCLib/inc/xmc_scu.h ****  * 2015-11-30:
+  54:..//Libraries/XMCLib/inc/xmc_scu.h ****  *     - Documentation improved <br>
+  55:..//Libraries/XMCLib/inc/xmc_scu.h ****  *      
+  56:..//Libraries/XMCLib/inc/xmc_scu.h ****  * 2016-03-09:
+  57:..//Libraries/XMCLib/inc/xmc_scu.h ****  *     - Optimization of write only registers
+  58:..//Libraries/XMCLib/inc/xmc_scu.h ****  *      
+  59:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @endcond 
+  60:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+  61:..//Libraries/XMCLib/inc/xmc_scu.h ****  */
+  62:..//Libraries/XMCLib/inc/xmc_scu.h **** #ifndef XMC_SCU_H
+  63:..//Libraries/XMCLib/inc/xmc_scu.h **** #define XMC_SCU_H
+  64:..//Libraries/XMCLib/inc/xmc_scu.h ****  
+  65:..//Libraries/XMCLib/inc/xmc_scu.h **** /**************************************************************************************************
+  66:..//Libraries/XMCLib/inc/xmc_scu.h ****  * HEADER FILES
+  67:..//Libraries/XMCLib/inc/xmc_scu.h ****  **************************************************************************************************
+  68:..//Libraries/XMCLib/inc/xmc_scu.h **** #include <xmc_common.h>
+  69:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+  70:..//Libraries/XMCLib/inc/xmc_scu.h **** /**
+  71:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @addtogroup XMClib XMC Peripheral Library
+  72:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @{
+  73:..//Libraries/XMCLib/inc/xmc_scu.h ****  */
+  74:..//Libraries/XMCLib/inc/xmc_scu.h ****  
+  75:..//Libraries/XMCLib/inc/xmc_scu.h **** /**
+  76:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @addtogroup SCU
+  77:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @brief System Control Unit(SCU) driver for XMC microcontroller family.
+  78:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+  79:..//Libraries/XMCLib/inc/xmc_scu.h ****  * System control unit is the SoC power, reset and a clock manager with additional responsibility o
+  80:..//Libraries/XMCLib/inc/xmc_scu.h ****  * providing system stability protection and other auxiliary functions.<br>
+  81:..//Libraries/XMCLib/inc/xmc_scu.h ****  * SCU provides the following features,
+  82:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Power control
+  83:..//Libraries/XMCLib/inc/xmc_scu.h ****  \if XMC4 
+  84:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Hibernate control 
+  85:..//Libraries/XMCLib/inc/xmc_scu.h ****  \endif
+  86:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Reset control
+  87:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Clock control
+  88:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Miscellaneous control(boot mode, system interrupts etc.)<br><br>
+  89:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+  90:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The SCU driver is divided in to clock control logic, reset control logic, system interrupt contr
+  91:..//Libraries/XMCLib/inc/xmc_scu.h ****  \if XMC4
+  92:..//Libraries/XMCLib/inc/xmc_scu.h ****  * , hibernate control logic, trap control logic, parity control logic 
+  93:..//Libraries/XMCLib/inc/xmc_scu.h ****  \endif
+  94:..//Libraries/XMCLib/inc/xmc_scu.h ****  * and miscellaneous control logic.<br>
+  95:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+  96:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Clock driver features:
+  97:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Allows clock configuration using the structure XMC_SCU_CLOCK_CONFIG_t and API XMC_SCU_CLOCK_I
+  98:..//Libraries/XMCLib/inc/xmc_scu.h ****  \if XMC4
+  99:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Provides structure XMC_SCU_CLOCK_SYSPLL_CONFIG_t for configuring the system PLL
+ 100:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Allows selection of clock source for system PLL, XMC_SCU_CLOCK_GetSystemPllClockSource()
+ 101:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Provides APIs for configuring different module clock frequencies XMC_SCU_CLOCK_SetWdtClockDiv
+ 102:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Allows selection of clock source for external output, XMC_SCU_CLOCK_SetExternalOutputClockSou
+ 103:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Provides APIs for enabling external high power oscillator and ultra low power oscillator, XMC
+ 104:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Provides APIs for getting various clock frequencies XMC_SCU_CLOCK_GetPeripheralClockFrequency
+ 105:..//Libraries/XMCLib/inc/xmc_scu.h ****  XMC_SCU_CLOCK_GetCpuClockFrequency(), XMC_SCU_CLOCK_GetSystemClockFrequency()<br>
+ 106:..//Libraries/XMCLib/inc/xmc_scu.h ****  \endif
+ 107:..//Libraries/XMCLib/inc/xmc_scu.h ****  \if XMC1
+ 108:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Allows selection of peripheral clock frequency, XMC_SCU_CLOCK_SetFastPeripheralClockSource()
+ 109:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Provides API to get the peripheral clock frequency, XMC_SCU_CLOCK_GetFastPeripheralClockFrequ
+ 110:..//Libraries/XMCLib/inc/xmc_scu.h ****  \endif
+ 111:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 112:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Reset driver features:
+ 113:..//Libraries/XMCLib/inc/xmc_scu.h ****  \if XMC4
+ 114:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Allows to handle peripheral reset XMC_SCU_RESET_AssertPeripheralReset(), XMC_SCU_RESET_Deasse
+ 115:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Allows configuration of NMI generation for selected events, XMC_SCU_INTERRUPT_EnableNmiReques
+ 116:..//Libraries/XMCLib/inc/xmc_scu.h ****  \endif
+ 117:..//Libraries/XMCLib/inc/xmc_scu.h ****  \if XMC1
+ 118:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Allows to trigger device reset XMC_SCU_RESET_AssertMasterReset()
+ 119:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Allows to configure multiple sources for reset, XMC_SCU_RESET_EnableResetRequest()
+ 120:..//Libraries/XMCLib/inc/xmc_scu.h ****  \endif <br>
+ 121:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 122:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Interrupt driver features:
+ 123:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Provides APIs for enabling/ disabling interrupt event generation XMC_SCU_INTERRUPT_EnableEven
+ 124:..//Libraries/XMCLib/inc/xmc_scu.h ****  XMC_SCU_INTERRUPT_DisableEvent()
+ 125:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Provides API for registering callback function for events XMC_SCU_INTERRUPT_SetEventHandler()
+ 126:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 127:..//Libraries/XMCLib/inc/xmc_scu.h ****  \if XMC4
+ 128:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Hibernate driver features:
+ 129:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Allows configuration of hibernate domain XMC_SCU_HIB_EnableHibernateDomain(), XMC_SCU_HIB_Dis
+ 130:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Allows selection of standby clock source, XMC_SCU_HIB_SetStandbyClockSource()
+ 131:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Allows selection of RTC clock source, XMC_SCU_HIB_SetRtcClockSource()
+ 132:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Provides API for enabling slow internal clock used for backup clock, XMC_SCU_HIB_EnableIntern
+ 133:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 134:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Trap driver features:
+ 135:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Allows handling of trap XMC_SCU_TRAP_Enable(), XMC_SCU_TRAP_GetStatus(), XMC_SCU_TRAP_Trigger
+ 136:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 137:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Parity driver features:
+ 138:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Parity error generated by on-chip RAM can be monitored, XMC_SCU_PARITY_Enable(), XMC_SCU_PARI
+ 139:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Allows configuration of trap generation on detection of parity error, XMC_SCU_PARITY_EnableTr
+ 140:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 141:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Power driver features:
+ 142:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Allows to power the USB module XMC_SCU_POWER_EnableUsb(), XMC_SCU_POWER_DisableUsb()
+ 143:..//Libraries/XMCLib/inc/xmc_scu.h ****  \endif
+ 144:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 145:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Miscellaneous features:
+ 146:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Allows to trigger multiple capture compare unit(CCU) channels to be started together XMC_SCU_
+ 147:..//Libraries/XMCLib/inc/xmc_scu.h ****  \if XMC4
+ 148:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Enables configuration of out of range comparator (ORC) XMC_SCU_EnableOutOfRangeComparator()
+ 149:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Enables configuration of die temperature sensor XMC_SCU_EnableTemperatureSensor(), XMC_SCU_Ca
+ 150:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Enables configuration of device boot mode XMC_SCU_SetBootMode()<br>
+ 151:..//Libraries/XMCLib/inc/xmc_scu.h ****  \endif
+ 152:..//Libraries/XMCLib/inc/xmc_scu.h ****  \if XMC1
+ 153:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Enables configuration of die temperature sensor XMC_SCU_StartTempMeasurement(), XMC_SCU_SetRa
+ 154:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Allows configuring supply monitor unit using the structure XMC_SCU_SUPPLYMONITOR_t and API XM
+ 155:..//Libraries/XMCLib/inc/xmc_scu.h ****  * -# Allows handling of protected bits XMC_SCU_LockProtectedBits(), XMC_SCU_UnlockProtectedBits()<
+ 156:..//Libraries/XMCLib/inc/xmc_scu.h ****  \endif
+ 157:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @{
+ 158:..//Libraries/XMCLib/inc/xmc_scu.h ****  */
+ 159:..//Libraries/XMCLib/inc/xmc_scu.h ****  
+ 160:..//Libraries/XMCLib/inc/xmc_scu.h **** /**************************************************************************************************
+ 161:..//Libraries/XMCLib/inc/xmc_scu.h ****  * MACROS
+ 162:..//Libraries/XMCLib/inc/xmc_scu.h ****  **************************************************************************************************
+ 163:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 164:..//Libraries/XMCLib/inc/xmc_scu.h **** /**************************************************************************************************
+ 165:..//Libraries/XMCLib/inc/xmc_scu.h ****  * ENUMS
+ 166:..//Libraries/XMCLib/inc/xmc_scu.h ****  **************************************************************************************************
+ 167:..//Libraries/XMCLib/inc/xmc_scu.h **** /**
+ 168:..//Libraries/XMCLib/inc/xmc_scu.h ****  *  Defines the status of SCU API execution, used to verify the SCU related API calls.
+ 169:..//Libraries/XMCLib/inc/xmc_scu.h ****  */
+ 170:..//Libraries/XMCLib/inc/xmc_scu.h **** typedef enum XMC_SCU_STATUS 
+ 171:..//Libraries/XMCLib/inc/xmc_scu.h **** {
+ 172:..//Libraries/XMCLib/inc/xmc_scu.h ****   XMC_SCU_STATUS_OK   = 0UL, /**< SCU related operation successfully completed.*/
+ 173:..//Libraries/XMCLib/inc/xmc_scu.h ****   XMC_SCU_STATUS_ERROR,      /**< SCU related operation failed. When API cannot fulfill request, th
+ 174:..//Libraries/XMCLib/inc/xmc_scu.h ****   XMC_SCU_STATUS_BUSY,       /**< Cannot execute the SCU related operation request because
+ 175:..//Libraries/XMCLib/inc/xmc_scu.h ****                                   another operation is in progress. \a XMC_SCU_STATUS_BUSY is retur
+ 176:..//Libraries/XMCLib/inc/xmc_scu.h ****                                   processing another request. */
+ 177:..//Libraries/XMCLib/inc/xmc_scu.h **** } XMC_SCU_STATUS_t;
+ 178:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 179:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 180:..//Libraries/XMCLib/inc/xmc_scu.h **** /**************************************************************************************************
+ 181:..//Libraries/XMCLib/inc/xmc_scu.h ****  * DATA TYPES
+ 182:..//Libraries/XMCLib/inc/xmc_scu.h ****  **************************************************************************************************
+ 183:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 184:..//Libraries/XMCLib/inc/xmc_scu.h **** /**
+ 185:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Function pointer type used for registering callback functions on SCU event occurrence.
+ 186:..//Libraries/XMCLib/inc/xmc_scu.h ****  */
+ 187:..//Libraries/XMCLib/inc/xmc_scu.h **** typedef void (*XMC_SCU_INTERRUPT_EVENT_HANDLER_t)(void);
+ 188:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 189:..//Libraries/XMCLib/inc/xmc_scu.h **** /**************************************************************************************************
+ 190:..//Libraries/XMCLib/inc/xmc_scu.h ****  * DEVICE EXTENSIONS
+ 191:..//Libraries/XMCLib/inc/xmc_scu.h ****  **************************************************************************************************
+ 192:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 193:..//Libraries/XMCLib/inc/xmc_scu.h **** #if (UC_FAMILY == XMC1)
+ 194:..//Libraries/XMCLib/inc/xmc_scu.h **** #include <xmc1_scu.h>
+ 195:..//Libraries/XMCLib/inc/xmc_scu.h **** #elif (UC_FAMILY == XMC4)
+ 196:..//Libraries/XMCLib/inc/xmc_scu.h **** #include <xmc4_scu.h>
+ 197:..//Libraries/XMCLib/inc/xmc_scu.h **** #else
+ 198:..//Libraries/XMCLib/inc/xmc_scu.h **** #error "Unspecified chipset"
+ 199:..//Libraries/XMCLib/inc/xmc_scu.h **** #endif
+ 200:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 201:..//Libraries/XMCLib/inc/xmc_scu.h **** /**************************************************************************************************
+ 202:..//Libraries/XMCLib/inc/xmc_scu.h ****  * API Prototypes
+ 203:..//Libraries/XMCLib/inc/xmc_scu.h ****  **************************************************************************************************
+ 204:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 205:..//Libraries/XMCLib/inc/xmc_scu.h **** #ifdef __cplusplus
+ 206:..//Libraries/XMCLib/inc/xmc_scu.h **** extern "C" {
+ 207:..//Libraries/XMCLib/inc/xmc_scu.h **** #endif
+ 208:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 209:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 210:..//Libraries/XMCLib/inc/xmc_scu.h **** /**
+ 211:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 212:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @param trigger    CCU slices to be triggered synchronously via software. The value is a bitmask 
+ 213:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                    in the register CCUCON. <br>
+ 214:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                    \b Range: Use type @ref XMC_SCU_CCU_TRIGGER_t for bitmask of individual CCU s
+ 215:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                    combined using \a OR operation.
+ 216:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 217:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @return None
+ 218:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 219:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Description</b><br>
+ 220:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Generates active edge(low to high) trigger for multiple CCU units at the same time.\n\n
+ 221:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Before executing this API, all the required CCU timers should configure external start.
+ 222:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The edge of the start signal should be selected as active edge.
+ 223:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The input signal for the CCU slice should be selected as SCU input.
+ 224:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The above mentioned configurations can be made using the CCU LLD API XMC_CCU4_SLICE_StartConfig(
+ 225:..//Libraries/XMCLib/inc/xmc_scu.h ****  * CCU timer slice should be started using XMC_CCU4_SLICE_StartTimer() before triggering 
+ 226:..//Libraries/XMCLib/inc/xmc_scu.h ****  * the timer using this API.<BR>
+ 227:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 228:..//Libraries/XMCLib/inc/xmc_scu.h ****  * XMC_CCU4_SLICE_StartConfig(), XMC_CCU4_SLICE_SetInput(), XMC_SCU_SetCcuTriggerLow()\n\n\n
+ 229:..//Libraries/XMCLib/inc/xmc_scu.h ****  */
+ 230:..//Libraries/XMCLib/inc/xmc_scu.h **** __STATIC_INLINE void XMC_SCU_SetCcuTriggerHigh(const uint32_t trigger)
+ 231:..//Libraries/XMCLib/inc/xmc_scu.h **** {
+ 232:..//Libraries/XMCLib/inc/xmc_scu.h ****   SCU_GENERAL->CCUCON |= (uint32_t)trigger;
+ 233:..//Libraries/XMCLib/inc/xmc_scu.h **** }
+ 234:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 235:..//Libraries/XMCLib/inc/xmc_scu.h **** /**
+ 236:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 237:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @param trigger  CCU slices to be triggered synchronously via software. The value is a bitmask of
+ 238:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                    in the register CCUCON. <br>
+ 239:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                    \b Range: Use type @ref XMC_SCU_CCU_TRIGGER_t for bitmask of individual CCU s
+ 240:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                    combined using \a OR operation.
+ 241:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 242:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @return None
+ 243:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 244:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Description</b><br>
+ 245:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Generates passive edge(high to low) trigger for multiple CCU units at the same time.\n\n
+ 246:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Before executing this API, all the required CCU timers should configure external start.
+ 247:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The edge of the start signal should be selected as passive edge.
+ 248:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The input signal for the CCU slice should be selected as SCU input.
+ 249:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The above mentioned configurations can be made using the CCU LLD API XMC_CCU4_SLICE_StartConfig(
+ 250:..//Libraries/XMCLib/inc/xmc_scu.h ****  * CCU timer slice should be started using XMC_CCU4_SLICE_StartTimer() before triggering 
+ 251:..//Libraries/XMCLib/inc/xmc_scu.h ****  * the timer using this API.<BR>
+ 252:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 253:..//Libraries/XMCLib/inc/xmc_scu.h ****  * XMC_CCU4_SLICE_StartConfig(), XMC_CCU4_SLICE_SetInput(), XMC_SCU_SetCcuTriggerHigh()\n\n\n
+ 254:..//Libraries/XMCLib/inc/xmc_scu.h ****  */
+ 255:..//Libraries/XMCLib/inc/xmc_scu.h **** __STATIC_INLINE void XMC_SCU_SetCcuTriggerLow(const uint32_t trigger)
+ 256:..//Libraries/XMCLib/inc/xmc_scu.h **** {
+ 257:..//Libraries/XMCLib/inc/xmc_scu.h ****   SCU_GENERAL->CCUCON &= (uint32_t)~trigger;
+ 258:..//Libraries/XMCLib/inc/xmc_scu.h **** }
+ 259:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 260:..//Libraries/XMCLib/inc/xmc_scu.h **** /**
+ 261:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 262:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @param config Pointer to structure holding the clock prescaler values and divider values for 
+ 263:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                configuring clock generators and clock tree.\n
+ 264:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                \b Range: Configure the members of structure @ref XMC_SCU_CLOCK_CONFIG_t for vari
+ 265:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                parameters of clock setup.
+ 266:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 267:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @return None
+ 268:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 269:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Description</b><br>
+ 270:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Initializes clock generators and clock tree.\n\n
+ 271:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \if XMC1
+ 272:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Peripheral clock and system clock are configured based on the input configuration \a config.
+ 273:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The system clock frequency is tuned by configuring the FDIV and IDIV values of CLKCR register.
+ 274:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The values of FDIV and IDIV can be provided as part of input configuration.
+ 275:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The PCLK divider determines the ratio of peripheral clock to the system clock. 
+ 276:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The source of RTC clock is set based on the input configuration. 
+ 277:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \a SystemCoreClock variable will be updated with the value of
+ 278:..//Libraries/XMCLib/inc/xmc_scu.h ****  * system clock frequency. Access to protected bit fields are handled internally.
+ 279:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \endif
+ 280:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \if XMC4
+ 281:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Enables the high precision oscillator(fOHP) input and configures the system and peripheral clock
+ 282:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Based on the system clock source selected in \a config, either fPLL or fOFI will be chosen as sy
+ 283:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Based on PLL mode(normal or prescaler mode) used, PLL ramps up in steps to achieve target freque
+ 284:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The clock dividers for CPU, CCU and peripheral clocks will be set based on the input configurati
+ 285:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The \a SystemCoreClock variable is set with the value of system clock frequency.
+ 286:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \endif
+ 287:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 288:..//Libraries/XMCLib/inc/xmc_scu.h ****  * XMC_SCU_CLOCK_GetPeripheralClockFrequency(), XMC_SCU_CLOCK_GetCpuClockFrequency() \n\n\n
+ 289:..//Libraries/XMCLib/inc/xmc_scu.h ****  */
+ 290:..//Libraries/XMCLib/inc/xmc_scu.h **** void XMC_SCU_CLOCK_Init(const XMC_SCU_CLOCK_CONFIG_t *const config);
+ 291:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 292:..//Libraries/XMCLib/inc/xmc_scu.h **** /**
+ 293:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 294:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @param event  Bit mask of the event to enable. \b Range: Use type @ref XMC_SCU_INTERRUPT_EVENT_t
+ 295:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                for providing the input value. Multiple events can be combined using the \a OR op
+ 296:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 297:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @return None
+ 298:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 299:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Description</b><br>
+ 300:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Enables the generation of interrupt for the input events.\n\n
+ 301:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The events are enabled by setting the respective bit fields in the SRMSK register. \n
+ 302:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Note: User should separately enable the NVIC node responsible for handling the SCU interrupt.
+ 303:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The interrupt will be generated when the respective event occurs.
+ 304:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 305:..//Libraries/XMCLib/inc/xmc_scu.h ****  * NVIC_EnableIRQ(), XMC_SCU_INTERRUPT_DisableEvent()\n\n\n
+ 306:..//Libraries/XMCLib/inc/xmc_scu.h ****  */
+ 307:..//Libraries/XMCLib/inc/xmc_scu.h **** void XMC_SCU_INTERRUPT_EnableEvent(const XMC_SCU_INTERRUPT_EVENT_t event);
+ 308:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 309:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 310:..//Libraries/XMCLib/inc/xmc_scu.h **** /**
+ 311:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 312:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @param event  Bit mask of the event to disable. \b Range: Use type @ref XMC_SCU_INTERRUPT_EVENT_
+ 313:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                for providing the input value. Multiple events can be combined using the \a OR op
+ 314:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 315:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @return None
+ 316:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 317:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Description</b><br>
+ 318:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Disables generation of interrupt on occurrence of the input event.\n\n
+ 319:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The events are disabled by resetting the respective bit fields in the SRMSK register. \n
+ 320:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 321:..//Libraries/XMCLib/inc/xmc_scu.h ****  * NVIC_DisableIRQ(), XMC_SCU_INTERRUPT_EnableEvent()\n\n\n
+ 322:..//Libraries/XMCLib/inc/xmc_scu.h ****  */
+ 323:..//Libraries/XMCLib/inc/xmc_scu.h **** void XMC_SCU_INTERRUPT_DisableEvent(const XMC_SCU_INTERRUPT_EVENT_t event);
+ 324:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 325:..//Libraries/XMCLib/inc/xmc_scu.h **** /**
+ 326:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 327:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @param event Bit mask of the event to be triggered. \b Range: Use type @ref XMC_SCU_INTERRUPT_EV
+ 328:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                for providing the input value. Multiple events can be combined using the \a OR op
+ 329:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 330:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @return None
+ 331:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 332:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Description</b><br>
+ 333:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Triggers the event as if the hardware raised it.\n\n
+ 334:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Event will be triggered by setting the respective bitfield in the SRSET register.\n
+ 335:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Note: User should enable the NVIC node that handles the respective event for interrupt generatio
+ 336:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 337:..//Libraries/XMCLib/inc/xmc_scu.h ****  * NVIC_EnableIRQ(), XMC_SCU_INTERUPT_GetEventStatus(), XMC_SCU_INTERRUPT_ClearEventStatus() \n\n\n
+ 338:..//Libraries/XMCLib/inc/xmc_scu.h ****  */
+ 339:..//Libraries/XMCLib/inc/xmc_scu.h **** void XMC_SCU_INTERRUPT_TriggerEvent(const XMC_SCU_INTERRUPT_EVENT_t  event);
+ 340:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 341:..//Libraries/XMCLib/inc/xmc_scu.h **** /**
+ 342:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @return uint32_t  Status of the SCU events.
+ 343:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 344:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Description</b><br>
+ 345:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Provides the status of all SCU events.\n\n
+ 346:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The status is read from the SRRAW register. To check the status of a particular 
+ 347:..//Libraries/XMCLib/inc/xmc_scu.h ****  * event, the returned value should be masked with the bit mask of the event. The bitmask
+ 348:..//Libraries/XMCLib/inc/xmc_scu.h ****  * of events can be obtained using the type @ref XMC_SCU_INTERRUPT_EVENT_t. Multiple events'
+ 349:..//Libraries/XMCLib/inc/xmc_scu.h ****  * status can be checked by combining the bit masks using \a OR operation. 
+ 350:..//Libraries/XMCLib/inc/xmc_scu.h ****  * After detecting the event, the event status should be cleared using software to detect the event
+ 351:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 352:..//Libraries/XMCLib/inc/xmc_scu.h ****  * XMC_SCU_INTERRUPT_ClearEventStatus(), XMC_SCU_INTERRUPT_TriggerEvent(), XMC_SCU_INTERRUPT_SetEve
+ 353:..//Libraries/XMCLib/inc/xmc_scu.h ****  */
+ 354:..//Libraries/XMCLib/inc/xmc_scu.h **** XMC_SCU_INTERRUPT_EVENT_t XMC_SCU_INTERUPT_GetEventStatus(void);
+ 355:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 356:..//Libraries/XMCLib/inc/xmc_scu.h **** /**
+ 357:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 358:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @param event  Bit mask of the events to clear. \b Range: Use type @ref XMC_SCU_INTERRUPT_EVENT_t
+ 359:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                for providing the input value. Multiple events can be combined using the \a OR op
+ 360:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 361:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @return None
+ 362:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 363:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Description</b><br>
+ 364:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Clears the event status bit in SRRAW register.\n\n
+ 365:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The events are cleared by writing value 1 to their bit positions in the SRCLR register.
+ 366:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The API can be used when polling method is used. After detecting the event, the event status
+ 367:..//Libraries/XMCLib/inc/xmc_scu.h ****  * should be cleared using software to detect the event again.
+ 368:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 369:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 370:..//Libraries/XMCLib/inc/xmc_scu.h ****  * XMC_SCU_INTERUPT_GetEventStatus(), XMC_SCU_INTERRUPT_TriggerEvent() \n\n\n
+ 371:..//Libraries/XMCLib/inc/xmc_scu.h ****  */
+ 372:..//Libraries/XMCLib/inc/xmc_scu.h **** void XMC_SCU_INTERRUPT_ClearEventStatus(const XMC_SCU_INTERRUPT_EVENT_t event);
+ 373:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 374:..//Libraries/XMCLib/inc/xmc_scu.h **** /**
+ 375:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 376:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @return uint32_t  Status representing the reason for device reset.
+ 377:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 378:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Description</b><br>
+ 379:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Provides the value representing the reason for device reset.\n\n
+ 380:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The return value is an encoded word, which can indicate multiple reasons for the last reset. Eac
+ 381:..//Libraries/XMCLib/inc/xmc_scu.h ****  * returned word is representative of a last reset cause. The returned value should be appropriatel
+ 382:..//Libraries/XMCLib/inc/xmc_scu.h ****  * the cause of reset. 
+ 383:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The cause of the last reset gets automatically stored in 
+ 384:..//Libraries/XMCLib/inc/xmc_scu.h ****  * the \a SCU_RSTSTAT register. The reset status shall be reset after each
+ 385:..//Libraries/XMCLib/inc/xmc_scu.h ****  * startup in order to ensure consistent source indication after the next reset.
+ 386:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \b Range: The type @ref XMC_SCU_RESET_REASON_t can be used to get the bit masks of the reset cau
+ 387:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 388:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 389:..//Libraries/XMCLib/inc/xmc_scu.h ****  * XMC_SCU_RESET_ClearDeviceResetReason() \n\n\n
+ 390:..//Libraries/XMCLib/inc/xmc_scu.h ****  */
+ 391:..//Libraries/XMCLib/inc/xmc_scu.h **** __STATIC_INLINE uint32_t XMC_SCU_RESET_GetDeviceResetReason(void)
+ 392:..//Libraries/XMCLib/inc/xmc_scu.h **** {
+ 393:..//Libraries/XMCLib/inc/xmc_scu.h ****   return ((SCU_RESET->RSTSTAT) & SCU_RESET_RSTSTAT_RSTSTAT_Msk);
+ 394:..//Libraries/XMCLib/inc/xmc_scu.h **** }
+ 395:..//Libraries/XMCLib/inc/xmc_scu.h **** /**
+ 396:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @return None 
+ 397:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 398:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Description</b><br>
+ 399:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Clears the reset reason bits in the reset status register. \n\n
+ 400:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Clearing of the reset status information in the \a SCU_RSTSTAT register via register bit \a RSTC
+ 401:..//Libraries/XMCLib/inc/xmc_scu.h ****  * recommended to ensure a clear indication of the cause of next reset.
+ 402:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 403:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 404:..//Libraries/XMCLib/inc/xmc_scu.h ****  * XMC_SCU_RESET_GetDeviceResetReason() \n\n\n
+ 405:..//Libraries/XMCLib/inc/xmc_scu.h ****  */
+ 406:..//Libraries/XMCLib/inc/xmc_scu.h **** __STATIC_INLINE void XMC_SCU_RESET_ClearDeviceResetReason(void)
+ 407:..//Libraries/XMCLib/inc/xmc_scu.h **** {
+ 408:..//Libraries/XMCLib/inc/xmc_scu.h ****   /* Clear RSTSTAT.RSTSTAT bitfield */
+ 409:..//Libraries/XMCLib/inc/xmc_scu.h ****   SCU_RESET->RSTCLR = (uint32_t)SCU_RESET_RSTCLR_RSCLR_Msk;
+ 410:..//Libraries/XMCLib/inc/xmc_scu.h **** }
+ 411:..//Libraries/XMCLib/inc/xmc_scu.h ****  
+ 412:..//Libraries/XMCLib/inc/xmc_scu.h **** /**
+ 413:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @return uint32_t  Value of CPU clock frequency.
+ 414:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 415:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Description</b><br>
+ 416:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Provides the vlaue of CPU clock frequency.\n\n
+ 417:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The value is stored in a global variable \a \b SystemCoreClock.
+ 418:..//Libraries/XMCLib/inc/xmc_scu.h ****  * It is updated when the clock configuration is done using the SCU LLD APIs.
+ 419:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The value represents the frequency of clock used for CPU operation.
+ 420:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \b Range: Value is of type uint32_t, and gives the value of frequency in Hertz.
+ 421:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 422:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 423:..//Libraries/XMCLib/inc/xmc_scu.h ****  * XMC_SCU_CLOCK_GetPeripheralClockFrequency(), XMC_SCU_CLOCK_GatePeripheralClock() \n\n\n
+ 424:..//Libraries/XMCLib/inc/xmc_scu.h ****  */
+ 425:..//Libraries/XMCLib/inc/xmc_scu.h **** __STATIC_INLINE uint32_t XMC_SCU_CLOCK_GetCpuClockFrequency(void)
+ 426:..//Libraries/XMCLib/inc/xmc_scu.h **** {
+ 427:..//Libraries/XMCLib/inc/xmc_scu.h ****   return SystemCoreClock;
+ 428:..//Libraries/XMCLib/inc/xmc_scu.h **** }
+ 429:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 430:..//Libraries/XMCLib/inc/xmc_scu.h **** /**
+ 431:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @return uint32_t  Value of peripheral clock frequency in Hertz.
+ 432:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 433:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Description</b><br>
+ 434:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Provides the vlaue of clock frequency at which the peripherals are working.\n\n
+ 435:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The value is derived from the CPU frequency. \b Range: Value is of type uint32_t. It is represen
+ 436:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 437:..//Libraries/XMCLib/inc/xmc_scu.h ****  * XMC_SCU_CLOCK_GetCpuClockFrequency(),XMC_SCU_CLOCK_GatePeripheralClock() \n\n\n
+ 438:..//Libraries/XMCLib/inc/xmc_scu.h ****  */
+ 439:..//Libraries/XMCLib/inc/xmc_scu.h **** uint32_t XMC_SCU_CLOCK_GetPeripheralClockFrequency(void); 
+ 440:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 441:..//Libraries/XMCLib/inc/xmc_scu.h **** #if(UC_SERIES != XMC45)
+ 442:..//Libraries/XMCLib/inc/xmc_scu.h ****  
+ 443:..//Libraries/XMCLib/inc/xmc_scu.h **** /**
+ 444:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 445:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @param  peripheral The peripheral for which the clock has to be gated. \b Range: Use type @ref X
+ 446:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                    to identify the peripheral clock to be gated.
+ 447:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 448:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @return None
+ 449:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 450:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Description</b><br>
+ 451:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Blocks the supply of clock to the selected peripheral.\n\n
+ 452:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Clock gating helps in reducing the power consumption. User can selectively gate the clocks of un
+ 453:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \if XMC1
+ 454:..//Libraries/XMCLib/inc/xmc_scu.h ****  * fPCLK is the source of clock to various peripherals. Some peripherals support clock gate. Such a
+ 455:..//Libraries/XMCLib/inc/xmc_scu.h ****  * the clock supply for the selected peripheral.
+ 456:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Software can request for individual gating of such peripheral clocks by enabling the \a SCU_CGAT
+ 457:..//Libraries/XMCLib/inc/xmc_scu.h ****  * register bit field. Every bit in \a SCU_CGATSET0 register is protected by the bit protection sch
+ 458:..//Libraries/XMCLib/inc/xmc_scu.h ****  * bit fields are handled internally.
+ 459:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \endif
+ 460:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \if XMC4
+ 461:..//Libraries/XMCLib/inc/xmc_scu.h ****  * fPERI is the source of clock to various peripherals. Some peripherals support clock gate. Such a
+ 462:..//Libraries/XMCLib/inc/xmc_scu.h ****  * the clock supply for the selected peripheral.
+ 463:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Software can request for individual gating of such peripheral clocks by enabling one of the \a
+ 464:..//Libraries/XMCLib/inc/xmc_scu.h ****  * SCU_CGATSET0, \a SCU_CGATSET1 or \a SCU_CGATSET2 register bitfields.
+ 465:..//Libraries/XMCLib/inc/xmc_scu.h ****  * 
+ 466:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \endif
+ 467:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Note: Clock gating shall not be activated unless the module is in reset state. So use \a
+ 468:..//Libraries/XMCLib/inc/xmc_scu.h ****  * XMC_SCU_CLOCK_IsPeripheralClockGated() API before enabling the gating of any peripheral.
+ 469:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 470:..//Libraries/XMCLib/inc/xmc_scu.h ****  * XMC_SCU_CLOCK_IsPeripheralClockGated(), XMC_SCU_CLOCK_UngatePeripheralClock() \n\n\n
+ 471:..//Libraries/XMCLib/inc/xmc_scu.h ****  */
+ 472:..//Libraries/XMCLib/inc/xmc_scu.h **** void XMC_SCU_CLOCK_GatePeripheralClock(const XMC_SCU_PERIPHERAL_CLOCK_t peripheral);
+ 473:..//Libraries/XMCLib/inc/xmc_scu.h ****  
+ 474:..//Libraries/XMCLib/inc/xmc_scu.h **** /**
+ 475:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 476:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @param  peripheral  The peripheral for which the clock has to be ungated. \b Range: Use type @re
+ 477:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                    to identify the peripheral.
+ 478:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 479:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @return None
+ 480:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 481:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Description</b><br>
+ 482:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Enables the supply of clock to the selected peripheral.\n\n
+ 483:..//Libraries/XMCLib/inc/xmc_scu.h ****  * By default when the device powers on, the peripheral clock will be gated for the 
+ 484:..//Libraries/XMCLib/inc/xmc_scu.h ****  * peripherals that support clock gating.
+ 485:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The peripheral clock should be enabled before using it for any functionality.
+ 486:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \if XMC1
+ 487:..//Libraries/XMCLib/inc/xmc_scu.h ****  * fPCLK is the source of clock to various peripherals. Some peripherals support clock gate.
+ 488:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Software can request for individual ungating of such peripheral clocks by setting respective bit
+ 489:..//Libraries/XMCLib/inc/xmc_scu.h ****  * in the \a SCU_CGATCLR0 register.
+ 490:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \endif
+ 491:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \if XMC4
+ 492:..//Libraries/XMCLib/inc/xmc_scu.h ****  * fPERI is the source of clock to various peripherals. Some peripherals support clock gate.
+ 493:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Software can request for individual ungating of such peripheral clocks by setting the respective
+ 494:..//Libraries/XMCLib/inc/xmc_scu.h ****  * SCU_CGATCLR0, \a SCU_CGATCLR1 or \a SCU_CGATCLR2 registers.
+ 495:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \endif
+ 496:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 497:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 498:..//Libraries/XMCLib/inc/xmc_scu.h ****  * XMC_SCU_CLOCK_IsPeripheralClockGated(), XMC_SCU_CLOCK_GatePeripheralClock() \n\n\n
+ 499:..//Libraries/XMCLib/inc/xmc_scu.h ****  */
+ 500:..//Libraries/XMCLib/inc/xmc_scu.h **** void XMC_SCU_CLOCK_UngatePeripheralClock(const XMC_SCU_PERIPHERAL_CLOCK_t peripheral);
+ 501:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 502:..//Libraries/XMCLib/inc/xmc_scu.h **** /**
+ 503:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 504:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @param  peripheral  The peripheral for which the check for clock gating has to be done. 
+ 505:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                    \b Range: Use type @ref XMC_SCU_PERIPHERAL_CLOCK_t to identify the peripheral
+ 506:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 507:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @return bool Status of the peripheral clock gating. \b Range: true if the peripheral clock is ga
+ 508:..//Libraries/XMCLib/inc/xmc_scu.h ****  *              false if the peripheral clock ungated(gate de-asserted).
+ 509:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 510:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Description</b><br>
+ 511:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Gives the status of peripheral clock gating.\n\n
+ 512:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \if XMC1
+ 513:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Checks the status of peripheral clock gating using the register CGATSTAT0.
+ 514:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \endif
+ 515:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \if XMC4
+ 516:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Checks the status of peripheral clock gating using one of CGATSTAT0, CGATSTAT1 or CGATSTAT2 regi
+ 517:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \endif
+ 518:..//Libraries/XMCLib/inc/xmc_scu.h ****  * It is recommended to use this API before
+ 519:..//Libraries/XMCLib/inc/xmc_scu.h ****  * enabling the gating of any peripherals through \a XMC_SCU_CLOCK_GatePeripheralClock() API.
+ 520:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 521:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Related APIs:</b><BR>
+ 522:..//Libraries/XMCLib/inc/xmc_scu.h ****  * XMC_SCU_CLOCK_UngatePeripheralClock(), XMC_SCU_CLOCK_GatePeripheralClock() \n\n\n
+ 523:..//Libraries/XMCLib/inc/xmc_scu.h ****  */
+ 524:..//Libraries/XMCLib/inc/xmc_scu.h **** bool XMC_SCU_CLOCK_IsPeripheralClockGated(const XMC_SCU_PERIPHERAL_CLOCK_t peripheral);
+ 525:..//Libraries/XMCLib/inc/xmc_scu.h **** #endif
+ 526:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 527:..//Libraries/XMCLib/inc/xmc_scu.h **** 
+ 528:..//Libraries/XMCLib/inc/xmc_scu.h **** /**
+ 529:..//Libraries/XMCLib/inc/xmc_scu.h ****  * @return  uint32_t  Status of the register mirror update.\n
+ 530:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                    \b Range: Use the bit mask of the SCU_GENERAL_MIRRSTS register for the mirror
+ 531:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                    interest. e.g.: SCU_GENERAL_MIRRSTS_RTC_CTR_Msk. Multiple update events can b
+ 532:..//Libraries/XMCLib/inc/xmc_scu.h ****  *                    using \a OR operation.
+ 533:..//Libraries/XMCLib/inc/xmc_scu.h ****  *
+ 534:..//Libraries/XMCLib/inc/xmc_scu.h ****  * \par<b>Description</b><br>
+ 535:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Provides the status of hibernate domain register update, when the respective mirror registers ar
+ 536:..//Libraries/XMCLib/inc/xmc_scu.h ****  * The hibernate domain is connected to the core domain via SPI serial communication. MIRRSTS is a 
+ 537:..//Libraries/XMCLib/inc/xmc_scu.h ****  * representing the communication of changed value of a mirror register to its corresponding regist
+ 538:..//Libraries/XMCLib/inc/xmc_scu.h ****  * hibernate domain. The bit fields of the register indicate
+ 539:..//Libraries/XMCLib/inc/xmc_scu.h ****  * that a corresponding register of the hibernate domain is ready to accept a write or that the com
+ 540:..//Libraries/XMCLib/inc/xmc_scu.h ****  * is busy with executing the previous operation.\n
+ 541:..//Libraries/XMCLib/inc/xmc_scu.h ****  * Note: There is no hibernate domain in XMC1x devices. This register is retained for legacy purpos
+ 542:..//Libraries/XMCLib/inc/xmc_scu.h ****  */
+ 543:..//Libraries/XMCLib/inc/xmc_scu.h **** __STATIC_INLINE uint32_t XMC_SCU_GetMirrorStatus(void)
+ 544:..//Libraries/XMCLib/inc/xmc_scu.h **** {
+  70              	 .loc 2 544 1
+  71              	 .cfi_startproc
+  72              	 
+  73              	 
+  74 0000 80B5     	 push {r7,lr}
+  75              	.LCFI2:
+  76              	 .cfi_def_cfa_offset 8
+  77              	 .cfi_offset 7,-8
+  78              	 .cfi_offset 14,-4
+  79 0002 00AF     	 add r7,sp,#0
+  80              	.LCFI3:
+  81              	 .cfi_def_cfa_register 7
+ 545:..//Libraries/XMCLib/inc/xmc_scu.h ****   return(SCU_GENERAL->MIRRSTS);
+  82              	 .loc 2 545 21
+  83 0004 024B     	 ldr r3,.L7
+  84 0006 9B6C     	 ldr r3,[r3,#72]
+ 546:..//Libraries/XMCLib/inc/xmc_scu.h **** }
+  85              	 .loc 2 546 1
+  86 0008 1800     	 movs r0,r3
+  87 000a BD46     	 mov sp,r7
+  88              	 
+  89 000c 80BD     	 pop {r7,pc}
+  90              	.L8:
+  91 000e C046     	 .align 2
+  92              	.L7:
+  93 0010 00000140 	 .word 1073807360
+  94              	 .cfi_endproc
+  95              	.LFE60:
+  97              	 .section .text.XMC_RTC_Init,"ax",%progbits
+  98              	 .align 1
+  99              	 .global XMC_RTC_Init
+ 100              	 .syntax unified
+ 101              	 .code 16
+ 102              	 .thumb_func
+ 103              	 .fpu softvfp
+ 105              	XMC_RTC_Init:
+ 106              	.LFB61:
+ 107              	 .file 3 "../Libraries/XMCLib/src/xmc1_rtc.c"
+   1:../Libraries/XMCLib/src/xmc1_rtc.c **** /**
+   2:../Libraries/XMCLib/src/xmc1_rtc.c ****  * @file xmc1_rtc.c
+   3:../Libraries/XMCLib/src/xmc1_rtc.c ****  * @date 2016-03-09
+   4:../Libraries/XMCLib/src/xmc1_rtc.c ****  *
+   5:../Libraries/XMCLib/src/xmc1_rtc.c ****  * @cond
+   6:../Libraries/XMCLib/src/xmc1_rtc.c ****  **************************************************************************************************
+   7:../Libraries/XMCLib/src/xmc1_rtc.c ****  * XMClib v2.1.18 - XMC Peripheral Driver Library 
+   8:../Libraries/XMCLib/src/xmc1_rtc.c ****  *
+   9:../Libraries/XMCLib/src/xmc1_rtc.c ****  * Copyright (c) 2015-2018, Infineon Technologies AG
+  10:../Libraries/XMCLib/src/xmc1_rtc.c ****  * All rights reserved.                        
+  11:../Libraries/XMCLib/src/xmc1_rtc.c ****  *                                             
+  12:../Libraries/XMCLib/src/xmc1_rtc.c ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  13:../Libraries/XMCLib/src/xmc1_rtc.c ****  * following conditions are met:   
+  14:../Libraries/XMCLib/src/xmc1_rtc.c ****  *                                                                              
+  15:../Libraries/XMCLib/src/xmc1_rtc.c ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  16:../Libraries/XMCLib/src/xmc1_rtc.c ****  * disclaimer.                        
+  17:../Libraries/XMCLib/src/xmc1_rtc.c ****  * 
+  18:../Libraries/XMCLib/src/xmc1_rtc.c ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  19:../Libraries/XMCLib/src/xmc1_rtc.c ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  20:../Libraries/XMCLib/src/xmc1_rtc.c ****  * 
+  21:../Libraries/XMCLib/src/xmc1_rtc.c ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  22:../Libraries/XMCLib/src/xmc1_rtc.c ****  * products derived from this software without specific prior written permission.                  
+  23:../Libraries/XMCLib/src/xmc1_rtc.c ****  *                                                                              
+  24:../Libraries/XMCLib/src/xmc1_rtc.c ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  25:../Libraries/XMCLib/src/xmc1_rtc.c ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  26:../Libraries/XMCLib/src/xmc1_rtc.c ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  27:../Libraries/XMCLib/src/xmc1_rtc.c ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  28:../Libraries/XMCLib/src/xmc1_rtc.c ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  29:../Libraries/XMCLib/src/xmc1_rtc.c ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  30:../Libraries/XMCLib/src/xmc1_rtc.c ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  31:../Libraries/XMCLib/src/xmc1_rtc.c ****  *                                                                              
+  32:../Libraries/XMCLib/src/xmc1_rtc.c ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  33:../Libraries/XMCLib/src/xmc1_rtc.c ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  34:../Libraries/XMCLib/src/xmc1_rtc.c ****  **************************************************************************************************
+  35:../Libraries/XMCLib/src/xmc1_rtc.c ****  *
+  36:../Libraries/XMCLib/src/xmc1_rtc.c ****  * Change History
+  37:../Libraries/XMCLib/src/xmc1_rtc.c ****  * --------------
+  38:../Libraries/XMCLib/src/xmc1_rtc.c ****  *
+  39:../Libraries/XMCLib/src/xmc1_rtc.c ****  * 2015-02-20:
+  40:../Libraries/XMCLib/src/xmc1_rtc.c ****  *     - Initial <br>
+  41:../Libraries/XMCLib/src/xmc1_rtc.c ****  *      
+  42:../Libraries/XMCLib/src/xmc1_rtc.c ****  * 2015-05-20:
+  43:../Libraries/XMCLib/src/xmc1_rtc.c ****  *     - XMC_RTC_Init() function is modified
+  44:../Libraries/XMCLib/src/xmc1_rtc.c ****  *       by adding RTC running condition check
+  45:../Libraries/XMCLib/src/xmc1_rtc.c ****  *
+  46:../Libraries/XMCLib/src/xmc1_rtc.c ****  * 2016-03-09:
+  47:../Libraries/XMCLib/src/xmc1_rtc.c ****  *     - Optimize write only registers
+  48:../Libraries/XMCLib/src/xmc1_rtc.c ****  *
+  49:../Libraries/XMCLib/src/xmc1_rtc.c ****  * @endcond 
+  50:../Libraries/XMCLib/src/xmc1_rtc.c ****  *
+  51:../Libraries/XMCLib/src/xmc1_rtc.c ****  */
+  52:../Libraries/XMCLib/src/xmc1_rtc.c **** 
+  53:../Libraries/XMCLib/src/xmc1_rtc.c **** 
+  54:../Libraries/XMCLib/src/xmc1_rtc.c **** /**
+  55:../Libraries/XMCLib/src/xmc1_rtc.c ****  *
+  56:../Libraries/XMCLib/src/xmc1_rtc.c ****  * @brief RTC driver for XMC microcontroller family.
+  57:../Libraries/XMCLib/src/xmc1_rtc.c ****  *
+  58:../Libraries/XMCLib/src/xmc1_rtc.c ****  */
+  59:../Libraries/XMCLib/src/xmc1_rtc.c **** 
+  60:../Libraries/XMCLib/src/xmc1_rtc.c **** /**************************************************************************************************
+  61:../Libraries/XMCLib/src/xmc1_rtc.c ****  * HEADER FILES
+  62:../Libraries/XMCLib/src/xmc1_rtc.c ****  **************************************************************************************************
+  63:../Libraries/XMCLib/src/xmc1_rtc.c **** #include <xmc_rtc.h>
+  64:../Libraries/XMCLib/src/xmc1_rtc.c **** 
+  65:../Libraries/XMCLib/src/xmc1_rtc.c **** #if UC_FAMILY == XMC1
+  66:../Libraries/XMCLib/src/xmc1_rtc.c **** #include <xmc_scu.h>
+  67:../Libraries/XMCLib/src/xmc1_rtc.c **** 
+  68:../Libraries/XMCLib/src/xmc1_rtc.c **** /**************************************************************************************************
+  69:../Libraries/XMCLib/src/xmc1_rtc.c ****  * API IMPLEMENTATION
+  70:../Libraries/XMCLib/src/xmc1_rtc.c ****  **************************************************************************************************
+  71:../Libraries/XMCLib/src/xmc1_rtc.c **** /*
+  72:../Libraries/XMCLib/src/xmc1_rtc.c ****  * Initialize the RTC peripheral
+  73:../Libraries/XMCLib/src/xmc1_rtc.c ****  */
+  74:../Libraries/XMCLib/src/xmc1_rtc.c **** XMC_RTC_STATUS_t XMC_RTC_Init(const XMC_RTC_CONFIG_t *const config)
+  75:../Libraries/XMCLib/src/xmc1_rtc.c **** {
+ 108              	 .loc 3 75 1
+ 109              	 .cfi_startproc
+ 110              	 
+ 111              	 
+ 112 0000 80B5     	 push {r7,lr}
+ 113              	.LCFI4:
+ 114              	 .cfi_def_cfa_offset 8
+ 115              	 .cfi_offset 7,-8
+ 116              	 .cfi_offset 14,-4
+ 117 0002 82B0     	 sub sp,sp,#8
+ 118              	.LCFI5:
+ 119              	 .cfi_def_cfa_offset 16
+ 120 0004 00AF     	 add r7,sp,#0
+ 121              	.LCFI6:
+ 122              	 .cfi_def_cfa_register 7
+ 123 0006 7860     	 str r0,[r7,#4]
+  76:../Libraries/XMCLib/src/xmc1_rtc.c ****   if (XMC_RTC_IsRunning() == false)
+ 124              	 .loc 3 76 7
+ 125 0008 FFF7FEFF 	 bl XMC_RTC_IsRunning
+ 126 000c 0300     	 movs r3,r0
+ 127 000e 1A00     	 movs r2,r3
+ 128              	 .loc 3 76 27
+ 129 0010 0123     	 movs r3,#1
+ 130 0012 5340     	 eors r3,r2
+ 131 0014 DBB2     	 uxtb r3,r3
+ 132              	 .loc 3 76 6
+ 133 0016 002B     	 cmp r3,#0
+ 134 0018 2DD0     	 beq .L10
+  77:../Libraries/XMCLib/src/xmc1_rtc.c ****   {
+  78:../Libraries/XMCLib/src/xmc1_rtc.c ****     if (XMC_RTC_IsEnabled() == false)
+ 135              	 .loc 3 78 9
+ 136 001a FFF7FEFF 	 bl XMC_RTC_IsEnabled
+ 137 001e 0300     	 movs r3,r0
+ 138 0020 1A00     	 movs r2,r3
+ 139              	 .loc 3 78 29
+ 140 0022 0123     	 movs r3,#1
+ 141 0024 5340     	 eors r3,r2
+ 142 0026 DBB2     	 uxtb r3,r3
+ 143              	 .loc 3 78 8
+ 144 0028 002B     	 cmp r3,#0
+ 145 002a 01D0     	 beq .L11
+  79:../Libraries/XMCLib/src/xmc1_rtc.c ****     {
+  80:../Libraries/XMCLib/src/xmc1_rtc.c ****       XMC_RTC_Enable();
+ 146              	 .loc 3 80 7
+ 147 002c FFF7FEFF 	 bl XMC_RTC_Enable
+ 148              	.L11:
+  81:../Libraries/XMCLib/src/xmc1_rtc.c **** 	}
+  82:../Libraries/XMCLib/src/xmc1_rtc.c **** 	
+  83:../Libraries/XMCLib/src/xmc1_rtc.c ****     XMC_RTC_SetPrescaler(config->prescaler);
+ 149              	 .loc 3 83 5
+ 150 0030 7B68     	 ldr r3,[r7,#4]
+ 151 0032 1B8A     	 ldrh r3,[r3,#16]
+ 152 0034 1800     	 movs r0,r3
+ 153 0036 FFF7FEFF 	 bl XMC_RTC_SetPrescaler
+  84:../Libraries/XMCLib/src/xmc1_rtc.c **** 
+  85:../Libraries/XMCLib/src/xmc1_rtc.c **** 	while ((XMC_SCU_GetMirrorStatus() & (SCU_GENERAL_MIRRSTS_RTC_TIM0_Msk | SCU_GENERAL_MIRRSTS_RTC_TI
+ 154              	 .loc 3 85 8
+ 155 003a C046     	 nop
+ 156              	.L12:
+ 157              	 .loc 3 85 10 discriminator 1
+ 158 003c FFF7FEFF 	 bl XMC_SCU_GetMirrorStatus
+ 159 0040 0300     	 movs r3,r0
+ 160              	 .loc 3 85 36 discriminator 1
+ 161 0042 1822     	 movs r2,#24
+ 162 0044 1340     	 ands r3,r2
+ 163              	 .loc 3 85 8 discriminator 1
+ 164 0046 F9D1     	 bne .L12
+  86:../Libraries/XMCLib/src/xmc1_rtc.c **** 	{
+  87:../Libraries/XMCLib/src/xmc1_rtc.c ****       /* check SCU_MIRRSTS to ensure that no transfer over serial interface is pending */
+  88:../Libraries/XMCLib/src/xmc1_rtc.c ****     }
+  89:../Libraries/XMCLib/src/xmc1_rtc.c ****     RTC->TIM0 = config->time.raw0;
+ 165              	 .loc 3 89 8
+ 166 0048 0D4A     	 ldr r2,.L15
+ 167              	 .loc 3 89 29
+ 168 004a 7B68     	 ldr r3,[r7,#4]
+ 169 004c 1B68     	 ldr r3,[r3]
+ 170              	 .loc 3 89 15
+ 171 004e 1362     	 str r3,[r2,#32]
+  90:../Libraries/XMCLib/src/xmc1_rtc.c ****     RTC->TIM1 = config->time.raw1;
+ 172              	 .loc 3 90 8
+ 173 0050 0B4A     	 ldr r2,.L15
+ 174              	 .loc 3 90 29
+ 175 0052 7B68     	 ldr r3,[r7,#4]
+ 176 0054 5B68     	 ldr r3,[r3,#4]
+ 177              	 .loc 3 90 15
+ 178 0056 5362     	 str r3,[r2,#36]
+  91:../Libraries/XMCLib/src/xmc1_rtc.c **** 	
+  92:../Libraries/XMCLib/src/xmc1_rtc.c ****     while ((XMC_SCU_GetMirrorStatus() & (SCU_GENERAL_MIRRSTS_RTC_ATIM0_Msk | SCU_GENERAL_MIRRSTS_RT
+ 179              	 .loc 3 92 11
+ 180 0058 C046     	 nop
+ 181              	.L13:
+ 182              	 .loc 3 92 13 discriminator 1
+ 183 005a FFF7FEFF 	 bl XMC_SCU_GetMirrorStatus
+ 184 005e 0300     	 movs r3,r0
+ 185              	 .loc 3 92 39 discriminator 1
+ 186 0060 0622     	 movs r2,#6
+ 187 0062 1340     	 ands r3,r2
+ 188              	 .loc 3 92 11 discriminator 1
+ 189 0064 F9D1     	 bne .L13
+  93:../Libraries/XMCLib/src/xmc1_rtc.c ****     {
+  94:../Libraries/XMCLib/src/xmc1_rtc.c ****       /* check SCU_MIRRSTS to ensure that no transfer over serial interface is pending */
+  95:../Libraries/XMCLib/src/xmc1_rtc.c ****     }
+  96:../Libraries/XMCLib/src/xmc1_rtc.c ****     RTC->ATIM0 = config->alarm.raw0;	
+ 190              	 .loc 3 96 8
+ 191 0066 064A     	 ldr r2,.L15
+ 192              	 .loc 3 96 31
+ 193 0068 7B68     	 ldr r3,[r7,#4]
+ 194 006a 9B68     	 ldr r3,[r3,#8]
+ 195              	 .loc 3 96 16
+ 196 006c 9361     	 str r3,[r2,#24]
+  97:../Libraries/XMCLib/src/xmc1_rtc.c ****     RTC->ATIM1 = config->alarm.raw1;    
+ 197              	 .loc 3 97 8
+ 198 006e 044A     	 ldr r2,.L15
+ 199              	 .loc 3 97 31
+ 200 0070 7B68     	 ldr r3,[r7,#4]
+ 201 0072 DB68     	 ldr r3,[r3,#12]
+ 202              	 .loc 3 97 16
+ 203 0074 D361     	 str r3,[r2,#28]
+ 204              	.L10:
+  98:../Libraries/XMCLib/src/xmc1_rtc.c ****   }
+  99:../Libraries/XMCLib/src/xmc1_rtc.c ****   return XMC_RTC_STATUS_OK;
+ 205              	 .loc 3 99 10
+ 206 0076 0023     	 movs r3,#0
+ 100:../Libraries/XMCLib/src/xmc1_rtc.c **** }
+ 207              	 .loc 3 100 1
+ 208 0078 1800     	 movs r0,r3
+ 209 007a BD46     	 mov sp,r7
+ 210 007c 02B0     	 add sp,sp,#8
+ 211              	 
+ 212 007e 80BD     	 pop {r7,pc}
+ 213              	.L16:
+ 214              	 .align 2
+ 215              	.L15:
+ 216 0080 000A0140 	 .word 1073809920
+ 217              	 .cfi_endproc
+ 218              	.LFE61:
+ 220              	 .section .text.XMC_RTC_Enable,"ax",%progbits
+ 221              	 .align 1
+ 222              	 .global XMC_RTC_Enable
+ 223              	 .syntax unified
+ 224              	 .code 16
+ 225              	 .thumb_func
+ 226              	 .fpu softvfp
+ 228              	XMC_RTC_Enable:
+ 229              	.LFB62:
+ 101:../Libraries/XMCLib/src/xmc1_rtc.c **** 
+ 102:../Libraries/XMCLib/src/xmc1_rtc.c **** /*
+ 103:../Libraries/XMCLib/src/xmc1_rtc.c ****  * Ungates a clock node for RTC
+ 104:../Libraries/XMCLib/src/xmc1_rtc.c ****  */ 
+ 105:../Libraries/XMCLib/src/xmc1_rtc.c **** void XMC_RTC_Enable(void)
+ 106:../Libraries/XMCLib/src/xmc1_rtc.c **** {
+ 230              	 .loc 3 106 1
+ 231              	 .cfi_startproc
+ 232              	 
+ 233              	 
+ 234 0000 80B5     	 push {r7,lr}
+ 235              	.LCFI7:
+ 236              	 .cfi_def_cfa_offset 8
+ 237              	 .cfi_offset 7,-8
+ 238              	 .cfi_offset 14,-4
+ 239 0002 00AF     	 add r7,sp,#0
+ 240              	.LCFI8:
+ 241              	 .cfi_def_cfa_register 7
+ 107:../Libraries/XMCLib/src/xmc1_rtc.c ****   XMC_SCU_CLOCK_UngatePeripheralClock(XMC_SCU_PERIPHERAL_CLOCK_RTC);
+ 242              	 .loc 3 107 3
+ 243 0004 8023     	 movs r3,#128
+ 244 0006 DB00     	 lsls r3,r3,#3
+ 245 0008 1800     	 movs r0,r3
+ 246 000a FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+ 108:../Libraries/XMCLib/src/xmc1_rtc.c **** }
+ 247              	 .loc 3 108 1
+ 248 000e C046     	 nop
+ 249 0010 BD46     	 mov sp,r7
+ 250              	 
+ 251 0012 80BD     	 pop {r7,pc}
+ 252              	 .cfi_endproc
+ 253              	.LFE62:
+ 255              	 .section .text.XMC_RTC_Disable,"ax",%progbits
+ 256              	 .align 1
+ 257              	 .global XMC_RTC_Disable
+ 258              	 .syntax unified
+ 259              	 .code 16
+ 260              	 .thumb_func
+ 261              	 .fpu softvfp
+ 263              	XMC_RTC_Disable:
+ 264              	.LFB63:
+ 109:../Libraries/XMCLib/src/xmc1_rtc.c **** 
+ 110:../Libraries/XMCLib/src/xmc1_rtc.c **** /*
+ 111:../Libraries/XMCLib/src/xmc1_rtc.c ****  * Gates a clock node for RTC
+ 112:../Libraries/XMCLib/src/xmc1_rtc.c ****  */ 
+ 113:../Libraries/XMCLib/src/xmc1_rtc.c **** void XMC_RTC_Disable(void)
+ 114:../Libraries/XMCLib/src/xmc1_rtc.c **** {
+ 265              	 .loc 3 114 1
+ 266              	 .cfi_startproc
+ 267              	 
+ 268              	 
+ 269 0000 80B5     	 push {r7,lr}
+ 270              	.LCFI9:
+ 271              	 .cfi_def_cfa_offset 8
+ 272              	 .cfi_offset 7,-8
+ 273              	 .cfi_offset 14,-4
+ 274 0002 00AF     	 add r7,sp,#0
+ 275              	.LCFI10:
+ 276              	 .cfi_def_cfa_register 7
+ 115:../Libraries/XMCLib/src/xmc1_rtc.c ****   XMC_SCU_CLOCK_GatePeripheralClock(XMC_SCU_PERIPHERAL_CLOCK_RTC);
+ 277              	 .loc 3 115 3
+ 278 0004 8023     	 movs r3,#128
+ 279 0006 DB00     	 lsls r3,r3,#3
+ 280 0008 1800     	 movs r0,r3
+ 281 000a FFF7FEFF 	 bl XMC_SCU_CLOCK_GatePeripheralClock
+ 116:../Libraries/XMCLib/src/xmc1_rtc.c **** }
+ 282              	 .loc 3 116 1
+ 283 000e C046     	 nop
+ 284 0010 BD46     	 mov sp,r7
+ 285              	 
+ 286 0012 80BD     	 pop {r7,pc}
+ 287              	 .cfi_endproc
+ 288              	.LFE63:
+ 290              	 .section .text.XMC_RTC_SetDebugMode,"ax",%progbits
+ 291              	 .align 1
+ 292              	 .global XMC_RTC_SetDebugMode
+ 293              	 .syntax unified
+ 294              	 .code 16
+ 295              	 .thumb_func
+ 296              	 .fpu softvfp
+ 298              	XMC_RTC_SetDebugMode:
+ 299              	.LFB64:
+ 117:../Libraries/XMCLib/src/xmc1_rtc.c **** 
+ 118:../Libraries/XMCLib/src/xmc1_rtc.c **** /*
+ 119:../Libraries/XMCLib/src/xmc1_rtc.c ****  * Suspends RTC function during CPU HALT mode
+ 120:../Libraries/XMCLib/src/xmc1_rtc.c ****  */ 
+ 121:../Libraries/XMCLib/src/xmc1_rtc.c **** void XMC_RTC_SetDebugMode(const XMC_RTC_DEBUG_MODE_t debug_mode)
+ 122:../Libraries/XMCLib/src/xmc1_rtc.c **** {
+ 300              	 .loc 3 122 1
+ 301              	 .cfi_startproc
+ 302              	 
+ 303              	 
+ 304 0000 80B5     	 push {r7,lr}
+ 305              	.LCFI11:
+ 306              	 .cfi_def_cfa_offset 8
+ 307              	 .cfi_offset 7,-8
+ 308              	 .cfi_offset 14,-4
+ 309 0002 84B0     	 sub sp,sp,#16
+ 310              	.LCFI12:
+ 311              	 .cfi_def_cfa_offset 24
+ 312 0004 00AF     	 add r7,sp,#0
+ 313              	.LCFI13:
+ 314              	 .cfi_def_cfa_register 7
+ 315 0006 0200     	 movs r2,r0
+ 316 0008 FB1D     	 adds r3,r7,#7
+ 317 000a 1A70     	 strb r2,[r3]
+ 123:../Libraries/XMCLib/src/xmc1_rtc.c ****   uint32_t regval;
+ 124:../Libraries/XMCLib/src/xmc1_rtc.c ****   regval = (RTC->CTR & (uint32_t)~RTC_CTR_SUS_Msk);
+ 318              	 .loc 3 124 16
+ 319 000c 074B     	 ldr r3,.L20
+ 320 000e 5B68     	 ldr r3,[r3,#4]
+ 321              	 .loc 3 124 10
+ 322 0010 0222     	 movs r2,#2
+ 323 0012 9343     	 bics r3,r2
+ 324 0014 FB60     	 str r3,[r7,#12]
+ 125:../Libraries/XMCLib/src/xmc1_rtc.c ****   RTC->CTR = (regval | (uint32_t)debug_mode);
+ 325              	 .loc 3 125 24
+ 326 0016 FB1D     	 adds r3,r7,#7
+ 327 0018 1978     	 ldrb r1,[r3]
+ 328              	 .loc 3 125 6
+ 329 001a 044B     	 ldr r3,.L20
+ 330              	 .loc 3 125 22
+ 331 001c FA68     	 ldr r2,[r7,#12]
+ 332 001e 0A43     	 orrs r2,r1
+ 333              	 .loc 3 125 12
+ 334 0020 5A60     	 str r2,[r3,#4]
+ 126:../Libraries/XMCLib/src/xmc1_rtc.c **** }
+ 335              	 .loc 3 126 1
+ 336 0022 C046     	 nop
+ 337 0024 BD46     	 mov sp,r7
+ 338 0026 04B0     	 add sp,sp,#16
+ 339              	 
+ 340 0028 80BD     	 pop {r7,pc}
+ 341              	.L21:
+ 342 002a C046     	 .align 2
+ 343              	.L20:
+ 344 002c 000A0140 	 .word 1073809920
+ 345              	 .cfi_endproc
+ 346              	.LFE64:
+ 348              	 .section .text.XMC_RTC_EnableEvent,"ax",%progbits
+ 349              	 .align 1
+ 350              	 .global XMC_RTC_EnableEvent
+ 351              	 .syntax unified
+ 352              	 .code 16
+ 353              	 .thumb_func
+ 354              	 .fpu softvfp
+ 356              	XMC_RTC_EnableEvent:
+ 357              	.LFB65:
+ 127:../Libraries/XMCLib/src/xmc1_rtc.c **** 
+ 128:../Libraries/XMCLib/src/xmc1_rtc.c **** /*
+ 129:../Libraries/XMCLib/src/xmc1_rtc.c ****  * Enable RTC periodic and alarm event(s)
+ 130:../Libraries/XMCLib/src/xmc1_rtc.c ****  */ 
+ 131:../Libraries/XMCLib/src/xmc1_rtc.c **** void XMC_RTC_EnableEvent(const uint32_t event)
+ 132:../Libraries/XMCLib/src/xmc1_rtc.c **** {
+ 358              	 .loc 3 132 1
+ 359              	 .cfi_startproc
+ 360              	 
+ 361              	 
+ 362 0000 80B5     	 push {r7,lr}
+ 363              	.LCFI14:
+ 364              	 .cfi_def_cfa_offset 8
+ 365              	 .cfi_offset 7,-8
+ 366              	 .cfi_offset 14,-4
+ 367 0002 82B0     	 sub sp,sp,#8
+ 368              	.LCFI15:
+ 369              	 .cfi_def_cfa_offset 16
+ 370 0004 00AF     	 add r7,sp,#0
+ 371              	.LCFI16:
+ 372              	 .cfi_def_cfa_register 7
+ 373 0006 7860     	 str r0,[r7,#4]
+ 133:../Libraries/XMCLib/src/xmc1_rtc.c ****   RTC->MSKSR |= event;
+ 374              	 .loc 3 133 14
+ 375 0008 044B     	 ldr r3,.L23
+ 376 000a 1969     	 ldr r1,[r3,#16]
+ 377 000c 034B     	 ldr r3,.L23
+ 378 000e 7A68     	 ldr r2,[r7,#4]
+ 379 0010 0A43     	 orrs r2,r1
+ 380 0012 1A61     	 str r2,[r3,#16]
+ 134:../Libraries/XMCLib/src/xmc1_rtc.c **** }
+ 381              	 .loc 3 134 1
+ 382 0014 C046     	 nop
+ 383 0016 BD46     	 mov sp,r7
+ 384 0018 02B0     	 add sp,sp,#8
+ 385              	 
+ 386 001a 80BD     	 pop {r7,pc}
+ 387              	.L24:
+ 388              	 .align 2
+ 389              	.L23:
+ 390 001c 000A0140 	 .word 1073809920
+ 391              	 .cfi_endproc
+ 392              	.LFE65:
+ 394              	 .section .text.XMC_RTC_DisableEvent,"ax",%progbits
+ 395              	 .align 1
+ 396              	 .global XMC_RTC_DisableEvent
+ 397              	 .syntax unified
+ 398              	 .code 16
+ 399              	 .thumb_func
+ 400              	 .fpu softvfp
+ 402              	XMC_RTC_DisableEvent:
+ 403              	.LFB66:
+ 135:../Libraries/XMCLib/src/xmc1_rtc.c **** 
+ 136:../Libraries/XMCLib/src/xmc1_rtc.c **** /*
+ 137:../Libraries/XMCLib/src/xmc1_rtc.c ****  * Disable RTC periodic and alarm event(s)
+ 138:../Libraries/XMCLib/src/xmc1_rtc.c ****  */
+ 139:../Libraries/XMCLib/src/xmc1_rtc.c **** void XMC_RTC_DisableEvent(const uint32_t event)
+ 140:../Libraries/XMCLib/src/xmc1_rtc.c **** {
+ 404              	 .loc 3 140 1
+ 405              	 .cfi_startproc
+ 406              	 
+ 407              	 
+ 408 0000 80B5     	 push {r7,lr}
+ 409              	.LCFI17:
+ 410              	 .cfi_def_cfa_offset 8
+ 411              	 .cfi_offset 7,-8
+ 412              	 .cfi_offset 14,-4
+ 413 0002 82B0     	 sub sp,sp,#8
+ 414              	.LCFI18:
+ 415              	 .cfi_def_cfa_offset 16
+ 416 0004 00AF     	 add r7,sp,#0
+ 417              	.LCFI19:
+ 418              	 .cfi_def_cfa_register 7
+ 419 0006 7860     	 str r0,[r7,#4]
+ 141:../Libraries/XMCLib/src/xmc1_rtc.c ****   RTC->MSKSR &= ~event;
+ 420              	 .loc 3 141 14
+ 421 0008 054B     	 ldr r3,.L26
+ 422 000a 1A69     	 ldr r2,[r3,#16]
+ 423              	 .loc 3 141 17
+ 424 000c 7B68     	 ldr r3,[r7,#4]
+ 425 000e D943     	 mvns r1,r3
+ 426              	 .loc 3 141 14
+ 427 0010 034B     	 ldr r3,.L26
+ 428 0012 0A40     	 ands r2,r1
+ 429 0014 1A61     	 str r2,[r3,#16]
+ 142:../Libraries/XMCLib/src/xmc1_rtc.c **** }
+ 430              	 .loc 3 142 1
+ 431 0016 C046     	 nop
+ 432 0018 BD46     	 mov sp,r7
+ 433 001a 02B0     	 add sp,sp,#8
+ 434              	 
+ 435 001c 80BD     	 pop {r7,pc}
+ 436              	.L27:
+ 437 001e C046     	 .align 2
+ 438              	.L26:
+ 439 0020 000A0140 	 .word 1073809920
+ 440              	 .cfi_endproc
+ 441              	.LFE66:
+ 443              	 .section .text.XMC_RTC_ClearEvent,"ax",%progbits
+ 444              	 .align 1
+ 445              	 .global XMC_RTC_ClearEvent
+ 446              	 .syntax unified
+ 447              	 .code 16
+ 448              	 .thumb_func
+ 449              	 .fpu softvfp
+ 451              	XMC_RTC_ClearEvent:
+ 452              	.LFB67:
+ 143:../Libraries/XMCLib/src/xmc1_rtc.c **** 
+ 144:../Libraries/XMCLib/src/xmc1_rtc.c **** /*
+ 145:../Libraries/XMCLib/src/xmc1_rtc.c ****  * Clear RTC periodic and alarm event(s)
+ 146:../Libraries/XMCLib/src/xmc1_rtc.c ****  */
+ 147:../Libraries/XMCLib/src/xmc1_rtc.c **** void XMC_RTC_ClearEvent(const uint32_t event)
+ 148:../Libraries/XMCLib/src/xmc1_rtc.c **** {
+ 453              	 .loc 3 148 1
+ 454              	 .cfi_startproc
+ 455              	 
+ 456              	 
+ 457 0000 80B5     	 push {r7,lr}
+ 458              	.LCFI20:
+ 459              	 .cfi_def_cfa_offset 8
+ 460              	 .cfi_offset 7,-8
+ 461              	 .cfi_offset 14,-4
+ 462 0002 82B0     	 sub sp,sp,#8
+ 463              	.LCFI21:
+ 464              	 .cfi_def_cfa_offset 16
+ 465 0004 00AF     	 add r7,sp,#0
+ 466              	.LCFI22:
+ 467              	 .cfi_def_cfa_register 7
+ 468 0006 7860     	 str r0,[r7,#4]
+ 149:../Libraries/XMCLib/src/xmc1_rtc.c ****   RTC->CLRSR = event;
+ 469              	 .loc 3 149 6
+ 470 0008 034B     	 ldr r3,.L29
+ 471              	 .loc 3 149 14
+ 472 000a 7A68     	 ldr r2,[r7,#4]
+ 473 000c 5A61     	 str r2,[r3,#20]
+ 150:../Libraries/XMCLib/src/xmc1_rtc.c **** }
+ 474              	 .loc 3 150 1
+ 475 000e C046     	 nop
+ 476 0010 BD46     	 mov sp,r7
+ 477 0012 02B0     	 add sp,sp,#8
+ 478              	 
+ 479 0014 80BD     	 pop {r7,pc}
+ 480              	.L30:
+ 481 0016 C046     	 .align 2
+ 482              	.L29:
+ 483 0018 000A0140 	 .word 1073809920
+ 484              	 .cfi_endproc
+ 485              	.LFE67:
+ 487              	 .section .text.XMC_RTC_IsEnabled,"ax",%progbits
+ 488              	 .align 1
+ 489              	 .global XMC_RTC_IsEnabled
+ 490              	 .syntax unified
+ 491              	 .code 16
+ 492              	 .thumb_func
+ 493              	 .fpu softvfp
+ 495              	XMC_RTC_IsEnabled:
+ 496              	.LFB68:
+ 151:../Libraries/XMCLib/src/xmc1_rtc.c **** 
+ 152:../Libraries/XMCLib/src/xmc1_rtc.c **** /*
+ 153:../Libraries/XMCLib/src/xmc1_rtc.c ****  * Checks RTC peripheral is enabled for programming to its registers
+ 154:../Libraries/XMCLib/src/xmc1_rtc.c ****  */
+ 155:../Libraries/XMCLib/src/xmc1_rtc.c **** bool XMC_RTC_IsEnabled(void)
+ 156:../Libraries/XMCLib/src/xmc1_rtc.c **** {
+ 497              	 .loc 3 156 1
+ 498              	 .cfi_startproc
+ 499              	 
+ 500              	 
+ 501 0000 80B5     	 push {r7,lr}
+ 502              	.LCFI23:
+ 503              	 .cfi_def_cfa_offset 8
+ 504              	 .cfi_offset 7,-8
+ 505              	 .cfi_offset 14,-4
+ 506 0002 00AF     	 add r7,sp,#0
+ 507              	.LCFI24:
+ 508              	 .cfi_def_cfa_register 7
+ 157:../Libraries/XMCLib/src/xmc1_rtc.c ****   return !XMC_SCU_CLOCK_IsPeripheralClockGated(XMC_SCU_PERIPHERAL_CLOCK_RTC);
+ 509              	 .loc 3 157 11
+ 510 0004 8023     	 movs r3,#128
+ 511 0006 DB00     	 lsls r3,r3,#3
+ 512 0008 1800     	 movs r0,r3
+ 513 000a FFF7FEFF 	 bl XMC_SCU_CLOCK_IsPeripheralClockGated
+ 514 000e 0300     	 movs r3,r0
+ 515              	 .loc 3 157 3
+ 516 0010 5A1E     	 subs r2,r3,#1
+ 517 0012 9341     	 sbcs r3,r3,r2
+ 518 0014 DBB2     	 uxtb r3,r3
+ 519 0016 0122     	 movs r2,#1
+ 520 0018 5340     	 eors r3,r2
+ 521 001a DBB2     	 uxtb r3,r3
+ 522              	 .loc 3 157 10
+ 523 001c 1A1C     	 adds r2,r3,#0
+ 524 001e 0123     	 movs r3,#1
+ 525 0020 1340     	 ands r3,r2
+ 526 0022 DBB2     	 uxtb r3,r3
+ 158:../Libraries/XMCLib/src/xmc1_rtc.c **** }
+ 527              	 .loc 3 158 1
+ 528 0024 1800     	 movs r0,r3
+ 529 0026 BD46     	 mov sp,r7
+ 530              	 
+ 531 0028 80BD     	 pop {r7,pc}
+ 532              	 .cfi_endproc
+ 533              	.LFE68:
+ 535              	 .text
+ 536              	.Letext0:
+ 537              	 .file 4 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_default_types.h"
+ 538              	 .file 5 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 539              	 .file 6 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.h"
+ 540              	 .file 7 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_types.h"
+ 541              	 .file 8 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 542              	 .file 9 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reent.h"
+ 543              	 .file 10 "..//Libraries/CMSIS/Infineon/XMC1300_series/Include/system_XMC1300.h"
+ 544              	 .file 11 "..//Libraries/CMSIS/Infineon/XMC1300_series/Include/XMC1300.h"
+ 545              	 .file 12 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/time.h"
+ 546              	 .file 13 "..//Libraries/XMCLib/inc/xmc1_rtc.h"
+ 547              	 .file 14 "..//Libraries/XMCLib/inc/xmc1_scu.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 xmc1_rtc.c
+    {standard input}:16     .text.XMC_RTC_IsRunning:0000000000000000 $t
+    {standard input}:23     .text.XMC_RTC_IsRunning:0000000000000000 XMC_RTC_IsRunning
+    {standard input}:56     .text.XMC_RTC_IsRunning:0000000000000018 $d
+    {standard input}:61     .text.XMC_SCU_GetMirrorStatus:0000000000000000 $t
+    {standard input}:67     .text.XMC_SCU_GetMirrorStatus:0000000000000000 XMC_SCU_GetMirrorStatus
+    {standard input}:93     .text.XMC_SCU_GetMirrorStatus:0000000000000010 $d
+    {standard input}:98     .text.XMC_RTC_Init:0000000000000000 $t
+    {standard input}:105    .text.XMC_RTC_Init:0000000000000000 XMC_RTC_Init
+    {standard input}:495    .text.XMC_RTC_IsEnabled:0000000000000000 XMC_RTC_IsEnabled
+    {standard input}:228    .text.XMC_RTC_Enable:0000000000000000 XMC_RTC_Enable
+    {standard input}:216    .text.XMC_RTC_Init:0000000000000080 $d
+    {standard input}:221    .text.XMC_RTC_Enable:0000000000000000 $t
+    {standard input}:256    .text.XMC_RTC_Disable:0000000000000000 $t
+    {standard input}:263    .text.XMC_RTC_Disable:0000000000000000 XMC_RTC_Disable
+    {standard input}:291    .text.XMC_RTC_SetDebugMode:0000000000000000 $t
+    {standard input}:298    .text.XMC_RTC_SetDebugMode:0000000000000000 XMC_RTC_SetDebugMode
+    {standard input}:344    .text.XMC_RTC_SetDebugMode:000000000000002c $d
+    {standard input}:349    .text.XMC_RTC_EnableEvent:0000000000000000 $t
+    {standard input}:356    .text.XMC_RTC_EnableEvent:0000000000000000 XMC_RTC_EnableEvent
+    {standard input}:390    .text.XMC_RTC_EnableEvent:000000000000001c $d
+    {standard input}:395    .text.XMC_RTC_DisableEvent:0000000000000000 $t
+    {standard input}:402    .text.XMC_RTC_DisableEvent:0000000000000000 XMC_RTC_DisableEvent
+    {standard input}:439    .text.XMC_RTC_DisableEvent:0000000000000020 $d
+    {standard input}:444    .text.XMC_RTC_ClearEvent:0000000000000000 $t
+    {standard input}:451    .text.XMC_RTC_ClearEvent:0000000000000000 XMC_RTC_ClearEvent
+    {standard input}:483    .text.XMC_RTC_ClearEvent:0000000000000018 $d
+    {standard input}:488    .text.XMC_RTC_IsEnabled:0000000000000000 $t
+
+UNDEFINED SYMBOLS
+XMC_RTC_SetPrescaler
+XMC_SCU_CLOCK_UngatePeripheralClock
+XMC_SCU_CLOCK_GatePeripheralClock
+XMC_SCU_CLOCK_IsPeripheralClockGated

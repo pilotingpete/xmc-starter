@@ -1,0 +1,866 @@
+
+Bin/dbg_blinky.elf:     file format elf32-littlearm
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00000238  10001000  10001000  00001000  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .VENEER_Code  00000138  2000000c  10001238  0001000c  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 Stack         00000404  20000144  00000000  00000144  2**0
+                  ALLOC
+  3 .data         00000000  20000548  20000548  00010144  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  4 .ram_code     00000000  20000548  20000548  00010144  2**0
+                  CONTENTS
+  5 .bss          00000008  20000548  00000404  00010548  2**2
+                  ALLOC
+  6 .no_init      00000004  20003ffc  00003eb8  00000144  2**2
+                  ALLOC
+  7 .debug_aranges 00000198  00000000  00000000  00010148  2**3
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_info   00002f25  00000000  00000000  000102e0  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_abbrev 00000864  00000000  00000000  00013205  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_line   000010eb  00000000  00000000  00013a69  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_frame  000004a4  00000000  00000000  00014b54  2**2
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_str    00000e6c  00000000  00000000  00014ff8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 13 .debug_loc    0000072c  00000000  00000000  00015e64  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 14 .debug_ranges 00000150  00000000  00000000  00016590  2**3
+                  CONTENTS, READONLY, DEBUGGING
+ 15 .build_attributes 000000fd  00000000  00000000  000166e0  2**0
+                  CONTENTS, READONLY
+
+Disassembly of section .text:
+
+10001000 <__Vectors>:
+10001000:	48 05 00 20 19 10 00 10 00 00 00 00 99 10 00 10     H.. ............
+10001010:	00 04 01 00 00 01 00 00                             ........
+
+10001018 <Reset_Handler>:
+    .thumb_func 
+    .globl  Reset_Handler
+    .type   Reset_Handler, %function
+Reset_Handler: 
+/* Initialize interrupt veneer */
+	ldr	r1, =eROData
+10001018:	4911      	ldr	r1, [pc, #68]	; (10001060 <__copy_data+0xe>)
+	ldr	r2, =VeneerStart
+1000101a:	4a12      	ldr	r2, [pc, #72]	; (10001064 <__copy_data+0x12>)
+	ldr	r3, =VeneerEnd
+1000101c:	4b12      	ldr	r3, [pc, #72]	; (10001068 <__copy_data+0x16>)
+	bl  __copy_data
+1000101e:	f000 f818 	bl	10001052 <__copy_data>
+
+    ldr  r0, =SystemInit
+10001022:	4812      	ldr	r0, [pc, #72]	; (1000106c <__copy_data+0x1a>)
+    blx  r0
+10001024:	4780      	blx	r0
+	
+/* Initialize data */
+	ldr	r1, =DataLoadAddr
+10001026:	4912      	ldr	r1, [pc, #72]	; (10001070 <__copy_data+0x1e>)
+	ldr	r2, =__data_start
+10001028:	4a12      	ldr	r2, [pc, #72]	; (10001074 <__copy_data+0x22>)
+	ldr	r3, =__data_end
+1000102a:	4b13      	ldr	r3, [pc, #76]	; (10001078 <__copy_data+0x26>)
+	bl  __copy_data
+1000102c:	f000 f811 	bl	10001052 <__copy_data>
+
+/* RAM code */
+	ldr	r1, =__ram_code_load
+10001030:	4912      	ldr	r1, [pc, #72]	; (1000107c <__copy_data+0x2a>)
+	ldr	r2, =__ram_code_start
+10001032:	4a13      	ldr	r2, [pc, #76]	; (10001080 <__copy_data+0x2e>)
+	ldr	r3, =__ram_code_end
+10001034:	4b13      	ldr	r3, [pc, #76]	; (10001084 <__copy_data+0x32>)
+	bl  __copy_data
+10001036:	f000 f80c 	bl	10001052 <__copy_data>
+ *    __bss_end__: end of the BSS section.
+ *
+ *  Both addresses must be aligned to 4 bytes boundary.
+ */
+#ifndef __SKIP_BSS_CLEAR
+	ldr	r1, =__bss_start
+1000103a:	4913      	ldr	r1, [pc, #76]	; (10001088 <__copy_data+0x36>)
+	ldr	r2, =__bss_end
+1000103c:	4a13      	ldr	r2, [pc, #76]	; (1000108c <__copy_data+0x3a>)
+
+	movs	r0, 0
+1000103e:	2000      	movs	r0, #0
+
+	subs	r2, r1
+10001040:	1a52      	subs	r2, r2, r1
+	ble	.L_loop3_done
+10001042:	dd02      	ble.n	1000104a <Reset_Handler+0x32>
+
+.L_loop3:
+	subs	r2, #4
+10001044:	3a04      	subs	r2, #4
+	str	r0, [r1, r2]
+10001046:	5088      	str	r0, [r1, r2]
+	bgt	.L_loop3
+10001048:	dcfc      	bgt.n	10001044 <Reset_Handler+0x2c>
+.L_loop3_done:
+#endif /* __SKIP_BSS_CLEAR */
+
+#ifndef __SKIP_LIBC_INIT_ARRAY
+    ldr  r0, =__libc_init_array
+1000104a:	4811      	ldr	r0, [pc, #68]	; (10001090 <__copy_data+0x3e>)
+    blx  r0
+1000104c:	4780      	blx	r0
+#endif
+
+    ldr  r0, =main
+1000104e:	4811      	ldr	r0, [pc, #68]	; (10001094 <__copy_data+0x42>)
+    blx  r0
+10001050:	4780      	blx	r0
+
+10001052 <__copy_data>:
+ *    r3: end of the section to copy to
+ *
+ *  All addresses must be aligned to 4 bytes boundary.
+ *  Uses r0
+ */
+	subs	r3, r2
+10001052:	1a9b      	subs	r3, r3, r2
+	ble	.L_loop_done
+10001054:	dd03      	ble.n	1000105e <__copy_data+0xc>
+
+.L_loop:
+	subs	r3, #4
+10001056:	3b04      	subs	r3, #4
+	ldr	r0, [r1,r3]
+10001058:	58c8      	ldr	r0, [r1, r3]
+	str	r0, [r2,r3]
+1000105a:	50d0      	str	r0, [r2, r3]
+	bgt	.L_loop
+1000105c:	dcfb      	bgt.n	10001056 <__copy_data+0x4>
+
+.L_loop_done:
+	bx  lr
+1000105e:	4770      	bx	lr
+	ldr	r1, =eROData
+10001060:	10001238 	.word	0x10001238
+	ldr	r2, =VeneerStart
+10001064:	2000000c 	.word	0x2000000c
+	ldr	r3, =VeneerEnd
+10001068:	20000144 	.word	0x20000144
+    ldr  r0, =SystemInit
+1000106c:	100010fb 	.word	0x100010fb
+	ldr	r1, =DataLoadAddr
+10001070:	10001370 	.word	0x10001370
+	ldr	r2, =__data_start
+10001074:	20000548 	.word	0x20000548
+	ldr	r3, =__data_end
+10001078:	20000548 	.word	0x20000548
+	ldr	r1, =__ram_code_load
+1000107c:	10001370 	.word	0x10001370
+	ldr	r2, =__ram_code_start
+10001080:	20000548 	.word	0x20000548
+	ldr	r3, =__ram_code_end
+10001084:	20000548 	.word	0x20000548
+	ldr	r1, =__bss_start
+10001088:	20000548 	.word	0x20000548
+	ldr	r2, =__bss_end
+1000108c:	20000550 	.word	0x20000550
+    ldr  r0, =__libc_init_array
+10001090:	100011f1 	.word	0x100011f1
+    ldr  r0, =main
+10001094:	100011e9 	.word	0x100011e9
+
+10001098 <BCCU0_0_IRQHandler>:
+    
+    .thumb_func
+    .weak Default_handler
+    .type Default_handler, %function
+Default_handler:
+    b  .
+10001098:	e7fe      	b.n	10001098 <BCCU0_0_IRQHandler>
+	...
+
+1000109c <__aeabi_uidiv>:
+/***********************************************************************************************************************
+ * API IMPLEMENTATION - aeabi routines
+ **********************************************************************************************************************/
+/* This function performs unsigned integer division */
+uint32_t __aeabi_uidiv(uint32_t dividend, uint32_t divisor)
+{
+1000109c:	b580      	push	{r7, lr}
+1000109e:	b088      	sub	sp, #32
+100010a0:	af00      	add	r7, sp, #0
+100010a2:	6078      	str	r0, [r7, #4]
+100010a4:	6039      	str	r1, [r7, #0]
+ */
+__STATIC_FORCEINLINE uint32_t __get_PRIMASK(void)
+{
+  uint32_t result;
+
+  __ASM volatile ("MRS %0, primask" : "=r" (result) :: "memory");
+100010a6:	f3ef 8310 	mrs	r3, PRIMASK
+100010aa:	60fb      	str	r3, [r7, #12]
+  return(result);
+100010ac:	68fb      	ldr	r3, [r7, #12]
+  status = __get_PRIMASK();
+100010ae:	60bb      	str	r3, [r7, #8]
+  __ASM volatile ("cpsid i" : : : "memory");
+100010b0:	b672      	cpsid	i
+}
+100010b2:	46c0      	nop			; (mov r8, r8)
+  return status;
+100010b4:	68bb      	ldr	r3, [r7, #8]
+  uint32_t result;
+  uint32_t ics;
+  ics = critical_section_enter();
+100010b6:	61fb      	str	r3, [r7, #28]
+
+  MATH->DIVCON  = XMC_MATH_UNSIGNED_DIVISION;
+100010b8:	4b0c      	ldr	r3, [pc, #48]	; (100010ec <__aeabi_uidiv+0x50>)
+100010ba:	2204      	movs	r2, #4
+100010bc:	635a      	str	r2, [r3, #52]	; 0x34
+  MATH->DVD     = dividend;
+100010be:	4b0b      	ldr	r3, [pc, #44]	; (100010ec <__aeabi_uidiv+0x50>)
+100010c0:	687a      	ldr	r2, [r7, #4]
+100010c2:	621a      	str	r2, [r3, #32]
+  MATH->DVS     = divisor;
+100010c4:	4b09      	ldr	r3, [pc, #36]	; (100010ec <__aeabi_uidiv+0x50>)
+100010c6:	683a      	ldr	r2, [r7, #0]
+100010c8:	625a      	str	r2, [r3, #36]	; 0x24
+
+  result = MATH->QUOT;
+100010ca:	4b08      	ldr	r3, [pc, #32]	; (100010ec <__aeabi_uidiv+0x50>)
+100010cc:	6a9b      	ldr	r3, [r3, #40]	; 0x28
+100010ce:	61bb      	str	r3, [r7, #24]
+100010d0:	69fb      	ldr	r3, [r7, #28]
+100010d2:	617b      	str	r3, [r7, #20]
+100010d4:	697b      	ldr	r3, [r7, #20]
+100010d6:	613b      	str	r3, [r7, #16]
+  \details Assigns the given value to the Priority Mask Register.
+  \param [in]    priMask  Priority Mask
+ */
+__STATIC_FORCEINLINE void __set_PRIMASK(uint32_t priMask)
+{
+  __ASM volatile ("MSR primask, %0" : : "r" (priMask) : "memory");
+100010d8:	693b      	ldr	r3, [r7, #16]
+100010da:	f383 8810 	msr	PRIMASK, r3
+}
+100010de:	46c0      	nop			; (mov r8, r8)
+}
+100010e0:	46c0      	nop			; (mov r8, r8)
+
+  critical_section_exit(ics);
+
+  return result;
+100010e2:	69bb      	ldr	r3, [r7, #24]
+}
+100010e4:	0018      	movs	r0, r3
+100010e6:	46bd      	mov	sp, r7
+100010e8:	b008      	add	sp, #32
+100010ea:	bd80      	pop	{r7, pc}
+100010ec:	40030000 	.word	0x40030000
+
+100010f0 <_init>:
+  }
+}
+
+/* Init */
+void _init(void)
+{}
+100010f0:	b580      	push	{r7, lr}
+100010f2:	af00      	add	r7, sp, #0
+100010f4:	46c0      	nop			; (mov r8, r8)
+100010f6:	46bd      	mov	sp, r7
+100010f8:	bd80      	pop	{r7, pc}
+
+100010fa <SystemInit>:
+/*******************************************************************************
+ * API IMPLEMENTATION
+ *******************************************************************************/
+
+__WEAK void SystemInit(void)
+{    
+100010fa:	b580      	push	{r7, lr}
+100010fc:	af00      	add	r7, sp, #0
+  SystemCoreSetup();
+100010fe:	f000 f805 	bl	1000110c <SystemCoreSetup>
+  SystemCoreClockSetup();
+10001102:	f000 f81f 	bl	10001144 <SystemCoreClockSetup>
+}
+10001106:	46c0      	nop			; (mov r8, r8)
+10001108:	46bd      	mov	sp, r7
+1000110a:	bd80      	pop	{r7, pc}
+
+1000110c <SystemCoreSetup>:
+
+__WEAK void SystemCoreSetup(void)
+{
+1000110c:	b580      	push	{r7, lr}
+1000110e:	af00      	add	r7, sp, #0
+#ifndef USE_DYNAMIC_FLASH_WS
+  /* Fix flash wait states to 1 cycle (see DS Addendum) */
+  NVM->NVMCONF |= NVM_NVMCONF_WS_Msk;
+10001110:	4b0b      	ldr	r3, [pc, #44]	; (10001140 <SystemCoreSetup+0x34>)
+10001112:	891b      	ldrh	r3, [r3, #8]
+10001114:	b29b      	uxth	r3, r3
+10001116:	490a      	ldr	r1, [pc, #40]	; (10001140 <SystemCoreSetup+0x34>)
+10001118:	2280      	movs	r2, #128	; 0x80
+1000111a:	0152      	lsls	r2, r2, #5
+1000111c:	4313      	orrs	r3, r2
+1000111e:	b29b      	uxth	r3, r3
+10001120:	810b      	strh	r3, [r1, #8]
+  NVM->CONFIG1 |= NVM_CONFIG1_FIXWS_Msk;
+10001122:	4a07      	ldr	r2, [pc, #28]	; (10001140 <SystemCoreSetup+0x34>)
+10001124:	2348      	movs	r3, #72	; 0x48
+10001126:	5ad3      	ldrh	r3, [r2, r3]
+10001128:	b29b      	uxth	r3, r3
+1000112a:	4905      	ldr	r1, [pc, #20]	; (10001140 <SystemCoreSetup+0x34>)
+1000112c:	2280      	movs	r2, #128	; 0x80
+1000112e:	0112      	lsls	r2, r2, #4
+10001130:	4313      	orrs	r3, r2
+10001132:	b29a      	uxth	r2, r3
+10001134:	2348      	movs	r3, #72	; 0x48
+10001136:	52ca      	strh	r2, [r1, r3]
+#endif
+}
+10001138:	46c0      	nop			; (mov r8, r8)
+1000113a:	46bd      	mov	sp, r7
+1000113c:	bd80      	pop	{r7, pc}
+1000113e:	46c0      	nop			; (mov r8, r8)
+10001140:	40050000 	.word	0x40050000
+
+10001144 <SystemCoreClockSetup>:
+
+__WEAK void SystemCoreClockSetup(void)
+{
+10001144:	b580      	push	{r7, lr}
+10001146:	af00      	add	r7, sp, #0
+  /* Override values of CLOCK_VAL1 and CLOCK_VAL2 defined in vector table */
+  /* MCLK = 32MHz, PCLK = 64MHz */
+  
+  SCU_GENERAL->PASSWD = 0x000000C0UL; /* disable bit protection */
+10001148:	4b0a      	ldr	r3, [pc, #40]	; (10001174 <SystemCoreClockSetup+0x30>)
+1000114a:	22c0      	movs	r2, #192	; 0xc0
+1000114c:	625a      	str	r2, [r3, #36]	; 0x24
+  SCU_CLK->CLKCR = 0x3FF10100UL;
+1000114e:	4b0a      	ldr	r3, [pc, #40]	; (10001178 <SystemCoreClockSetup+0x34>)
+10001150:	4a0a      	ldr	r2, [pc, #40]	; (1000117c <SystemCoreClockSetup+0x38>)
+10001152:	601a      	str	r2, [r3, #0]
+  while((SCU_CLK->CLKCR & SCU_CLK_CLKCR_VDDC2LOW_Msk));
+10001154:	46c0      	nop			; (mov r8, r8)
+10001156:	4b08      	ldr	r3, [pc, #32]	; (10001178 <SystemCoreClockSetup+0x34>)
+10001158:	681a      	ldr	r2, [r3, #0]
+1000115a:	2380      	movs	r3, #128	; 0x80
+1000115c:	05db      	lsls	r3, r3, #23
+1000115e:	4013      	ands	r3, r2
+10001160:	d1f9      	bne.n	10001156 <SystemCoreClockSetup+0x12>
+  SCU_GENERAL->PASSWD = 0x000000C3UL; /* enable bit protection */
+10001162:	4b04      	ldr	r3, [pc, #16]	; (10001174 <SystemCoreClockSetup+0x30>)
+10001164:	22c3      	movs	r2, #195	; 0xc3
+10001166:	625a      	str	r2, [r3, #36]	; 0x24
+
+  SystemCoreClockUpdate();
+10001168:	f000 f80a 	bl	10001180 <SystemCoreClockUpdate>
+}
+1000116c:	46c0      	nop			; (mov r8, r8)
+1000116e:	46bd      	mov	sp, r7
+10001170:	bd80      	pop	{r7, pc}
+10001172:	46c0      	nop			; (mov r8, r8)
+10001174:	40010000 	.word	0x40010000
+10001178:	40010300 	.word	0x40010300
+1000117c:	3ff10100 	.word	0x3ff10100
+
+10001180 <SystemCoreClockUpdate>:
+
+__WEAK void SystemCoreClockUpdate(void)
+{
+10001180:	b580      	push	{r7, lr}
+10001182:	af00      	add	r7, sp, #0
+  static uint32_t IDIV, FDIV;
+
+  IDIV = ((SCU_CLK->CLKCR) & SCU_CLK_CLKCR_IDIV_Msk) >> SCU_CLK_CLKCR_IDIV_Pos;
+10001184:	4b12      	ldr	r3, [pc, #72]	; (100011d0 <SystemCoreClockUpdate+0x50>)
+10001186:	681b      	ldr	r3, [r3, #0]
+10001188:	0a1b      	lsrs	r3, r3, #8
+1000118a:	22ff      	movs	r2, #255	; 0xff
+1000118c:	401a      	ands	r2, r3
+1000118e:	4b11      	ldr	r3, [pc, #68]	; (100011d4 <SystemCoreClockUpdate+0x54>)
+10001190:	601a      	str	r2, [r3, #0]
+  FDIV = ((SCU_CLK->CLKCR) & SCU_CLK_CLKCR_FDIV_Msk) >> SCU_CLK_CLKCR_FDIV_Pos;
+10001192:	4b0f      	ldr	r3, [pc, #60]	; (100011d0 <SystemCoreClockUpdate+0x50>)
+10001194:	681b      	ldr	r3, [r3, #0]
+10001196:	22ff      	movs	r2, #255	; 0xff
+10001198:	401a      	ands	r2, r3
+1000119a:	4b0f      	ldr	r3, [pc, #60]	; (100011d8 <SystemCoreClockUpdate+0x58>)
+1000119c:	601a      	str	r2, [r3, #0]
+  
+  if (IDIV != 0)
+1000119e:	4b0d      	ldr	r3, [pc, #52]	; (100011d4 <SystemCoreClockUpdate+0x54>)
+100011a0:	681b      	ldr	r3, [r3, #0]
+100011a2:	2b00      	cmp	r3, #0
+100011a4:	d00e      	beq.n	100011c4 <SystemCoreClockUpdate+0x44>
+  {
+    /* Fractional divider is enabled and used */
+    SystemCoreClock = ((DCO1_FREQUENCY << 6U) / ((IDIV << 8) + FDIV)) << 1U;
+100011a6:	4b0b      	ldr	r3, [pc, #44]	; (100011d4 <SystemCoreClockUpdate+0x54>)
+100011a8:	681b      	ldr	r3, [r3, #0]
+100011aa:	021a      	lsls	r2, r3, #8
+100011ac:	4b0a      	ldr	r3, [pc, #40]	; (100011d8 <SystemCoreClockUpdate+0x58>)
+100011ae:	681b      	ldr	r3, [r3, #0]
+100011b0:	18d3      	adds	r3, r2, r3
+100011b2:	0019      	movs	r1, r3
+100011b4:	4809      	ldr	r0, [pc, #36]	; (100011dc <SystemCoreClockUpdate+0x5c>)
+100011b6:	f7ff ff71 	bl	1000109c <__aeabi_uidiv>
+100011ba:	0003      	movs	r3, r0
+100011bc:	005a      	lsls	r2, r3, #1
+100011be:	4b08      	ldr	r3, [pc, #32]	; (100011e0 <SystemCoreClockUpdate+0x60>)
+100011c0:	601a      	str	r2, [r3, #0]
+  else
+  {
+    /* Fractional divider bypassed. Simply divide DCO_DCLK by 2 */
+    SystemCoreClock = DCO1_FREQUENCY >> 1U;
+  }
+}
+100011c2:	e002      	b.n	100011ca <SystemCoreClockUpdate+0x4a>
+    SystemCoreClock = DCO1_FREQUENCY >> 1U;
+100011c4:	4b06      	ldr	r3, [pc, #24]	; (100011e0 <SystemCoreClockUpdate+0x60>)
+100011c6:	4a07      	ldr	r2, [pc, #28]	; (100011e4 <SystemCoreClockUpdate+0x64>)
+100011c8:	601a      	str	r2, [r3, #0]
+}
+100011ca:	46c0      	nop			; (mov r8, r8)
+100011cc:	46bd      	mov	sp, r7
+100011ce:	bd80      	pop	{r7, pc}
+100011d0:	40010300 	.word	0x40010300
+100011d4:	20000548 	.word	0x20000548
+100011d8:	2000054c 	.word	0x2000054c
+100011dc:	f4240000 	.word	0xf4240000
+100011e0:	20003ffc 	.word	0x20003ffc
+100011e4:	01e84800 	.word	0x01e84800
+
+100011e8 <main>:
+
+#include <xmc_common.h>
+
+
+int main(void)
+{
+100011e8:	b580      	push	{r7, lr}
+100011ea:	af00      	add	r7, sp, #0
+  while(1U)
+100011ec:	e7fe      	b.n	100011ec <main+0x4>
+	...
+
+100011f0 <__libc_init_array>:
+100011f0:	b570      	push	{r4, r5, r6, lr}
+100011f2:	2600      	movs	r6, #0
+100011f4:	4d0c      	ldr	r5, [pc, #48]	; (10001228 <__libc_init_array+0x38>)
+100011f6:	4c0d      	ldr	r4, [pc, #52]	; (1000122c <__libc_init_array+0x3c>)
+100011f8:	1b64      	subs	r4, r4, r5
+100011fa:	10a4      	asrs	r4, r4, #2
+100011fc:	42a6      	cmp	r6, r4
+100011fe:	d109      	bne.n	10001214 <__libc_init_array+0x24>
+10001200:	2600      	movs	r6, #0
+10001202:	f7ff ff75 	bl	100010f0 <_init>
+10001206:	4d0a      	ldr	r5, [pc, #40]	; (10001230 <__libc_init_array+0x40>)
+10001208:	4c0a      	ldr	r4, [pc, #40]	; (10001234 <__libc_init_array+0x44>)
+1000120a:	1b64      	subs	r4, r4, r5
+1000120c:	10a4      	asrs	r4, r4, #2
+1000120e:	42a6      	cmp	r6, r4
+10001210:	d105      	bne.n	1000121e <__libc_init_array+0x2e>
+10001212:	bd70      	pop	{r4, r5, r6, pc}
+10001214:	00b3      	lsls	r3, r6, #2
+10001216:	58eb      	ldr	r3, [r5, r3]
+10001218:	4798      	blx	r3
+1000121a:	3601      	adds	r6, #1
+1000121c:	e7ee      	b.n	100011fc <__libc_init_array+0xc>
+1000121e:	00b3      	lsls	r3, r6, #2
+10001220:	58eb      	ldr	r3, [r5, r3]
+10001222:	4798      	blx	r3
+10001224:	3601      	adds	r6, #1
+10001226:	e7f2      	b.n	1000120e <__libc_init_array+0x1e>
+10001228:	20000548 	.word	0x20000548
+1000122c:	20000548 	.word	0x20000548
+10001230:	20000548 	.word	0x20000548
+10001234:	20000548 	.word	0x20000548
+
+Disassembly of section .VENEER_Code:
+
+2000000c <HardFault_Veneer>:
+    
+    .align 1
+    
+    .globl HardFault_Veneer
+HardFault_Veneer:
+    LDR R0, =HardFault_Handler
+2000000c:	482c      	ldr	r0, [pc, #176]	; (200000c0 <BCCU0_0_Veneer+0x4>)
+    MOV PC,R0
+2000000e:	4687      	mov	pc, r0
+	...
+
+2000002c <SVC_Veneer>:
+    .long 0
+    .long 0
+/* ======================================================================== */
+    .globl SVC_Veneer
+SVC_Veneer:
+    LDR R0, =SVC_Handler
+2000002c:	4825      	ldr	r0, [pc, #148]	; (200000c4 <BCCU0_0_Veneer+0x8>)
+    MOV PC,R0
+2000002e:	4687      	mov	pc, r0
+	...
+
+20000038 <PendSV_Veneer>:
+    .long 0
+    .long 0
+/* ======================================================================== */
+    .globl PendSV_Veneer
+PendSV_Veneer:
+    LDR R0, =PendSV_Handler
+20000038:	4823      	ldr	r0, [pc, #140]	; (200000c8 <BCCU0_0_Veneer+0xc>)
+    MOV PC,R0
+2000003a:	4687      	mov	pc, r0
+
+2000003c <SysTick_Veneer>:
+/* ======================================================================== */
+    .globl SysTick_Veneer 
+SysTick_Veneer:
+    LDR R0, =SysTick_Handler
+2000003c:	4823      	ldr	r0, [pc, #140]	; (200000cc <BCCU0_0_Veneer+0x10>)
+    MOV PC,R0
+2000003e:	4687      	mov	pc, r0
+
+20000040 <SCU_0_Veneer>:
+/* ======================================================================== */
+    .globl SCU_0_Veneer 
+SCU_0_Veneer:
+    LDR R0, =SCU_0_IRQHandler
+20000040:	4823      	ldr	r0, [pc, #140]	; (200000d0 <BCCU0_0_Veneer+0x14>)
+    MOV PC,R0
+20000042:	4687      	mov	pc, r0
+
+20000044 <SCU_1_Veneer>:
+/* ======================================================================== */
+    .globl SCU_1_Veneer 
+SCU_1_Veneer:
+    LDR R0, =SCU_1_IRQHandler
+20000044:	4823      	ldr	r0, [pc, #140]	; (200000d4 <BCCU0_0_Veneer+0x18>)
+    MOV PC,R0
+20000046:	4687      	mov	pc, r0
+
+20000048 <SCU_2_Veneer>:
+/* ======================================================================== */
+    .globl SCU_2_Veneer
+SCU_2_Veneer:
+    LDR R0, =SCU_2_IRQHandler
+20000048:	4823      	ldr	r0, [pc, #140]	; (200000d8 <BCCU0_0_Veneer+0x1c>)
+    MOV PC,R0
+2000004a:	4687      	mov	pc, r0
+
+2000004c <SCU_3_Veneer>:
+/* ======================================================================== */
+    .globl SCU_3_Veneer 
+SCU_3_Veneer:
+    LDR R0, =ERU0_0_IRQHandler
+2000004c:	4823      	ldr	r0, [pc, #140]	; (200000dc <BCCU0_0_Veneer+0x20>)
+    MOV PC,R0
+2000004e:	4687      	mov	pc, r0
+
+20000050 <SCU_4_Veneer>:
+/* ======================================================================== */
+    .globl SCU_4_Veneer 
+SCU_4_Veneer:
+    LDR R0, =ERU0_1_IRQHandler
+20000050:	4823      	ldr	r0, [pc, #140]	; (200000e0 <BCCU0_0_Veneer+0x24>)
+    MOV PC,R0
+20000052:	4687      	mov	pc, r0
+
+20000054 <SCU_5_Veneer>:
+/* ======================================================================== */
+    .globl SCU_5_Veneer 
+SCU_5_Veneer:
+    LDR R0, =ERU0_2_IRQHandler
+20000054:	4823      	ldr	r0, [pc, #140]	; (200000e4 <BCCU0_0_Veneer+0x28>)
+    MOV PC,R0
+20000056:	4687      	mov	pc, r0
+
+20000058 <SCU_6_Veneer>:
+/* ======================================================================== */
+    .globl SCU_6_Veneer 
+SCU_6_Veneer:
+    LDR R0, =ERU0_3_IRQHandler
+20000058:	4823      	ldr	r0, [pc, #140]	; (200000e8 <BCCU0_0_Veneer+0x2c>)
+    MOV PC,R0
+2000005a:	4687      	mov	pc, r0
+
+2000005c <MATH_Veneer>:
+/* ======================================================================== */
+    .globl MATH_Veneer 
+MATH_Veneer:
+    LDR R0, =MATH0_0_IRQHandler
+2000005c:	4823      	ldr	r0, [pc, #140]	; (200000ec <BCCU0_0_Veneer+0x30>)
+    MOV PC,R0
+2000005e:	4687      	mov	pc, r0
+20000060:	00000000 	.word	0x00000000
+
+20000064 <USIC0_0_Veneer>:
+    .long 0
+/* ======================================================================== */
+    .globl USIC0_0_Veneer
+USIC0_0_Veneer:
+    LDR R0, =USIC0_0_IRQHandler
+20000064:	4822      	ldr	r0, [pc, #136]	; (200000f0 <BCCU0_0_Veneer+0x34>)
+    MOV PC,R0
+20000066:	4687      	mov	pc, r0
+
+20000068 <USIC0_1_Veneer>:
+/* ======================================================================== */
+    .globl USIC0_1_Veneer
+USIC0_1_Veneer:
+    LDR R0, =USIC0_1_IRQHandler
+20000068:	4822      	ldr	r0, [pc, #136]	; (200000f4 <BCCU0_0_Veneer+0x38>)
+    MOV PC,R0
+2000006a:	4687      	mov	pc, r0
+
+2000006c <USIC0_2_Veneer>:
+/* ======================================================================== */
+    .globl USIC0_2_Veneer
+USIC0_2_Veneer:
+    LDR R0, =USIC0_2_IRQHandler
+2000006c:	4822      	ldr	r0, [pc, #136]	; (200000f8 <BCCU0_0_Veneer+0x3c>)
+    MOV PC,R0
+2000006e:	4687      	mov	pc, r0
+
+20000070 <USIC0_3_Veneer>:
+/* ======================================================================== */
+    .globl USIC0_3_Veneer
+USIC0_3_Veneer:
+    LDR R0, =USIC0_3_IRQHandler
+20000070:	4822      	ldr	r0, [pc, #136]	; (200000fc <BCCU0_0_Veneer+0x40>)
+    MOV PC,R0
+20000072:	4687      	mov	pc, r0
+
+20000074 <USIC0_4_Veneer>:
+/* ======================================================================== */
+    .globl USIC0_4_Veneer
+USIC0_4_Veneer:
+    LDR R0, =USIC0_4_IRQHandler
+20000074:	4822      	ldr	r0, [pc, #136]	; (20000100 <BCCU0_0_Veneer+0x44>)
+    MOV PC,R0
+20000076:	4687      	mov	pc, r0
+
+20000078 <USIC0_5_Veneer>:
+/* ======================================================================== */
+    .globl USIC0_5_Veneer
+USIC0_5_Veneer:
+    LDR R0, =USIC0_5_IRQHandler
+20000078:	4822      	ldr	r0, [pc, #136]	; (20000104 <BCCU0_0_Veneer+0x48>)
+    MOV PC,R0
+2000007a:	4687      	mov	pc, r0
+
+2000007c <VADC0_C0_0_Veneer>:
+/* ======================================================================== */
+    .globl VADC0_C0_0_Veneer 
+VADC0_C0_0_Veneer:
+    LDR R0, =VADC0_C0_0_IRQHandler
+2000007c:	4822      	ldr	r0, [pc, #136]	; (20000108 <BCCU0_0_Veneer+0x4c>)
+    MOV PC,R0
+2000007e:	4687      	mov	pc, r0
+
+20000080 <VADC0_C0_1_Veneer>:
+/* ======================================================================== */
+    .globl VADC0_C0_1_Veneer
+VADC0_C0_1_Veneer:
+    LDR R0, =VADC0_C0_1_IRQHandler
+20000080:	4822      	ldr	r0, [pc, #136]	; (2000010c <BCCU0_0_Veneer+0x50>)
+    MOV PC,R0
+20000082:	4687      	mov	pc, r0
+
+20000084 <VADC0_G0_0_Veneer>:
+/* ======================================================================== */
+    .globl VADC0_G0_0_Veneer
+VADC0_G0_0_Veneer:
+    LDR R0, =VADC0_G0_0_IRQHandler
+20000084:	4822      	ldr	r0, [pc, #136]	; (20000110 <BCCU0_0_Veneer+0x54>)
+    MOV PC,R0
+20000086:	4687      	mov	pc, r0
+
+20000088 <VADC0_G0_1_Veneer>:
+/* ======================================================================== */
+    .globl VADC0_G0_1_Veneer
+VADC0_G0_1_Veneer:
+    LDR R0, =VADC0_G0_1_IRQHandler
+20000088:	4822      	ldr	r0, [pc, #136]	; (20000114 <BCCU0_0_Veneer+0x58>)
+    MOV PC,R0
+2000008a:	4687      	mov	pc, r0
+
+2000008c <VADC0_G1_0_Veneer>:
+/* ======================================================================== */
+    .globl VADC0_G1_0_Veneer
+VADC0_G1_0_Veneer:
+    LDR R0, =VADC0_G1_0_IRQHandler
+2000008c:	4822      	ldr	r0, [pc, #136]	; (20000118 <BCCU0_0_Veneer+0x5c>)
+    MOV PC,R0
+2000008e:	4687      	mov	pc, r0
+
+20000090 <VADC0_G1_1_Veneer>:
+/* ======================================================================== */
+    .globl VADC0_G1_1_Veneer
+VADC0_G1_1_Veneer:
+    LDR R0, =VADC0_G1_1_IRQHandler
+20000090:	4822      	ldr	r0, [pc, #136]	; (2000011c <BCCU0_0_Veneer+0x60>)
+    MOV PC,R0
+20000092:	4687      	mov	pc, r0
+
+20000094 <CCU40_0_Veneer>:
+/* ======================================================================== */
+    .globl CCU40_0_Veneer
+CCU40_0_Veneer:
+    LDR R0, =CCU40_0_IRQHandler
+20000094:	4822      	ldr	r0, [pc, #136]	; (20000120 <BCCU0_0_Veneer+0x64>)
+    MOV PC,R0
+20000096:	4687      	mov	pc, r0
+
+20000098 <CCU40_1_Veneer>:
+/* ======================================================================== */
+    .globl CCU40_1_Veneer
+CCU40_1_Veneer:
+    LDR R0, =CCU40_1_IRQHandler
+20000098:	4822      	ldr	r0, [pc, #136]	; (20000124 <BCCU0_0_Veneer+0x68>)
+    MOV PC,R0
+2000009a:	4687      	mov	pc, r0
+
+2000009c <CCU40_2_Veneer>:
+/* ======================================================================== */
+    .globl CCU40_2_Veneer
+CCU40_2_Veneer:
+    LDR R0, =CCU40_2_IRQHandler
+2000009c:	4822      	ldr	r0, [pc, #136]	; (20000128 <BCCU0_0_Veneer+0x6c>)
+    MOV PC,R0
+2000009e:	4687      	mov	pc, r0
+
+200000a0 <CCU40_3_Veneer>:
+/* ======================================================================== */
+    .globl CCU40_3_Veneer
+CCU40_3_Veneer:
+    LDR R0, =CCU40_3_IRQHandler
+200000a0:	4822      	ldr	r0, [pc, #136]	; (2000012c <BCCU0_0_Veneer+0x70>)
+    MOV PC,R0
+200000a2:	4687      	mov	pc, r0
+
+200000a4 <CCU80_0_Veneer>:
+/* ======================================================================== */
+    .globl CCU80_0_Veneer
+CCU80_0_Veneer:
+    LDR R0, =CCU80_0_IRQHandler
+200000a4:	4822      	ldr	r0, [pc, #136]	; (20000130 <BCCU0_0_Veneer+0x74>)
+    MOV PC,R0
+200000a6:	4687      	mov	pc, r0
+
+200000a8 <CCU80_1_Veneer>:
+/* ======================================================================== */
+    .globl CCU80_1_Veneer
+CCU80_1_Veneer:
+    LDR R0, =CCU80_1_IRQHandler
+200000a8:	4822      	ldr	r0, [pc, #136]	; (20000134 <BCCU0_0_Veneer+0x78>)
+    MOV PC,R0
+200000aa:	4687      	mov	pc, r0
+
+200000ac <POSIF0_0_Veneer>:
+/* ======================================================================== */
+    .globl POSIF0_0_Veneer
+POSIF0_0_Veneer:
+    LDR R0, =POSIF0_0_IRQHandler
+200000ac:	4822      	ldr	r0, [pc, #136]	; (20000138 <BCCU0_0_Veneer+0x7c>)
+    MOV PC,R0
+200000ae:	4687      	mov	pc, r0
+
+200000b0 <POSIF0_1_Veneer>:
+/* ======================================================================== */
+    .globl POSIF0_1_Veneer
+POSIF0_1_Veneer:
+    LDR R0, =POSIF0_1_IRQHandler
+200000b0:	4822      	ldr	r0, [pc, #136]	; (2000013c <BCCU0_0_Veneer+0x80>)
+    MOV PC,R0
+200000b2:	4687      	mov	pc, r0
+	...
+
+200000bc <BCCU0_0_Veneer>:
+    .long 0
+    .long 0
+/* ======================================================================== */
+    .globl BCCU0_0_Veneer
+BCCU0_0_Veneer:
+    LDR R0, =BCCU0_0_IRQHandler
+200000bc:	4820      	ldr	r0, [pc, #128]	; (20000140 <BCCU0_0_Veneer+0x84>)
+    MOV PC,R0
+200000be:	4687      	mov	pc, r0
+    LDR R0, =HardFault_Handler
+200000c0:	10001099 	.word	0x10001099
+    LDR R0, =SVC_Handler
+200000c4:	10001099 	.word	0x10001099
+    LDR R0, =PendSV_Handler
+200000c8:	10001099 	.word	0x10001099
+    LDR R0, =SysTick_Handler
+200000cc:	10001099 	.word	0x10001099
+    LDR R0, =SCU_0_IRQHandler
+200000d0:	10001099 	.word	0x10001099
+    LDR R0, =SCU_1_IRQHandler
+200000d4:	10001099 	.word	0x10001099
+    LDR R0, =SCU_2_IRQHandler
+200000d8:	10001099 	.word	0x10001099
+    LDR R0, =ERU0_0_IRQHandler
+200000dc:	10001099 	.word	0x10001099
+    LDR R0, =ERU0_1_IRQHandler
+200000e0:	10001099 	.word	0x10001099
+    LDR R0, =ERU0_2_IRQHandler
+200000e4:	10001099 	.word	0x10001099
+    LDR R0, =ERU0_3_IRQHandler
+200000e8:	10001099 	.word	0x10001099
+    LDR R0, =MATH0_0_IRQHandler
+200000ec:	10001099 	.word	0x10001099
+    LDR R0, =USIC0_0_IRQHandler
+200000f0:	10001099 	.word	0x10001099
+    LDR R0, =USIC0_1_IRQHandler
+200000f4:	10001099 	.word	0x10001099
+    LDR R0, =USIC0_2_IRQHandler
+200000f8:	10001099 	.word	0x10001099
+    LDR R0, =USIC0_3_IRQHandler
+200000fc:	10001099 	.word	0x10001099
+    LDR R0, =USIC0_4_IRQHandler
+20000100:	10001099 	.word	0x10001099
+    LDR R0, =USIC0_5_IRQHandler
+20000104:	10001099 	.word	0x10001099
+    LDR R0, =VADC0_C0_0_IRQHandler
+20000108:	10001099 	.word	0x10001099
+    LDR R0, =VADC0_C0_1_IRQHandler
+2000010c:	10001099 	.word	0x10001099
+    LDR R0, =VADC0_G0_0_IRQHandler
+20000110:	10001099 	.word	0x10001099
+    LDR R0, =VADC0_G0_1_IRQHandler
+20000114:	10001099 	.word	0x10001099
+    LDR R0, =VADC0_G1_0_IRQHandler
+20000118:	10001099 	.word	0x10001099
+    LDR R0, =VADC0_G1_1_IRQHandler
+2000011c:	10001099 	.word	0x10001099
+    LDR R0, =CCU40_0_IRQHandler
+20000120:	10001099 	.word	0x10001099
+    LDR R0, =CCU40_1_IRQHandler
+20000124:	10001099 	.word	0x10001099
+    LDR R0, =CCU40_2_IRQHandler
+20000128:	10001099 	.word	0x10001099
+    LDR R0, =CCU40_3_IRQHandler
+2000012c:	10001099 	.word	0x10001099
+    LDR R0, =CCU80_0_IRQHandler
+20000130:	10001099 	.word	0x10001099
+    LDR R0, =CCU80_1_IRQHandler
+20000134:	10001099 	.word	0x10001099
+    LDR R0, =POSIF0_0_IRQHandler
+20000138:	10001099 	.word	0x10001099
+    LDR R0, =POSIF0_1_IRQHandler
+2000013c:	10001099 	.word	0x10001099
+    LDR R0, =BCCU0_0_IRQHandler
+20000140:	10001099 	.word	0x10001099

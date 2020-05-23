@@ -1,0 +1,1491 @@
+   1              	 .cpu cortex-m0
+   2              	 .eabi_attribute 20,1
+   3              	 .eabi_attribute 21,1
+   4              	 .eabi_attribute 23,3
+   5              	 .eabi_attribute 24,1
+   6              	 .eabi_attribute 25,1
+   7              	 .eabi_attribute 26,1
+   8              	 .eabi_attribute 30,6
+   9              	 .eabi_attribute 34,0
+  10              	 .eabi_attribute 18,4
+  11              	 .file "xmc_posif.c"
+  12              	 .text
+  13              	.Ltext0:
+  14              	 .cfi_sections .debug_frame
+  15              	 .section .text.XMC_POSIF_Stop,"ax",%progbits
+  16              	 .align 1
+  17              	 .arch armv6s-m
+  18              	 .syntax unified
+  19              	 .code 16
+  20              	 .thumb_func
+  21              	 .fpu softvfp
+  23              	XMC_POSIF_Stop:
+  24              	.LFB61:
+  25              	 .file 1 "..//Libraries/XMCLib/inc/xmc_posif.h"
+   1:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+   2:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @file xmc_posif.h
+   3:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @date 2017-06-24
+   4:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+   5:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @cond
+   6:..//Libraries/XMCLib/inc/xmc_posif.h ****  **************************************************************************************************
+   7:..//Libraries/XMCLib/inc/xmc_posif.h ****  * XMClib v2.1.18 - XMC Peripheral Driver Library 
+   8:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+   9:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Copyright (c) 2015-2018, Infineon Technologies AG
+  10:..//Libraries/XMCLib/inc/xmc_posif.h ****  * All rights reserved.                        
+  11:..//Libraries/XMCLib/inc/xmc_posif.h ****  *                                             
+  12:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  13:..//Libraries/XMCLib/inc/xmc_posif.h ****  * following conditions are met:   
+  14:..//Libraries/XMCLib/inc/xmc_posif.h ****  *                                                                              
+  15:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  16:..//Libraries/XMCLib/inc/xmc_posif.h ****  * disclaimer.                        
+  17:..//Libraries/XMCLib/inc/xmc_posif.h ****  * 
+  18:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  19:..//Libraries/XMCLib/inc/xmc_posif.h ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  20:..//Libraries/XMCLib/inc/xmc_posif.h ****  * 
+  21:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  22:..//Libraries/XMCLib/inc/xmc_posif.h ****  * products derived from this software without specific prior written permission.                  
+  23:..//Libraries/XMCLib/inc/xmc_posif.h ****  *                                                                              
+  24:..//Libraries/XMCLib/inc/xmc_posif.h ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  25:..//Libraries/XMCLib/inc/xmc_posif.h ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  26:..//Libraries/XMCLib/inc/xmc_posif.h ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  27:..//Libraries/XMCLib/inc/xmc_posif.h ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  28:..//Libraries/XMCLib/inc/xmc_posif.h ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  29:..//Libraries/XMCLib/inc/xmc_posif.h ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  30:..//Libraries/XMCLib/inc/xmc_posif.h ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  31:..//Libraries/XMCLib/inc/xmc_posif.h ****  *                                                                              
+  32:..//Libraries/XMCLib/inc/xmc_posif.h ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  33:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  34:..//Libraries/XMCLib/inc/xmc_posif.h ****  **************************************************************************************************
+  35:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+  36:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Change History
+  37:..//Libraries/XMCLib/inc/xmc_posif.h ****  * --------------
+  38:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+  39:..//Libraries/XMCLib/inc/xmc_posif.h ****  * 2015-02-18:
+  40:..//Libraries/XMCLib/inc/xmc_posif.h ****  *     - Initial version
+  41:..//Libraries/XMCLib/inc/xmc_posif.h ****  *      
+  42:..//Libraries/XMCLib/inc/xmc_posif.h ****  * 2015-02-20:
+  43:..//Libraries/XMCLib/inc/xmc_posif.h ****  *     - Driver description added <BR>
+  44:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+  45:..//Libraries/XMCLib/inc/xmc_posif.h ****  * 2015-06-19:
+  46:..//Libraries/XMCLib/inc/xmc_posif.h ****  *     - Removed version macros and declaration of GetDriverVersion API <BR> 
+  47:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+  48:..//Libraries/XMCLib/inc/xmc_posif.h ****  * 2015-07-02:
+  49:..//Libraries/XMCLib/inc/xmc_posif.h ****  *     - Updated XMC_POSIF_QD_GetDirection API
+  50:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+  51:..//Libraries/XMCLib/inc/xmc_posif.h ****  * 2016-03-09:
+  52:..//Libraries/XMCLib/inc/xmc_posif.h ****  *     - Optimization of write only registers
+  53:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+  54:..//Libraries/XMCLib/inc/xmc_posif.h ****  * 2017-06-24
+  55:..//Libraries/XMCLib/inc/xmc_posif.h ****  *     - Added posif map connectivity file<br>
+  56:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+  57:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @endcond 
+  58:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+  59:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+  60:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+  61:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+  62:..//Libraries/XMCLib/inc/xmc_posif.h **** #ifndef XMC_POSIF_H
+  63:..//Libraries/XMCLib/inc/xmc_posif.h **** #define XMC_POSIF_H
+  64:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+  65:..//Libraries/XMCLib/inc/xmc_posif.h **** /**************************************************************************************************
+  66:..//Libraries/XMCLib/inc/xmc_posif.h ****  * HEADER FILES
+  67:..//Libraries/XMCLib/inc/xmc_posif.h ****  **************************************************************************************************
+  68:..//Libraries/XMCLib/inc/xmc_posif.h **** #include <xmc_common.h>
+  69:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+  70:..//Libraries/XMCLib/inc/xmc_posif.h **** #if defined(POSIF0)
+  71:..//Libraries/XMCLib/inc/xmc_posif.h **** #include <xmc_scu.h>
+  72:..//Libraries/XMCLib/inc/xmc_posif.h **** #include "xmc_posif_map.h"
+  73:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+  74:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+  75:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @addtogroup XMClib XMC Peripheral Library
+  76:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @{
+  77:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+  78:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+  79:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+  80:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @addtogroup POSIF
+  81:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @brief Position Interface Unit (POSIF) driver for the XMC microcontroller family <br>
+  82:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+  83:..//Libraries/XMCLib/inc/xmc_posif.h ****  * The POSIF unit is a flexible and powerful component for motor control systems that use
+  84:..//Libraries/XMCLib/inc/xmc_posif.h ****  * rotary encoders or hall sensors as feedback loop. It provides interface for motor position and v
+  85:..//Libraries/XMCLib/inc/xmc_posif.h ****  * POSIF unit works with CCU4 and CCU8 to enable position and velocity measurement and to control P
+  86:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+  87:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Driver is divided in three POSIF functional blocks - Hall Sensor Control (POSIF_HSC), Quadrature
+  88:..//Libraries/XMCLib/inc/xmc_posif.h ****  * MultiChannel Mode (POSIF_MCM). <br>
+  89:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+  90:..//Libraries/XMCLib/inc/xmc_posif.h ****  * POSIF driver features:
+  91:..//Libraries/XMCLib/inc/xmc_posif.h ****  * -#  Configuration structure XMC_POSIF_CONFIG_t and initialization function XMC_POSIF_Init() to c
+  92:..//Libraries/XMCLib/inc/xmc_posif.h ****  * -# Allows to change the operating mode using XMC_POSIF_SetMode()
+  93:..//Libraries/XMCLib/inc/xmc_posif.h ****  * -# Allows the selection of one of the four inputs (A, B, C or D) using XMC_POSIF_SelectInputSour
+  94:..//Libraries/XMCLib/inc/xmc_posif.h ****  * hall0, hall1 and hall2 signals. For quadrature decoder mode, inputs are phase A, phase B and ind
+  95:..//Libraries/XMCLib/inc/xmc_posif.h ****  * -#  Hall Sensor Control (APIs prefixed with XMC_POSIF_HSC_) <br>
+  96:..//Libraries/XMCLib/inc/xmc_posif.h ****  * 	-  Configuration structure XMC_POSIF_HSC_CONFIG_t and initialization function XMC_POSIF_HSC_Ini
+  97:..//Libraries/XMCLib/inc/xmc_posif.h ****  * 	-  Update current and expected hall pattern in shadow register using XMC_POSIF_HSC_SetHallPatte
+  98:..//Libraries/XMCLib/inc/xmc_posif.h ****  * 	- Allows immediate shadow transfer using XMC_POSIF_HSC_UpdateHallPattern()
+  99:..//Libraries/XMCLib/inc/xmc_posif.h ****  * -#  Quadrature Decoder (APIs prefixed with XMC_POSIF_QD_) <br>
+ 100:..//Libraries/XMCLib/inc/xmc_posif.h ****  * 	-  Configuration structure XMC_POSIF_QD_CONFIG_t and initialization function XMC_POSIF_QD_Init(
+ 101:..//Libraries/XMCLib/inc/xmc_posif.h ****  * 	-  Get direction of rotation using XMC_POSIF_QD_GetDirection()
+ 102:..//Libraries/XMCLib/inc/xmc_posif.h ****  * -#  MultiChannel Mode (APIs prefixed with XMC_POSIF_MCM_) <br>
+ 103:..//Libraries/XMCLib/inc/xmc_posif.h ****  *	-  Configuration structure XMC_POSIF_MCM_CONFIG_t and initialization function XMC_POSIF_MCM_Init
+ 104:..//Libraries/XMCLib/inc/xmc_posif.h ****  *	-  Update multichannel pattern in shadow register using XMC_POSIF_MCM_SetMultiChannelPattern()
+ 105:..//Libraries/XMCLib/inc/xmc_posif.h ****  *	-  Allows immediate shadow transfer using XMC_POSIF_MCM_UpdateMultiChannelPattern()
+ 106:..//Libraries/XMCLib/inc/xmc_posif.h ****  * -# User need to call respective init functions to configure POSIF operating mode. e.g to configu
+ 107:..//Libraries/XMCLib/inc/xmc_posif.h ****  * call both XMC_POSIF_HSC_Init() and XMC_POSIF_MCM_Init().
+ 108:..//Libraries/XMCLib/inc/xmc_posif.h ****  * -# Allows to enable and disable interrupt sources and assign to service request node using XMC_P
+ 109:..//Libraries/XMCLib/inc/xmc_posif.h ****  * 
+ 110:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @note POSIF is not available on XMC11 and XMC12 devices
+ 111:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 112:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @{
+ 113:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 114:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 115:..//Libraries/XMCLib/inc/xmc_posif.h **** /**************************************************************************************************
+ 116:..//Libraries/XMCLib/inc/xmc_posif.h ****  * MACROS
+ 117:..//Libraries/XMCLib/inc/xmc_posif.h ****  **************************************************************************************************
+ 118:..//Libraries/XMCLib/inc/xmc_posif.h **** #if ((UC_SERIES == XMC45) || (UC_SERIES == XMC44) || (UC_SERIES == XMC47) || (UC_SERIES == XMC48) |
+ 119:..//Libraries/XMCLib/inc/xmc_posif.h **** #define XMC_POSIF_CHECK_MODULE_PTR(PTR)  ( ((PTR)== POSIF0) || ((PTR)== POSIF1) ) /*< Check for val
+ 120:..//Libraries/XMCLib/inc/xmc_posif.h **** #else
+ 121:..//Libraries/XMCLib/inc/xmc_posif.h **** #define XMC_POSIF_CHECK_MODULE_PTR(PTR)  ( ((PTR)== POSIF0))  /*< Check for valid module pointer */
+ 122:..//Libraries/XMCLib/inc/xmc_posif.h **** #endif
+ 123:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 124:..//Libraries/XMCLib/inc/xmc_posif.h **** /**************************************************************************************************
+ 125:..//Libraries/XMCLib/inc/xmc_posif.h ****  * ENUMS
+ 126:..//Libraries/XMCLib/inc/xmc_posif.h ****  **************************************************************************************************
+ 127:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 128:..//Libraries/XMCLib/inc/xmc_posif.h ****  *  Defines the return status, to verify the POSIF related API calls. Use type @ref XMC_POSIF_STATU
+ 129:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 130:..//Libraries/XMCLib/inc/xmc_posif.h **** typedef enum XMC_POSIF_STATUS
+ 131:..//Libraries/XMCLib/inc/xmc_posif.h **** {
+ 132:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_STATUS_OK = 0U,     /**< API fulfills request */
+ 133:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_STATUS_ERROR        /**< API cannot fulfill request */
+ 134:..//Libraries/XMCLib/inc/xmc_posif.h **** } XMC_POSIF_STATUS_t;
+ 135:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 136:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 137:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Defines POSIF configurable modes.Use type @ref XMC_POSIF_MODE_t for this enum.
+ 138:..//Libraries/XMCLib/inc/xmc_posif.h ****  * The members defines the function selector(FSEL) bitfields of \a PCONF register.
+ 139:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 140:..//Libraries/XMCLib/inc/xmc_posif.h **** typedef enum XMC_POSIF_MODE
+ 141:..//Libraries/XMCLib/inc/xmc_posif.h **** {
+ 142:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_MODE_HALL_SENSOR = 0U, /**< Hall sensor mode */
+ 143:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_MODE_QD              , /**< Quadrature Decoder mode */
+ 144:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_MODE_MCM             , /**< Standalone Multichannel mode */
+ 145:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_MODE_MCM_QD           /**< Quadrature Decoder + Standalone Multichannel mode */
+ 146:..//Libraries/XMCLib/inc/xmc_posif.h **** } XMC_POSIF_MODE_t;
+ 147:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 148:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 149:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Defines POSIF configurable input ports.Use type @ref XMC_POSIF_INPUT_PORT_t for this enum.
+ 150:..//Libraries/XMCLib/inc/xmc_posif.h ****  * The member defines the respective input selector(INSELX) bitfields of \a PCONF register.
+ 151:..//Libraries/XMCLib/inc/xmc_posif.h ****  * It selects, which input is used for the phase or Hall input function (depending on the module is
+ 152:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Quadrature Decoder or Hall Sensor Mode). Same enum can be used to configure pattern update signa
+ 153:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \a PCONF register's \a MSETS bit field.
+ 154:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 155:..//Libraries/XMCLib/inc/xmc_posif.h **** typedef enum XMC_POSIF_INPUT_PORT
+ 156:..//Libraries/XMCLib/inc/xmc_posif.h **** {
+ 157:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_INPUT_PORT_A = 0U, /**< INPUT-A */
+ 158:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_INPUT_PORT_B     , /**< INPUT-B */
+ 159:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_INPUT_PORT_C     , /**< INPUT-C */
+ 160:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_INPUT_PORT_D     , /**< INPUT-D */
+ 161:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_INPUT_PORT_E     , /**< INPUT-E */
+ 162:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_INPUT_PORT_F     , /**< INPUT-F */
+ 163:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_INPUT_PORT_G     , /**< INPUT-G */
+ 164:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_INPUT_PORT_H       /**< INPUT-H */
+ 165:..//Libraries/XMCLib/inc/xmc_posif.h **** } XMC_POSIF_INPUT_PORT_t;
+ 166:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 167:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 168:..//Libraries/XMCLib/inc/xmc_posif.h ****  *  Defines active level of an input signal.Use type @ref XMC_POSIF_INPUT_ACTIVE_LEVEL_t for this e
+ 169:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 170:..//Libraries/XMCLib/inc/xmc_posif.h **** typedef enum XMC_POSIF_INPUT_ACTIVE_LEVEL
+ 171:..//Libraries/XMCLib/inc/xmc_posif.h **** {
+ 172:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_INPUT_ACTIVE_LEVEL_HIGH  = 0U, /**< Input - Active High */
+ 173:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_INPUT_ACTIVE_LEVEL_LOW         /**< Input - Active Low */
+ 174:..//Libraries/XMCLib/inc/xmc_posif.h **** } XMC_POSIF_INPUT_ACTIVE_LEVEL_t;
+ 175:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 176:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 177:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Defines POSIF input debounce filter configuration.POSIF inputs are connected to low pass filter 
+ 178:..//Libraries/XMCLib/inc/xmc_posif.h ****  * this enum is used to configure low pass filters cut off frequency.
+ 179:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Use type @ref XMC_POSIF_FILTER_t for this enum.
+ 180:..//Libraries/XMCLib/inc/xmc_posif.h ****  * The member defines the low pass filter configuration(LPC) bitfield of \a PCONF register.
+ 181:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 182:..//Libraries/XMCLib/inc/xmc_posif.h **** typedef enum XMC_POSIF_FILTER
+ 183:..//Libraries/XMCLib/inc/xmc_posif.h **** {
+ 184:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_FILTER_DISABLED     = 0U, /**< No filtering */
+ 185:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_FILTER_1_CLOCK_CYCLE    , /**< Filter of 1 Clock Cycle */
+ 186:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_FILTER_2_CLOCK_CYCLE    , /**< Filter of 2 Clock Cycles */
+ 187:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_FILTER_4_CLOCK_CYCLE    , /**< Filter of 4 Clock Cycles */
+ 188:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_FILTER_8_CLOCK_CYCLE    , /**< Filter of 8 Clock Cycles */
+ 189:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_FILTER_16_CLOCK_CYCLE   , /**< Filter of 16 Clock Cycles */
+ 190:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_FILTER_32_CLOCK_CYCLE   , /**< Filter of 32 Clock Cycles */
+ 191:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_FILTER_64_CLOCK_CYCLE     /**< Filter of 64 Clock Cycles */
+ 192:..//Libraries/XMCLib/inc/xmc_posif.h **** } XMC_POSIF_FILTER_t;
+ 193:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 194:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 195:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Defines POSIF events.Use type @ref XMC_POSIF_IRQ_EVENT_t for this enum.
+ 196:..//Libraries/XMCLib/inc/xmc_posif.h ****  * The member defines available event sources.It is used to configure which event to be used for
+ 197:..//Libraries/XMCLib/inc/xmc_posif.h ****  * interrupt generation using \a PFLGE register. [ PFLG,SPFLG,RPFLG]
+ 198:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 199:..//Libraries/XMCLib/inc/xmc_posif.h **** typedef enum XMC_POSIF_IRQ_EVENT
+ 200:..//Libraries/XMCLib/inc/xmc_posif.h **** {
+ 201:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_CHE                  = 0U, /**< Hall Mode : Correct Hall Event */
+ 202:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_WHE                  = 1U, /**< Hall Mode : Wrong Hall Event */
+ 203:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_HALL_INPUT           = 2U, /**< Hall Mode : Hall Input update */
+ 204:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_MCP_SHADOW_TRANSFER  = 4U, /**< Hall Mode + MCM Mode : MC Pattern shadow tran
+ 205:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_INDX                 = 8U, /**< Quadrature Mode : Index event detection */
+ 206:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_ERR                  = 9U, /**< Quadrature Mode : Quadrature Phase Error */
+ 207:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_CNT                  = 10U, /**< Quadrature Mode : Quadrature Clock event */
+ 208:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_DIR                  = 11U, /**< Quadrature Mode : Quadrature Direction chang
+ 209:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_IRQ_EVENT_PCLK                 = 12U  /**< Quadrature Mode : Quadrature period clock ge
+ 210:..//Libraries/XMCLib/inc/xmc_posif.h **** } XMC_POSIF_IRQ_EVENT_t;
+ 211:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 212:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 213:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Defines POSIF service request lines.Use type @ref XMC_POSIF_SR_ID_t for this enum.
+ 214:..//Libraries/XMCLib/inc/xmc_posif.h ****  * It used to connect POSIF event to required service request line.
+ 215:..//Libraries/XMCLib/inc/xmc_posif.h ****  * in \a PFLGE register for interrupt generation.
+ 216:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 217:..//Libraries/XMCLib/inc/xmc_posif.h **** typedef enum XMC_POSIF_SR_ID
+ 218:..//Libraries/XMCLib/inc/xmc_posif.h **** {
+ 219:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_SR_ID_0 = 0U, /**< SR-0 */
+ 220:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_SR_ID_1      /**< SR-1 */
+ 221:..//Libraries/XMCLib/inc/xmc_posif.h **** } XMC_POSIF_SR_ID_t;
+ 222:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 223:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 224:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Defines position decoder mode selection.Use type @ref XMC_POSIF_QD_MODE_t for this enum.
+ 225:..//Libraries/XMCLib/inc/xmc_posif.h ****  * The member defines configuration for the operation of the quadrature decoder mode.
+ 226:..//Libraries/XMCLib/inc/xmc_posif.h ****  * It used to configure \a QDC register.
+ 227:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 228:..//Libraries/XMCLib/inc/xmc_posif.h **** typedef enum XMC_POSIF_QD_MODE
+ 229:..//Libraries/XMCLib/inc/xmc_posif.h **** {
+ 230:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_QD_MODE_QUADRATURE       = 0U, /**< Standard Quadrature Mode */
+ 231:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_QD_MODE_DIRECTION_COUNT       /**< Direction Count Mode */
+ 232:..//Libraries/XMCLib/inc/xmc_posif.h **** } XMC_POSIF_QD_MODE_t;
+ 233:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 234:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 235:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Defines motor rotation direction.Use type @ref XMC_POSIF_QD_DIR_t for this enum.
+ 236:..//Libraries/XMCLib/inc/xmc_posif.h ****  * The member defines the direction in quadrature mode.
+ 237:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 238:..//Libraries/XMCLib/inc/xmc_posif.h **** typedef enum XMC_POSIF_QD_DIR
+ 239:..//Libraries/XMCLib/inc/xmc_posif.h **** {
+ 240:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_QD_DIR_COUNTERCLOCKWISE  = 0U, /**< Counter Clockwise */
+ 241:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_QD_DIR_CLOCKWISE              /**< Clockwise */
+ 242:..//Libraries/XMCLib/inc/xmc_posif.h **** } XMC_POSIF_QD_DIR_t;
+ 243:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 244:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 245:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Defines frequency of index signal generation.Use type @ref XMC_POSIF_QD_INDEX_GENERATION_t for t
+ 246:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Member represents available configuration for index marker generation using \a ICM  bit field in
+ 247:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 248:..//Libraries/XMCLib/inc/xmc_posif.h **** typedef enum XMC_POSIF_QD_INDEX_GENERATION
+ 249:..//Libraries/XMCLib/inc/xmc_posif.h **** {
+ 250:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_QD_INDEX_GENERATION_NEVER  = 0U, /**< Never generate the index marker signal */
+ 251:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_QD_INDEX_GENERATION_ONCE      , /**< Generate only once after the first revolution */
+ 252:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_QD_INDEX_GENERATION_ALWAYS      /**< Index marker generated upon every revolution */
+ 253:..//Libraries/XMCLib/inc/xmc_posif.h **** } XMC_POSIF_QD_INDEX_GENERATION_t;
+ 254:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 255:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 256:..//Libraries/XMCLib/inc/xmc_posif.h ****  *  Defines trigger edge in hall sensor mode.Use type @ref XMC_POSIF_HSC_TRIGGER_EDGE_t for this en
+ 257:..//Libraries/XMCLib/inc/xmc_posif.h ****  *  It can be used to configure \a PCONF register's \a SPES and \a MSES bit fields.
+ 258:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 259:..//Libraries/XMCLib/inc/xmc_posif.h **** typedef enum XMC_POSIF_HSC_TRIGGER_EDGE
+ 260:..//Libraries/XMCLib/inc/xmc_posif.h **** {
+ 261:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_HSC_TRIGGER_EDGE_RISING  = 0U, /**< Rising edge */
+ 262:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_HSC_TRIGGER_EDGE_FALLING      /**< Falling edge */
+ 263:..//Libraries/XMCLib/inc/xmc_posif.h **** } XMC_POSIF_HSC_TRIGGER_EDGE_t;
+ 264:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 265:..//Libraries/XMCLib/inc/xmc_posif.h **** /**************************************************************************************************
+ 266:..//Libraries/XMCLib/inc/xmc_posif.h ****  * DATA STRUCTURES
+ 267:..//Libraries/XMCLib/inc/xmc_posif.h ****  **************************************************************************************************
+ 268:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 269:..//Libraries/XMCLib/inc/xmc_posif.h **** /*Anonymous structure/union guard start*/
+ 270:..//Libraries/XMCLib/inc/xmc_posif.h **** #if defined(__CC_ARM)
+ 271:..//Libraries/XMCLib/inc/xmc_posif.h ****   #pragma push
+ 272:..//Libraries/XMCLib/inc/xmc_posif.h ****   #pragma anon_unions
+ 273:..//Libraries/XMCLib/inc/xmc_posif.h **** #elif defined(__TASKING__)
+ 274:..//Libraries/XMCLib/inc/xmc_posif.h ****   #pragma warning 586
+ 275:..//Libraries/XMCLib/inc/xmc_posif.h **** #endif
+ 276:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 277:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 278:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 279:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Defines POSIF peripheral register structure.Use type @ref XMC_POSIF_t for this data structure.
+ 280:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 281:..//Libraries/XMCLib/inc/xmc_posif.h **** typedef POSIF_GLOBAL_TypeDef XMC_POSIF_t;
+ 282:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 283:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 284:..//Libraries/XMCLib/inc/xmc_posif.h ****  *  Defines POSIF quadrature decoder initialization data structure.
+ 285:..//Libraries/XMCLib/inc/xmc_posif.h ****  *  Use type @ref XMC_POSIF_QD_CONFIG_t for this data structure.
+ 286:..//Libraries/XMCLib/inc/xmc_posif.h ****  *  It used to configure Quadrature mode using \a QDC register.
+ 287:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 288:..//Libraries/XMCLib/inc/xmc_posif.h **** typedef struct XMC_POSIF_QD_CONFIG
+ 289:..//Libraries/XMCLib/inc/xmc_posif.h **** {
+ 290:..//Libraries/XMCLib/inc/xmc_posif.h ****   XMC_POSIF_QD_MODE_t mode;      /**< Operational Mode of the quadrature encoder and decoder */
+ 291:..//Libraries/XMCLib/inc/xmc_posif.h ****   union
+ 292:..//Libraries/XMCLib/inc/xmc_posif.h ****   {
+ 293:..//Libraries/XMCLib/inc/xmc_posif.h ****     struct
+ 294:..//Libraries/XMCLib/inc/xmc_posif.h ****     {
+ 295:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t phase_a: 1;       /**< Phase-A active level configuration */
+ 296:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t phase_b: 1;       /**< Phase-B active level configuration */
+ 297:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t phase_leader: 1;  /**< Which of the two phase signals[Phase A or Phase B] leads the 
+ 298:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t : 1;
+ 299:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t index: 2;        /**< Index signal generation control. Use @ref XMC_POSIF_QD_INDEX_G
+ 300:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t : 26;
+ 301:..//Libraries/XMCLib/inc/xmc_posif.h ****     };
+ 302:..//Libraries/XMCLib/inc/xmc_posif.h ****     uint32_t qdc;
+ 303:..//Libraries/XMCLib/inc/xmc_posif.h ****   };
+ 304:..//Libraries/XMCLib/inc/xmc_posif.h **** } XMC_POSIF_QD_CONFIG_t;
+ 305:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 306:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 307:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Defines POSIF hall sensor control initialization data structure.
+ 308:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Use type @ref XMC_POSIF_HSC_CONFIG_t for this data structure.
+ 309:..//Libraries/XMCLib/inc/xmc_posif.h ****  * It used to initialize hall sensor mode configuration using \a PCONF register.
+ 310:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 311:..//Libraries/XMCLib/inc/xmc_posif.h **** typedef struct XMC_POSIF_HSC_CONFIG
+ 312:..//Libraries/XMCLib/inc/xmc_posif.h **** {
+ 313:..//Libraries/XMCLib/inc/xmc_posif.h ****   union
+ 314:..//Libraries/XMCLib/inc/xmc_posif.h ****   {
+ 315:..//Libraries/XMCLib/inc/xmc_posif.h ****     struct
+ 316:..//Libraries/XMCLib/inc/xmc_posif.h ****     {
+ 317:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t : 4;
+ 318:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t disable_idle_signal: 1;   /**< Should idle signal be disabled upon wrong hall event?
+ 319:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t : 11;
+ 320:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t sampling_trigger: 1;      /**< Of HSDA and HSDB, which one is to be used to trigger 
+ 321:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t sampling_trigger_edge: 1; /**< Which edge of the sampling trigger signal is to be co
+ 322:..//Libraries/XMCLib/inc/xmc_posif.h **** 	  uint32_t : 6;
+ 323:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t external_error_port: 2;    /**< Of the 4 external error ports, which one is to be co
+ 324:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t external_error_enable: 1;  /**< Should external errors lead to Wrong Hall event? */
+ 325:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t external_error_level: 1;   /**< What should be the active level of external error si
+ 326:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t: 4;
+ 327:..//Libraries/XMCLib/inc/xmc_posif.h ****     };
+ 328:..//Libraries/XMCLib/inc/xmc_posif.h ****     uint32_t hall_config;
+ 329:..//Libraries/XMCLib/inc/xmc_posif.h ****   };
+ 330:..//Libraries/XMCLib/inc/xmc_posif.h **** } XMC_POSIF_HSC_CONFIG_t;
+ 331:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 332:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 333:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Defines POSIF multi-channel mode initialization data structure.
+ 334:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Use type @ref XMC_POSIF_MCM_CONFIG_t for this data structure.
+ 335:..//Libraries/XMCLib/inc/xmc_posif.h ****  * It used to initialize multi channel mode configuration using \a PCONF register.
+ 336:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 337:..//Libraries/XMCLib/inc/xmc_posif.h **** typedef struct XMC_POSIF_MCM_CONFIG
+ 338:..//Libraries/XMCLib/inc/xmc_posif.h **** {
+ 339:..//Libraries/XMCLib/inc/xmc_posif.h ****   union
+ 340:..//Libraries/XMCLib/inc/xmc_posif.h ****   {
+ 341:..//Libraries/XMCLib/inc/xmc_posif.h ****     struct
+ 342:..//Libraries/XMCLib/inc/xmc_posif.h ****     {
+ 343:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t : 5;
+ 344:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t pattern_sw_update: 1; /**< should multi channel pattern updated by SW ? */
+ 345:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t : 12;
+ 346:..//Libraries/XMCLib/inc/xmc_posif.h **** 	  uint32_t pattern_update_trigger: 3; /**< Of the 8 update triggers, which one is to be considered
+ 347:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t pattern_trigger_edge: 1;  /**< Which edge of the pattern update trigger is to be con
+ 348:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t pwm_sync: 2;         /**< Of the 4 pwm sync inputs, which one is to be considered? *
+ 349:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t : 8;
+ 350:..//Libraries/XMCLib/inc/xmc_posif.h ****     };
+ 351:..//Libraries/XMCLib/inc/xmc_posif.h ****     uint32_t mcm_config;
+ 352:..//Libraries/XMCLib/inc/xmc_posif.h ****   };
+ 353:..//Libraries/XMCLib/inc/xmc_posif.h **** }XMC_POSIF_MCM_CONFIG_t;
+ 354:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 355:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 356:..//Libraries/XMCLib/inc/xmc_posif.h ****  *  Defines POSIF module initialization data structure.
+ 357:..//Libraries/XMCLib/inc/xmc_posif.h ****  *  Use type @ref XMC_POSIF_CONFIG_t for this data structure.
+ 358:..//Libraries/XMCLib/inc/xmc_posif.h ****  *  It is used to initialize POSIF module using \a PCONF register.
+ 359:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 360:..//Libraries/XMCLib/inc/xmc_posif.h **** typedef struct XMC_POSIF_CONFIG
+ 361:..//Libraries/XMCLib/inc/xmc_posif.h **** {
+ 362:..//Libraries/XMCLib/inc/xmc_posif.h ****   union
+ 363:..//Libraries/XMCLib/inc/xmc_posif.h ****   {
+ 364:..//Libraries/XMCLib/inc/xmc_posif.h ****     struct
+ 365:..//Libraries/XMCLib/inc/xmc_posif.h ****     {
+ 366:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t mode: 2;    /**< POSIF Operational mode. Use @ref XMC_POSIF_MODE_t to configure */
+ 367:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t :6;
+ 368:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t input0: 2; /**< Choice of input for Input-1 */
+ 369:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t input1: 2; /**< Choice of input for Input-2 */
+ 370:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t input2: 2; /**< Choice of input for Input-3 */
+ 371:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t :14;
+ 372:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t filter: 3; /**< Input filter configuration */
+ 373:..//Libraries/XMCLib/inc/xmc_posif.h ****       uint32_t: 1;
+ 374:..//Libraries/XMCLib/inc/xmc_posif.h ****     };
+ 375:..//Libraries/XMCLib/inc/xmc_posif.h ****     uint32_t pconf;
+ 376:..//Libraries/XMCLib/inc/xmc_posif.h ****   };
+ 377:..//Libraries/XMCLib/inc/xmc_posif.h **** } XMC_POSIF_CONFIG_t;
+ 378:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 379:..//Libraries/XMCLib/inc/xmc_posif.h **** /*Anonymous structure/union guard end*/
+ 380:..//Libraries/XMCLib/inc/xmc_posif.h **** #if defined(__CC_ARM)
+ 381:..//Libraries/XMCLib/inc/xmc_posif.h ****   #pragma pop
+ 382:..//Libraries/XMCLib/inc/xmc_posif.h **** #elif defined(__TASKING__)
+ 383:..//Libraries/XMCLib/inc/xmc_posif.h ****   #pragma warning restore
+ 384:..//Libraries/XMCLib/inc/xmc_posif.h **** #endif
+ 385:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 386:..//Libraries/XMCLib/inc/xmc_posif.h **** /**************************************************************************************************
+ 387:..//Libraries/XMCLib/inc/xmc_posif.h ****  * API Prototypes
+ 388:..//Libraries/XMCLib/inc/xmc_posif.h ****  **************************************************************************************************
+ 389:..//Libraries/XMCLib/inc/xmc_posif.h **** #ifdef __cplusplus
+ 390:..//Libraries/XMCLib/inc/xmc_posif.h **** extern "C" {
+ 391:..//Libraries/XMCLib/inc/xmc_posif.h **** #endif
+ 392:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 393:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 394:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module of type @ref XMC_POSIF_t
+ 395:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @retval None
+ 396:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 397:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Description</b><br>
+ 398:..//Libraries/XMCLib/inc/xmc_posif.h ****  * De-asserts the POSIF module from reset and enables the clock.\n
+ 399:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Configures \a PRCLR0 register's \a POSIF0RS or \a POSIF1RS bit field depends upon \a peripheral.
+ 400:..//Libraries/XMCLib/inc/xmc_posif.h ****  * If running on other than XMC45 device then it will ungate the peripheral clock.
+ 401:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 402:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Note</b><br>
+ 403:..//Libraries/XMCLib/inc/xmc_posif.h ****  * This is the first API which application must invoke to configure POSIF.
+ 404:..//Libraries/XMCLib/inc/xmc_posif.h ****  * It is internally called by XMC_POSIF_Init().
+ 405:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 406:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 407:..//Libraries/XMCLib/inc/xmc_posif.h ****  * XMC_POSIF_Disable(),XMC_POSIF_Init() \n\n\n
+ 408:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 409:..//Libraries/XMCLib/inc/xmc_posif.h **** void XMC_POSIF_Enable(XMC_POSIF_t *const peripheral);
+ 410:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 411:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 412:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module of type @ref XMC_POSIF_t
+ 413:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @retval None
+ 414:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 415:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Description</b><br>
+ 416:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Asserts the POSIF module into reset and disables the clock.\n
+ 417:..//Libraries/XMCLib/inc/xmc_posif.h ****  * If running on other than XMC45 device then in addition it will gate the peripheral clock.
+ 418:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Configures \a PRCLR0 register's \a POSIF0RS or \a POSIF1RS bitfield depends upon \a peripheral.
+ 419:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 420:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 421:..//Libraries/XMCLib/inc/xmc_posif.h ****  * XMC_POSIF_Enable()\n\n\n
+ 422:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 423:..//Libraries/XMCLib/inc/xmc_posif.h **** void XMC_POSIF_Disable(XMC_POSIF_t *const peripheral);
+ 424:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 425:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 426:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module of type @ref XMC_POSIF_t
+ 427:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @param config Pointer to POSIF configuration data(operation mode,input selection and filter conf
+ 428:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @retval None
+ 429:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 430:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Description</b><br>
+ 431:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Initialize POSIF module with \a config.\n
+ 432:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Configures POSIF global registers.This is the first API which application must invoke to configu
+ 433:..//Libraries/XMCLib/inc/xmc_posif.h ****  * It sets up parameters common to all the POSIF modes - hall sensor,quadrature decoder and multi-c
+ 434:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Configures \a PCONF register with mode of operation,input selection and filter configuration.
+ 435:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 436:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 437:..//Libraries/XMCLib/inc/xmc_posif.h ****  * XMC_POSIF_HSC_Init(),XMC_POSIF_QD_Init(),XMC_POSIF_MCM_Init() \n\n\n
+ 438:..//Libraries/XMCLib/inc/xmc_posif.h **** */
+ 439:..//Libraries/XMCLib/inc/xmc_posif.h **** void XMC_POSIF_Init(XMC_POSIF_t *const peripheral, const XMC_POSIF_CONFIG_t * const config);
+ 440:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 441:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 442:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 443:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @param config Pointer to hall sensor control initialization data of type @ref XMC_POSIF_HSC_CONF
+ 444:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @retval XMC_POSIF_STATUS_t  Returns @ref XMC_POSIF_STATUS_OK if configured in Hall Sensor Mode
+ 445:..//Libraries/XMCLib/inc/xmc_posif.h ****  *                             else return @ref XMC_POSIF_STATUS_ERROR.
+ 446:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 447:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Description</b><br>
+ 448:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Initializes hall sensor control mode.\n
+ 449:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Configures \a PCONF register with which POSIF input trigger to be used for
+ 450:..//Libraries/XMCLib/inc/xmc_posif.h ****  * sampling hall pattern.Configures \a PCONF register for idle signal generation for wrong hall eve
+ 451:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 452:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Note</b><br>
+ 453:..//Libraries/XMCLib/inc/xmc_posif.h ****  * It is necessary to have called XMC_POSIF_Init first with Hall sensor mode before invocation of t
+ 454:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 455:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 456:..//Libraries/XMCLib/inc/xmc_posif.h ****  * XMC_POSIF_Init() \n\n\n
+ 457:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 458:..//Libraries/XMCLib/inc/xmc_posif.h **** XMC_POSIF_STATUS_t XMC_POSIF_HSC_Init(XMC_POSIF_t *const peripheral, const XMC_POSIF_HSC_CONFIG_t *
+ 459:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 460:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 461:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 462:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @param config Pointer to quadrature decoder initialization data
+ 463:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @retval XMC_POSIF_STATUS_t Returns quadrature mode initialization status of type @ref XMC_POSIF_
+ 464:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 465:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Description</b><br>
+ 466:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Initializes quadrature decoder control mode.\n
+ 467:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Configures \a PCONF register with quadrature mode using @ref XMC_POSIF_QD_MODE_t data structure.
+ 468:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Initializes \a QDC register with quadrature mode configuration using @ref XMC_POSIF_QD_CONFIG_t 
+ 469:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 470:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Note</b><br>
+ 471:..//Libraries/XMCLib/inc/xmc_posif.h ****  * It is necessary to have called XMC_POSIF_Init first with Quadrature decoder mode before invocati
+ 472:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 473:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 474:..//Libraries/XMCLib/inc/xmc_posif.h ****  * XMC_POSIF_Init() \n\n\n
+ 475:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 476:..//Libraries/XMCLib/inc/xmc_posif.h **** XMC_POSIF_STATUS_t XMC_POSIF_QD_Init(XMC_POSIF_t *const peripheral, const XMC_POSIF_QD_CONFIG_t * c
+ 477:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 478:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 479:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 480:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @param config Pointer to quadrature decoder initialization data
+ 481:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @retval XMC_POSIF_STATUS_t Returns multi channel pattern initialization status of type @ref XMC_
+ 482:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 483:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Description</b><br>
+ 484:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Initializes multi channel mode in Hall mode, standalone multi-channel mode and quadrature with m
+ 485:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Configures \a PCONF register with multi channel mode using @ref XMC_POSIF_MCM_CONFIG_t data stru
+ 486:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 487:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Note</b><br>
+ 488:..//Libraries/XMCLib/inc/xmc_posif.h ****  * It is necessary to call XMC_POSIF_Init first before invocation of this API.
+ 489:..//Libraries/XMCLib/inc/xmc_posif.h ****  * For XMC_POSIF_MODE_HALL_SENSOR, it is necessary to have called XMC_POSIF_HSC_Init before invocat
+ 490:..//Libraries/XMCLib/inc/xmc_posif.h ****  * For XMC_POSIF_MODE_MCM_QD, it is necessary to have called XMC_POSIF_QD_Init before invocation of
+ 491:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 492:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 493:..//Libraries/XMCLib/inc/xmc_posif.h ****  * XMC_POSIF_Init(),XMC_POSIF_HSC_Init(),XMC_POSIF_QD_Init() \n\n\n
+ 494:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 495:..//Libraries/XMCLib/inc/xmc_posif.h **** XMC_POSIF_STATUS_t XMC_POSIF_MCM_Init(XMC_POSIF_t *const peripheral, const XMC_POSIF_MCM_CONFIG_t *
+ 496:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 497:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 498:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 499:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @param mode POSIF operating mode of type @ref XMC_POSIF_MODE_t
+ 500:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @retval None
+ 501:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 502:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Description</b><br>
+ 503:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Configures POSIF module for \a mode.\n
+ 504:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Configures \a PCONF register's a\ FSEL bitfield with \a mode.
+ 505:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Refer @ref XMC_POSIF_MODE_t for available options.
+ 506:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 507:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Note</b><br>
+ 508:..//Libraries/XMCLib/inc/xmc_posif.h ****  * POSIF module should be in stopped state while changing the operating mode.
+ 509:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 510:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 511:..//Libraries/XMCLib/inc/xmc_posif.h ****  * XMC_POSIF_Stop() \n\n\n
+ 512:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 513:..//Libraries/XMCLib/inc/xmc_posif.h **** __STATIC_INLINE void XMC_POSIF_SetMode(XMC_POSIF_t *const peripheral, const XMC_POSIF_MODE_t mode)
+ 514:..//Libraries/XMCLib/inc/xmc_posif.h **** {
+ 515:..//Libraries/XMCLib/inc/xmc_posif.h ****   peripheral->PCONF = ((peripheral->PCONF & ~(uint32_t)(POSIF_PCONF_FSEL_Msk)) |
+ 516:..//Libraries/XMCLib/inc/xmc_posif.h ****                      (((uint32_t)mode << POSIF_PCONF_FSEL_Pos) & (uint32_t)POSIF_PCONF_FSEL_Msk));
+ 517:..//Libraries/XMCLib/inc/xmc_posif.h **** }
+ 518:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 519:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 520:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 521:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @param input0 Choice of input for input 0 [0-3]
+ 522:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @param input1 Choice of input for input 1 [0-3]
+ 523:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @param input2 Choice of input for input 2 [0-3]
+ 524:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @retval None
+ 525:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 526:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Description</b><br>
+ 527:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Configures which input to be connected to POSIF module. \n
+ 528:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Configures \a PCONF register's INSEL0,INSEL1,INSEL2 bit fields with source for the input connect
+ 529:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \a input1, \a input2 respectively.
+ 530:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 531:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Note</b><br>
+ 532:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Configures which input is used for the Phase X or Hall input X function depending upon the modul
+ 533:..//Libraries/XMCLib/inc/xmc_posif.h ****  * set for Quadrature Decoder or Hall Sensor Mode.
+ 534:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 535:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 536:..//Libraries/XMCLib/inc/xmc_posif.h ****  * XMC_POSIF_Init() \n\n\n
+ 537:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 538:..//Libraries/XMCLib/inc/xmc_posif.h **** void XMC_POSIF_SelectInputSource(XMC_POSIF_t *const peripheral, const XMC_POSIF_INPUT_PORT_t input0
+ 539:..//Libraries/XMCLib/inc/xmc_posif.h ****     const XMC_POSIF_INPUT_PORT_t input1, const XMC_POSIF_INPUT_PORT_t input2);
+ 540:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 541:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 542:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 543:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 544:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @retval None
+ 545:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 546:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Description</b><br>
+ 547:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Starts POSIF \a peripheral functional state machine.\n
+ 548:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Starts POSIF state machine for \a peripheral.Configures \a PRUNS register's \a SRB bit field wit
+ 549:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 550:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Note</b><br>
+ 551:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Global properties of POSIF along with mode specific properties should have been initialized befo
+ 552:..//Libraries/XMCLib/inc/xmc_posif.h ****  * FSM.
+ 553:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 554:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 555:..//Libraries/XMCLib/inc/xmc_posif.h ****  * XMC_POSIF_Stop(),XMC_POSIF_IsRunning() \n\n\n
+ 556:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 557:..//Libraries/XMCLib/inc/xmc_posif.h **** __STATIC_INLINE void XMC_POSIF_Start(XMC_POSIF_t *const peripheral)
+ 558:..//Libraries/XMCLib/inc/xmc_posif.h **** {
+ 559:..//Libraries/XMCLib/inc/xmc_posif.h ****   peripheral->PRUNS = (uint32_t)POSIF_PRUNS_SRB_Msk;
+ 560:..//Libraries/XMCLib/inc/xmc_posif.h **** }
+ 561:..//Libraries/XMCLib/inc/xmc_posif.h **** 
+ 562:..//Libraries/XMCLib/inc/xmc_posif.h **** /**
+ 563:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @param peripheral Pointer to an instance of POSIF module
+ 564:..//Libraries/XMCLib/inc/xmc_posif.h ****  * @retval None
+ 565:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 566:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Description</b><br>
+ 567:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Stops POSIF \a peripheral functional state machine.\n
+ 568:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Stop POSIF functional state machine and clears current internal status of the \a peripheral.
+ 569:..//Libraries/XMCLib/inc/xmc_posif.h ****  * Configures \a PRUNC register's \a CRB bit field with 1.
+ 570:..//Libraries/XMCLib/inc/xmc_posif.h ****  *
+ 571:..//Libraries/XMCLib/inc/xmc_posif.h ****  * \par<b>Related APIs:</b><BR>
+ 572:..//Libraries/XMCLib/inc/xmc_posif.h ****  * XMC_POSIF_Start(),XMC_POSIF_IsRunning() \n\n\n
+ 573:..//Libraries/XMCLib/inc/xmc_posif.h ****  */
+ 574:..//Libraries/XMCLib/inc/xmc_posif.h **** __STATIC_INLINE void XMC_POSIF_Stop(XMC_POSIF_t *const peripheral)
+ 575:..//Libraries/XMCLib/inc/xmc_posif.h **** {
+  26              	 .loc 1 575 1
+  27              	 .cfi_startproc
+  28              	 
+  29              	 
+  30 0000 80B5     	 push {r7,lr}
+  31              	.LCFI0:
+  32              	 .cfi_def_cfa_offset 8
+  33              	 .cfi_offset 7,-8
+  34              	 .cfi_offset 14,-4
+  35 0002 82B0     	 sub sp,sp,#8
+  36              	.LCFI1:
+  37              	 .cfi_def_cfa_offset 16
+  38 0004 00AF     	 add r7,sp,#0
+  39              	.LCFI2:
+  40              	 .cfi_def_cfa_register 7
+  41 0006 7860     	 str r0,[r7,#4]
+ 576:..//Libraries/XMCLib/inc/xmc_posif.h ****   peripheral->PRUNC = (uint32_t)(POSIF_PRUNC_CRB_Msk | POSIF_PRUNC_CSM_Msk);
+  42              	 .loc 1 576 21
+  43 0008 7B68     	 ldr r3,[r7,#4]
+  44 000a 0322     	 movs r2,#3
+  45 000c DA60     	 str r2,[r3,#12]
+ 577:..//Libraries/XMCLib/inc/xmc_posif.h **** }
+  46              	 .loc 1 577 1
+  47 000e C046     	 nop
+  48 0010 BD46     	 mov sp,r7
+  49 0012 02B0     	 add sp,sp,#8
+  50              	 
+  51 0014 80BD     	 pop {r7,pc}
+  52              	 .cfi_endproc
+  53              	.LFE61:
+  55              	 .section .text.XMC_POSIF_Enable,"ax",%progbits
+  56              	 .align 1
+  57              	 .global XMC_POSIF_Enable
+  58              	 .syntax unified
+  59              	 .code 16
+  60              	 .thumb_func
+  61              	 .fpu softvfp
+  63              	XMC_POSIF_Enable:
+  64              	.LFB84:
+  65              	 .file 2 "../Libraries/XMCLib/src/xmc_posif.c"
+   1:../Libraries/XMCLib/src/xmc_posif.c **** /**
+   2:../Libraries/XMCLib/src/xmc_posif.c ****  * @file xmc_posif.c
+   3:../Libraries/XMCLib/src/xmc_posif.c ****  * @date 2017-02-25
+   4:../Libraries/XMCLib/src/xmc_posif.c ****  *
+   5:../Libraries/XMCLib/src/xmc_posif.c ****  * @cond
+   6:../Libraries/XMCLib/src/xmc_posif.c ****  **********************************************************************************
+   7:../Libraries/XMCLib/src/xmc_posif.c ****  * XMClib v2.1.18 - XMC Peripheral Driver Library 
+   8:../Libraries/XMCLib/src/xmc_posif.c ****  *
+   9:../Libraries/XMCLib/src/xmc_posif.c ****  * Copyright (c) 2015-2018, Infineon Technologies AG
+  10:../Libraries/XMCLib/src/xmc_posif.c ****  * All rights reserved.                        
+  11:../Libraries/XMCLib/src/xmc_posif.c ****  *                                             
+  12:../Libraries/XMCLib/src/xmc_posif.c ****  * Redistribution and use in source and binary forms, with or without           
+  13:../Libraries/XMCLib/src/xmc_posif.c ****  * modification,are permitted provided that the following conditions are met:   
+  14:../Libraries/XMCLib/src/xmc_posif.c ****  *                                                                              
+  15:../Libraries/XMCLib/src/xmc_posif.c ****  *   Redistributions of source code must retain the above copyright notice,      
+  16:../Libraries/XMCLib/src/xmc_posif.c ****  *   this list of conditions and the following disclaimer.                        
+  17:../Libraries/XMCLib/src/xmc_posif.c ****  * 
+  18:../Libraries/XMCLib/src/xmc_posif.c ****  *   Redistributions in binary form must reproduce the above copyright notice,   
+  19:../Libraries/XMCLib/src/xmc_posif.c ****  *   this list of conditions and the following disclaimer in the documentation    
+  20:../Libraries/XMCLib/src/xmc_posif.c ****  *   and/or other materials provided with the distribution.                       
+  21:../Libraries/XMCLib/src/xmc_posif.c ****  * 
+  22:../Libraries/XMCLib/src/xmc_posif.c ****  *   Neither the name of the copyright holders nor the names of its contributors 
+  23:../Libraries/XMCLib/src/xmc_posif.c ****  *   may be used to endorse or promote products derived from this software without
+  24:../Libraries/XMCLib/src/xmc_posif.c ****  *   specific prior written permission.                                           
+  25:../Libraries/XMCLib/src/xmc_posif.c ****  *                                                                              
+  26:../Libraries/XMCLib/src/xmc_posif.c ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"  
+  27:../Libraries/XMCLib/src/xmc_posif.c ****  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE    
+  28:../Libraries/XMCLib/src/xmc_posif.c ****  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE   
+  29:../Libraries/XMCLib/src/xmc_posif.c ****  * ARE  DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE   
+  30:../Libraries/XMCLib/src/xmc_posif.c ****  * LIABLE  FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR         
+  31:../Libraries/XMCLib/src/xmc_posif.c ****  * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF         
+  32:../Libraries/XMCLib/src/xmc_posif.c ****  * SUBSTITUTE GOODS OR  SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS    
+  33:../Libraries/XMCLib/src/xmc_posif.c ****  * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN      
+  34:../Libraries/XMCLib/src/xmc_posif.c ****  * CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)       
+  35:../Libraries/XMCLib/src/xmc_posif.c ****  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE   
+  36:../Libraries/XMCLib/src/xmc_posif.c ****  * POSSIBILITY OF SUCH DAMAGE.                                                  
+  37:../Libraries/XMCLib/src/xmc_posif.c ****  *                                                                              
+  38:../Libraries/XMCLib/src/xmc_posif.c ****  * To improve the quality of the software, users are encouraged to share        
+  39:../Libraries/XMCLib/src/xmc_posif.c ****  * modifications, enhancements or bug fixes with Infineon Technologies AG       
+  40:../Libraries/XMCLib/src/xmc_posif.c ****  * dave@infineon.com).                                                          
+  41:../Libraries/XMCLib/src/xmc_posif.c ****  **********************************************************************************
+  42:../Libraries/XMCLib/src/xmc_posif.c ****  *
+  43:../Libraries/XMCLib/src/xmc_posif.c ****  * Change History
+  44:../Libraries/XMCLib/src/xmc_posif.c ****  * --------------
+  45:../Libraries/XMCLib/src/xmc_posif.c ****  *
+  46:../Libraries/XMCLib/src/xmc_posif.c ****  * 2015-02-18:
+  47:../Libraries/XMCLib/src/xmc_posif.c ****  *     - Initial version
+  48:../Libraries/XMCLib/src/xmc_posif.c ****  *      
+  49:../Libraries/XMCLib/src/xmc_posif.c ****  * 2015-02-20:
+  50:../Libraries/XMCLib/src/xmc_posif.c ****  *     - Driver description added <BR>
+  51:../Libraries/XMCLib/src/xmc_posif.c ****  *
+  52:../Libraries/XMCLib/src/xmc_posif.c ****  * 2015-04-30:
+  53:../Libraries/XMCLib/src/xmc_posif.c ****  *     - XMC_POSIF_Enable and XMC_POSIF_Disable APIs updated for POSIF1 peripheral check <BR>
+  54:../Libraries/XMCLib/src/xmc_posif.c ****  *
+  55:../Libraries/XMCLib/src/xmc_posif.c ****  * 2015-06-19:
+  56:../Libraries/XMCLib/src/xmc_posif.c ****  *     - Removed GetDriverVersion API <BR> 
+  57:../Libraries/XMCLib/src/xmc_posif.c ****  *
+  58:../Libraries/XMCLib/src/xmc_posif.c ****  * 2017-02-25:
+  59:../Libraries/XMCLib/src/xmc_posif.c ****  *     - XMC_POSIF_Enable() and XMC_POSIF_Disable() fixed compilation warnings
+  60:../Libraries/XMCLib/src/xmc_posif.c ****  *
+  61:../Libraries/XMCLib/src/xmc_posif.c ****  * @endcond 
+  62:../Libraries/XMCLib/src/xmc_posif.c ****  *
+  63:../Libraries/XMCLib/src/xmc_posif.c ****  */
+  64:../Libraries/XMCLib/src/xmc_posif.c **** 
+  65:../Libraries/XMCLib/src/xmc_posif.c **** /**************************************************************************************************
+  66:../Libraries/XMCLib/src/xmc_posif.c ****  * HEADER FILES
+  67:../Libraries/XMCLib/src/xmc_posif.c ****  **************************************************************************************************
+  68:../Libraries/XMCLib/src/xmc_posif.c **** #include <xmc_posif.h>
+  69:../Libraries/XMCLib/src/xmc_posif.c **** 
+  70:../Libraries/XMCLib/src/xmc_posif.c **** /* POSIF is not available on XMC1100 and XMC1200 */
+  71:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(POSIF0)
+  72:../Libraries/XMCLib/src/xmc_posif.c **** #include <xmc_scu.h>
+  73:../Libraries/XMCLib/src/xmc_posif.c **** 
+  74:../Libraries/XMCLib/src/xmc_posif.c **** /**************************************************************************************************
+  75:../Libraries/XMCLib/src/xmc_posif.c ****  * MACROS
+  76:../Libraries/XMCLib/src/xmc_posif.c ****  **************************************************************************************************
+  77:../Libraries/XMCLib/src/xmc_posif.c **** #define XMC_POSIF_PCONF_INSEL_Msk        (0x3fUL << POSIF_PCONF_INSEL0_Pos) /*< Mask for input pins
+  78:../Libraries/XMCLib/src/xmc_posif.c **** #define XMC_POSIF_INSEL_MAX              (4U) /*< Maximum possible input selector */
+  79:../Libraries/XMCLib/src/xmc_posif.c **** 
+  80:../Libraries/XMCLib/src/xmc_posif.c **** /**************************************************************************************************
+  81:../Libraries/XMCLib/src/xmc_posif.c ****  * LOCAL ROUTINES
+  82:../Libraries/XMCLib/src/xmc_posif.c ****  **************************************************************************************************
+  83:../Libraries/XMCLib/src/xmc_posif.c **** #ifdef XMC_ASSERT_ENABLE
+  84:../Libraries/XMCLib/src/xmc_posif.c **** __STATIC_INLINE bool XMC_POSIF_IsPeripheralValid(const XMC_POSIF_t *const peripheral)
+  85:../Libraries/XMCLib/src/xmc_posif.c **** {
+  86:../Libraries/XMCLib/src/xmc_posif.c ****   bool tmp;
+  87:../Libraries/XMCLib/src/xmc_posif.c **** 
+  88:../Libraries/XMCLib/src/xmc_posif.c ****   tmp = (peripheral == POSIF0);
+  89:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(POSIF1)  
+  90:../Libraries/XMCLib/src/xmc_posif.c ****   tmp |= (peripheral == POSIF1);
+  91:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+  92:../Libraries/XMCLib/src/xmc_posif.c **** 
+  93:../Libraries/XMCLib/src/xmc_posif.c ****   return tmp;  
+  94:../Libraries/XMCLib/src/xmc_posif.c **** }
+  95:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+  96:../Libraries/XMCLib/src/xmc_posif.c **** /**************************************************************************************************
+  97:../Libraries/XMCLib/src/xmc_posif.c ****  * API IMPLEMENTATION
+  98:../Libraries/XMCLib/src/xmc_posif.c ****  **************************************************************************************************
+  99:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 100:../Libraries/XMCLib/src/xmc_posif.c **** /* API to enable the POSIF module */
+ 101:../Libraries/XMCLib/src/xmc_posif.c **** void XMC_POSIF_Enable(XMC_POSIF_t *const peripheral)
+ 102:../Libraries/XMCLib/src/xmc_posif.c **** {
+  66              	 .loc 2 102 1
+  67              	 .cfi_startproc
+  68              	 
+  69              	 
+  70 0000 80B5     	 push {r7,lr}
+  71              	.LCFI3:
+  72              	 .cfi_def_cfa_offset 8
+  73              	 .cfi_offset 7,-8
+  74              	 .cfi_offset 14,-4
+  75 0002 82B0     	 sub sp,sp,#8
+  76              	.LCFI4:
+  77              	 .cfi_def_cfa_offset 16
+  78 0004 00AF     	 add r7,sp,#0
+  79              	.LCFI5:
+  80              	 .cfi_def_cfa_register 7
+  81 0006 7860     	 str r0,[r7,#4]
+ 103:../Libraries/XMCLib/src/xmc_posif.c **** #if UC_FAMILY == XMC4
+ 104:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_SCU_CLOCK_EnableClock(XMC_SCU_CLOCK_CCU);
+ 105:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 106:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 107:../Libraries/XMCLib/src/xmc_posif.c ****   if (peripheral == POSIF0)
+  82              	 .loc 2 107 6
+  83 0008 7B68     	 ldr r3,[r7,#4]
+  84 000a 054A     	 ldr r2,.L5
+  85 000c 9342     	 cmp r3,r2
+  86 000e 02D1     	 bne .L4
+ 108:../Libraries/XMCLib/src/xmc_posif.c ****   {
+ 109:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(CLOCK_GATING_SUPPORTED)
+ 110:../Libraries/XMCLib/src/xmc_posif.c ****     XMC_SCU_CLOCK_UngatePeripheralClock(XMC_SCU_PERIPHERAL_CLOCK_POSIF0);
+  87              	 .loc 2 110 5
+  88 0010 8020     	 movs r0,#128
+  89 0012 FFF7FEFF 	 bl XMC_SCU_CLOCK_UngatePeripheralClock
+  90              	.L4:
+ 111:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 112:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(PERIPHERAL_RESET_SUPPORTED)
+ 113:../Libraries/XMCLib/src/xmc_posif.c ****       XMC_SCU_RESET_DeassertPeripheralReset(XMC_SCU_PERIPHERAL_RESET_POSIF0);
+ 114:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 115:../Libraries/XMCLib/src/xmc_posif.c ****   }
+ 116:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(POSIF1)
+ 117:../Libraries/XMCLib/src/xmc_posif.c ****   else if (peripheral == POSIF1)
+ 118:../Libraries/XMCLib/src/xmc_posif.c ****   {
+ 119:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(CLOCK_GATING_SUPPORTED)
+ 120:../Libraries/XMCLib/src/xmc_posif.c ****       XMC_SCU_CLOCK_UngatePeripheralClock(XMC_SCU_PERIPHERAL_CLOCK_POSIF1);
+ 121:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 122:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(PERIPHERAL_RESET_SUPPORTED)
+ 123:../Libraries/XMCLib/src/xmc_posif.c ****       XMC_SCU_RESET_DeassertPeripheralReset(XMC_SCU_PERIPHERAL_RESET_POSIF1);
+ 124:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 125:../Libraries/XMCLib/src/xmc_posif.c ****   }
+ 126:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 127:../Libraries/XMCLib/src/xmc_posif.c ****   else
+ 128:../Libraries/XMCLib/src/xmc_posif.c ****   {
+ 129:../Libraries/XMCLib/src/xmc_posif.c ****     XMC_ASSERT("XMC_POSIF_Disable:Invalid module pointer", 0);
+ 130:../Libraries/XMCLib/src/xmc_posif.c ****   }
+ 131:../Libraries/XMCLib/src/xmc_posif.c **** }
+  91              	 .loc 2 131 1
+  92 0016 C046     	 nop
+  93 0018 BD46     	 mov sp,r7
+  94 001a 02B0     	 add sp,sp,#8
+  95              	 
+  96 001c 80BD     	 pop {r7,pc}
+  97              	.L6:
+  98 001e C046     	 .align 2
+  99              	.L5:
+ 100 0020 00000150 	 .word 1342242816
+ 101              	 .cfi_endproc
+ 102              	.LFE84:
+ 104              	 .section .text.XMC_POSIF_Disable,"ax",%progbits
+ 105              	 .align 1
+ 106              	 .global XMC_POSIF_Disable
+ 107              	 .syntax unified
+ 108              	 .code 16
+ 109              	 .thumb_func
+ 110              	 .fpu softvfp
+ 112              	XMC_POSIF_Disable:
+ 113              	.LFB85:
+ 132:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 133:../Libraries/XMCLib/src/xmc_posif.c **** /* API to disable the POSIF module */
+ 134:../Libraries/XMCLib/src/xmc_posif.c **** void XMC_POSIF_Disable(XMC_POSIF_t *const peripheral)
+ 135:../Libraries/XMCLib/src/xmc_posif.c **** {
+ 114              	 .loc 2 135 1
+ 115              	 .cfi_startproc
+ 116              	 
+ 117              	 
+ 118 0000 80B5     	 push {r7,lr}
+ 119              	.LCFI6:
+ 120              	 .cfi_def_cfa_offset 8
+ 121              	 .cfi_offset 7,-8
+ 122              	 .cfi_offset 14,-4
+ 123 0002 82B0     	 sub sp,sp,#8
+ 124              	.LCFI7:
+ 125              	 .cfi_def_cfa_offset 16
+ 126 0004 00AF     	 add r7,sp,#0
+ 127              	.LCFI8:
+ 128              	 .cfi_def_cfa_register 7
+ 129 0006 7860     	 str r0,[r7,#4]
+ 136:../Libraries/XMCLib/src/xmc_posif.c ****   if (peripheral == POSIF0)
+ 130              	 .loc 2 136 6
+ 131 0008 7B68     	 ldr r3,[r7,#4]
+ 132 000a 054A     	 ldr r2,.L10
+ 133 000c 9342     	 cmp r3,r2
+ 134 000e 02D1     	 bne .L9
+ 137:../Libraries/XMCLib/src/xmc_posif.c ****   {
+ 138:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(PERIPHERAL_RESET_SUPPORTED)
+ 139:../Libraries/XMCLib/src/xmc_posif.c ****       XMC_SCU_RESET_AssertPeripheralReset(XMC_SCU_PERIPHERAL_RESET_POSIF0);
+ 140:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 141:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(CLOCK_GATING_SUPPORTED)
+ 142:../Libraries/XMCLib/src/xmc_posif.c ****       XMC_SCU_CLOCK_GatePeripheralClock(XMC_SCU_PERIPHERAL_CLOCK_POSIF0);
+ 135              	 .loc 2 142 7
+ 136 0010 8020     	 movs r0,#128
+ 137 0012 FFF7FEFF 	 bl XMC_SCU_CLOCK_GatePeripheralClock
+ 138              	.L9:
+ 143:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 144:../Libraries/XMCLib/src/xmc_posif.c ****   }
+ 145:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(POSIF1)
+ 146:../Libraries/XMCLib/src/xmc_posif.c ****   else if (peripheral == POSIF1)
+ 147:../Libraries/XMCLib/src/xmc_posif.c ****   {
+ 148:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(PERIPHERAL_RESET_SUPPORTED)
+ 149:../Libraries/XMCLib/src/xmc_posif.c ****       XMC_SCU_RESET_AssertPeripheralReset(XMC_SCU_PERIPHERAL_RESET_POSIF1);
+ 150:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 151:../Libraries/XMCLib/src/xmc_posif.c **** #if defined(CLOCK_GATING_SUPPORTED)
+ 152:../Libraries/XMCLib/src/xmc_posif.c ****       XMC_SCU_CLOCK_GatePeripheralClock(XMC_SCU_PERIPHERAL_CLOCK_POSIF1);
+ 153:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 154:../Libraries/XMCLib/src/xmc_posif.c ****   }
+ 155:../Libraries/XMCLib/src/xmc_posif.c **** #endif
+ 156:../Libraries/XMCLib/src/xmc_posif.c ****   else
+ 157:../Libraries/XMCLib/src/xmc_posif.c ****   {
+ 158:../Libraries/XMCLib/src/xmc_posif.c ****     XMC_ASSERT("XMC_POSIF_Disable:Invalid module pointer", 0);
+ 159:../Libraries/XMCLib/src/xmc_posif.c ****   }
+ 160:../Libraries/XMCLib/src/xmc_posif.c **** }
+ 139              	 .loc 2 160 1
+ 140 0016 C046     	 nop
+ 141 0018 BD46     	 mov sp,r7
+ 142 001a 02B0     	 add sp,sp,#8
+ 143              	 
+ 144 001c 80BD     	 pop {r7,pc}
+ 145              	.L11:
+ 146 001e C046     	 .align 2
+ 147              	.L10:
+ 148 0020 00000150 	 .word 1342242816
+ 149              	 .cfi_endproc
+ 150              	.LFE85:
+ 152              	 .section .text.XMC_POSIF_Init,"ax",%progbits
+ 153              	 .align 1
+ 154              	 .global XMC_POSIF_Init
+ 155              	 .syntax unified
+ 156              	 .code 16
+ 157              	 .thumb_func
+ 158              	 .fpu softvfp
+ 160              	XMC_POSIF_Init:
+ 161              	.LFB86:
+ 161:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 162:../Libraries/XMCLib/src/xmc_posif.c **** /* API to initialize POSIF global resources */
+ 163:../Libraries/XMCLib/src/xmc_posif.c **** void XMC_POSIF_Init(XMC_POSIF_t *const peripheral, const XMC_POSIF_CONFIG_t *const config)
+ 164:../Libraries/XMCLib/src/xmc_posif.c **** {
+ 162              	 .loc 2 164 1
+ 163              	 .cfi_startproc
+ 164              	 
+ 165              	 
+ 166 0000 80B5     	 push {r7,lr}
+ 167              	.LCFI9:
+ 168              	 .cfi_def_cfa_offset 8
+ 169              	 .cfi_offset 7,-8
+ 170              	 .cfi_offset 14,-4
+ 171 0002 82B0     	 sub sp,sp,#8
+ 172              	.LCFI10:
+ 173              	 .cfi_def_cfa_offset 16
+ 174 0004 00AF     	 add r7,sp,#0
+ 175              	.LCFI11:
+ 176              	 .cfi_def_cfa_register 7
+ 177 0006 7860     	 str r0,[r7,#4]
+ 178 0008 3960     	 str r1,[r7]
+ 165:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_Init:Invalid module pointer", XMC_POSIF_IsPeripheralValid(peripheral));
+ 166:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_Init:NULL Pointer", (config != (XMC_POSIF_CONFIG_t *)NULL) );
+ 167:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 168:../Libraries/XMCLib/src/xmc_posif.c ****   /* Enable the POSIF module */
+ 169:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_POSIF_Enable(peripheral);
+ 179              	 .loc 2 169 3
+ 180 000a 7B68     	 ldr r3,[r7,#4]
+ 181 000c 1800     	 movs r0,r3
+ 182 000e FFF7FEFF 	 bl XMC_POSIF_Enable
+ 170:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 171:../Libraries/XMCLib/src/xmc_posif.c ****   /* Stop POSIF */
+ 172:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_POSIF_Stop(peripheral);
+ 183              	 .loc 2 172 3
+ 184 0012 7B68     	 ldr r3,[r7,#4]
+ 185 0014 1800     	 movs r0,r3
+ 186 0016 FFF7FEFF 	 bl XMC_POSIF_Stop
+ 173:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 174:../Libraries/XMCLib/src/xmc_posif.c ****   /* Program the operational mode, input selectors and debounce filter */
+ 175:../Libraries/XMCLib/src/xmc_posif.c ****   peripheral->PCONF = config->pconf;
+ 187              	 .loc 2 175 29
+ 188 001a 3B68     	 ldr r3,[r7]
+ 189 001c 1A68     	 ldr r2,[r3]
+ 190              	 .loc 2 175 21
+ 191 001e 7B68     	 ldr r3,[r7,#4]
+ 192 0020 1A60     	 str r2,[r3]
+ 176:../Libraries/XMCLib/src/xmc_posif.c **** }
+ 193              	 .loc 2 176 1
+ 194 0022 C046     	 nop
+ 195 0024 BD46     	 mov sp,r7
+ 196 0026 02B0     	 add sp,sp,#8
+ 197              	 
+ 198 0028 80BD     	 pop {r7,pc}
+ 199              	 .cfi_endproc
+ 200              	.LFE86:
+ 202              	 .section .text.XMC_POSIF_HSC_Init,"ax",%progbits
+ 203              	 .align 1
+ 204              	 .global XMC_POSIF_HSC_Init
+ 205              	 .syntax unified
+ 206              	 .code 16
+ 207              	 .thumb_func
+ 208              	 .fpu softvfp
+ 210              	XMC_POSIF_HSC_Init:
+ 211              	.LFB87:
+ 177:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 178:../Libraries/XMCLib/src/xmc_posif.c **** /* API to initialize hall sensor interface */
+ 179:../Libraries/XMCLib/src/xmc_posif.c **** XMC_POSIF_STATUS_t XMC_POSIF_HSC_Init(XMC_POSIF_t *const peripheral, const XMC_POSIF_HSC_CONFIG_t *
+ 180:../Libraries/XMCLib/src/xmc_posif.c **** {
+ 212              	 .loc 2 180 1
+ 213              	 .cfi_startproc
+ 214              	 
+ 215              	 
+ 216 0000 80B5     	 push {r7,lr}
+ 217              	.LCFI12:
+ 218              	 .cfi_def_cfa_offset 8
+ 219              	 .cfi_offset 7,-8
+ 220              	 .cfi_offset 14,-4
+ 221 0002 84B0     	 sub sp,sp,#16
+ 222              	.LCFI13:
+ 223              	 .cfi_def_cfa_offset 24
+ 224 0004 00AF     	 add r7,sp,#0
+ 225              	.LCFI14:
+ 226              	 .cfi_def_cfa_register 7
+ 227 0006 7860     	 str r0,[r7,#4]
+ 228 0008 3960     	 str r1,[r7]
+ 181:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_POSIF_STATUS_t retval;
+ 182:../Libraries/XMCLib/src/xmc_posif.c ****   
+ 183:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_HSC_Init:Invalid module pointer\n", XMC_POSIF_IsPeripheralValid(peripheral)
+ 184:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_HSC_Init:NULL Pointer\n", (config != (XMC_POSIF_HSC_CONFIG_t *)NULL) );
+ 185:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 186:../Libraries/XMCLib/src/xmc_posif.c ****   if (XMC_POSIF_MODE_HALL_SENSOR == (XMC_POSIF_MODE_t)((peripheral->PCONF) & (uint32_t)POSIF_PCONF_
+ 229              	 .loc 2 186 67
+ 230 000a 7B68     	 ldr r3,[r7,#4]
+ 231 000c 1B68     	 ldr r3,[r3]
+ 232              	 .loc 2 186 37
+ 233 000e DBB2     	 uxtb r3,r3
+ 234 0010 1A00     	 movs r2,r3
+ 235 0012 0323     	 movs r3,#3
+ 236 0014 1340     	 ands r3,r2
+ 237              	 .loc 2 186 6
+ 238 0016 0BD1     	 bne .L14
+ 187:../Libraries/XMCLib/src/xmc_posif.c ****   {
+ 188:../Libraries/XMCLib/src/xmc_posif.c ****     peripheral->PCONF |= config->hall_config;
+ 239              	 .loc 2 188 23
+ 240 0018 7B68     	 ldr r3,[r7,#4]
+ 241 001a 1A68     	 ldr r2,[r3]
+ 242              	 .loc 2 188 32
+ 243 001c 3B68     	 ldr r3,[r7]
+ 244 001e 1B68     	 ldr r3,[r3]
+ 245              	 .loc 2 188 23
+ 246 0020 1A43     	 orrs r2,r3
+ 247 0022 7B68     	 ldr r3,[r7,#4]
+ 248 0024 1A60     	 str r2,[r3]
+ 189:../Libraries/XMCLib/src/xmc_posif.c ****     retval = XMC_POSIF_STATUS_OK;
+ 249              	 .loc 2 189 12
+ 250 0026 0F23     	 movs r3,#15
+ 251 0028 FB18     	 adds r3,r7,r3
+ 252 002a 0022     	 movs r2,#0
+ 253 002c 1A70     	 strb r2,[r3]
+ 254 002e 03E0     	 b .L15
+ 255              	.L14:
+ 190:../Libraries/XMCLib/src/xmc_posif.c ****   }
+ 191:../Libraries/XMCLib/src/xmc_posif.c ****   else
+ 192:../Libraries/XMCLib/src/xmc_posif.c ****   {
+ 193:../Libraries/XMCLib/src/xmc_posif.c ****     retval = XMC_POSIF_STATUS_ERROR;
+ 256              	 .loc 2 193 12
+ 257 0030 0F23     	 movs r3,#15
+ 258 0032 FB18     	 adds r3,r7,r3
+ 259 0034 0122     	 movs r2,#1
+ 260 0036 1A70     	 strb r2,[r3]
+ 261              	.L15:
+ 194:../Libraries/XMCLib/src/xmc_posif.c ****   }
+ 195:../Libraries/XMCLib/src/xmc_posif.c ****   return retval;
+ 262              	 .loc 2 195 10
+ 263 0038 0F23     	 movs r3,#15
+ 264 003a FB18     	 adds r3,r7,r3
+ 265 003c 1B78     	 ldrb r3,[r3]
+ 196:../Libraries/XMCLib/src/xmc_posif.c **** }
+ 266              	 .loc 2 196 1
+ 267 003e 1800     	 movs r0,r3
+ 268 0040 BD46     	 mov sp,r7
+ 269 0042 04B0     	 add sp,sp,#16
+ 270              	 
+ 271 0044 80BD     	 pop {r7,pc}
+ 272              	 .cfi_endproc
+ 273              	.LFE87:
+ 275              	 .section .text.XMC_POSIF_QD_Init,"ax",%progbits
+ 276              	 .align 1
+ 277              	 .global XMC_POSIF_QD_Init
+ 278              	 .syntax unified
+ 279              	 .code 16
+ 280              	 .thumb_func
+ 281              	 .fpu softvfp
+ 283              	XMC_POSIF_QD_Init:
+ 284              	.LFB88:
+ 197:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 198:../Libraries/XMCLib/src/xmc_posif.c **** /* API to initialize quadrature decoder interface */
+ 199:../Libraries/XMCLib/src/xmc_posif.c **** XMC_POSIF_STATUS_t XMC_POSIF_QD_Init(XMC_POSIF_t *const peripheral, const XMC_POSIF_QD_CONFIG_t * c
+ 200:../Libraries/XMCLib/src/xmc_posif.c **** {
+ 285              	 .loc 2 200 1
+ 286              	 .cfi_startproc
+ 287              	 
+ 288              	 
+ 289 0000 80B5     	 push {r7,lr}
+ 290              	.LCFI15:
+ 291              	 .cfi_def_cfa_offset 8
+ 292              	 .cfi_offset 7,-8
+ 293              	 .cfi_offset 14,-4
+ 294 0002 84B0     	 sub sp,sp,#16
+ 295              	.LCFI16:
+ 296              	 .cfi_def_cfa_offset 24
+ 297 0004 00AF     	 add r7,sp,#0
+ 298              	.LCFI17:
+ 299              	 .cfi_def_cfa_register 7
+ 300 0006 7860     	 str r0,[r7,#4]
+ 301 0008 3960     	 str r1,[r7]
+ 201:../Libraries/XMCLib/src/xmc_posif.c ****   uint8_t reg;
+ 202:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_POSIF_STATUS_t retval;
+ 203:../Libraries/XMCLib/src/xmc_posif.c ****   
+ 204:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_QD_Init:Invalid module pointer", XMC_POSIF_IsPeripheralValid(peripheral));
+ 205:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_QD_Init:NULL Pointer", (config != (XMC_POSIF_QD_CONFIG_t *)NULL) );
+ 206:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 207:../Libraries/XMCLib/src/xmc_posif.c ****   reg = (uint8_t)((peripheral->PCONF) & (uint32_t)POSIF_PCONF_FSEL_Msk);
+ 302              	 .loc 2 207 30
+ 303 000a 7B68     	 ldr r3,[r7,#4]
+ 304 000c 1B68     	 ldr r3,[r3]
+ 305              	 .loc 2 207 9
+ 306 000e DAB2     	 uxtb r2,r3
+ 307              	 .loc 2 207 7
+ 308 0010 0E20     	 movs r0,#14
+ 309 0012 3B18     	 adds r3,r7,r0
+ 310 0014 0321     	 movs r1,#3
+ 311 0016 0A40     	 ands r2,r1
+ 312 0018 1A70     	 strb r2,[r3]
+ 208:../Libraries/XMCLib/src/xmc_posif.c ****   if (((uint32_t)XMC_POSIF_MODE_QD == reg) || ((uint32_t)XMC_POSIF_MODE_MCM_QD == reg))
+ 313              	 .loc 2 208 6
+ 314 001a 3B18     	 adds r3,r7,r0
+ 315 001c 1B78     	 ldrb r3,[r3]
+ 316 001e 012B     	 cmp r3,#1
+ 317 0020 03D0     	 beq .L18
+ 318              	 .loc 2 208 44 discriminator 1
+ 319 0022 3B18     	 adds r3,r7,r0
+ 320 0024 1B78     	 ldrb r3,[r3]
+ 321 0026 032B     	 cmp r3,#3
+ 322 0028 10D1     	 bne .L19
+ 323              	.L18:
+ 209:../Libraries/XMCLib/src/xmc_posif.c ****   {
+ 210:../Libraries/XMCLib/src/xmc_posif.c ****     /* Program the quadrature mode */
+ 211:../Libraries/XMCLib/src/xmc_posif.c ****     peripheral->PCONF |= (uint32_t)(config->mode) << POSIF_PCONF_QDCM_Pos;
+ 324              	 .loc 2 211 23
+ 325 002a 7B68     	 ldr r3,[r7,#4]
+ 326 002c 1A68     	 ldr r2,[r3]
+ 327              	 .loc 2 211 43
+ 328 002e 3B68     	 ldr r3,[r7]
+ 329 0030 1B78     	 ldrb r3,[r3]
+ 330              	 .loc 2 211 51
+ 331 0032 9B00     	 lsls r3,r3,#2
+ 332              	 .loc 2 211 23
+ 333 0034 1A43     	 orrs r2,r3
+ 334 0036 7B68     	 ldr r3,[r7,#4]
+ 335 0038 1A60     	 str r2,[r3]
+ 212:../Libraries/XMCLib/src/xmc_posif.c ****     peripheral->QDC = config->qdc;
+ 336              	 .loc 2 212 29
+ 337 003a 3B68     	 ldr r3,[r7]
+ 338 003c 5A68     	 ldr r2,[r3,#4]
+ 339              	 .loc 2 212 21
+ 340 003e 7B68     	 ldr r3,[r7,#4]
+ 341 0040 1A66     	 str r2,[r3,#96]
+ 213:../Libraries/XMCLib/src/xmc_posif.c ****     retval = XMC_POSIF_STATUS_OK;
+ 342              	 .loc 2 213 12
+ 343 0042 0F23     	 movs r3,#15
+ 344 0044 FB18     	 adds r3,r7,r3
+ 345 0046 0022     	 movs r2,#0
+ 346 0048 1A70     	 strb r2,[r3]
+ 347 004a 03E0     	 b .L20
+ 348              	.L19:
+ 214:../Libraries/XMCLib/src/xmc_posif.c ****   }
+ 215:../Libraries/XMCLib/src/xmc_posif.c ****   else
+ 216:../Libraries/XMCLib/src/xmc_posif.c ****   {
+ 217:../Libraries/XMCLib/src/xmc_posif.c ****     retval = XMC_POSIF_STATUS_ERROR;
+ 349              	 .loc 2 217 12
+ 350 004c 0F23     	 movs r3,#15
+ 351 004e FB18     	 adds r3,r7,r3
+ 352 0050 0122     	 movs r2,#1
+ 353 0052 1A70     	 strb r2,[r3]
+ 354              	.L20:
+ 218:../Libraries/XMCLib/src/xmc_posif.c ****   }
+ 219:../Libraries/XMCLib/src/xmc_posif.c ****   
+ 220:../Libraries/XMCLib/src/xmc_posif.c ****   return retval;
+ 355              	 .loc 2 220 10
+ 356 0054 0F23     	 movs r3,#15
+ 357 0056 FB18     	 adds r3,r7,r3
+ 358 0058 1B78     	 ldrb r3,[r3]
+ 221:../Libraries/XMCLib/src/xmc_posif.c **** }
+ 359              	 .loc 2 221 1
+ 360 005a 1800     	 movs r0,r3
+ 361 005c BD46     	 mov sp,r7
+ 362 005e 04B0     	 add sp,sp,#16
+ 363              	 
+ 364 0060 80BD     	 pop {r7,pc}
+ 365              	 .cfi_endproc
+ 366              	.LFE88:
+ 368              	 .section .text.XMC_POSIF_MCM_Init,"ax",%progbits
+ 369              	 .align 1
+ 370              	 .global XMC_POSIF_MCM_Init
+ 371              	 .syntax unified
+ 372              	 .code 16
+ 373              	 .thumb_func
+ 374              	 .fpu softvfp
+ 376              	XMC_POSIF_MCM_Init:
+ 377              	.LFB89:
+ 222:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 223:../Libraries/XMCLib/src/xmc_posif.c **** /* API to initialize multi-channel mode.
+ 224:../Libraries/XMCLib/src/xmc_posif.c ****  * This is used in Hall mode, standalone multi-channel mode and quadrature with multi-channel mode
+ 225:../Libraries/XMCLib/src/xmc_posif.c ****  */
+ 226:../Libraries/XMCLib/src/xmc_posif.c **** XMC_POSIF_STATUS_t XMC_POSIF_MCM_Init(XMC_POSIF_t *const peripheral, const XMC_POSIF_MCM_CONFIG_t *
+ 227:../Libraries/XMCLib/src/xmc_posif.c **** {
+ 378              	 .loc 2 227 1
+ 379              	 .cfi_startproc
+ 380              	 
+ 381              	 
+ 382 0000 80B5     	 push {r7,lr}
+ 383              	.LCFI18:
+ 384              	 .cfi_def_cfa_offset 8
+ 385              	 .cfi_offset 7,-8
+ 386              	 .cfi_offset 14,-4
+ 387 0002 84B0     	 sub sp,sp,#16
+ 388              	.LCFI19:
+ 389              	 .cfi_def_cfa_offset 24
+ 390 0004 00AF     	 add r7,sp,#0
+ 391              	.LCFI20:
+ 392              	 .cfi_def_cfa_register 7
+ 393 0006 7860     	 str r0,[r7,#4]
+ 394 0008 3960     	 str r1,[r7]
+ 228:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_POSIF_STATUS_t retval;
+ 229:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 230:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_MCM_Init:Invalid module pointer", XMC_POSIF_IsPeripheralValid(peripheral));
+ 231:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_MCM_Init:NULL Pointer", (config != (XMC_POSIF_MCM_CONFIG_t *)NULL) );
+ 232:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 233:../Libraries/XMCLib/src/xmc_posif.c ****   if ((XMC_POSIF_MODE_t)((peripheral->PCONF) & (uint32_t)POSIF_PCONF_FSEL_Msk) != XMC_POSIF_MODE_QD
+ 395              	 .loc 2 233 37
+ 396 000a 7B68     	 ldr r3,[r7,#4]
+ 397 000c 1B68     	 ldr r3,[r3]
+ 398              	 .loc 2 233 7
+ 399 000e DBB2     	 uxtb r3,r3
+ 400 0010 1A00     	 movs r2,r3
+ 401 0012 0323     	 movs r3,#3
+ 402 0014 1340     	 ands r3,r2
+ 403              	 .loc 2 233 6
+ 404 0016 012B     	 cmp r3,#1
+ 405 0018 0BD0     	 beq .L23
+ 234:../Libraries/XMCLib/src/xmc_posif.c ****   {
+ 235:../Libraries/XMCLib/src/xmc_posif.c ****     peripheral->PCONF |= config->mcm_config;
+ 406              	 .loc 2 235 23
+ 407 001a 7B68     	 ldr r3,[r7,#4]
+ 408 001c 1A68     	 ldr r2,[r3]
+ 409              	 .loc 2 235 32
+ 410 001e 3B68     	 ldr r3,[r7]
+ 411 0020 1B68     	 ldr r3,[r3]
+ 412              	 .loc 2 235 23
+ 413 0022 1A43     	 orrs r2,r3
+ 414 0024 7B68     	 ldr r3,[r7,#4]
+ 415 0026 1A60     	 str r2,[r3]
+ 236:../Libraries/XMCLib/src/xmc_posif.c ****     retval = XMC_POSIF_STATUS_OK;
+ 416              	 .loc 2 236 12
+ 417 0028 0F23     	 movs r3,#15
+ 418 002a FB18     	 adds r3,r7,r3
+ 419 002c 0022     	 movs r2,#0
+ 420 002e 1A70     	 strb r2,[r3]
+ 421 0030 03E0     	 b .L24
+ 422              	.L23:
+ 237:../Libraries/XMCLib/src/xmc_posif.c ****   }
+ 238:../Libraries/XMCLib/src/xmc_posif.c ****   else
+ 239:../Libraries/XMCLib/src/xmc_posif.c ****   {
+ 240:../Libraries/XMCLib/src/xmc_posif.c ****     retval = XMC_POSIF_STATUS_ERROR;
+ 423              	 .loc 2 240 12
+ 424 0032 0F23     	 movs r3,#15
+ 425 0034 FB18     	 adds r3,r7,r3
+ 426 0036 0122     	 movs r2,#1
+ 427 0038 1A70     	 strb r2,[r3]
+ 428              	.L24:
+ 241:../Libraries/XMCLib/src/xmc_posif.c ****   }
+ 242:../Libraries/XMCLib/src/xmc_posif.c ****   return retval;
+ 429              	 .loc 2 242 10
+ 430 003a 0F23     	 movs r3,#15
+ 431 003c FB18     	 adds r3,r7,r3
+ 432 003e 1B78     	 ldrb r3,[r3]
+ 243:../Libraries/XMCLib/src/xmc_posif.c **** }
+ 433              	 .loc 2 243 1
+ 434 0040 1800     	 movs r0,r3
+ 435 0042 BD46     	 mov sp,r7
+ 436 0044 04B0     	 add sp,sp,#16
+ 437              	 
+ 438 0046 80BD     	 pop {r7,pc}
+ 439              	 .cfi_endproc
+ 440              	.LFE89:
+ 442              	 .section .text.XMC_POSIF_SelectInputSource,"ax",%progbits
+ 443              	 .align 1
+ 444              	 .global XMC_POSIF_SelectInputSource
+ 445              	 .syntax unified
+ 446              	 .code 16
+ 447              	 .thumb_func
+ 448              	 .fpu softvfp
+ 450              	XMC_POSIF_SelectInputSource:
+ 451              	.LFB90:
+ 244:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 245:../Libraries/XMCLib/src/xmc_posif.c **** /* API to configure input source */
+ 246:../Libraries/XMCLib/src/xmc_posif.c **** void XMC_POSIF_SelectInputSource (XMC_POSIF_t *const peripheral, const XMC_POSIF_INPUT_PORT_t input
+ 247:../Libraries/XMCLib/src/xmc_posif.c ****     const XMC_POSIF_INPUT_PORT_t input1, const XMC_POSIF_INPUT_PORT_t input2)
+ 248:../Libraries/XMCLib/src/xmc_posif.c **** {
+ 452              	 .loc 2 248 1
+ 453              	 .cfi_startproc
+ 454              	 
+ 455              	 
+ 456 0000 90B5     	 push {r4,r7,lr}
+ 457              	.LCFI21:
+ 458              	 .cfi_def_cfa_offset 12
+ 459              	 .cfi_offset 4,-12
+ 460              	 .cfi_offset 7,-8
+ 461              	 .cfi_offset 14,-4
+ 462 0002 85B0     	 sub sp,sp,#20
+ 463              	.LCFI22:
+ 464              	 .cfi_def_cfa_offset 32
+ 465 0004 00AF     	 add r7,sp,#0
+ 466              	.LCFI23:
+ 467              	 .cfi_def_cfa_register 7
+ 468 0006 7860     	 str r0,[r7,#4]
+ 469 0008 0C00     	 movs r4,r1
+ 470 000a 1000     	 movs r0,r2
+ 471 000c 1900     	 movs r1,r3
+ 472 000e FB1C     	 adds r3,r7,#3
+ 473 0010 221C     	 adds r2,r4,#0
+ 474 0012 1A70     	 strb r2,[r3]
+ 475 0014 BB1C     	 adds r3,r7,#2
+ 476 0016 021C     	 adds r2,r0,#0
+ 477 0018 1A70     	 strb r2,[r3]
+ 478 001a 7B1C     	 adds r3,r7,#1
+ 479 001c 0A1C     	 adds r2,r1,#0
+ 480 001e 1A70     	 strb r2,[r3]
+ 249:../Libraries/XMCLib/src/xmc_posif.c ****   uint32_t reg;
+ 250:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_SelectInputSource:Invalid module pointer", XMC_POSIF_IsPeripheralValid(peri
+ 251:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_SelectInputSource:Wrong input port input0", (input0 < XMC_POSIF_INSEL_MAX))
+ 252:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_SelectInputSource:Wrong input port input1", (input1 < XMC_POSIF_INSEL_MAX))
+ 253:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_SelectInputSource:Wrong input port input2", (input2 < XMC_POSIF_INSEL_MAX))
+ 254:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 255:../Libraries/XMCLib/src/xmc_posif.c ****   reg = (uint32_t)((((uint32_t)input0 << POSIF_PCONF_INSEL0_Pos) & (uint32_t)POSIF_PCONF_INSEL0_Msk
+ 481              	 .loc 2 255 22
+ 482 0020 FB1C     	 adds r3,r7,#3
+ 483 0022 1B78     	 ldrb r3,[r3]
+ 484              	 .loc 2 255 39
+ 485 0024 1A02     	 lsls r2,r3,#8
+ 486              	 .loc 2 255 66
+ 487 0026 C023     	 movs r3,#192
+ 488 0028 9B00     	 lsls r3,r3,#2
+ 489 002a 1A40     	 ands r2,r3
+ 256:../Libraries/XMCLib/src/xmc_posif.c ****         (((uint32_t)input1 << POSIF_PCONF_INSEL1_Pos) & (uint32_t)POSIF_PCONF_INSEL1_Msk) |
+ 490              	 .loc 2 256 11
+ 491 002c BB1C     	 adds r3,r7,#2
+ 492 002e 1B78     	 ldrb r3,[r3]
+ 493              	 .loc 2 256 28
+ 494 0030 9902     	 lsls r1,r3,#10
+ 495              	 .loc 2 256 55
+ 496 0032 C023     	 movs r3,#192
+ 497 0034 1B01     	 lsls r3,r3,#4
+ 498 0036 0B40     	 ands r3,r1
+ 255:../Libraries/XMCLib/src/xmc_posif.c ****         (((uint32_t)input1 << POSIF_PCONF_INSEL1_Pos) & (uint32_t)POSIF_PCONF_INSEL1_Msk) |
+ 499              	 .loc 2 255 102
+ 500 0038 1A43     	 orrs r2,r3
+ 257:../Libraries/XMCLib/src/xmc_posif.c ****         (((uint32_t)input2 << POSIF_PCONF_INSEL2_Pos) & (uint32_t)POSIF_PCONF_INSEL2_Msk));
+ 501              	 .loc 2 257 11
+ 502 003a 7B1C     	 adds r3,r7,#1
+ 503 003c 1B78     	 ldrb r3,[r3]
+ 504              	 .loc 2 257 28
+ 505 003e 1903     	 lsls r1,r3,#12
+ 506              	 .loc 2 257 55
+ 507 0040 C023     	 movs r3,#192
+ 508 0042 9B01     	 lsls r3,r3,#6
+ 509 0044 0B40     	 ands r3,r1
+ 255:../Libraries/XMCLib/src/xmc_posif.c ****         (((uint32_t)input1 << POSIF_PCONF_INSEL1_Pos) & (uint32_t)POSIF_PCONF_INSEL1_Msk) |
+ 510              	 .loc 2 255 7
+ 511 0046 1343     	 orrs r3,r2
+ 512 0048 FB60     	 str r3,[r7,#12]
+ 258:../Libraries/XMCLib/src/xmc_posif.c ****   peripheral->PCONF = ((peripheral->PCONF & ~(uint32_t)XMC_POSIF_PCONF_INSEL_Msk) | reg);
+ 513              	 .loc 2 258 35
+ 514 004a 7B68     	 ldr r3,[r7,#4]
+ 515 004c 1B68     	 ldr r3,[r3]
+ 516              	 .loc 2 258 43
+ 517 004e 054A     	 ldr r2,.L27
+ 518 0050 1A40     	 ands r2,r3
+ 519              	 .loc 2 258 83
+ 520 0052 FB68     	 ldr r3,[r7,#12]
+ 521 0054 1A43     	 orrs r2,r3
+ 522              	 .loc 2 258 21
+ 523 0056 7B68     	 ldr r3,[r7,#4]
+ 524 0058 1A60     	 str r2,[r3]
+ 259:../Libraries/XMCLib/src/xmc_posif.c **** }
+ 525              	 .loc 2 259 1
+ 526 005a C046     	 nop
+ 527 005c BD46     	 mov sp,r7
+ 528 005e 05B0     	 add sp,sp,#20
+ 529              	 
+ 530 0060 90BD     	 pop {r4,r7,pc}
+ 531              	.L28:
+ 532 0062 C046     	 .align 2
+ 533              	.L27:
+ 534 0064 FFC0FFFF 	 .word -16129
+ 535              	 .cfi_endproc
+ 536              	.LFE90:
+ 538              	 .section .text.XMC_POSIF_SetInterruptNode,"ax",%progbits
+ 539              	 .align 1
+ 540              	 .global XMC_POSIF_SetInterruptNode
+ 541              	 .syntax unified
+ 542              	 .code 16
+ 543              	 .thumb_func
+ 544              	 .fpu softvfp
+ 546              	XMC_POSIF_SetInterruptNode:
+ 547              	.LFB91:
+ 260:../Libraries/XMCLib/src/xmc_posif.c **** 
+ 261:../Libraries/XMCLib/src/xmc_posif.c **** /* API to select an interrupt node */
+ 262:../Libraries/XMCLib/src/xmc_posif.c **** void XMC_POSIF_SetInterruptNode(XMC_POSIF_t *const peripheral, const XMC_POSIF_IRQ_EVENT_t event, c
+ 263:../Libraries/XMCLib/src/xmc_posif.c **** {
+ 548              	 .loc 2 263 1
+ 549              	 .cfi_startproc
+ 550              	 
+ 551              	 
+ 552 0000 80B5     	 push {r7,lr}
+ 553              	.LCFI24:
+ 554              	 .cfi_def_cfa_offset 8
+ 555              	 .cfi_offset 7,-8
+ 556              	 .cfi_offset 14,-4
+ 557 0002 84B0     	 sub sp,sp,#16
+ 558              	.LCFI25:
+ 559              	 .cfi_def_cfa_offset 24
+ 560 0004 00AF     	 add r7,sp,#0
+ 561              	.LCFI26:
+ 562              	 .cfi_def_cfa_register 7
+ 563 0006 7860     	 str r0,[r7,#4]
+ 564 0008 0800     	 movs r0,r1
+ 565 000a 1100     	 movs r1,r2
+ 566 000c FB1C     	 adds r3,r7,#3
+ 567 000e 021C     	 adds r2,r0,#0
+ 568 0010 1A70     	 strb r2,[r3]
+ 569 0012 BB1C     	 adds r3,r7,#2
+ 570 0014 0A1C     	 adds r2,r1,#0
+ 571 0016 1A70     	 strb r2,[r3]
+ 264:../Libraries/XMCLib/src/xmc_posif.c ****   uint32_t reg;
+ 265:../Libraries/XMCLib/src/xmc_posif.c ****   
+ 266:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_SetInterruptNode:Invalid module pointer", XMC_POSIF_IsPeripheralValid(perip
+ 267:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_SetInterruptNode:Wrong IRQ event", (event <= XMC_POSIF_IRQ_EVENT_PCLK) );
+ 268:../Libraries/XMCLib/src/xmc_posif.c ****   XMC_ASSERT("XMC_POSIF_SetInterruptNode:Wrong SR ID", (sr <= XMC_POSIF_SR_ID_1) );
+ 269:../Libraries/XMCLib/src/xmc_posif.c ****   
+ 270:../Libraries/XMCLib/src/xmc_posif.c ****   reg = peripheral->PFLGE;
+ 572              	 .loc 2 270 7
+ 573 0018 7B68     	 ldr r3,[r7,#4]
+ 574 001a 5B6F     	 ldr r3,[r3,#116]
+ 575 001c FB60     	 str r3,[r7,#12]
+ 271:../Libraries/XMCLib/src/xmc_posif.c ****   reg &= ~((uint32_t)1 << ((uint32_t)event + (uint32_t)POSIF_PFLGE_CHESEL_Pos));
+ 576              	 .loc 2 271 28
+ 577 001e FB1C     	 adds r3,r7,#3
+ 578 0020 1B78     	 ldrb r3,[r3]
+ 579              	 .loc 2 271 44
+ 580 0022 1033     	 adds r3,r3,#16
+ 581              	 .loc 2 271 24
+ 582 0024 0122     	 movs r2,#1
+ 583 0026 9A40     	 lsls r2,r2,r3
+ 584 0028 1300     	 movs r3,r2
+ 585              	 .loc 2 271 10
+ 586 002a DA43     	 mvns r2,r3
+ 587              	 .loc 2 271 7
+ 588 002c FB68     	 ldr r3,[r7,#12]
+ 589 002e 1340     	 ands r3,r2
+ 590 0030 FB60     	 str r3,[r7,#12]
+ 272:../Libraries/XMCLib/src/xmc_posif.c ****   reg |= (uint32_t)sr << ((uint32_t)event + (uint32_t)POSIF_PFLGE_CHESEL_Pos);
+ 591              	 .loc 2 272 10
+ 592 0032 BB1C     	 adds r3,r7,#2
+ 593 0034 1A78     	 ldrb r2,[r3]
+ 594              	 .loc 2 272 27
+ 595 0036 FB1C     	 adds r3,r7,#3
+ 596 0038 1B78     	 ldrb r3,[r3]
+ 597              	 .loc 2 272 43
+ 598 003a 1033     	 adds r3,r3,#16
+ 599              	 .loc 2 272 23
+ 600 003c 9A40     	 lsls r2,r2,r3
+ 601 003e 1300     	 movs r3,r2
+ 602              	 .loc 2 272 7
+ 603 0040 FA68     	 ldr r2,[r7,#12]
+ 604 0042 1343     	 orrs r3,r2
+ 605 0044 FB60     	 str r3,[r7,#12]
+ 273:../Libraries/XMCLib/src/xmc_posif.c ****   peripheral->PFLGE = reg;
+ 606              	 .loc 2 273 21
+ 607 0046 7B68     	 ldr r3,[r7,#4]
+ 608 0048 FA68     	 ldr r2,[r7,#12]
+ 609 004a 5A67     	 str r2,[r3,#116]
+ 274:../Libraries/XMCLib/src/xmc_posif.c **** }
+ 610              	 .loc 2 274 1
+ 611 004c C046     	 nop
+ 612 004e BD46     	 mov sp,r7
+ 613 0050 04B0     	 add sp,sp,#16
+ 614              	 
+ 615 0052 80BD     	 pop {r7,pc}
+ 616              	 .cfi_endproc
+ 617              	.LFE91:
+ 619              	 .text
+ 620              	.Letext0:
+ 621              	 .file 3 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_default_types.h"
+ 622              	 .file 4 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdint.h"
+ 623              	 .file 5 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.h"
+ 624              	 .file 6 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_types.h"
+ 625              	 .file 7 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 626              	 .file 8 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reent.h"
+ 627              	 .file 9 "..//Libraries/CMSIS/Infineon/XMC1300_series/Include/system_XMC1300.h"
+ 628              	 .file 10 "..//Libraries/CMSIS/Infineon/XMC1300_series/Include/XMC1300.h"
+ 629              	 .file 11 "..//Libraries/XMCLib/inc/xmc1_scu.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 xmc_posif.c
+    {standard input}:16     .text.XMC_POSIF_Stop:0000000000000000 $t
+    {standard input}:23     .text.XMC_POSIF_Stop:0000000000000000 XMC_POSIF_Stop
+    {standard input}:56     .text.XMC_POSIF_Enable:0000000000000000 $t
+    {standard input}:63     .text.XMC_POSIF_Enable:0000000000000000 XMC_POSIF_Enable
+    {standard input}:100    .text.XMC_POSIF_Enable:0000000000000020 $d
+    {standard input}:105    .text.XMC_POSIF_Disable:0000000000000000 $t
+    {standard input}:112    .text.XMC_POSIF_Disable:0000000000000000 XMC_POSIF_Disable
+    {standard input}:148    .text.XMC_POSIF_Disable:0000000000000020 $d
+    {standard input}:153    .text.XMC_POSIF_Init:0000000000000000 $t
+    {standard input}:160    .text.XMC_POSIF_Init:0000000000000000 XMC_POSIF_Init
+    {standard input}:203    .text.XMC_POSIF_HSC_Init:0000000000000000 $t
+    {standard input}:210    .text.XMC_POSIF_HSC_Init:0000000000000000 XMC_POSIF_HSC_Init
+    {standard input}:276    .text.XMC_POSIF_QD_Init:0000000000000000 $t
+    {standard input}:283    .text.XMC_POSIF_QD_Init:0000000000000000 XMC_POSIF_QD_Init
+    {standard input}:369    .text.XMC_POSIF_MCM_Init:0000000000000000 $t
+    {standard input}:376    .text.XMC_POSIF_MCM_Init:0000000000000000 XMC_POSIF_MCM_Init
+    {standard input}:443    .text.XMC_POSIF_SelectInputSource:0000000000000000 $t
+    {standard input}:450    .text.XMC_POSIF_SelectInputSource:0000000000000000 XMC_POSIF_SelectInputSource
+    {standard input}:534    .text.XMC_POSIF_SelectInputSource:0000000000000064 $d
+    {standard input}:539    .text.XMC_POSIF_SetInterruptNode:0000000000000000 $t
+    {standard input}:546    .text.XMC_POSIF_SetInterruptNode:0000000000000000 XMC_POSIF_SetInterruptNode
+
+UNDEFINED SYMBOLS
+XMC_SCU_CLOCK_UngatePeripheralClock
+XMC_SCU_CLOCK_GatePeripheralClock

@@ -1,0 +1,161 @@
+   1              	 .cpu cortex-m0
+   2              	 .eabi_attribute 20,1
+   3              	 .eabi_attribute 21,1
+   4              	 .eabi_attribute 23,3
+   5              	 .eabi_attribute 24,1
+   6              	 .eabi_attribute 25,1
+   7              	 .eabi_attribute 26,1
+   8              	 .eabi_attribute 30,6
+   9              	 .eabi_attribute 34,0
+  10              	 .eabi_attribute 18,4
+  11              	 .file "xmc1_eru.c"
+  12              	 .text
+  13              	.Ltext0:
+  14              	 .cfi_sections .debug_frame
+  15              	 .section .text.XMC_ERU_Enable,"ax",%progbits
+  16              	 .align 1
+  17              	 .global XMC_ERU_Enable
+  18              	 .arch armv6s-m
+  19              	 .syntax unified
+  20              	 .code 16
+  21              	 .thumb_func
+  22              	 .fpu softvfp
+  24              	XMC_ERU_Enable:
+  25              	.LFB45:
+  26              	 .file 1 "../Libraries/XMCLib/src/xmc1_eru.c"
+   1:../Libraries/XMCLib/src/xmc1_eru.c **** /**
+   2:../Libraries/XMCLib/src/xmc1_eru.c ****  * @file xmc1_eru.c
+   3:../Libraries/XMCLib/src/xmc1_eru.c ****  * @date 2015-02-20
+   4:../Libraries/XMCLib/src/xmc1_eru.c ****  *
+   5:../Libraries/XMCLib/src/xmc1_eru.c ****  * @cond
+   6:../Libraries/XMCLib/src/xmc1_eru.c ****  **************************************************************************************************
+   7:../Libraries/XMCLib/src/xmc1_eru.c ****  * XMClib v2.1.18 - XMC Peripheral Driver Library 
+   8:../Libraries/XMCLib/src/xmc1_eru.c ****  *
+   9:../Libraries/XMCLib/src/xmc1_eru.c ****  * Copyright (c) 2015-2018, Infineon Technologies AG
+  10:../Libraries/XMCLib/src/xmc1_eru.c ****  * All rights reserved.                        
+  11:../Libraries/XMCLib/src/xmc1_eru.c ****  *                                             
+  12:../Libraries/XMCLib/src/xmc1_eru.c ****  * Redistribution and use in source and binary forms, with or without modification,are permitted pr
+  13:../Libraries/XMCLib/src/xmc1_eru.c ****  * following conditions are met:   
+  14:../Libraries/XMCLib/src/xmc1_eru.c ****  *                                                                              
+  15:../Libraries/XMCLib/src/xmc1_eru.c ****  * Redistributions of source code must retain the above copyright notice, this list of conditions a
+  16:../Libraries/XMCLib/src/xmc1_eru.c ****  * disclaimer.                        
+  17:../Libraries/XMCLib/src/xmc1_eru.c ****  * 
+  18:../Libraries/XMCLib/src/xmc1_eru.c ****  * Redistributions in binary form must reproduce the above copyright notice, this list of condition
+  19:../Libraries/XMCLib/src/xmc1_eru.c ****  * disclaimer in the documentation and/or other materials provided with the distribution.          
+  20:../Libraries/XMCLib/src/xmc1_eru.c ****  * 
+  21:../Libraries/XMCLib/src/xmc1_eru.c ****  * Neither the name of the copyright holders nor the names of its contributors may be used to endor
+  22:../Libraries/XMCLib/src/xmc1_eru.c ****  * products derived from this software without specific prior written permission.                  
+  23:../Libraries/XMCLib/src/xmc1_eru.c ****  *                                                                              
+  24:../Libraries/XMCLib/src/xmc1_eru.c ****  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR I
+  25:../Libraries/XMCLib/src/xmc1_eru.c ****  * INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTI
+  26:../Libraries/XMCLib/src/xmc1_eru.c ****  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE  FOR ANY DIRECT, IN
+  27:../Libraries/XMCLib/src/xmc1_eru.c ****  * SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBS
+  28:../Libraries/XMCLib/src/xmc1_eru.c ****  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THE
+  29:../Libraries/XMCLib/src/xmc1_eru.c ****  * WHETHER IN CONTRACT, STRICT LIABILITY,OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY
+  30:../Libraries/XMCLib/src/xmc1_eru.c ****  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.                            
+  31:../Libraries/XMCLib/src/xmc1_eru.c ****  *                                                                              
+  32:../Libraries/XMCLib/src/xmc1_eru.c ****  * To improve the quality of the software, users are encouraged to share modifications, enhancement
+  33:../Libraries/XMCLib/src/xmc1_eru.c ****  * Infineon Technologies AG dave@infineon.com).                                                    
+  34:../Libraries/XMCLib/src/xmc1_eru.c ****  **************************************************************************************************
+  35:../Libraries/XMCLib/src/xmc1_eru.c ****  *
+  36:../Libraries/XMCLib/src/xmc1_eru.c ****  * Change History
+  37:../Libraries/XMCLib/src/xmc1_eru.c ****  * --------------
+  38:../Libraries/XMCLib/src/xmc1_eru.c ****  *
+  39:../Libraries/XMCLib/src/xmc1_eru.c ****  * 2015-02-20:
+  40:../Libraries/XMCLib/src/xmc1_eru.c ****  *     - Initial <br>
+  41:../Libraries/XMCLib/src/xmc1_eru.c ****  *
+  42:../Libraries/XMCLib/src/xmc1_eru.c ****  * @endcond
+  43:../Libraries/XMCLib/src/xmc1_eru.c ****  */
+  44:../Libraries/XMCLib/src/xmc1_eru.c **** 
+  45:../Libraries/XMCLib/src/xmc1_eru.c **** #include "xmc_eru.h"
+  46:../Libraries/XMCLib/src/xmc1_eru.c **** 
+  47:../Libraries/XMCLib/src/xmc1_eru.c **** #if UC_FAMILY == XMC1
+  48:../Libraries/XMCLib/src/xmc1_eru.c **** 
+  49:../Libraries/XMCLib/src/xmc1_eru.c **** /**************************************************************************************************
+  50:../Libraries/XMCLib/src/xmc1_eru.c ****  * API IMPLEMENTATION
+  51:../Libraries/XMCLib/src/xmc1_eru.c ****  **************************************************************************************************
+  52:../Libraries/XMCLib/src/xmc1_eru.c **** 
+  53:../Libraries/XMCLib/src/xmc1_eru.c **** void XMC_ERU_Enable(XMC_ERU_t *const eru)
+  54:../Libraries/XMCLib/src/xmc1_eru.c **** {
+  27              	 .loc 1 54 1
+  28              	 .cfi_startproc
+  29              	 
+  30              	 
+  31 0000 80B5     	 push {r7,lr}
+  32              	.LCFI0:
+  33              	 .cfi_def_cfa_offset 8
+  34              	 .cfi_offset 7,-8
+  35              	 .cfi_offset 14,-4
+  36 0002 82B0     	 sub sp,sp,#8
+  37              	.LCFI1:
+  38              	 .cfi_def_cfa_offset 16
+  39 0004 00AF     	 add r7,sp,#0
+  40              	.LCFI2:
+  41              	 .cfi_def_cfa_register 7
+  42 0006 7860     	 str r0,[r7,#4]
+  55:../Libraries/XMCLib/src/xmc1_eru.c ****   XMC_UNUSED_ARG(eru);
+  56:../Libraries/XMCLib/src/xmc1_eru.c **** }
+  43              	 .loc 1 56 1
+  44 0008 C046     	 nop
+  45 000a BD46     	 mov sp,r7
+  46 000c 02B0     	 add sp,sp,#8
+  47              	 
+  48 000e 80BD     	 pop {r7,pc}
+  49              	 .cfi_endproc
+  50              	.LFE45:
+  52              	 .section .text.XMC_ERU_Disable,"ax",%progbits
+  53              	 .align 1
+  54              	 .global XMC_ERU_Disable
+  55              	 .syntax unified
+  56              	 .code 16
+  57              	 .thumb_func
+  58              	 .fpu softvfp
+  60              	XMC_ERU_Disable:
+  61              	.LFB46:
+  57:../Libraries/XMCLib/src/xmc1_eru.c **** 
+  58:../Libraries/XMCLib/src/xmc1_eru.c **** void XMC_ERU_Disable(XMC_ERU_t *const eru)
+  59:../Libraries/XMCLib/src/xmc1_eru.c **** {
+  62              	 .loc 1 59 1
+  63              	 .cfi_startproc
+  64              	 
+  65              	 
+  66 0000 80B5     	 push {r7,lr}
+  67              	.LCFI3:
+  68              	 .cfi_def_cfa_offset 8
+  69              	 .cfi_offset 7,-8
+  70              	 .cfi_offset 14,-4
+  71 0002 82B0     	 sub sp,sp,#8
+  72              	.LCFI4:
+  73              	 .cfi_def_cfa_offset 16
+  74 0004 00AF     	 add r7,sp,#0
+  75              	.LCFI5:
+  76              	 .cfi_def_cfa_register 7
+  77 0006 7860     	 str r0,[r7,#4]
+  60:../Libraries/XMCLib/src/xmc1_eru.c ****   XMC_UNUSED_ARG(eru);
+  61:../Libraries/XMCLib/src/xmc1_eru.c **** }
+  78              	 .loc 1 61 1
+  79 0008 C046     	 nop
+  80 000a BD46     	 mov sp,r7
+  81 000c 02B0     	 add sp,sp,#8
+  82              	 
+  83 000e 80BD     	 pop {r7,pc}
+  84              	 .cfi_endproc
+  85              	.LFE46:
+  87              	 .text
+  88              	.Letext0:
+  89              	 .file 2 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/machine/_default_types.h"
+  90              	 .file 3 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_stdint.h"
+  91              	 .file 4 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/lock.h"
+  92              	 .file 5 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/_types.h"
+  93              	 .file 6 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+  94              	 .file 7 "/usr/local/Caskroom/gcc-arm-embedded/9-2019-q4-major/gcc-arm-none-eabi-9-2019-q4-major/arm-none-eabi/include/sys/reent.h"
+  95              	 .file 8 "..//Libraries/CMSIS/Infineon/XMC1300_series/Include/system_XMC1300.h"
+  96              	 .file 9 "..//Libraries/XMCLib/inc/xmc_eru.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 xmc1_eru.c
+    {standard input}:16     .text.XMC_ERU_Enable:0000000000000000 $t
+    {standard input}:24     .text.XMC_ERU_Enable:0000000000000000 XMC_ERU_Enable
+    {standard input}:53     .text.XMC_ERU_Disable:0000000000000000 $t
+    {standard input}:60     .text.XMC_ERU_Disable:0000000000000000 XMC_ERU_Disable
+
+NO UNDEFINED SYMBOLS
